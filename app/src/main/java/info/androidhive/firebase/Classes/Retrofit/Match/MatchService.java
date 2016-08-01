@@ -1,7 +1,5 @@
 package info.androidhive.firebase.Classes.Retrofit.Match;
 
-import java.util.List;
-
 import retrofit.Call;
 import retrofit.http.GET;
 
