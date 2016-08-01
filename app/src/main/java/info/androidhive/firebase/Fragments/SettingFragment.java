@@ -81,8 +81,7 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getInstance().getCurrentUser();
         user = databaseManager.getUser();
-        progressDialog = new ProgressDialog(getContext());
-        progressDialogManager = new ProgressDialogManager(getActivity(), progressDialog);
+        progressDialogManager = new ProgressDialogManager(view.getContext(), progressDialog);
 
         setUserInformation();
 

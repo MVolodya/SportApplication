@@ -41,6 +41,7 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta1'
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta1'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
 }
 
 apply plugin: 'com.google.gms.google-services'
