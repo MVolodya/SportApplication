@@ -1,6 +1,7 @@
 package info.androidhive.firebase.Fragments;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RecycleViewClasses.LeagueAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.League.LeagueService;
@@ -30,6 +32,8 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
     private RecyclerView recyclerView;
     private LeagueAdapter mAdapter;
     private View view;
+    private ProgressDialog progressDialog;
+    private ProgressDialogManager dialogManager;
 
     public LeagueFragment() {
         // Required empty public constructor
@@ -41,16 +45,14 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_league, container, false);
 
-        LeagueService service = ApiFactory.getFootballService();
+        dialogManager = new ProgressDialogManager(getActivity(),progressDialog);
+        dialogManager.showProgressDialog();
+
+        LeagueService service = ApiFactory.getLeagueService();
         Call<List<LeagueModel>> call = service.leagues();
         call.enqueue(this);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-
-
-
-
-        //prepareMovieData();
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_league);
 
         return view;
     }
@@ -58,8 +60,8 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
     @Override
     public void onResponse(Response<List<LeagueModel>> response) {
         if (response.isSuccess()) {
+            dialogManager.hideProgressDialog();
             leagueList = response.body();
-
             mAdapter = new LeagueAdapter(leagueList);
 
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
@@ -71,7 +73,7 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
     }
 
     @Override
-    public void onFailure(Throwable t) {}
+    public void onFailure(Throwable t) {dialogManager.hideProgressDialog();}
 
 
     private void prepareMovieData() {

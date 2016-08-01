@@ -1,7 +1,6 @@
 package info.androidhive.firebase.Classes.RecycleViewClasses;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +30,8 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.MyViewHold
         }
     }
 
-    public LeagueAdapter(List<LeagueModel> moviesList) {
-        this.leagueList = moviesList;
+    public LeagueAdapter(List<LeagueModel> leagueList) {
+        this.leagueList = leagueList;
     }
 
     @Override
@@ -46,7 +45,7 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         LeagueModel model = leagueList.get(position);
-        Log.d("caption",model.getCaption());
+        //Log.d("caption",model.getCaption());
         holder.caption.setText(model.getCaption());
         holder.league.setText(model.getLeague());
         holder.year.setText(model.getYear());

@@ -7,12 +7,10 @@ import com.squareup.okhttp.OkHttpClient;
 import java.util.concurrent.TimeUnit;
 
 import info.androidhive.firebase.Classes.Retrofit.League.LeagueService;
+import info.androidhive.firebase.Classes.Retrofit.Match.MatchService;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
-/**
- * Created by andri on 29.07.2016.
- */
 public class ApiFactory {
 
     private static final int CONNECT_TIMEOUT = 15;
@@ -28,8 +26,13 @@ public class ApiFactory {
     }
 
     @NonNull
-    public static LeagueService getFootballService() {
+    public static LeagueService getLeagueService() {
         return getRetrofit().create(LeagueService.class);
+    }
+
+    @NonNull
+    public static MatchService getMatchService() {
+        return getRetrofit().create(MatchService.class);
     }
 
     @NonNull

@@ -2,6 +2,7 @@ package info.androidhive.firebase.Fragments;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 
 import info.androidhive.firebase.Activities.LoginActivity;
 import info.androidhive.firebase.Classes.DatabaseManager;
+import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.SignInManager;
 import info.androidhive.firebase.Classes.User;
 import info.androidhive.firebase.R;
@@ -49,6 +51,8 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
 
     private FirebaseAuth auth;
     private FirebaseUser firebaseUser;
+    private ProgressDialog progressDialog;
+    private ProgressDialogManager progressDialogManager;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -77,6 +81,8 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getInstance().getCurrentUser();
         user = databaseManager.getUser();
+        progressDialog = new ProgressDialog(getContext());
+        progressDialogManager = new ProgressDialogManager(getActivity(), progressDialog);
 
         setUserInformation();
 
@@ -86,6 +92,8 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
 
 
     private void setUserInformation() {
+
+        progressDialogManager.showProgressDialog();
 
         if (user.getName() != null) etUsername.setText(user.getName());
         else etUsername.setText("Anonymous");
@@ -99,6 +107,8 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
                     .into(userPhoto);
         } else userPhoto.setImageResource(R.drawable.prof);
 
+        progressDialogManager.hideProgressDialog();
+
     }
 
 
@@ -110,12 +120,14 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
     private void changeEmail() {
 
         if (firebaseUser != null) {
+
             //change email
             firebaseUser.updateEmail(etEmail.getText().toString())
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
+                                progressDialogManager.hideProgressDialog();
                                 Snackbar snackbar = Snackbar
                                         .make(linearLayout, "Email address is updated. Please sign in with new email id!", Snackbar.LENGTH_LONG)
                                         .setAction("OK", new View.OnClickListener() {
@@ -128,8 +140,9 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
                                         });
                                 snackbar.show();
                             } else {
+                                progressDialogManager.hideProgressDialog();
                                 Snackbar snackbar = Snackbar
-                                        .make(linearLayout, "Error!", Snackbar.LENGTH_LONG);
+                                        .make(linearLayout, "Error!"+task.getException(), Snackbar.LENGTH_LONG);
                                 snackbar.show();
                             }
                         }
@@ -156,11 +169,13 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
                     public void onClick(DialogInterface dialog, int which) {
                         String password = input.getText().toString();
                         if (firebaseUser != null) {
+                            progressDialogManager.showProgressDialog();
                             firebaseUser.updatePassword(password)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
+                                                progressDialogManager.hideProgressDialog();
                                                 Snackbar snackbar = Snackbar
                                                         .make(linearLayout, "Password is updated. Please sign in with new password!", Snackbar.LENGTH_LONG)
                                                         .setAction("OK", new View.OnClickListener() {
@@ -173,13 +188,15 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
                                                         });
                                                 snackbar.show();
                                             } else {
+                                                progressDialogManager.hideProgressDialog();
                                                 Snackbar snackbar = Snackbar
                                                         .make(linearLayout, "Error!", Snackbar.LENGTH_LONG);
                                                 snackbar.show();
                                             }
                                         }
                                     });
-                        }else Toast.makeText(view.getContext(), "firebaseuser is null", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(view.getContext(), "firebaseuser is null", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -208,10 +225,10 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
 
         switch (view.getId()) {
             case R.id.buttonSave:
-               changeEmail();
+                changeEmail();
                 break;
             case R.id.buttonChangePassword:
-               changePassword();
+                changePassword();
                 break;
         }
     }

@@ -23,9 +23,8 @@ public class ProgressDialogManager {
             mProgressDialog.setMessage("Wait...");
             mProgressDialog.setCanceledOnTouchOutside(false);
             mProgressDialog.setIndeterminate(true);
+            mProgressDialog.show();
         }
-
-        mProgressDialog.show();
     }
 
     public void hideProgressDialog() {
