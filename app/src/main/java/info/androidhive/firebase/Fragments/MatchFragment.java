@@ -17,7 +17,8 @@ import java.util.List;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RecycleViewClasses.MatchAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
-import info.androidhive.firebase.Classes.Retrofit.Match.MatchModel;
+import info.androidhive.firebase.Classes.Retrofit.Match.FixtResponse;
+import info.androidhive.firebase.Classes.Retrofit.Match.Fixtures;
 import info.androidhive.firebase.Classes.Retrofit.Match.MatchService;
 import info.androidhive.firebase.R;
 import retrofit.Call;
@@ -27,9 +28,10 @@ import retrofit.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MatchFragment extends Fragment implements Callback<List<MatchModel>> {
+public class MatchFragment extends Fragment implements Callback<FixtResponse> {
 
-    private List<MatchModel> matchList = new ArrayList<>();
+    private FixtResponse fixtResponse;
+    private List<Fixtures> matchList = new ArrayList<>();
     private RecyclerView recyclerView;
     private MatchAdapter mAdapter;
     private View view;
@@ -51,7 +53,7 @@ public class MatchFragment extends Fragment implements Callback<List<MatchModel>
         dialogManager.showProgressDialog();
 
         MatchService service = ApiFactory.getMatchService();
-        Call<List<MatchModel>> call = service.matches();
+        Call<FixtResponse> call = service.matches();
         call.enqueue(this);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_match);
@@ -60,11 +62,11 @@ public class MatchFragment extends Fragment implements Callback<List<MatchModel>
     }
 
     @Override
-    public void onResponse(Response<List<MatchModel>> response) {
+    public void onResponse(Response<FixtResponse> response) {
         if (response.isSuccess()) {
             dialogManager.hideProgressDialog();
-            matchList = response.body();
-            mAdapter = new MatchAdapter(matchList);
+            fixtResponse = response.body();
+            mAdapter = new MatchAdapter(fixtResponse);
 
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
             recyclerView.setLayoutManager(mLayoutManager);

@@ -1,6 +1,7 @@
 package info.androidhive.firebase.Classes.RecycleViewClasses;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +9,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import info.androidhive.firebase.Classes.Retrofit.Match.MatchModel;
+import info.androidhive.firebase.Classes.Retrofit.Match.FixtResponse;
 import info.androidhive.firebase.R;
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder> {
 
-    private List<MatchModel> matchList;
+    private FixtResponse fixtResponse;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -32,8 +33,8 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
         }
     }
 
-    public MatchAdapter(List<MatchModel> matchList) {
-        this.matchList = matchList;
+    public MatchAdapter(FixtResponse fixtResponse) {
+        this.fixtResponse = fixtResponse;
     }
 
     @Override
@@ -46,16 +47,20 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        MatchModel model = matchList.get(position);
-        //Log.d("caption",model.getCaption());
-        holder.tvHomeTeam.setText(model.getHomeTeamName());
-        holder.tvAwayTeam.setText(model.getAwayTeamName());
-        holder.tvHomeTeamGoal.setText(model.getGoalsHomeTeam());
-        holder.tvAwayTeamGoal.setText(model.getGoalsAwayTeam());
+
+//        Log.d("caption",fixtResponse.getFixtures().get(position).getResult()
+//                .getGoalsHomeTeam().toString());
+        holder.tvHomeTeam.setText(fixtResponse.getFixtures().get(position).getHomeTeamName());
+        holder.tvAwayTeam.setText(fixtResponse.getFixtures().get(position).getAwayTeamName());
+        holder.tvHomeTeamGoal.setText(fixtResponse.getFixtures().get(position).getResult()
+                .getGoalsHomeTeam().toString());
+        holder.tvAwayTeamGoal.setText(fixtResponse.getFixtures().get(position).getResult()
+                .getGoalsAwayTeam().toString());
     }
 
     @Override
     public int getItemCount() {
-        return matchList.size();
+        return fixtResponse.getFixtures().size();
     }
+
 }

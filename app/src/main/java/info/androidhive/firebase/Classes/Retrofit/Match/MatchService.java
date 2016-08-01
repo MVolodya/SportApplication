@@ -11,6 +11,6 @@ import retrofit.http.GET;
 public interface MatchService {
 
     @GET("/v1/competitions/398/fixtures?matchday=8")
-    Call<List<MatchModel>> matches();
+    Call<FixtResponse> matches();
 
 }
