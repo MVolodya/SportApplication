@@ -7,6 +7,7 @@ import com.squareup.okhttp.OkHttpClient;
 import java.util.concurrent.TimeUnit;
 
 import info.androidhive.firebase.Classes.Retrofit.League.LeagueService;
+import info.androidhive.firebase.Classes.Retrofit.LeagueTable.LeagueTableService;
 import info.androidhive.firebase.Classes.Retrofit.Match.MatchService;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -33,6 +34,11 @@ public class ApiFactory {
     @NonNull
     public static MatchService getMatchService() {
         return getRetrofit().create(MatchService.class);
+    }
+
+    @NonNull
+    public static LeagueTableService getTableService() {
+        return getRetrofit().create(LeagueTableService.class);
     }
 
     @NonNull

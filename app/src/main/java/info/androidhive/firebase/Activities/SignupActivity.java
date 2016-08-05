@@ -98,7 +98,7 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    databaseManager.setUser(" ",email," ");
+                                    databaseManager.setUser(null,email,null);
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class).putExtra("user_email",email));
                                     finish();
                                 }

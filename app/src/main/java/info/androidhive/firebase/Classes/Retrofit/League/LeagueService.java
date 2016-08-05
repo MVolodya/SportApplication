@@ -6,6 +6,6 @@ import retrofit.Call;
 import retrofit.http.GET;
 
 public interface LeagueService {
-    @GET("/v1/competitions/?season=2015")
+    @GET("/v1/competitions/?season=2016")
     Call<List<LeagueModel>> leagues();
 }

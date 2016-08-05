@@ -1,25 +1,38 @@
 package info.androidhive.firebase.Classes.Retrofit.Match;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 public class FixtResponse {
 
-        @SerializedName("count")
-        @Expose
-        private Integer count;
-        @SerializedName("fixtures")
-        @Expose
-        private List<Fixtures> fixtures = new ArrayList();
+    @SerializedName("count")
+    private Integer count;
 
-        public Integer getCount() {
-            return count;
-        }
-        public List<Fixtures> getFixtures() {
-            return fixtures;
-        }
+    @SerializedName("timeFrameStart")
+    private String timeFrameStart;
 
+    @SerializedName("timeFrameEnd")
+    private String timeFrameEnd;
+
+    @SerializedName("fixtures")
+    private List<Fixtures> fixtures = new ArrayList();
+
+    public Integer getCount() {
+        return count;
     }
+
+    public List<Fixtures> getFixtures() {
+        return fixtures;
+    }
+
+    public String getTimeFrameStart() {
+        return timeFrameStart;
+    }
+
+    public String getTimeFrameEnd() {
+        return timeFrameEnd;
+    }
+}
 

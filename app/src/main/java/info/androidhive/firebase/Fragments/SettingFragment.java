@@ -51,7 +51,7 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
 
     private FirebaseAuth auth;
     private FirebaseUser firebaseUser;
-    private ProgressDialog progressDialog;
+    private ProgressDialog mProgressDialog;
     private ProgressDialogManager progressDialogManager;
 
     public SettingFragment() {
@@ -81,7 +81,12 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getInstance().getCurrentUser();
         user = databaseManager.getUser();
-        progressDialogManager = new ProgressDialogManager(view.getContext(), progressDialog);
+
+        mProgressDialog = new ProgressDialog(view.getContext());
+        mProgressDialog.setMessage("Wait...");
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setIndeterminate(true);
 
         setUserInformation();
 
@@ -92,21 +97,19 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
 
     private void setUserInformation() {
 
-        progressDialogManager.showProgressDialog();
-
         if (user.getName() != null) etUsername.setText(user.getName());
         else etUsername.setText("Anonymous");
 
         if (user.getEmail() != null) etEmail.setText(user.getEmail());
         else etEmail.setText("Anonymous@Anonymous.com");
 
-        if (user.getPhotoURL().length() != 0) {
+        if (user.getPhotoURL() != null) {
             Glide.with(view.getContext())
                     .load(user.getPhotoURL())
                     .into(userPhoto);
         } else userPhoto.setImageResource(R.drawable.prof);
 
-        progressDialogManager.hideProgressDialog();
+        //progressDialogManager.hideProgressDialog();
 
     }
 
@@ -118,6 +121,8 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
 
     private void changeEmail() {
 
+        mProgressDialog.show();
+
         if (firebaseUser != null) {
 
             //change email
@@ -126,7 +131,7 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                progressDialogManager.hideProgressDialog();
+                                mProgressDialog.hide();
                                 Snackbar snackbar = Snackbar
                                         .make(linearLayout, "Email address is updated. Please sign in with new email id!", Snackbar.LENGTH_LONG)
                                         .setAction("OK", new View.OnClickListener() {
@@ -139,7 +144,7 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
                                         });
                                 snackbar.show();
                             } else {
-                                progressDialogManager.hideProgressDialog();
+                              mProgressDialog.hide();
                                 Snackbar snackbar = Snackbar
                                         .make(linearLayout, "Error!"+task.getException(), Snackbar.LENGTH_LONG);
                                 snackbar.show();
@@ -168,7 +173,7 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
                     public void onClick(DialogInterface dialog, int which) {
                         String password = input.getText().toString();
                         if (firebaseUser != null) {
-                            progressDialogManager.showProgressDialog();
+                            mProgressDialog.show();
                             firebaseUser.updatePassword(password)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -187,7 +192,7 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
                                                         });
                                                 snackbar.show();
                                             } else {
-                                                progressDialogManager.hideProgressDialog();
+                                                mProgressDialog.hide();
                                                 Snackbar snackbar = Snackbar
                                                         .make(linearLayout, "Error!", Snackbar.LENGTH_LONG);
                                                 snackbar.show();

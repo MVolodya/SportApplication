@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="info.androidhive.firebase.Fragments.MatchFragment">
 
     <android.support.v7.widget.RecyclerView
@@ -9,5 +10,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabCalendar"
+        android:layout_width="64dp"
+        android:layout_height="68dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_menu_today"
+        app:backgroundTint="@color/bg_main"/>
+
+    <com.github.fabtransitionactivity.SheetLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        app:ft_container_gravity="center"
+        app:ft_color="@color/colorPrimary"
+        android:elevation="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.samsistemas.calendarview.widget.CalendarView
+                android:id="@+id/calendar_view"
+                android:layout_marginTop="56dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                app:calendarBackgroundColor="@color/colorPrimary"
+                app:calendarTitleTextColor="@color/colorAccent"
+                app:currentDayOfMonthColor="@color/white"
+                app:dayOfMonthTextColor="@color/white"
+                app:dayOfWeekTextColor="@color/white"
+                app:disabledDayBackgroundColor="@color/colorPrimary"
+                app:disabledDayTextColor="@color/colorAccent"
+                app:selectedDayBackgroundColor="@color/year"
+                app:titleLayoutBackgroundColor="@color/colorPrimary"
+                app:weekLayoutBackgroundColor="@color/colorPrimary"/>
+
+
+        </RelativeLayout>
+
+
+
+
+
+    </com.github.fabtransitionactivity.SheetLayout>
+
+
 
 </FrameLayout>

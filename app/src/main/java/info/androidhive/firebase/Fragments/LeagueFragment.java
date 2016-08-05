@@ -2,25 +2,23 @@ package info.androidhive.firebase.Fragments;
 
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.firebase.Classes.ProgressDialogManager;
+import info.androidhive.firebase.Classes.RecycleViewClasses.ClickListener;
 import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
 import info.androidhive.firebase.Classes.RecycleViewClasses.LeagueAdapter;
+import info.androidhive.firebase.Classes.RecycleViewClasses.RecyclerTouchListener;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.League.LeagueModel;
 import info.androidhive.firebase.Classes.Retrofit.League.LeagueService;
@@ -35,11 +33,11 @@ import retrofit.Response;
 public class LeagueFragment extends Fragment implements Callback<List<LeagueModel>> {
 
     private List<LeagueModel> leagueList = new ArrayList<>();
-    private RecyclerView recyclerView;
     private LeagueAdapter mAdapter;
     private View view;
-    private ProgressDialog progressDialog;
     private ProgressDialogManager dialogManager;
+
+    private RecyclerView recyclerView;
 
     public LeagueFragment() {
         // Required empty public constructor
@@ -51,14 +49,13 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_league, container, false);
 
-        dialogManager = new ProgressDialogManager(getActivity(),progressDialog);
+        dialogManager = new ProgressDialogManager(getActivity(), new ProgressDialog(view.getContext()));
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_league);
         dialogManager.showProgressDialog();
 
         LeagueService service = ApiFactory.getLeagueService();
         Call<List<LeagueModel>> call = service.leagues();
         call.enqueue(this);
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_league);
 
         return view;
     }
@@ -80,7 +77,9 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
                 @Override
                 public void onClick(View view, int position) {
-                    Toast.makeText(getContext(), leagueList.get(position).getLeague() + " is selected!", Toast.LENGTH_SHORT).show();
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container,new LeagueTableFragment())
+                            .commit();
                 }
 
                 @Override
@@ -92,59 +91,8 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
     }
 
     @Override
-    public void onFailure(Throwable t) {dialogManager.hideProgressDialog();}
-
-
-    private void prepareMovieData() {
-        mAdapter.notifyDataSetChanged();
+    public void onFailure(Throwable t) {
+        dialogManager.hideProgressDialog();
     }
 
-    public interface ClickListener {
-        void onClick(View view, int position);
-
-        void onLongClick(View view, int position);
-    }
-
-    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
-
-        private GestureDetector gestureDetector;
-        private ClickListener clickListener;
-
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
-            this.clickListener = clickListener;
-            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onSingleTapUp(MotionEvent e) {
-                    return true;
-                }
-
-                @Override
-                public void onLongPress(MotionEvent e) {
-                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
-                    if (child != null && clickListener != null) {
-                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
-                    }
-                }
-            });
-        }
-
-        @Override
-        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-
-            View child = rv.findChildViewUnder(e.getX(), e.getY());
-            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
-                clickListener.onClick(child, rv.getChildPosition(child));
-            }
-            return false;
-        }
-
-        @Override
-        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-        }
-
-        @Override
-        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-        }
-    }
 }
