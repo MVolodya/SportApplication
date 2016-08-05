@@ -1,7 +1,6 @@
 package info.androidhive.firebase.Classes.RecycleViewClasses;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +8,49 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import info.androidhive.firebase.Classes.Retrofit.Match.FixtResponse;
+import info.androidhive.firebase.Classes.Retrofit.Match.Fixtures;
 import info.androidhive.firebase.R;
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder> {
 
-    private FixtResponse fixtResponse;
+    private List<Fixtures> fixturesList;
+
+
+    public MatchAdapter(List<Fixtures> fixturesList) {
+        this.fixturesList = fixturesList;
+    }
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.match_list_row, parent, false);
+
+        return new MyViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+            holder.tvHomeTeam.setText(fixturesList.get(position).getHomeTeamName());
+            holder.tvAwayTeam.setText(fixturesList.get(position).getAwayTeamName());
+            holder.tvHomeTeamGoal.setText(fixturesList.get(position).getMatchday().toString());
+            holder.tvAwayTeamGoal.setText(fixturesList.get(position).getDate());
+    }
+
+    @Override
+    public int getItemCount() {
+
+        return fixturesList.size();
+    }
+
+    public void swap(List list) {
+        if (fixturesList != null) {
+            fixturesList.clear();
+            fixturesList.addAll(list);
+        } else {
+            fixturesList = list;
+        }
+        notifyDataSetChanged();
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -31,36 +67,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
             tvHomeTeamGoal = (TextView) view.findViewById(R.id.goalsHomeTeam);
             tvAwayTeamGoal = (TextView) view.findViewById(R.id.goalsAwayTeam);
         }
-    }
-
-    public MatchAdapter(FixtResponse fixtResponse) {
-        this.fixtResponse = fixtResponse;
-    }
-
-    @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.match_list_row, parent, false);
-
-        return new MyViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-
-//        Log.d("caption",fixtResponse.getFixtures().get(position).getResult()
-//                .getGoalsHomeTeam().toString());
-        holder.tvHomeTeam.setText(fixtResponse.getFixtures().get(position).getHomeTeamName());
-        holder.tvAwayTeam.setText(fixtResponse.getFixtures().get(position).getAwayTeamName());
-        holder.tvHomeTeamGoal.setText(fixtResponse.getFixtures().get(position).getResult()
-                .getGoalsHomeTeam().toString());
-        holder.tvAwayTeamGoal.setText(fixtResponse.getFixtures().get(position).getResult()
-                .getGoalsAwayTeam().toString());
-    }
-
-    @Override
-    public int getItemCount() {
-        return fixtResponse.getFixtures().size();
     }
 
 }

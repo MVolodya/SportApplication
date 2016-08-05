@@ -84,11 +84,15 @@ public class NavigationDrawerManager {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
+                        ((MainActivity)context).showToolbar();
+
                         int itemSelected = (int) drawerItem.getIdentifier();
 
                         if (drawerItem != null) {
                             switch (itemSelected) {
                                 case 6: {
+                                    ((MainActivity)context).hideToolbar();
+
                                         ((MainActivity) context).getSupportFragmentManager().beginTransaction()
                                             .add(R.id.container, new SettingFragment())
                                             .addToBackStack(null)

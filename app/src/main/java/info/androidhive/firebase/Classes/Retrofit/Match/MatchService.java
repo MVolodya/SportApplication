@@ -1,7 +1,5 @@
 package info.androidhive.firebase.Classes.Retrofit.Match;
 
-import java.util.List;
-
 import retrofit.Call;
 import retrofit.http.GET;
 
@@ -10,7 +8,7 @@ import retrofit.http.GET;
  */
 public interface MatchService {
 
-    @GET("/v1/competitions/398/fixtures?matchday=8")
+    @GET("v1/fixtures")
     Call<FixtResponse> matches();
 
 }
