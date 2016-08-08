@@ -54,6 +54,11 @@
                 app:titleLayoutBackgroundColor="@color/colorPrimary"
                 app:weekLayoutBackgroundColor="@color/colorPrimary" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewBackButton"
+                android:src="@drawable/ic_keyboard_arrow_left_white" />
 
         </RelativeLayout>
 

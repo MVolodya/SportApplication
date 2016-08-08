@@ -49,9 +49,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     private ProgressDialog mProgressDialog;
     private ProgressDialogManager dialogManager;
 
+    public static Activity loginActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        loginActivity = this;
 
         //create facebook callback
         callbackManager = CallbackManager.Factory.create();

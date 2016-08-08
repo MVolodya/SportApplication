@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="info.androidhive.firebase.Fragments.LeagueTableFragment">
 
     <android.support.v7.widget.RecyclerView
