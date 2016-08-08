@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.firebase.Classes.ConnectivityReceiver;
+import info.androidhive.firebase.Classes.CustomViewPager;
 import info.androidhive.firebase.R;
 
 /**
@@ -26,7 +27,7 @@ import info.androidhive.firebase.R;
 public class MainFragment extends Fragment implements View.OnClickListener {
 
     private View view;
-    private ViewPager viewPager;
+    private CustomViewPager viewPager;
     private TabLayout tabLayout;
     private ImageView imageViewInfo;
     private TextView textViewInfo;
@@ -48,7 +49,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 //        String date = df.format(Calendar.getInstance().getTime());
 //        Log.d("data", date);
 
-        viewPager = (ViewPager)view.findViewById(R.id.viewpager);
+        viewPager = (CustomViewPager)view.findViewById(R.id.viewpager);
         tabLayout = (TabLayout)view.findViewById(R.id.tabs);
         imageViewInfo = (ImageView) view.findViewById(R.id.imageViewBadConnection);
         textViewInfo = (TextView) view.findViewById(R.id.textViewInfo);
@@ -117,6 +118,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             textViewInfo.setVisibility(View.VISIBLE);
             buttonTryAgain.setVisibility(View.VISIBLE);
         }
+    }
+
+    public CustomViewPager getViewPager() {
+        return viewPager;
     }
 
 

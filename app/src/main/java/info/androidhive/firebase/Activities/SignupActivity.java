@@ -101,6 +101,7 @@ public class SignupActivity extends AppCompatActivity {
                                     databaseManager.setUser(null,email,null);
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class).putExtra("user_email",email));
                                     finish();
+                                    LoginActivity.loginActivity.finish();
                                 }
                             }
                         });

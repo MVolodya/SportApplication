@@ -151,15 +151,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        MainFragment mainFragment = (MainFragment)getSupportFragmentManager().findFragmentByTag("main");
+        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentByTag("main");
 
-        if (result != null && result.isDrawerOpen()) {
+        if (result != null && result.isDrawerOpen())
             result.closeDrawer();
-        } else if (getFragmentManager().getBackStackEntryCount() > 0) {
-               getFragmentManager().popBackStack();
+            else if (getFragmentManager().getBackStackEntryCount() > 0) {
+                getFragmentManager().popBackStack();
                 toolbar.setVisibility(View.VISIBLE);
-        } else super.onBackPressed();
-    }
+            } else super.onBackPressed();
+        }
 
 
 

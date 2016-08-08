@@ -90,7 +90,8 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
                     idHelper.setId(leagueId);
 
                     getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, new LeagueTableFragment())
+                            .add(R.id.container, new LeagueTableFragment())
+                            .addToBackStack(null)
                             .commit();
                 }
 

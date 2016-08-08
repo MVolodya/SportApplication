@@ -46,6 +46,8 @@ dependencies {
     compile 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
     compile 'com.github.coyarzun89:fabtransitionactivity:0.2.0'
     compile 'com.github.jonisaa:MaterialCalendarview:v1.2.2'
+    compile 'com.caverock:androidsvg:1.2.1'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
