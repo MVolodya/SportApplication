@@ -1,5 +1,7 @@
 package info.androidhive.firebase.Classes.RecycleViewClasses;
 
+import android.graphics.drawable.PictureDrawable;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,12 +9,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.StreamEncoder;
+import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
+import com.caverock.androidsvg.SVG;
 
+import java.io.InputStream;
 import java.util.List;
 
 import info.androidhive.firebase.Classes.Retrofit.LeagueTable.Standing;
+import info.androidhive.firebase.Classes.SvgDecoder;
+import info.androidhive.firebase.Classes.SvgSoftwareLayerSetter;
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.SvgDrawableTranscoder;
 
 /**
  * Created by andri on 05.08.2016.
@@ -20,7 +31,7 @@ import info.androidhive.firebase.R;
 public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.LeagueTableViewHolder> {
 
     private List<Standing> standingsList;
-
+    private GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder;
 
     public LeagueTableAdapter(List<Standing> standingsList) {
         this.standingsList = standingsList;
@@ -37,12 +48,33 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
     @Override
     public void onBindViewHolder(LeagueTableViewHolder holder, int position) {
 
-        Glide.with(holder.view.getContext())
-                .load(standingsList.get(position).getCrestURI())
-                .into(holder.logo);
+        int count = position;
+
+        requestBuilder = Glide.with(holder.view.getContext())
+                .using(Glide.buildStreamModelLoader(Uri.class,holder.view.getContext()), InputStream.class)
+                .from(Uri.class)
+                .as(SVG.class)
+                .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+                .sourceEncoder(new StreamEncoder())
+                .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
+                .decoder(new SvgDecoder())
+                .animate(android.R.anim.fade_in)
+                .listener(new SvgSoftwareLayerSetter<Uri>());
+
+        if(standingsList.get(position).getCrestURI().toString().contains("svg")){
+            requestBuilder
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    // SVG cannot be serialized so it's not worth to cache it
+                    .load(Uri.parse(standingsList.get(position).getCrestURI()))
+                    .into(holder.logo);
+        }else{
+            Glide.with(holder.view.getContext())
+                    .load(standingsList.get(position).getCrestURI())
+                    .into(holder.logo);
+        }
 
         holder.tvTeamName.setText(standingsList.get(position).getTeam());
-        holder.tvPosition.setText(Integer.toString(position++));
+        holder.tvPosition.setText(Integer.toString(++count));
         holder.tvPlayedGamesWins.setText(standingsList.get(position).getWins().toString());
         holder.tvPlayedGamesDraws.setText(standingsList.get(position).getDraws().toString());
         holder.tvPlayedGamesLose.setText(standingsList.get(position).getLosses().toString());

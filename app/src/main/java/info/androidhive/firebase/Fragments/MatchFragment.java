@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.fabtransitionactivity.SheetLayout;
@@ -60,6 +61,7 @@ public class MatchFragment extends Fragment implements Callback<FixtResponse>, V
     private CalendarView calendarView;
     private RecyclerView.LayoutManager mLayoutManager;
     private MainFragment fragment;
+    private ImageView backImageView;
 
 
 
@@ -80,6 +82,7 @@ public class MatchFragment extends Fragment implements Callback<FixtResponse>, V
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_match);
         fabCalendar = (FloatingActionButton) view.findViewById(R.id.fabCalendar);
         sheetLayout = (SheetLayout) view.findViewById(R.id.bottom_sheet);
+        backImageView = (ImageView) view.findViewById(R.id.imageViewBackButton);
         calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
 
 
@@ -97,6 +100,7 @@ public class MatchFragment extends Fragment implements Callback<FixtResponse>, V
         sheetLayout.setFab(fabCalendar);
         sheetLayout.setFabAnimationEndListener(this);
         fabCalendar.setOnClickListener(this);
+        backImageView.setOnClickListener(this);
 
         calendarView.setFirstDayOfWeek(Calendar.MONDAY);
         calendarView.setIsOverflowDateVisible(true);
@@ -142,10 +146,19 @@ public class MatchFragment extends Fragment implements Callback<FixtResponse>, V
 
     @Override
     public void onClick(View view) {
-        fragment.hideTabs();
 
-        sheetLayout.expandFab();
-//        tabLayout.setVisibility(View.GONE);
+        switch (view.getId()){
+            case R.id.fabCalendar:
+                sheetLayout.expandFab();
+                fragment.hideTabs();
+                fragment.getViewPager().setPagingEnabled(false);
+                break;
+            case R.id.imageViewBackButton:
+                sheetLayout.contractFab();
+                fragment.showTabs();
+                fragment.getViewPager().setPagingEnabled(true);
+                break;
+        }
     }
 
     @Override
@@ -164,9 +177,12 @@ public class MatchFragment extends Fragment implements Callback<FixtResponse>, V
         Call<FixtResponse> call = service.matches();
         call.enqueue(this);
 
+        sheetLayout.contractFab();
+
         fragment.showTabs();
 
-        sheetLayout.contractFab();
+        fragment.getViewPager().setPagingEnabled(true);
+
     }
 
     private String getCurrentDate() {

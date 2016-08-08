@@ -178,7 +178,7 @@
                 android:padding="@dimen/activity_horizontal_margin">
 
                 <ImageView
-                    android:id="@+id/ivContactItem1"
+                    android:id="@+id/ivContactItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -195,8 +195,8 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#212121"
                     android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/ivContactItem1"
-                    android:layout_toEndOf="@+id/ivContactItem1" />
+                    android:layout_toRightOf="@+id/ivContactItem"
+                    android:layout_toEndOf="@+id/ivContactItem" />
 
                 <TextView
                     android:layout_width="wrap_content"
