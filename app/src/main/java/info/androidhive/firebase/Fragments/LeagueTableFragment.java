@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import info.androidhive.firebase.Classes.IdHelper;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RecycleViewClasses.LeagueTableAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
@@ -55,8 +56,11 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
         dialogManager = new ProgressDialogManager(getActivity(), progressDialog);
         dialogManager.showProgressDialog();
 
+        IdHelper idHelper = IdHelper.getInstance();
+        int id = idHelper.getId();
+
         LeagueTableService service = ApiFactory.getTableService();
-        Call<LeagueTableResponse> call = service.tables();
+        Call<LeagueTableResponse> call = service.tables(id);
         call.enqueue(this);
 
         //recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));

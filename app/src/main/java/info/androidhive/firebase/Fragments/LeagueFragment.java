@@ -2,6 +2,7 @@ package info.androidhive.firebase.Fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import info.androidhive.firebase.Classes.IdHelper;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RecycleViewClasses.ClickListener;
 import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
@@ -36,8 +38,10 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
     private LeagueAdapter mAdapter;
     private View view;
     private ProgressDialogManager dialogManager;
-
+    private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView recyclerView;
+
+    private int leagueId;
 
     public LeagueFragment() {
         // Required empty public constructor
@@ -49,8 +53,14 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_league, container, false);
 
-        dialogManager = new ProgressDialogManager(getActivity(), new ProgressDialog(view.getContext()));
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_league);
+
+        mLayoutManager = new LinearLayoutManager(view.getContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        dialogManager = new ProgressDialogManager(getActivity(), new ProgressDialog(view.getContext()));
         dialogManager.showProgressDialog();
 
         LeagueService service = ApiFactory.getLeagueService();
@@ -66,27 +76,28 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
             dialogManager.hideProgressDialog();
             leagueList = response.body();
             mAdapter = new LeagueAdapter(leagueList);
-
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
-            recyclerView.setLayoutManager(mLayoutManager);
-            recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.setAdapter(mAdapter);
             //Log.d("Retrofit", football.get(0).getId()+ " " + football.get(0).getCaption());
 
+
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
+
                 @Override
                 public void onClick(View view, int position) {
+
+                    IdHelper idHelper = IdHelper.getInstance();
+                    leagueId = Integer.parseInt(leagueList.get(position).getId());
+                    idHelper.setId(leagueId);
+
                     getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container,new LeagueTableFragment())
+                            .replace(R.id.container, new LeagueTableFragment())
                             .commit();
                 }
 
                 @Override
-                public void onLongClick(View view, int position) {
-
-                }
+                public void onLongClick(View view, int position) {}
             }));
+
         }
     }
 
@@ -95,4 +106,8 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
         dialogManager.hideProgressDialog();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
 }

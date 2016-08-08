@@ -150,11 +150,14 @@ public class MainActivity extends AppCompatActivity {
     // close ND on button back
     @Override
     public void onBackPressed() {
+
+        MainFragment mainFragment = (MainFragment)getSupportFragmentManager().findFragmentByTag("main");
+
         if (result != null && result.isDrawerOpen()) {
             result.closeDrawer();
         } else if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
-            toolbar.setVisibility(View.VISIBLE);
+               getFragmentManager().popBackStack();
+                toolbar.setVisibility(View.VISIBLE);
         } else super.onBackPressed();
     }
 

@@ -119,13 +119,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public ViewPager getViewPager() {
-        return viewPager;
-    }
-
-    public TabLayout getTabLayout() {
-        return tabLayout;
-    }
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

@@ -34,6 +34,27 @@ public class Standing {
     @SerializedName("goalDifference")
     private Integer goalDifference;
 
+    @SerializedName("wins")
+    private Integer wins;
+
+    @SerializedName("draws")
+    private Integer draws;
+
+    @SerializedName("losses")
+    private Integer losses;
+
+    public Integer getWins() {
+        return wins;
+    }
+
+    public Integer getDraws() {
+        return draws;
+    }
+
+    public Integer getLosses() {
+        return losses;
+    }
+
     public Integer getRank() {
         return rank;
     }

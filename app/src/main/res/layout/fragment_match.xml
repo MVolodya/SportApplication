@@ -1,8 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="info.androidhive.firebase.Fragments.MatchFragment">
 
     <android.support.v7.widget.RecyclerView
@@ -18,16 +18,16 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_menu_today"
-        app:backgroundTint="@color/bg_main"/>
+        app:backgroundTint="@color/bg_main" />
 
     <com.github.fabtransitionactivity.SheetLayout
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        app:ft_container_gravity="center"
+        android:elevation="2dp"
         app:ft_color="@color/colorPrimary"
-        android:elevation="2dp">
+        app:ft_container_gravity="center">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -35,13 +35,13 @@
 
             <com.samsistemas.calendarview.widget.CalendarView
                 android:id="@+id/calendar_view"
-                android:layout_marginTop="56dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="2dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginStart="2dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_marginTop="56dp"
                 android:background="@color/colorPrimary"
                 app:calendarBackgroundColor="@color/colorPrimary"
                 app:calendarTitleTextColor="@color/colorAccent"
@@ -52,17 +52,13 @@
                 app:disabledDayTextColor="@color/colorAccent"
                 app:selectedDayBackgroundColor="@color/year"
                 app:titleLayoutBackgroundColor="@color/colorPrimary"
-                app:weekLayoutBackgroundColor="@color/colorPrimary"/>
+                app:weekLayoutBackgroundColor="@color/colorPrimary" />
 
 
         </RelativeLayout>
 
 
-
-
-
     </com.github.fabtransitionactivity.SheetLayout>
-
 
 
 </FrameLayout>
