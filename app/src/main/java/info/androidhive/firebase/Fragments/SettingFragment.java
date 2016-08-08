@@ -36,7 +36,7 @@ import info.androidhive.firebase.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SettingFragment extends Fragment implements View.OnFocusChangeListener, View.OnClickListener {
+public class SettingFragment extends Fragment {
 
     private View view;
     private EditText etUsername;
@@ -62,20 +62,17 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_setting, container, false);
+        //view = inflater.inflate(R.layout.fragment_setting, container, false);
 
-        etUsername = (EditText) view.findViewById(R.id.username_setting);
-        etEmail = (EditText) view.findViewById(R.id.email_setting);
-        userPhoto = (CircularImageView) view.findViewById(R.id.imageViewPhoto);
-        btnSave = (Button) view.findViewById(R.id.buttonSave);
-        btnChangePassword = (Button) view.findViewById(R.id.buttonChangePassword);
+//        etUsername = (EditText) view.findViewById(R.id.username_setting);
+//        etEmail = (EditText) view.findViewById(R.id.email_setting);
+//        userPhoto = (CircularImageView) view.findViewById(R.id.imageViewPhoto);
+//        btnSave = (Button) view.findViewById(R.id.buttonSave);
+//        btnChangePassword = (Button) view.findViewById(R.id.buttonChangePassword);
 
-        etUsername.setOnFocusChangeListener(this);
-        etEmail.setOnFocusChangeListener(this);
-        btnSave.setOnClickListener(this);
-        btnChangePassword.setOnClickListener(this);
 
-        linearLayout = (LinearLayout) view.findViewById(R.id.layout_main);
+
+       // linearLayout = (LinearLayout) view.findViewById(R.id.layout_main);
 
         databaseManager = new DatabaseManager(view.getContext());
         auth = FirebaseAuth.getInstance();
@@ -215,25 +212,4 @@ public class SettingFragment extends Fragment implements View.OnFocusChangeListe
     }
 
 
-    @Override
-    public void onFocusChange(View view, boolean hasFocus) {
-
-        if (!hasFocus) {
-            hideKeyboard();
-        }
-    }
-
-
-    @Override
-    public void onClick(View view) {
-
-        switch (view.getId()) {
-            case R.id.buttonSave:
-                changeEmail();
-                break;
-            case R.id.buttonChangePassword:
-                changePassword();
-                break;
-        }
-    }
 }

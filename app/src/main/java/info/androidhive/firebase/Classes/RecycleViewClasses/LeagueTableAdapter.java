@@ -37,15 +37,19 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
     @Override
     public void onBindViewHolder(LeagueTableViewHolder holder, int position) {
 
-        holder.tvTeamName.setText(standingsList.get(position).getTeam());
-        holder.tvPoints.setText(standingsList.get(position).getPoints().toString());
-        holder.tvGoals.setText(standingsList.get(position).getGoals().toString());
-        holder.tvGoalsAgainst.setText(standingsList.get(position).getGoalsAgainst().toString());
-        holder.tvGoalDifference.setText(standingsList.get(position).getGoalDifference().toString());
-
         Glide.with(holder.view.getContext())
                 .load(standingsList.get(position).getCrestURI())
                 .into(holder.logo);
+
+        holder.tvTeamName.setText(standingsList.get(position).getTeam());
+        holder.tvPosition.setText(Integer.toString(position++));
+        holder.tvPlayedGamesWins.setText(standingsList.get(position).getWins().toString());
+        holder.tvPlayedGamesDraws.setText(standingsList.get(position).getDraws().toString());
+        holder.tvPlayedGamesLose.setText(standingsList.get(position).getLosses().toString());
+        holder.tvGoalsWin.setText(standingsList.get(position).getGoals().toString());
+        holder.tvGoalsLose.setText(standingsList.get(position).getGoalsAgainst().toString());
+        holder.tvPoints.setText(standingsList.get(position).getPoints().toString());
+
     }
 
     @Override
@@ -66,13 +70,14 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
 
     public class LeagueTableViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvRank;
+        public TextView tvPosition;
         public TextView tvTeamName;
-        public TextView tvPlayedGames;
+        public TextView tvPlayedGamesWins;
+        public TextView tvPlayedGamesDraws;
+        public TextView tvPlayedGamesLose;
+        public TextView tvGoalsWin;
+        public TextView tvGoalsLose;
         public TextView tvPoints;
-        public TextView tvGoals;
-        public TextView tvGoalsAgainst;
-        public TextView tvGoalDifference;
         public ImageView logo;
         public View view;
 
@@ -80,14 +85,18 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
         public LeagueTableViewHolder(View view) {
             super(view);
             this.view = view;
-            //tvRank = (TextView)view.findViewById(R.id.textViewRankRow);
+
             tvTeamName = (TextView)view.findViewById(R.id.textViewTeamRow);
-            //tvPlayedGames = (TextView)view.findViewById(R.id.textViewPlayedGamesRow);
-            tvPoints = (TextView)view.findViewById(R.id.textViewPointsRow);
-            tvGoals = (TextView)view.findViewById(R.id.textViewGoalsRow);
-            tvGoalsAgainst = (TextView)view.findViewById(R.id.textViewGoalAgainstRow);
-            tvGoalDifference = (TextView)view.findViewById(R.id.textViewGoalDifferenceRow);
             logo = (ImageView)view.findViewById(R.id.imageView);
+            tvPosition = (TextView)view.findViewById(R.id.textViewPositionRow);
+            tvPlayedGamesWins = (TextView)view.findViewById(R.id.textViewGamesWinRow);
+            tvPlayedGamesDraws = (TextView)view.findViewById(R.id.textViewGamesDrawsRow);
+            tvPlayedGamesLose = (TextView)view.findViewById(R.id.textViewGamesLoseRow);
+            tvGoalsWin = (TextView)view.findViewById(R.id.textViewGoalWinRow);
+            tvGoalsLose = (TextView)view.findViewById(R.id.textViewGoalLoseRow);
+            tvPoints = (TextView)view.findViewById(R.id.textViewPointsRow);
+
+
         }
     }
 }

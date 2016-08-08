@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 import info.androidhive.firebase.Activities.LoginActivity;
 import info.androidhive.firebase.Activities.MainActivity;
-import info.androidhive.firebase.Fragments.SettingFragment;
+import info.androidhive.firebase.Activities.SettingsActivity;
 import info.androidhive.firebase.R;
 
 /**
@@ -84,19 +84,16 @@ public class NavigationDrawerManager {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
-                        ((MainActivity)context).showToolbar();
+                        //((MainActivity)context).showToolbar();
 
                         int itemSelected = (int) drawerItem.getIdentifier();
 
                         if (drawerItem != null) {
                             switch (itemSelected) {
                                 case 6: {
-                                    ((MainActivity)context).hideToolbar();
+                                    //((MainActivity)context).hideToolbar();
 
-                                        ((MainActivity) context).getSupportFragmentManager().beginTransaction()
-                                            .add(R.id.container, new SettingFragment())
-                                            .addToBackStack(null)
-                                            .commit();
+                                        context.startActivity(new Intent(context, SettingsActivity.class));
                                     break;
                                 }
                                 case 7:

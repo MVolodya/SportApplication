@@ -3,9 +3,10 @@ package info.androidhive.firebase.Classes.Retrofit.LeagueTable;
 
 import retrofit.Call;
 import retrofit.http.GET;
+import retrofit.http.Path;
 
 public interface LeagueTableService {
 
-    @GET("/v1/competitions/398/leagueTable")
-    Call<LeagueTableResponse> tables();
+    @GET("/v1/competitions/{id}/leagueTable")
+    Call<LeagueTableResponse> tables(@Path("id") int leagueId);
 }
