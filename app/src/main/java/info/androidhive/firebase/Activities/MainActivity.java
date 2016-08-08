@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -117,6 +119,18 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setVisibility(View.GONE);
     }
 
+    public void lockSwipe(){
+        result.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    public void unlockSwipe(){
+        result.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }
+
+    public ActionBar getToolbar(){
+        return getSupportActionBar();
+    }
+
     // Showing the status in Snackbar
     private void showSnack(boolean isConnected) {
 
@@ -150,8 +164,6 @@ public class MainActivity extends AppCompatActivity {
     // close ND on button back
     @Override
     public void onBackPressed() {
-
-        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentByTag("main");
 
         if (result != null && result.isDrawerOpen())
             result.closeDrawer();

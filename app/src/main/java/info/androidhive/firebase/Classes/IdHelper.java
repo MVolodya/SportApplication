@@ -8,6 +8,7 @@ public class IdHelper {
 
     private static IdHelper ourInstance;
     private int id;
+    private String leagueName;
 
     public static IdHelper getInstance() {
 
@@ -25,4 +26,14 @@ public class IdHelper {
     public void setId(int id) {
         this.id = id;
     }
+
+    public void setLeagueName(String leagueName) {
+        this.leagueName = leagueName;
+    }
+
+    public String getLeagueName() {
+
+        return leagueName;
+    }
+
 }

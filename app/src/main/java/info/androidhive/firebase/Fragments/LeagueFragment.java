@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import info.androidhive.firebase.Activities.MainActivity;
 import info.androidhive.firebase.Classes.IdHelper;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RecycleViewClasses.ClickListener;
@@ -88,11 +89,15 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
                     IdHelper idHelper = IdHelper.getInstance();
                     leagueId = Integer.parseInt(leagueList.get(position).getId());
                     idHelper.setId(leagueId);
+                    idHelper.setLeagueName(leagueList.get(position).getCaption());
 
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .add(R.id.container, new LeagueTableFragment())
                             .addToBackStack(null)
                             .commit();
+
+                    ((MainActivity)view.getContext()).hideToolbar();
+                    ((MainActivity)view.getContext()).lockSwipe();
                 }
 
                 @Override
@@ -101,6 +106,8 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
 
         }
     }
+
+
 
     @Override
     public void onFailure(Throwable t) {

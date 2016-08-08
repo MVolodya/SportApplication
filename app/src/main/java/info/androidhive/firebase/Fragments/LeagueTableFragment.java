@@ -3,16 +3,20 @@ package info.androidhive.firebase.Fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
 
+import info.androidhive.firebase.Activities.MainActivity;
 import info.androidhive.firebase.Classes.IdHelper;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RecycleViewClasses.LeagueTableAdapter;
@@ -28,7 +32,7 @@ import retrofit.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LeagueTableFragment extends Fragment implements Callback<LeagueTableResponse> {
+public class LeagueTableFragment extends Fragment implements Callback<LeagueTableResponse>, View.OnClickListener{
 
     private View view;
     private LeagueTableResponse tableResponse;
@@ -48,16 +52,30 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_league_table, container, false);
+        view = inflater.inflate(R.layout.fragment_league_table_test, container, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_league_table);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.anim_toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+        if (((AppCompatActivity)getActivity()).getSupportActionBar() != null){
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        toolbar.setNavigationOnClickListener(this);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.scrollableview);
         mLayoutManager = new LinearLayoutManager(view.getContext());
+        recyclerView.setNestedScrollingEnabled(false);
 
         dialogManager = new ProgressDialogManager(getActivity(), progressDialog);
         dialogManager.showProgressDialog();
 
         IdHelper idHelper = IdHelper.getInstance();
         int id = idHelper.getId();
+
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle(idHelper.getLeagueName());
 
         LeagueTableService service = ApiFactory.getTableService();
         Call<LeagueTableResponse> call = service.tables(id);
@@ -87,5 +105,14 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
     }
 
     @Override
-    public void onFailure(Throwable t) {dialogManager.hideProgressDialog();}
+    public void onFailure(Throwable t) {
+        dialogManager.hideProgressDialog();
+    }
+
+    @Override
+    public void onClick(View view) {
+        getFragmentManager().popBackStack();
+        ((MainActivity)this.view.getContext()).showToolbar();
+        ((MainActivity)this.view.getContext()).unlockSwipe();
+    }
 }
