@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SportApp</string>
+    <string name="app_name">Soccer Events</string>
     <string name="action_sign_in_short">Register</string>
     <string name="email">Email</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
@@ -9,13 +9,13 @@
     <string name="send_password_reset_email">Send Password reset email</string>
     <string name="remove_user">Remove user</string>
     <string name="new_pass">New Password</string>
-    <string name="title_activity_profile">SportApp</string>
+    <string name="title_activity_profile">Soccer Events</string>
     <string name="title_activity_login">Sign in</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_name">Full name</string>
     <string name="btn_login">LOGIN</string>
-    <string name="btn_link_to_register">Not a member? Get registered in SportApp now!</string>
+    <string name="btn_link_to_register">Not a member? Get registered in Soccer Events now!</string>
     <string name="btn_link_to_login">Already registered. Login Me!</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
     <string name="btn_forgot_password">Forgot your password?</string>
@@ -30,7 +30,6 @@
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
     <string name="facebook_app_id">1150276381681321</string>
 
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fbloginText">Facebook</string>
@@ -40,4 +39,34 @@
     <string name="save">Save</string>
     <string name="error_while_loading_data_please_check_your_network_connection">Error while loading data! Please check your network connection!</string>
     <string name="try_again">Try again</string>
+
+    <string name="faq">FAQ</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, mauris suscipit eros curabitur vel,
+        purus ullamcorper quam dignissim ligula vitae, tellus pharetra, urna arcu nunc ut sem
+        duis fermentum. Consequat gravida molestie vulputate libero cras, eleifend magna ut,
+        in condimentum, nulla consectetuer. Leo consectetuer velit in turpis, nisl sed nec potenti,
+        nec in ullamcorper vel quis, in nunc tortor eleifend. Velit elementum nulla nec, sit elit,
+        etiam lectus vivamus metus magna felis nonummy, dictum porttitor et urna in architecto semper,
+        in mattis. Porta sed nisl. Sapien lorem porta donec scelerisque, turpis dolor libero rhoncus
+        sit, vestibulum tortor dictum placerat erat parturient dapibus.Eleifend sit lacus praesent,
+        feugiat interdum sodales ac quia. Laoreet sapien iaculis eu, eleifend orci orci morbi felis.
+        Ultrices sapien diam, maecenas neque consectetuer cursus diam, hendrerit mi nulla quibusdam,
+        in nisl. Sodales rhoncus posuere dui duis felis, turpis sit molestie at molestie non. Sodales
+        elementum blandit ultricies, a sagittis, vehicula condimentum donec, imperdiet quisque est facilisis
+        neque, vivamus lacus. Libero aliquam curabitur velit, nulla semper dignissim, justo pulvinar vivamus
+        in morbi suscipit. Elit ligula nec dui accumsan dignissim, curabitur sed consequat, at donec, morbi
+        purus ac sodales mauris vestibulum, a pharetra elit donec aliquam. Quisque mus quis, etiam ullamcorper
+        nec. Nullam porttitor enim egestas, ullamcorper dui proin erat felis lorem, non enim et. In amet mollis.
+        Proin consequat a tellus lectus pede, ante etiam elit pede amet, eu neque pede ut suspendisse.Dapibus nunc.
+        Semper pulvinar nunc laoreet ac, proin tristique dolor sed eos, nibh euismod eros sit vestibulum
+        dictum, cum mauris eget enim. Hendrerit ultricies, tempor mattis. Ut sed dictum eget, mauris vel interdum
+        enim eros, tempor dolor, quam odit justo nec nulla fringilla eget. Leo ipsum, ultricies eleifend habitant
+        massa potenti doloribus, vitae dapibus et et, donec mus convallis. Eu senectus, praesent mi vitae odio est.
+        Saepe sed ornare.Tincidunt eget auctor mauris donec in odio, donec at turpis, sed sapien velit nunc,
+        mauris et vivamus maecenas integer mi. Tempor wisi praesent convallis quisque, iaculis quam aliquam id.
+        Quam ut purus vestibulum eros eget vitae, eget vehicula ipsum eu id volutpat sed. Quisque bibendum pellentesque.
+        Quisque at nam non lacinia, risus non, malesuada ante arcu tincidunt. Eget eget lacus vel. At lacus at vestibulum,
+        diam quis libero eu vivamus, elit lectus aliquam maecenas egestas mattis lacus, scelerisque mi, mi fringilla diam
+        vitae curabitur velit ullamcorper. Sed luctus amet pretium, sodales vivamus, magna nonummy, inceptos duis feugiat
+        diam magna lectus. Ultricies et, in nibh et orci ac donec nunc.</string>
 </resources>

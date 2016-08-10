@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -26,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import info.androidhive.firebase.Classes.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.User;
+import info.androidhive.firebase.Fragments.BottomSheetFaqFragment;
 import info.androidhive.firebase.R;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -72,8 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         user = localDatabaseManager.getUser();
 
-
-        //start AlertDialog FAB
+        //start AlertDialog FAB -------------------------
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.change_photo);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +134,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         //end AlertDialog username
+
         //start AlertDialog email
         relativeLayout = (RelativeLayout) findViewById(R.id.emailDialog);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +164,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         //end AlertDialog email
+
         //start AlertDialog email
         relativeLayout = (RelativeLayout) findViewById(R.id.passDialog);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +195,19 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         //end AlertDialog email
+
+        //start BottomSheetFAQ
+        relativeLayout = (RelativeLayout) findViewById(R.id.bottomsheet_faq_relative);
+        View bottomSheetView = findViewById(R.id.bottomSheet);
+       // BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new BottomSheetFaqFragment().show(getSupportFragmentManager(),
+                        SettingsActivity.class.getSimpleName());
+            }
+        });
+        //end BottomSheetFAQ
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 
@@ -226,7 +242,6 @@ public class SettingsActivity extends AppCompatActivity {
         } else userPhoto.setImageResource(R.drawable.prof);
 
     }
-
 
 
 }

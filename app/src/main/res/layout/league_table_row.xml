@@ -35,6 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:maxLength="17"
+                    android:textSize="16dp"
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:ellipsize="end" />
@@ -54,6 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textSize="16dp"
                     android:text="Pos"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -78,6 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textSize="16dp"
                     android:text="Games"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -151,6 +154,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="GD"
+                    android:textSize="16dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_gravity="center_horizontal" />
 
@@ -205,6 +209,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textSize="16dp"
                     android:text="Pts"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
