@@ -98,7 +98,7 @@ public class NavigationDrawerManager {
                                 }
                                 case 7:
                                     SignInManager.signOut();
-                                    DatabaseManager.delete();
+                                    LocalDatabaseManager.delete();
                                     context.startActivity(new Intent(context, LoginActivity.class));
                                     ((MainActivity) context).finish();
                                     break;

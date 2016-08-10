@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import info.androidhive.firebase.Classes.ConnectivityReceiver;
-import info.androidhive.firebase.Classes.DatabaseManager;
+import info.androidhive.firebase.Classes.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.NavigationDrawerManager;
 import info.androidhive.firebase.Classes.User;
 import info.androidhive.firebase.Fragments.MainFragment;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
     private Drawer result;
-    private DatabaseManager databaseManager;
+    private LocalDatabaseManager localDatabaseManager;
     private FirebaseUser user;
 
     private Toolbar toolbar;
@@ -51,8 +51,11 @@ public class MainActivity extends AppCompatActivity {
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        databaseManager = new DatabaseManager(this);
-        User userCustom = databaseManager.getUser();
+        localDatabaseManager = new LocalDatabaseManager(this);
+        User userCustom = localDatabaseManager.getUser();
+
+//        RemoteDatabaseManager remoteDatabaseManager = new RemoteDatabaseManager(this);
+//        remoteDatabaseManager.setUserData(user.getUid(),"jjj","1000");
 
         drawerManager = new NavigationDrawerManager(this, userCustom);
 
@@ -108,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        DatabaseManager.close();
+        LocalDatabaseManager.close();
     }
 
     public void showToolbar(){

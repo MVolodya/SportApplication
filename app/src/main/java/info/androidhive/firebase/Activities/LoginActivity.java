@@ -25,7 +25,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import info.androidhive.firebase.Classes.DatabaseManager;
+import info.androidhive.firebase.Classes.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.SignInManager;
 import info.androidhive.firebase.Classes.User;
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     private CallbackManager callbackManager;
     private SignInManager signInManager;
 
-    private DatabaseManager databaseManager;
+    private LocalDatabaseManager localDatabaseManager;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private GoogleApiClient mGoogleApiClient;
     private User user;
@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         setSupportActionBar(toolbar);
 
         signInManager = new SignInManager(this, auth);
-        databaseManager = new DatabaseManager(this);
+        localDatabaseManager = new LocalDatabaseManager(this);
         dialogManager = new ProgressDialogManager(this,mProgressDialog);
 
         inputEmail = (EditText) findViewById(R.id.email);
@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                                     FirebaseUser fbUser = auth.getInstance().getCurrentUser();
 
                                     if(fbUser != null){
-                                        databaseManager.setUser(fbUser.getDisplayName(),
+                                        localDatabaseManager.setUser(fbUser.getDisplayName(),
                                                 fbUser.getEmail(),
                                                 "");
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class));

@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import info.androidhive.firebase.Classes.DatabaseManager;
+import info.androidhive.firebase.Classes.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.R;
 
@@ -36,7 +36,7 @@ public class SignupActivity extends AppCompatActivity {
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        final DatabaseManager databaseManager = new DatabaseManager(this);
+        final LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(this);
 
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
@@ -98,7 +98,7 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    databaseManager.setUser(null,email,null);
+                                    localDatabaseManager.setUser(null,email,null);
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class).putExtra("user_email",email));
                                     finish();
                                     LoginActivity.loginActivity.finish();

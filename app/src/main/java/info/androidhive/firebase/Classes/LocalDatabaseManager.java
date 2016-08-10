@@ -6,14 +6,14 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 
-public class DatabaseManager {
+public class LocalDatabaseManager {
 
     public Context context;
 
     private static Realm userRealm;
 
 
-    public DatabaseManager(Context contextFromActivity) {
+    public LocalDatabaseManager(Context contextFromActivity) {
         this.context = contextFromActivity;
         userRealm = Realm.getInstance(new RealmConfiguration.Builder(contextFromActivity)
                 .name("User.realm")

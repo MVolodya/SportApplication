@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import info.androidhive.firebase.Activities.LoginActivity;
-import info.androidhive.firebase.Classes.DatabaseManager;
+import info.androidhive.firebase.Classes.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.SignInManager;
 import info.androidhive.firebase.Classes.User;
@@ -47,7 +47,7 @@ public class SettingFragment extends Fragment {
     private LinearLayout linearLayout;
 
     private User user;
-    private DatabaseManager databaseManager;
+    private LocalDatabaseManager localDatabaseManager;
 
     private FirebaseAuth auth;
     private FirebaseUser firebaseUser;
@@ -74,10 +74,10 @@ public class SettingFragment extends Fragment {
 
        // linearLayout = (LinearLayout) view.findViewById(R.id.layout_main);
 
-        databaseManager = new DatabaseManager(view.getContext());
+        localDatabaseManager = new LocalDatabaseManager(view.getContext());
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getInstance().getCurrentUser();
-        user = databaseManager.getUser();
+        user = localDatabaseManager.getUser();
 
         mProgressDialog = new ProgressDialog(view.getContext());
         mProgressDialog.setMessage("Wait...");

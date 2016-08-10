@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_league_table_test, container, false);
+
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.anim_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -115,4 +117,18 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
         ((MainActivity)this.view.getContext()).showToolbar();
         ((MainActivity)this.view.getContext()).unlockSwipe();
     }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if(!enter){
+            //leaving fragment
+            getFragmentManager().popBackStack();
+            ((MainActivity)this.view.getContext()).showToolbar();
+            ((MainActivity)this.view.getContext()).unlockSwipe();
+        }
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+
+
 }

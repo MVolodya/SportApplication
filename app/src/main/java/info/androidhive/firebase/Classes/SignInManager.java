@@ -32,7 +32,7 @@ public class SignInManager {
     private static final String TAG = "facebookLogin";
 
     private Context context;
-    private DatabaseManager databaseManager;
+    private LocalDatabaseManager localDatabaseManager;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private ProgressDialog mProgressDialog;
@@ -44,7 +44,7 @@ public class SignInManager {
     }
 
     public void loginWithFacebook(LoginButton loginButton, CallbackManager callbackManager) {
-        databaseManager = new DatabaseManager(context);
+        localDatabaseManager = new LocalDatabaseManager(context);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -86,7 +86,7 @@ public class SignInManager {
                         }else {
                             Profile profile = Profile.getCurrentProfile();
                             FirebaseUser firebaseUser = auth.getInstance().getCurrentUser();
-                            databaseManager.setUser(firebaseUser.getDisplayName(), firebaseUser.getEmail(),
+                            localDatabaseManager.setUser(firebaseUser.getDisplayName(), firebaseUser.getEmail(),
                                     profile.getProfilePictureUri(950, 810).toString());
                             context.startActivity(new Intent(context, MainActivity.class));
                             ((Activity)context).finish();
@@ -102,7 +102,7 @@ public class SignInManager {
     public static void signOut(){
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
-        DatabaseManager.delete();
+        LocalDatabaseManager.delete();
     }
 
 

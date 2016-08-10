@@ -8,7 +8,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -24,7 +23,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import info.androidhive.firebase.Classes.DatabaseManager;
+import info.androidhive.firebase.Classes.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.User;
 import info.androidhive.firebase.R;
@@ -39,7 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
 
     private User user;
-    private DatabaseManager databaseManager;
+    private LocalDatabaseManager localDatabaseManager;
 
     private FirebaseAuth auth;
     private FirebaseUser firebaseUser;
@@ -67,10 +66,11 @@ public class SettingsActivity extends AppCompatActivity {
         etEmail = (TextView) findViewById(R.id.email_setting);
         userPhoto = (ImageView) findViewById(R.id.imageViewPhoto);
 
-        databaseManager = new DatabaseManager(this);
+        localDatabaseManager = new LocalDatabaseManager(this);
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getInstance().getCurrentUser();
-        user = databaseManager.getUser();
+
+        user = localDatabaseManager.getUser();
 
 
         //start AlertDialog FAB
@@ -102,6 +102,8 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         //end /AlertDialog FAB
+
+
         //start AlertDialog username
         relativeLayout = (RelativeLayout) findViewById(R.id.usernameDialog);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -222,8 +224,6 @@ public class SettingsActivity extends AppCompatActivity {
                     .load(user.getPhotoURL())
                     .into(userPhoto);
         } else userPhoto.setImageResource(R.drawable.prof);
-
-        //progressDialogManager.hideProgressDialog();
 
     }
 
