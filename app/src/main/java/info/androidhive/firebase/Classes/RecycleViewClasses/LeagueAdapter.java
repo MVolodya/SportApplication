@@ -20,13 +20,15 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView caption, league, year;
+        public TextView caption, league, year, numberOfTeams;
 
         public MyViewHolder(View view) {
             super(view);
             caption = (TextView) view.findViewById(R.id.caption);
-            year = (TextView) view.findViewById(R.id.league);
-            league = (TextView) view.findViewById(R.id.year);
+            year = (TextView) view.findViewById(R.id.year);
+            league = (TextView) view.findViewById(R.id.league);
+            numberOfTeams = (TextView) view.findViewById(R.id.numberOfTeams);
+
         }
     }
 
@@ -49,6 +51,7 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.MyViewHold
         holder.caption.setText(model.getCaption());
         holder.league.setText(model.getLeague());
         holder.year.setText(model.getYear());
+        holder.numberOfTeams.setText(model.getNumberOfTeams());
     }
 
     @Override

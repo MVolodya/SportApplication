@@ -40,8 +40,23 @@
     <string name="error_while_loading_data_please_check_your_network_connection">Error while loading data! Please check your network connection!</string>
     <string name="try_again">Try again</string>
 
-    <string name="faq">FAQ</string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, mauris suscipit eros curabitur vel,
+    <!-- Start Settings -->
+    <string name="settings_username_title">Username</string>
+    <string name="settings_information">Information</string>
+    <string name="settings_username">Username</string>
+    <string name="settings_email_title">anonymous@hackers.com</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_change_password">Change password</string>
+    <string name="settings_settings">Settings</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_change">English</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_change">Default</string>
+    <string name="settings_support">Support</string>
+    <string name="settings_faq">FAQ</string>
+    <!-- End Settings -->
+
+     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, mauris suscipit eros curabitur vel,
         purus ullamcorper quam dignissim ligula vitae, tellus pharetra, urna arcu nunc ut sem
         duis fermentum. Consequat gravida molestie vulputate libero cras, eleifend magna ut,
         in condimentum, nulla consectetuer. Leo consectetuer velit in turpis, nisl sed nec potenti,
@@ -69,4 +84,5 @@
         diam quis libero eu vivamus, elit lectus aliquam maecenas egestas mattis lacus, scelerisque mi, mi fringilla diam
         vitae curabitur velit ullamcorper. Sed luctus amet pretium, sodales vivamus, magna nonummy, inceptos duis feugiat
         diam magna lectus. Ultricies et, in nibh et orci ac donec nunc.</string>
+
 </resources>
