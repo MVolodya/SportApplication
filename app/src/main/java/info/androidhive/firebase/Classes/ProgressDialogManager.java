@@ -14,7 +14,6 @@ public class ProgressDialogManager {
 
     public ProgressDialogManager(Context context, ProgressDialog mProgressDialog){
         this.context = context;
-        this.mProgressDialog = mProgressDialog;
     }
 
     public void showProgressDialog() {
