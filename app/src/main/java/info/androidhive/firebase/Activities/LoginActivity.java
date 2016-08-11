@@ -28,7 +28,6 @@ import com.google.firebase.auth.FirebaseUser;
 import info.androidhive.firebase.Classes.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.SignInManager;
-import info.androidhive.firebase.Classes.User;
 import info.androidhive.firebase.R;
 
 
@@ -45,7 +44,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     private LocalDatabaseManager localDatabaseManager;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private GoogleApiClient mGoogleApiClient;
-    private User user;
     private ProgressDialog mProgressDialog;
     private ProgressDialogManager dialogManager;
 
@@ -61,12 +59,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         callbackManager = CallbackManager.Factory.create();
 
         auth = FirebaseAuth.getInstance();
-
-//        if(auth.getCurrentUser() != null)
-//            Toast.makeText(LoginActivity.this, "auth not null", Toast.LENGTH_SHORT).show();
-//
-//        if(AccessToken.getCurrentAccessToken() != null)
-//            Toast.makeText(LoginActivity.this, "facebook not null", Toast.LENGTH_SHORT).show();
 
         if (auth.getCurrentUser() != null || AccessToken.getCurrentAccessToken() != null) {
             // user auth state is changed - user is null
@@ -159,7 +151,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                                     if(fbUser != null){
                                         localDatabaseManager.setUser(fbUser.getDisplayName(),
                                                 fbUser.getEmail(),
-                                                "");
+                                                fbUser.getPhotoUrl().toString());
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                         finish();
                                     }else

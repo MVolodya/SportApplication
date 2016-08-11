@@ -12,7 +12,6 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -84,10 +83,11 @@ public class SignInManager {
                             Toast.makeText(context, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }else {
-                            Profile profile = Profile.getCurrentProfile();
+
                             FirebaseUser firebaseUser = auth.getInstance().getCurrentUser();
-                            localDatabaseManager.setUser(firebaseUser.getDisplayName(), firebaseUser.getEmail(),
-                                    profile.getProfilePictureUri(950, 810).toString());
+                            localDatabaseManager.setUser(firebaseUser.getDisplayName(),
+                                    firebaseUser.getEmail(),
+                                    firebaseUser.getPhotoUrl().toString());
                             context.startActivity(new Intent(context, MainActivity.class));
                             ((Activity)context).finish();
                         }

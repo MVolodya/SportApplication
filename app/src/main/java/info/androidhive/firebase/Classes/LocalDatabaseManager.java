@@ -21,7 +21,7 @@ public class LocalDatabaseManager {
 
     }
 
-    public void setUser(String name, String email, String photoUrl) {
+    public static void setUser(String name, String email, String photoUrl) {
 
         userRealm.beginTransaction();
         User user = userRealm.createObject(User.class);
@@ -33,8 +33,34 @@ public class LocalDatabaseManager {
         userRealm.commitTransaction();
     }
 
-    public User getUser() {
+    public static void updateName(String name){
+        userRealm.beginTransaction();
+        User user = getUser();
 
+        user.setName(name);
+
+        userRealm.commitTransaction();
+    }
+
+    public static void updateEmail(String email){
+        userRealm.beginTransaction();
+        User user = getUser();
+
+        user.setEmail(email);
+
+        userRealm.commitTransaction();
+    }
+
+    public static void updateUrl(String url){
+        userRealm.beginTransaction();
+        User user = getUser();
+
+        user.setPhotoURL(url);
+
+        userRealm.commitTransaction();
+    }
+
+    public static User getUser() {
         User result = userRealm.where(User.class)
                 .findFirst();
         return result;

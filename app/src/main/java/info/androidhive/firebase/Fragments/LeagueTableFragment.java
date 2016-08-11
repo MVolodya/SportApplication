@@ -18,7 +18,7 @@ import android.view.animation.Animation;
 import java.util.List;
 
 import info.androidhive.firebase.Activities.MainActivity;
-import info.androidhive.firebase.Classes.IdHelper;
+import info.androidhive.firebase.Classes.DataHelper;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RecycleViewClasses.LeagueTableAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
@@ -73,11 +73,11 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
         dialogManager = new ProgressDialogManager(getActivity(), progressDialog);
         dialogManager.showProgressDialog();
 
-        IdHelper idHelper = IdHelper.getInstance();
-        int id = idHelper.getId();
+        DataHelper dataHelper = DataHelper.getInstance();
+        int id = dataHelper.getId();
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(idHelper.getLeagueName());
+        collapsingToolbar.setTitle(dataHelper.getLeagueName());
 
         LeagueTableService service = ApiFactory.getTableService();
         Call<LeagueTableResponse> call = service.tables(id);

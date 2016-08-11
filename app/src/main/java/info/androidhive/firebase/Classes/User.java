@@ -3,7 +3,7 @@ package info.androidhive.firebase.Classes;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class User extends RealmObject{
+public class User extends RealmObject {
 
 
     private String name;
