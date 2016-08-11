@@ -1,6 +1,7 @@
 package info.androidhive.firebase.Classes;
 
 import android.content.Context;
+import android.net.Uri;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -21,14 +22,17 @@ public class LocalDatabaseManager {
 
     }
 
-    public static void setUser(String name, String email, String photoUrl) {
+    public static void setUser(String name, String email, Uri photoUrl) {
 
         userRealm.beginTransaction();
         User user = userRealm.createObject(User.class);
 
         user.setName(name);
         user.setEmail(email);
-        user.setPhotoURL(photoUrl);
+
+        if(photoUrl != null)
+        user.setPhotoURL(photoUrl.toString());
+        else user.setPhotoURL(null);
 
         userRealm.commitTransaction();
     }

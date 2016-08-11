@@ -100,7 +100,7 @@ public class SignupActivity extends AppCompatActivity {
                                 } else {
                                     localDatabaseManager.setUser(auth.getCurrentUser().getDisplayName(),
                                             auth.getCurrentUser().getEmail(),
-                                            auth.getCurrentUser().getPhotoUrl().toString());
+                                            auth.getCurrentUser().getPhotoUrl());
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class).putExtra("user_email",email));
                                     finish();
                                     LoginActivity.loginActivity.finish();

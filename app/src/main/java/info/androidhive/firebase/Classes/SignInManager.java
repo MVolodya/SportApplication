@@ -87,7 +87,7 @@ public class SignInManager {
                             FirebaseUser firebaseUser = auth.getInstance().getCurrentUser();
                             localDatabaseManager.setUser(firebaseUser.getDisplayName(),
                                     firebaseUser.getEmail(),
-                                    firebaseUser.getPhotoUrl().toString());
+                                    firebaseUser.getPhotoUrl());
                             context.startActivity(new Intent(context, MainActivity.class));
                             ((Activity)context).finish();
                         }

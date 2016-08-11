@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,8 +21,11 @@ public class RemoteDatabaseManager {
     private FirebaseStorage storage;
     private DatabaseReference mDatabase;
     private Uri downloadUrl;
+    private ProgressDialogManager progressDialogManager;
+    private Context context;
 
     public RemoteDatabaseManager(Context context) {
+        this.context = context;
         storage = FirebaseStorage.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
@@ -34,6 +36,10 @@ public class RemoteDatabaseManager {
     }
 
     public void uploadImage(Bitmap bitmap, final ResponseUrl responseUrl) {
+
+//        ProgressDialog progressDialog = new ProgressDialog(context);
+//        ProgressDialogManager dialogManager = new ProgressDialogManager(context,progressDialog);
+//        progressDialogManager.showProgressDialog();
 
         StorageReference storageRef = storage.getReferenceFromUrl("gs://sportapp-28cf4.appspot.com");
         StorageReference mountainsRef = storageRef.child("images");
@@ -46,15 +52,16 @@ public class RemoteDatabaseManager {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                Log.d("loading",exception.toString());
+               // progressDialogManager.hideProgressDialog();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Log.d("loading","OK");
+                // progressDialogManager.hideProgressDialog();
                 downloadUrl = taskSnapshot.getDownloadUrl();
                 responseUrl.setUrl(downloadUrl.toString());
+                //progressDialogManager.hideProgressDialog();
             }
         });
        // return downloadUrl.toString();

@@ -81,6 +81,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         user = LocalDatabaseManager.getUser();
 
+        progressDialogManager = new ProgressDialogManager(this, mProgressDialog);
+
         //start AlertDialog FAB -------------------------
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.change_photo);
         floatingActionButton.setOnClickListener(this);
@@ -206,11 +208,23 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage("Wait...");
+            mProgressDialog.setCanceledOnTouchOutside(false);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.show();
+        }
+
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
             try {
+
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 new RemoteDatabaseManager(this).uploadImage(bitmap, this);
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -219,13 +233,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void setUrl(String url) {
-        UserManager.changeProfile(url);
 
-//        try {
-//            Thread.sleep(4000);
-//        } catch (InterruptedException e) {
-//            //handle
-//        }
+        UserManager.changeProfile(url);
 
         LocalDatabaseManager.updateUrl(url);
 
@@ -233,6 +242,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 .load(user.getPhotoURL())
                 .into(userPhoto);
 
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.hide();
+            mProgressDialog.dismiss();
+        }
 
     }
+
+
+
 }
