@@ -71,7 +71,7 @@
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
                         android:paddingTop="16dp"
-                        android:text="Information"
+                        android:text="@string/settings_information"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/material_text_subhead" />
 
@@ -89,7 +89,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:fontFamily="sans-serif"
-                            android:text="Username"
+                            android:text="@string/settings_username_title"
                             android:textColor="@color/dark"
                             android:textSize="@dimen/material_text_subhead" />
 
@@ -99,7 +99,7 @@
                             android:layout_alignLeft="@+id/username_setting"
                             android:layout_alignStart="@+id/username_setting"
                             android:layout_below="@+id/username_setting"
-                            android:text="Username"
+                            android:text="@string/settings_username"
                             android:textColor="#727272"
                             android:textSize="@dimen/material_text_body2" />
                     </RelativeLayout>
@@ -122,7 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@string/roboto_regular"
-                            android:text="chintan@letsnurture.com"
+                            android:text="@string/settings_email_title"
                             android:textColor="@color/dark"
                             android:textSize="@dimen/material_text_subhead" />
 
@@ -134,7 +134,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_alignStart="@+id/email_setting"
                             android:layout_below="@+id/email_setting"
-                            android:text="Email"
+                            android:text="@string/settings_email"
                             android:textColor="#727272" />
                     </RelativeLayout>
 
@@ -156,7 +156,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@string/roboto_regular"
-                            android:text="Change password"
+                            android:text="@string/settings_change_password"
                             android:textColor="@color/dark"
                             android:textSize="@dimen/material_text_subhead" />
                     </RelativeLayout>
@@ -181,7 +181,7 @@
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
                         android:paddingTop="16dp"
-                        android:text="Settings"
+                        android:text="@string/settings_settings"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/material_text_subhead" />
 
@@ -198,7 +198,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:fontFamily="@string/roboto_regular"
-                            android:text="Language"
+                            android:text="@string/settings_language"
                             android:textColor="@color/dark"
                             android:textSize="@dimen/material_text_subhead" />
 
@@ -208,7 +208,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:fontFamily="@string/roboto_regular"
-                            android:text="English"
+                            android:text="@string/settings_language_change"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="@dimen/material_text_subhead"
                             android:layout_centerVertical="true"
@@ -232,7 +232,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:fontFamily="@string/roboto_regular"
-                            android:text="Theme"
+                            android:text="@string/settings_theme"
                             android:textColor="@color/dark"
                             android:textSize="@dimen/material_text_subhead" />
 
@@ -242,7 +242,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:fontFamily="@string/roboto_regular"
-                            android:text="Default"
+                            android:text="@string/settings_theme_change"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="@dimen/material_text_subhead"
                             android:layout_centerVertical="true"
@@ -269,7 +269,7 @@
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
                         android:paddingTop="16dp"
-                        android:text="Support"
+                        android:text="@string/settings_support"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/material_text_subhead" />
 
@@ -287,7 +287,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:fontFamily="@string/roboto_regular"
-                            android:text="FAQ"
+                            android:text="@string/settings_faq"
                             android:textColor="@color/dark"
                             android:textSize="@dimen/material_text_subhead" />
                     </RelativeLayout>
@@ -313,8 +313,8 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
-
     </android.support.v4.widget.NestedScrollView>
+
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

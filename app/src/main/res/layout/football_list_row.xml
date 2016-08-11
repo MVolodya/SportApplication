@@ -16,21 +16,35 @@
         android:textColor="@color/title"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:text="Name league"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/league"
+        android:id="@+id/year"
         android:layout_below="@id/caption"
+        android:text="Year"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/year"
+        android:id="@+id/league"
         android:textColor="@color/year"
+        android:text="short league"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/numberOfTeams"
+        android:textColor="@color/year"
+        android:layout_width="wrap_content"
+        android:text="number"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/league"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="94dp"
+        android:layout_marginStart="94dp" />
 
 </RelativeLayout>

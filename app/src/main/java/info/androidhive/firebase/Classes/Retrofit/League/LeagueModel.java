@@ -10,6 +10,8 @@ public class LeagueModel {
 
     private String year;
 
+    private String numberOfTeams;
+
     public LeagueModel() {
     }
 
@@ -27,5 +29,9 @@ public class LeagueModel {
 
     public String getYear() {
         return year;
+    }
+
+    public String getNumberOfTeams(){
+        return numberOfTeams;
     }
 }

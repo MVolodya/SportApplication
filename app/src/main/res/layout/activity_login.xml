@@ -15,7 +15,7 @@
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/margin_16dp"
         android:weightSum="1">
 
 
