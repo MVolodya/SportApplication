@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import info.androidhive.firebase.Classes.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
+import info.androidhive.firebase.Classes.RemoteDatabaseManager;
 import info.androidhive.firebase.R;
 
 public class SignupActivity extends AppCompatActivity {
@@ -98,6 +99,11 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
+
+                                    new RemoteDatabaseManager(getApplicationContext())
+                                            .setUserData(auth.getCurrentUser().getUid(),
+                                            null, null);
+
                                     localDatabaseManager.setUser(auth.getCurrentUser().getDisplayName(),
                                             auth.getCurrentUser().getEmail(),
                                             auth.getCurrentUser().getPhotoUrl());

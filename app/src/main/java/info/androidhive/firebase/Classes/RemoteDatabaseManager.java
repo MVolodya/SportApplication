@@ -30,19 +30,29 @@ public class RemoteDatabaseManager {
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
-    public void setUserData(String UID, String photoURL, String points) {
-        mDatabase.child("users").child(UID).child("photoURL").setValue(photoURL);
-        mDatabase.child("users").child(UID).child("points").setValue(points);
+    public void setUserData(String UID, String matchId, String points) {
+
+        mDatabase.child("users")
+                .child(UID)
+                .child("ratedMatch")
+                .child("matchId")
+                .setValue("");
+
+        mDatabase.child("users")
+                .child(UID)
+                .child("ratedMatch")
+                .child("points")
+                .setValue("");
     }
 
-    public void uploadImage(Bitmap bitmap, final ResponseUrl responseUrl) {
+    public void uploadImage(Bitmap bitmap, String uId, final ResponseUrl responseUrl) {
 
 //        ProgressDialog progressDialog = new ProgressDialog(context);
 //        ProgressDialogManager dialogManager = new ProgressDialogManager(context,progressDialog);
 //        progressDialogManager.showProgressDialog();
 
         StorageReference storageRef = storage.getReferenceFromUrl("gs://sportapp-28cf4.appspot.com");
-        StorageReference mountainsRef = storageRef.child("images");
+        StorageReference mountainsRef = storageRef.child("images" + uId);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -52,7 +62,7 @@ public class RemoteDatabaseManager {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-               // progressDialogManager.hideProgressDialog();
+                // progressDialogManager.hideProgressDialog();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -64,7 +74,7 @@ public class RemoteDatabaseManager {
                 //progressDialogManager.hideProgressDialog();
             }
         });
-       // return downloadUrl.toString();
+        // return downloadUrl.toString();
     }
 
 

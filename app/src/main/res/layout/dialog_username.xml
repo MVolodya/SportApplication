@@ -10,18 +10,8 @@
         android:id="@+id/dialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Username"
+        android:text="New name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/username_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:fontFamily="@string/roboto_regular"
-        android:text="Username"
-        android:textColor="@color/dark"
-        android:textSize="@dimen/material_text_subhead" />
 
 
     <android.support.design.widget.TextInputLayout
@@ -31,11 +21,12 @@
         android:textColorHint="@android:color/black">
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/etNameDialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:hint="New username"
+            android:hint="Enter your name"
+            android:textColorHint="@color/primary_dark"
             android:inputType="textEmailAddress"
 
              />

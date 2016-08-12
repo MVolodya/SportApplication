@@ -59,12 +59,9 @@ package="info.androidhive.firebase">
         android:label="@string/title_activity_reset_password"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar" />
-    <activity android:name=".Activities.SettingsActivity">
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
-
-        <!--<category android:name="android.intent.category.LAUNCHER" />-->
-        <!--</intent-filter>-->
+    <activity
+        android:name=".Activities.SettingsActivity"
+        android:screenOrientation="portrait">
 </activity>
     </application>
 

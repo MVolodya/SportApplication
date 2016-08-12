@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import info.androidhive.firebase.Classes.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
+import info.androidhive.firebase.Classes.RemoteDatabaseManager;
 import info.androidhive.firebase.Classes.SignInManager;
 import info.androidhive.firebase.R;
 
@@ -152,6 +153,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                                         localDatabaseManager.setUser(fbUser.getDisplayName(),
                                                 fbUser.getEmail(),
                                                 fbUser.getPhotoUrl());
+
+                                        new RemoteDatabaseManager(getApplicationContext()).setUserData(fbUser.getUid(),
+                                                null, null);
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                         finish();
                                     }else
