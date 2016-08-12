@@ -85,6 +85,11 @@ public class SignInManager {
                         }else {
 
                             FirebaseUser firebaseUser = auth.getInstance().getCurrentUser();
+
+                            new RemoteDatabaseManager(context)
+                                    .setUserData(firebaseUser.getUid(),
+                                            null, null);
+
                             localDatabaseManager.setUser(firebaseUser.getDisplayName(),
                                     firebaseUser.getEmail(),
                                     firebaseUser.getPhotoUrl());
