@@ -28,10 +28,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import info.androidhive.firebase.Activities.MainActivity;
 import info.androidhive.firebase.Classes.ConvertDate;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
+import info.androidhive.firebase.Classes.RecycleViewClasses.ClickListener;
 import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
 import info.androidhive.firebase.Classes.RecycleViewClasses.MatchAdapter;
+import info.androidhive.firebase.Classes.RecycleViewClasses.RecyclerTouchListener;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.Match.Fixture;
 import info.androidhive.firebase.Classes.Retrofit.Match.MatchResponse;
@@ -110,6 +113,24 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         calendarView.setNextButtonColor(R.color.colorAccent);
         calendarView.refreshCalendar(Calendar.getInstance(Locale.getDefault()));
         calendarView.setOnDateSelectedListener(this);
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(R.id.container, new MatchRateFragment())
+                        .addToBackStack(null)
+                        .commit();
+
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
 
         final DayView dayView = calendarView.findViewByDate(new Date(System.currentTimeMillis()));
         if (null != dayView)
