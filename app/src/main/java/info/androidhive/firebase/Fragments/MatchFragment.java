@@ -33,8 +33,8 @@ import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
 import info.androidhive.firebase.Classes.RecycleViewClasses.MatchAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
-import info.androidhive.firebase.Classes.Retrofit.Match.FixtResponse;
-import info.androidhive.firebase.Classes.Retrofit.Match.Fixtures;
+import info.androidhive.firebase.Classes.Retrofit.Match.Fixture;
+import info.androidhive.firebase.Classes.Retrofit.Match.MatchResponse;
 import info.androidhive.firebase.Classes.Retrofit.Match.MatchService;
 import info.androidhive.firebase.R;
 import retrofit.Call;
@@ -44,13 +44,13 @@ import retrofit.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MatchFragment extends Fragment implements Callback<FixtResponse>, View.OnClickListener,
+public class MatchFragment extends Fragment implements Callback<MatchResponse>, View.OnClickListener,
         SheetLayout.OnFabAnimationEndListener,
         CalendarView.OnDateSelectedListener {
 
     private static final int REQUEST_CODE = 1;
 
-    private FixtResponse fixtResponse;
+    private MatchResponse matchResponse;
     private RecyclerView recyclerView;
     private MatchAdapter mAdapter;
     private View view;
@@ -93,8 +93,9 @@ public class MatchFragment extends Fragment implements Callback<FixtResponse>, V
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+
         MatchService service = ApiFactory.getMatchService();
-        Call<FixtResponse> call = service.matches();
+        Call<MatchResponse> call = service.matches();
         call.enqueue(this);
 
         sheetLayout.setFab(fabCalendar);
@@ -120,21 +121,21 @@ public class MatchFragment extends Fragment implements Callback<FixtResponse>, V
     }
 
     @Override
-    public void onResponse(Response<FixtResponse> response) {
+    public void onResponse(Response<MatchResponse> response) {
 
-        List<Fixtures> matches;
+        List<Fixture> matches;
 
         if (response.isSuccess()) {
             dialogManager.hideProgressDialog();
-            fixtResponse = response.body();
-            matches = getCorrectMatches(fixtResponse.getFixtures());
+            matchResponse = response.body();
+            matches = getCorrectMatches(matchResponse.getFixtures());
             mAdapter = new MatchAdapter(matches);
 
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setAdapter(mAdapter);
 
             //mAdapter.notifyDataSetChanged();
-            //mAdapter.swap(fixtResponse.getFixtures());
+            //mAdapter.swap(matchResponse.getFixtures());
         }
     }
 
@@ -174,7 +175,7 @@ public class MatchFragment extends Fragment implements Callback<FixtResponse>, V
         currentDate = df.format(date);
 
         MatchService service = ApiFactory.getMatchService();
-        Call<FixtResponse> call = service.matches();
+        Call<MatchResponse> call = service.matches();
         call.enqueue(this);
 
         sheetLayout.contractFab();
@@ -191,11 +192,11 @@ public class MatchFragment extends Fragment implements Callback<FixtResponse>, V
         return date;
     }
 
-    private List<Fixtures> getCorrectMatches(List<Fixtures> list) {
+    private List<Fixture> getCorrectMatches(List<Fixture> list) {
 
-        ArrayList<Fixtures> listCorrect = new ArrayList<>();
+        ArrayList<Fixture> listCorrect = new ArrayList<>();
 
-        for (Fixtures f : list) {
+        for (Fixture f : list) {
             if (currentDate.equals(ConvertDate.getDate(f.getDate()))) {
                 listCorrect.add(f);
             }

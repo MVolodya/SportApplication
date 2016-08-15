@@ -41,7 +41,8 @@ import info.androidhive.firebase.R;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener, ResponseUrl {
 
-    private int PICK_IMAGE_REQUEST = 1;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int CAMERA_REQUEST = 2;
 
 
     private TextView etUsername;
@@ -180,14 +181,25 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 final AlertDialog alertDialogFAB = alertDialogBuilderPhoto.create();
                 alertDialogFAB.show();
 
-                Button button = (Button) view.findViewById(R.id.buttonGallery);
-                button.setOnClickListener(new View.OnClickListener() {
+                Button buttonGallery = (Button) view.findViewById(R.id.buttonGallery);
+                buttonGallery.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent();
                         intent.setType("image/*");
                         intent.setAction(Intent.ACTION_GET_CONTENT);
                         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                        alertDialogFAB.dismiss();
+                        alertDialogFAB.hide();
+                    }
+                });
+
+                Button buttonCamera = (Button) view.findViewById(R.id.buttonCamera);
+                buttonCamera.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
                         alertDialogFAB.dismiss();
                         alertDialogFAB.hide();
                     }
@@ -312,7 +324,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             try {
 
                 mProgressDialog = new ProgressDialog(this);
-                mProgressDialog.setMessage("Wait...");
+                mProgressDialog.setMessage("Wait, while loading photo!");
                 mProgressDialog.setCanceledOnTouchOutside(false);
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.setIndeterminate(true);
@@ -325,6 +337,19 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage("Wait, while loading photo!");
+            mProgressDialog.setCanceledOnTouchOutside(false);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.show();
+
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            new RemoteDatabaseManager(this).uploadImage(photo, firebaseUser.getUid(), this);
         }
     }
 

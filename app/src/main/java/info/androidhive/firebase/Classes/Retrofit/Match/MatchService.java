@@ -9,6 +9,6 @@ import retrofit.http.GET;
 public interface MatchService {
 
     @GET("v1/fixtures")
-    Call<FixtResponse> matches();
+    Call<MatchResponse> matches();
 
 }

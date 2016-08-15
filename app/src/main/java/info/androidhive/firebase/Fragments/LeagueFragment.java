@@ -68,6 +68,29 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
         Call<List<LeagueModel>> call = service.leagues();
         call.enqueue(this);
 
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
+
+            @Override
+            public void onClick(View view, int position) {
+
+                DataHelper dataHelper = DataHelper.getInstance();
+                leagueId = Integer.parseInt(leagueList.get(position).getId());
+                dataHelper.setId(leagueId);
+                dataHelper.setLeagueName(leagueList.get(position).getCaption());
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(R.id.container, new LeagueTableFragment())
+                        .addToBackStack(null)
+                        .commit();
+
+                ((MainActivity)view.getContext()).hideToolbar();
+                ((MainActivity)view.getContext()).lockSwipe();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {}
+        }));
+
         return view;
     }
 
@@ -81,28 +104,7 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
             //Log.d("Retrofit", football.get(0).getId()+ " " + football.get(0).getCaption());
 
 
-            recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
 
-                @Override
-                public void onClick(View view, int position) {
-
-                    DataHelper dataHelper = DataHelper.getInstance();
-                    leagueId = Integer.parseInt(leagueList.get(position).getId());
-                    dataHelper.setId(leagueId);
-                    dataHelper.setLeagueName(leagueList.get(position).getCaption());
-
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .add(R.id.container, new LeagueTableFragment())
-                            .addToBackStack(null)
-                            .commit();
-
-                    ((MainActivity)view.getContext()).hideToolbar();
-                    ((MainActivity)view.getContext()).lockSwipe();
-                }
-
-                @Override
-                public void onLongClick(View view, int position) {}
-            }));
 
         }
     }
