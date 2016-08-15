@@ -45,6 +45,7 @@ public class RemoteDatabaseManager {
                 .setValue("");
     }
 
+
     public void uploadImage(Bitmap bitmap, String uId, final ResponseUrl responseUrl) {
 
 //        ProgressDialog progressDialog = new ProgressDialog(context);

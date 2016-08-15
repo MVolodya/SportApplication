@@ -8,15 +8,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import info.androidhive.firebase.Classes.Retrofit.Match.Fixtures;
+import info.androidhive.firebase.Classes.Retrofit.Match.Fixture;
 import info.androidhive.firebase.R;
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder> {
 
-    private List<Fixtures> fixturesList;
+    private List<Fixture> fixturesList;
 
 
-    public MatchAdapter(List<Fixtures> fixturesList) {
+    public MatchAdapter(List<Fixture> fixturesList) {
         this.fixturesList = fixturesList;
     }
 
@@ -32,7 +32,10 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
             holder.tvHomeTeam.setText(fixturesList.get(position).getHomeTeamName());
             holder.tvAwayTeam.setText(fixturesList.get(position).getAwayTeamName());
-            holder.tvHomeTeamGoal.setText(fixturesList.get(position).getMatchday().toString());
+            holder.tvHomeTeamGoal.setText(getMatchId(fixturesList.get(position)
+                                    .getLinks()
+                                    .getSelf()
+                                    .getHref()));
             holder.tvAwayTeamGoal.setText(fixturesList.get(position).getDate());
     }
 
@@ -42,15 +45,9 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
         return fixturesList.size();
     }
 
-    public void swap(List list) {
-        if (fixturesList != null) {
-            fixturesList.clear();
-            fixturesList.addAll(list);
-        } else {
-            fixturesList = list;
-        }
-        notifyDataSetChanged();
-    }
+   public String getMatchId (String link){
+       return link.substring(41);
+   }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
