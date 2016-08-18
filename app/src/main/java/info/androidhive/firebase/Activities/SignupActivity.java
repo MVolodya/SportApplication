@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import info.androidhive.firebase.Classes.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RemoteDatabaseManager;
+import info.androidhive.firebase.Classes.UserManager;
 import info.androidhive.firebase.R;
 
 public class SignupActivity extends AppCompatActivity {
@@ -100,14 +101,29 @@ public class SignupActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 } else {
 
-                                    new RemoteDatabaseManager(getApplicationContext())
-                                            .setUserData(auth.getCurrentUser().getUid(),
-                                            null, null);
+                                    long currentTime = System.currentTimeMillis();
 
-                                    localDatabaseManager.setUser(auth.getCurrentUser().getDisplayName(),
-                                            auth.getCurrentUser().getEmail(),
-                                            auth.getCurrentUser().getPhotoUrl());
-                                    startActivity(new Intent(SignupActivity.this, MainActivity.class).putExtra("user_email",email));
+                                    if(auth.getCurrentUser().getDisplayName() != null) {
+
+                                        localDatabaseManager.setUser(auth.getCurrentUser().getDisplayName(),
+                                                auth.getCurrentUser().getEmail(),
+                                                auth.getCurrentUser().getPhotoUrl());
+
+                                        new RemoteDatabaseManager(getApplicationContext())
+                                                .setUserData(auth.getCurrentUser().getDisplayName());
+                                    } else {
+
+                                        localDatabaseManager.setUser("Anonymous"+currentTime,
+                                                auth.getCurrentUser().getEmail(),
+                                                auth.getCurrentUser().getPhotoUrl());
+
+                                        UserManager.updateUsername("Anonymous"+currentTime);
+
+                                        new RemoteDatabaseManager(getApplicationContext())
+                                                .setUserData("Anonymous"+currentTime);
+                                    }
+
+                                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
                                     finish();
                                     LoginActivity.loginActivity.finish();
                                 }

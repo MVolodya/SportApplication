@@ -86,7 +86,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new LeagueFragment(), "League");
         adapter.addFragment(new MatchFragment(), "Match");
         viewPager.setAdapter(adapter);

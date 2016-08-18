@@ -3,41 +3,170 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:clickable="false"
+    android:id="@+id/containerRate">
     <!--android:padding="8dp"-->
     <RelativeLayout
-        android:id="@+id/rv"
+        android:id="@+id/relLy"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:background="@color/colorPrimary">
+        android:layout_height="200dp"
+        android:background="@drawable/football_stadium">
+
+        <RelativeLayout
+            android:id="@+id/rlll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/imageHomeTeam"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="40dp"
+                android:scaleType="fitCenter"
+                android:layout_marginStart="40dp"
+                android:layout_alignTop="@+id/textView2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/imageAwayTeam"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="42dp"
+                android:layout_above="@+id/textViewStatus"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="42dp" />
+
+            <TextView
+                android:id="@+id/tv_round"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/textViewStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/imageHomeTeam"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/imageHomeTeam"
+                android:layout_below="@+id/imageAwayTeam"
+                android:layout_marginLeft="40dp"
+                android:gravity="center"
+                android:id="@+id/textViewTeamHome"
+                android:textColor="#fff"
+                android:textSize="14sp"
+                android:ellipsize="end"
+                android:maxLength="20" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/imageAwayTeam"
+                android:layout_below="@+id/imageAwayTeam"
+                android:layout_marginRight="40dp"
+                android:gravity="center"
+                android:id="@+id/textViewTeamAway"
+                android:textColor="#fff"
+                android:textSize="14sp"
+                android:maxLength="20"
+                android:ellipsize="end" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="16dp"
+                android:gravity="center">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/textViewWin"
+                    android:textColor="#fff"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/textViewDraw"
+                    android:textColor="#fff"
+                    android:layout_weight="1"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/textViewLose"
+                    android:layout_weight="1"
+                    android:textColor="#fff"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=" - "
+                android:textColor="#fff"
+                android:textSize="45sp"
+                android:layout_below="@+id/tv_round"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/textView2" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/con"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rv">
+        android:layout_below="@+id/relLy">
 
-        <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs_match_rate"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:context="sportapp.summercamp.com.myapplicationlolo.ScrollingActivity"
-            >
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:tabGravity="fill"
+            app:tabMode="fixed" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="@string/lorem_ipsum" />
-        </android.support.v4.widget.NestedScrollView>
-
+        <info.androidhive.firebase.Classes.CustomViewPager
+            android:id="@+id/viewpager_rate"
+            android:layout_below="@+id/tabs_match_rate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
-
-
-
 
 </RelativeLayout>

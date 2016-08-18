@@ -28,10 +28,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import info.androidhive.firebase.Activities.MainActivity;
 import info.androidhive.firebase.Classes.ConvertDate;
+import info.androidhive.firebase.Classes.DataHelper;
 import info.androidhive.firebase.Classes.ProgressDialogManager;
+import info.androidhive.firebase.Classes.RecycleViewClasses.ClickListener;
 import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
 import info.androidhive.firebase.Classes.RecycleViewClasses.MatchAdapter;
+import info.androidhive.firebase.Classes.RecycleViewClasses.RecyclerTouchListener;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.Match.Fixture;
 import info.androidhive.firebase.Classes.Retrofit.Match.MatchResponse;
@@ -48,9 +52,6 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         SheetLayout.OnFabAnimationEndListener,
         CalendarView.OnDateSelectedListener {
 
-    private static final int REQUEST_CODE = 1;
-
-    private MatchResponse matchResponse;
     private RecyclerView recyclerView;
     private MatchAdapter mAdapter;
     private View view;
@@ -62,6 +63,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     private RecyclerView.LayoutManager mLayoutManager;
     private MainFragment fragment;
     private ImageView backImageView;
+    private List<Fixture> matches;
 
 
 
@@ -93,10 +95,38 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
+
+            @Override
+            public void onClick(View view, int position) {
+
+                DataHelper dataHelper = DataHelper.getInstance();
+                dataHelper.setMatchId(Integer.parseInt(MatchAdapter.getMatchId(matches.get(position)
+                        .getLinks().getSelf().getHref())));
+
+                Fragment fr =getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
+
+                if(!(fr instanceof RateFragment)){
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .add(R.id.container, new RateFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+
+
+
+                ((MainActivity)view.getContext()).hideToolbar();
+                ((MainActivity)view.getContext()).lockSwipe();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {}
+        }));
 
         MatchService service = ApiFactory.getMatchService();
         Call<MatchResponse> call = service.matches();
         call.enqueue(this);
+
 
         sheetLayout.setFab(fabCalendar);
         sheetLayout.setFabAnimationEndListener(this);
@@ -116,18 +146,17 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
             Toast.makeText(view.getContext(), "Today is: " + dayView.getText().toString() +
                     "/" + calendarView.getCurrentMonth() +
                     "/" + calendarView.getCurrentYear(), Toast.LENGTH_SHORT).show();
-
         return view;
     }
 
     @Override
     public void onResponse(Response<MatchResponse> response) {
 
-        List<Fixture> matches;
+
 
         if (response.isSuccess()) {
             dialogManager.hideProgressDialog();
-            matchResponse = response.body();
+            MatchResponse matchResponse = response.body();
             matches = getCorrectMatches(matchResponse.getFixtures());
             mAdapter = new MatchAdapter(matches);
 

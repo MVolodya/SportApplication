@@ -4,6 +4,7 @@ package info.androidhive.firebase.Classes;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -15,6 +16,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class RemoteDatabaseManager {
 
@@ -23,34 +25,37 @@ public class RemoteDatabaseManager {
     private Uri downloadUrl;
     private ProgressDialogManager progressDialogManager;
     private Context context;
+    private ArrayList<RatedMatches> ratedMatches = new ArrayList<>();;
 
     public RemoteDatabaseManager(Context context) {
         this.context = context;
         storage = FirebaseStorage.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        ratedMatches = new ArrayList<>();
     }
 
-    public void setUserData(String UID, String matchId, String points) {
+    public void setUserData(String name) {
+//        mDatabase.child(name)
+//                .child("currentPoints")
+//                .setValue("100");
+    }
 
-        mDatabase.child("users")
-                .child(UID)
-                .child("ratedMatch")
-                .child("matchId")
-                .setValue("");
+    public void setRateToDatabase(String name, String matchId, String points, String typeOfRate) {
 
-        mDatabase.child("users")
-                .child(UID)
-                .child("ratedMatch")
-                .child("points")
-                .setValue("");
+        long currentTime = System.currentTimeMillis();
+        RatedMatches ratedMatchesClass = RatedMatches.getInstance();
+        ratedMatchesClass.setMatchId(matchId);
+        ratedMatchesClass.setPoints(points);
+        ratedMatchesClass.setTypeOfRate(typeOfRate);
+
+        ratedMatches.add(ratedMatchesClass);
+
+        mDatabase.child(name)
+                .setValue(new RatedUser(name, String.valueOf(100-Double.parseDouble(points)), ratedMatches));
     }
 
 
     public void uploadImage(Bitmap bitmap, String uId, final ResponseUrl responseUrl) {
-
-//        ProgressDialog progressDialog = new ProgressDialog(context);
-//        ProgressDialogManager dialogManager = new ProgressDialogManager(context,progressDialog);
-//        progressDialogManager.showProgressDialog();
 
         StorageReference storageRef = storage.getReferenceFromUrl("gs://sportapp-28cf4.appspot.com");
         StorageReference mountainsRef = storageRef.child("images" + uId);
@@ -62,20 +67,16 @@ public class RemoteDatabaseManager {
         UploadTask uploadTask = mountainsRef.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception exception) {
-                // progressDialogManager.hideProgressDialog();
-            }
+            public void onFailure(@NonNull Exception exception) {}
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                // progressDialogManager.hideProgressDialog();
                 downloadUrl = taskSnapshot.getDownloadUrl();
                 responseUrl.setUrl(downloadUrl.toString());
-                //progressDialogManager.hideProgressDialog();
+
             }
         });
-        // return downloadUrl.toString();
+
     }
 
 

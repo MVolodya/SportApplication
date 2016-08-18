@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
 import info.androidhive.firebase.Classes.Retrofit.League.LeagueService;
 import info.androidhive.firebase.Classes.Retrofit.LeagueTable.LeagueTableService;
 import info.androidhive.firebase.Classes.Retrofit.Match.MatchService;
+import info.androidhive.firebase.Classes.Retrofit.RateMatch.RateMatchService;
+import info.androidhive.firebase.Classes.Retrofit.Team.TeamService;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
@@ -39,6 +41,16 @@ public class ApiFactory {
     @NonNull
     public static LeagueTableService getTableService() {
         return getRetrofit().create(LeagueTableService.class);
+    }
+
+    @NonNull
+    public static RateMatchService getRateMatchService() {
+        return getRetrofit().create(RateMatchService.class);
+    }
+
+    @NonNull
+    public static TeamService getTeamService() {
+        return getRetrofit().create(TeamService.class);
     }
 
     @NonNull

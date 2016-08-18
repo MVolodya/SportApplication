@@ -2,12 +2,11 @@ package info.androidhive.firebase.Classes.Retrofit.Match;
 
 import retrofit.Call;
 import retrofit.http.GET;
+import retrofit.http.Headers;
 
-/**
- * Created by andri on 29.07.2016.
- */
 public interface MatchService {
 
+    @Headers("X-Auth-Token: 1dbb704646d347ab901a406231c160a5")
     @GET("v1/fixtures")
     Call<MatchResponse> matches();
 
