@@ -5,4 +5,5 @@ package info.androidhive.firebase.Classes;
  */
 public interface ResponseUrl {
     void setUrl(String url);
+
 }

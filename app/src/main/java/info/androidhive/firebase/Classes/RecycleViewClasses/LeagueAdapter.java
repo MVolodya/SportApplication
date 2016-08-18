@@ -18,20 +18,6 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.MyViewHold
 
     private List<LeagueModel> leagueList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView caption, league, year, numberOfTeams;
-
-        public MyViewHolder(View view) {
-            super(view);
-            caption = (TextView) view.findViewById(R.id.caption);
-            year = (TextView) view.findViewById(R.id.year);
-            league = (TextView) view.findViewById(R.id.league);
-            numberOfTeams = (TextView) view.findViewById(R.id.numberOfTeams);
-
-        }
-    }
-
     public LeagueAdapter(List<LeagueModel> leagueList) {
         this.leagueList = leagueList;
     }
@@ -51,11 +37,22 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.MyViewHold
         holder.caption.setText(model.getCaption());
         holder.league.setText(model.getLeague());
         holder.year.setText(model.getYear());
-        holder.numberOfTeams.setText(model.getNumberOfTeams());
     }
 
     @Override
     public int getItemCount() {
         return leagueList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView caption, league, year;
+
+        public MyViewHolder(View view) {
+            super(view);
+            caption = (TextView) view.findViewById(R.id.caption);
+            year = (TextView) view.findViewById(R.id.league);
+            league = (TextView) view.findViewById(R.id.year);
+        }
     }
 }

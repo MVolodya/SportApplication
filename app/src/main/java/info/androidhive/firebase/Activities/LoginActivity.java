@@ -154,8 +154,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                                                 fbUser.getEmail(),
                                                 fbUser.getPhotoUrl());
 
-                                        new RemoteDatabaseManager(getApplicationContext()).setUserData(fbUser.getUid(),
-                                                null, null);
+                                        new RemoteDatabaseManager(getApplicationContext()).setUserData(fbUser.getDisplayName());
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                         finish();
                                     }else

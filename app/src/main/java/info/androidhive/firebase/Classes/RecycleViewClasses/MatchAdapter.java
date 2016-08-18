@@ -45,7 +45,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
         return fixturesList.size();
     }
 
-   public String getMatchId (String link){
+   public static String getMatchId (String link){
        return link.substring(41);
    }
 

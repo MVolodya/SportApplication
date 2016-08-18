@@ -2,6 +2,7 @@ package info.androidhive.firebase.Classes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -24,6 +25,9 @@ import java.util.concurrent.ExecutionException;
 import info.androidhive.firebase.Activities.LoginActivity;
 import info.androidhive.firebase.Activities.MainActivity;
 import info.androidhive.firebase.Activities.SettingsActivity;
+import info.androidhive.firebase.Fragments.AllUsersFragment;
+import info.androidhive.firebase.Fragments.CurrentUserRateFragment;
+import info.androidhive.firebase.Fragments.MainFragment;
 import info.androidhive.firebase.R;
 
 /**
@@ -56,27 +60,30 @@ public class NavigationDrawerManager {
                                 .withIdentifier(1)
                                 .withName("My office")
                                 .withIcon(GoogleMaterial.Icon.gmd_balance),
-                        new PrimaryDrawerItem()
+                        new SectionDrawerItem()
                                 .withIdentifier(2)
-                                .withName("News")
-                                .withIcon(GoogleMaterial.Icon.gmd_balance),
+                                .withName("Rates"),
                         new PrimaryDrawerItem()
                                 .withIdentifier(3)
-                                .withName("Feedback")
+                                .withName("All users")
+                                .withIcon(GoogleMaterial.Icon.gmd_balance),
+                        new PrimaryDrawerItem()
+                                .withIdentifier(4)
+                                .withName("My rate")
                                 .withIcon(GoogleMaterial.Icon.gmd_balance),
                         new SectionDrawerItem()
-                                .withIdentifier(4)
+                                .withIdentifier(5)
                                 .withName("Options"),
                         new SecondaryDrawerItem()
-                                .withIdentifier(5)
+                                .withIdentifier(6)
                                 .withName("FAQ")
                                 .withIcon(FontAwesome.Icon.faw_cog),
                         new SecondaryDrawerItem()
-                                .withIdentifier(6)
+                                .withIdentifier(7)
                                 .withName("Settings")
                                 .withIcon(FontAwesome.Icon.faw_cog),
                         new SecondaryDrawerItem()
-                                .withIdentifier(7)
+                                .withIdentifier(8)
                                 .withName("Exit")
                                 .withIcon(FontAwesome.Icon.faw_cog)
                 )
@@ -84,19 +91,32 @@ public class NavigationDrawerManager {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
-                        //((MainActivity)context).showToolbar();
+
 
                         int itemSelected = (int) drawerItem.getIdentifier();
+                        Fragment fr =((MainActivity) context).getSupportFragmentManager().findFragmentById(R.id.container);
 
                         if (drawerItem != null) {
                             switch (itemSelected) {
-                                case 6: {
-                                    //((MainActivity)context).hideToolbar();
-
-                                        context.startActivity(new Intent(context, SettingsActivity.class));
+                                case 3:
+                                    if(!(fr instanceof AllUsersFragment))
+                                    ((MainActivity) context).getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.container, new AllUsersFragment())
+                                            .addToBackStack(null)
+                                            .commit();
                                     break;
-                                }
+                                case 4:
+                                    if(!(fr instanceof CurrentUserRateFragment))
+                                    ((MainActivity) context).getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.container, new CurrentUserRateFragment())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    break;
                                 case 7:
+                                    context.startActivity(new Intent(context, SettingsActivity.class));
+                                    break;
+
+                                case 8:
                                     SignInManager.signOut();
                                     LocalDatabaseManager.delete();
                                     context.startActivity(new Intent(context, LoginActivity.class));

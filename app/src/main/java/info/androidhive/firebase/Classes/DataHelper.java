@@ -1,15 +1,14 @@
 package info.androidhive.firebase.Classes;
 
-/**
- * Created by andri on 06.08.2016.
- */
 public class DataHelper {
 
 
     private static DataHelper ourInstance;
     private int id;
-    private String leagueName;
+    private int matchId;
 
+
+    private String leagueName;
 
 
     public static DataHelper getInstance() {
@@ -37,4 +36,14 @@ public class DataHelper {
 
         return leagueName;
     }
+
+    public int getMatchId() {
+        return matchId;
+    }
+
+    public void setMatchId(int matchId) {
+        this.matchId = matchId;
+    }
+
+
 }
