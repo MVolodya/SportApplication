@@ -1,49 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="88dp"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:paddingBottom="10dp"
+    android:paddingBottom="8dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:paddingTop="10dp">
+    android:paddingTop="8dp">
 
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/firstteam"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/prof"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/secondteam"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/prof"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
     <TextView
         android:id="@+id/homeTeam"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:textColor="@color/title"
-        android:textStyle="bold" />
+        android:text="homeTeam"
+        android:layout_marginTop="15dp"
+   android:layout_marginLeft="72dp"
+        android:maxLength="10" />
 
     <TextView
         android:id="@+id/awayTeam"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/homeTeam"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:textColor="@color/title"
-        android:textStyle="bold"/>
+        android:text="awayTeam"
+        android:layout_marginRight="72dp"
+        android:maxLength="10"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentRight="true"
+  />
 
     <TextView
         android:id="@+id/goalsHomeTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:text="goalsHomeTeam"
         android:textColor="@color/title"
-        android:textStyle="bold" />
+        android:layout_alignBottom="@+id/firstteam"
+        android:layout_alignLeft="@+id/homeTeam"
+        android:layout_alignStart="@+id/homeTeam" />
 
     <TextView
         android:id="@+id/goalsAwayTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:textColor="@color/title"
-        android:textStyle="bold"
-        android:layout_below="@+id/goalsHomeTeam" />
-
+        android:text="goalsAwayTeam"
+        android:layout_alignBottom="@+id/firstteam"
+        android:layout_toLeftOf="@+id/secondteam"
+        android:layout_toStartOf="@+id/secondteam" />
 </RelativeLayout>
