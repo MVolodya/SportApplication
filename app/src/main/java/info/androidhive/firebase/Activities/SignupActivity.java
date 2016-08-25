@@ -109,8 +109,8 @@ public class SignupActivity extends AppCompatActivity {
                                                 auth.getCurrentUser().getEmail(),
                                                 auth.getCurrentUser().getPhotoUrl());
 
-                                        new RemoteDatabaseManager(getApplicationContext())
-                                                .setUserData(auth.getCurrentUser().getDisplayName());
+//                                        new RemoteDatabaseManager(getApplicationContext())
+//                                                .setUserData(auth.getCurrentUser().getDisplayName());
                                     } else {
 
                                         localDatabaseManager.setUser("Anonymous"+currentTime,
@@ -119,8 +119,8 @@ public class SignupActivity extends AppCompatActivity {
 
                                         UserManager.updateUsername("Anonymous"+currentTime);
 
-                                        new RemoteDatabaseManager(getApplicationContext())
-                                                .setUserData("Anonymous"+currentTime);
+//                                        new RemoteDatabaseManager(getApplicationContext())
+//                                                .setUserData("Anonymous"+currentTime);
                                     }
 
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class));

@@ -10,13 +10,18 @@ public class RatedUser {
 
     public String name;
     public String currentPoints;
-    public List<RatedMatches> ratedMatches;
+    public ArrayList<RatedMatches> ratedMatches;
 
-    public RatedUser(){}
 
-    public RatedUser(String name, String currentPoints, ArrayList<RatedMatches> ratedMatches){
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public void setCurrentPoints(String currentPoints) {
         this.currentPoints = currentPoints;
+    }
+
+    public void setRatedMatches(ArrayList<RatedMatches> ratedMatches) {
         this.ratedMatches = ratedMatches;
     }
 
@@ -24,7 +29,7 @@ public class RatedUser {
         return name;
     }
 
-    public List<RatedMatches> getRatedMatches() {
+    public ArrayList<RatedMatches> getRatedMatches() {
         return ratedMatches;
     }
 
