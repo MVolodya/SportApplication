@@ -1,51 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="88dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="@dimen/margin_16dp"
+    android:paddingRight="@dimen/margin_16dp"
     android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/textViewNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="left"
-        android:text="#"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/textViewNationality"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="left"
-        android:text="Nationality"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+   <ImageView
+       android:layout_width="50dp"
+       android:layout_height="50dp"
+       android:layout_centerVertical="true"
+       android:src="@drawable/ic_account_circle_black_36dp"
+       android:id="@+id/imageView2" />
 
     <TextView
         android:id="@+id/textView7Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="left"
         android:text="Name"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:layout_marginLeft="72dp"
+        android:fontFamily="sans-serif"
+        android:textColor="#000"
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/textViewYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="left"
         android:text="Year"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textSize="14sp"
+        android:layout_below="@+id/textView7Name"
+        android:layout_alignLeft="@+id/textView7Name"
+        android:layout_alignStart="@+id/textView7Name" />
+
+    <TextView
+        android:id="@+id/textViewNationality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="Nationality"
+        android:layout_below="@+id/textView7Name"
+        android:layout_toRightOf="@+id/textView7Name"
+        android:layout_toEndOf="@+id/textView7Name" />
+
+    <TextView
+        android:id="@+id/textViewNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="number"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_alignLeft="@+id/textViewYear"
+        android:layout_alignStart="@+id/textViewYear" />
+
+
 
     <TextView
         android:id="@+id/textViewPosition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="left"
         android:text="Position"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-</LinearLayout>
+        android:textSize="14sp"
+        android:layout_alignTop="@+id/textViewNumber"
+        android:layout_alignRight="@+id/textViewNationality"
+        android:layout_alignEnd="@+id/textViewNationality" />
+
+</RelativeLayout>
