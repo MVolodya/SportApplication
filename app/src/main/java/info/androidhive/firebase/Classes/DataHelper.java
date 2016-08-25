@@ -6,6 +6,8 @@ public class DataHelper {
     private static DataHelper ourInstance;
     private int id;
     private int matchId;
+    private int homeTeamId;
+    private int awayTeamId;
 
 
     private String leagueName;
@@ -45,5 +47,19 @@ public class DataHelper {
         this.matchId = matchId;
     }
 
+    public int getHomeTeamId() {
+        return homeTeamId;
+    }
 
+    public void setHomeTeamId(int homeTeamId) {
+        this.homeTeamId = homeTeamId;
+    }
+
+    public int getAwayTeamId() {
+        return awayTeamId;
+    }
+
+    public void setAwayTeamId(int awayTeamId) {
+        this.awayTeamId = awayTeamId;
+    }
 }

@@ -103,6 +103,8 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
                 DataHelper dataHelper = DataHelper.getInstance();
                 dataHelper.setMatchId(Integer.parseInt(MatchAdapter.getMatchId(matches.get(position)
                         .getLinks().getSelf().getHref())));
+                dataHelper.setHomeTeamId(getTeamId(matches.get(position).getLinks().getHomeTeam().getHref()));
+                dataHelper.setAwayTeamId(getTeamId(matches.get(position).getLinks().getAwayTeam().getHref()));
 
                 Fragment fr =getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
 
@@ -249,5 +251,10 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
             }
         }
         return listCorrect;
+    }
+
+    private int getTeamId(String link) {
+        Log.d("teamId", link);
+        return Integer.parseInt(link.replaceAll("http://api.football-data.org/v1/teams/", ""));
     }
 }

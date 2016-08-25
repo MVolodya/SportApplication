@@ -50,7 +50,8 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
     private void getSortedUsers(){
         Collections.sort(usersList, new Comparator<RatedUser>() {
             public int compare(RatedUser o1, RatedUser o2) {
-                return o2.currentPoints.compareTo(o1.currentPoints);
+                return Double.compare(Double.parseDouble(o2.getCurrentPoints()),
+                        Double.parseDouble(o1.getCurrentPoints()));
             }
         });
     }
