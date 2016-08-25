@@ -80,8 +80,6 @@ public class AllUsersFragment extends Fragment {
     private List<RatedUser> getUsers() {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         final List<RatedUser> ratedUserList = new ArrayList<>();
-
-       // progressView.setVisibility(View.VISIBLE);
         progressView.startAnimation();
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
