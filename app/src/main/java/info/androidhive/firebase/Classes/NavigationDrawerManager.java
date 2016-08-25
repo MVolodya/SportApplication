@@ -58,7 +58,7 @@ public class NavigationDrawerManager {
                 .addDrawerItems(
                         new PrimaryDrawerItem()
                                 .withIdentifier(1)
-                                .withName("My office")
+                                .withName("Home")
                                 .withIcon(GoogleMaterial.Icon.gmd_balance),
                         new SectionDrawerItem()
                                 .withIdentifier(2)
@@ -98,6 +98,12 @@ public class NavigationDrawerManager {
 
                         if (drawerItem != null) {
                             switch (itemSelected) {
+                                case 1:
+                                    if(!(fr instanceof MainFragment))
+                                        ((MainActivity) context).getSupportFragmentManager().beginTransaction()
+                                                .replace(R.id.container, new MainFragment())
+                                                .commit();
+                                    break;
                                 case 3:
                                     if(!(fr instanceof AllUsersFragment))
                                     ((MainActivity) context).getSupportFragmentManager().beginTransaction()
