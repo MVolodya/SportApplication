@@ -109,9 +109,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         if (providerId.equals("facebook.com") || providerId.equals("google.com")) {
             TextView tvPassword = (TextView) relativeLayout.findViewById(R.id.password_setting);
             tvPassword.setEnabled(false);
-            tvPassword.setTextColor(getResources().getColor(R.color.md_blue_grey_50));
+            tvPassword.setTextColor(getResources().getColor(R.color.disabletext));
             relativeLayout.setEnabled(false);
-            relativeLayout.setBackgroundColor(getResources().getColor(R.color.md_blue_grey_100));
+            relativeLayout.setBackgroundColor(getResources().getColor(R.color.disableback));
         } else relativeLayout.setEnabled(true);
         //end AlertDialog password
 

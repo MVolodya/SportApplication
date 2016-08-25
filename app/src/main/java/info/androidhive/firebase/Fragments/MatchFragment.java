@@ -108,7 +108,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
 
                 if(!(fr instanceof RateFragment)){
                     getActivity().getSupportFragmentManager().beginTransaction()
-                            .add(R.id.container, new RateFragment())
+                            .replace(R.id.container, new RateFragment())
                             .addToBackStack(null)
                             .commit();
                 }
@@ -145,7 +145,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
             @Override
             public void onClick(View view, int position) {
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .add(R.id.container, new MatchRateFragment())
+                        .add(R.id.container, new RateFragment())
                         .addToBackStack(null)
                         .commit();
 

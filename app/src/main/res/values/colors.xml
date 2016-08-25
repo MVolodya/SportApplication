@@ -31,6 +31,8 @@
 
     <color name="dark">#000000</color>
 
+    <color name="disableback">#DFDFDF</color>
+    <color name="disabletext">#A5A5A5</color>
 
 
 </resources>

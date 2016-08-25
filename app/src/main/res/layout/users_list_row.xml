@@ -1,34 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:layout_height="72dp"
     android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_16dp"
+        android:src="@drawable/prof" />
 
     <TextView
         android:id="@+id/textViewUserPosition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="@dimen/margin_16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
         android:text="pos"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:gravity="center" />
+        android:textSize="16sp" />
 
     <TextView
+        android:id="@+id/textViewUserRateName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif"
         android:text="name"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:gravity="center"
-        android:id="@+id/textViewUserRateName" />
+        android:textColor="#000"
+        android:textSize="16sp" />
 
     <TextView
+        android:id="@+id/textView7UserPoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_weight="1"
+        android:fontFamily="sans-serif"
+        android:paddingTop="5dp"
         android:text="points"
-        android:id="@+id/textView7UserPoints"
-        android:gravity="center" />
-</LinearLayout>
+        android:textSize="14sp"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewUserRateName"
+        android:layout_alignStart="@+id/textViewUserRateName"
+        android:layout_below="@+id/textViewUserRateName"
+        android:fontFamily="sans-serif"
+        android:paddingTop="5dp"
+        android:text="Your points: "
+        android:textSize="14sp" />
+
+</RelativeLayout>
