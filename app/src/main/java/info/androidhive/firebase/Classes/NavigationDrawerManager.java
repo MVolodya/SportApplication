@@ -30,9 +30,6 @@ import info.androidhive.firebase.Fragments.CurrentUserRateFragment;
 import info.androidhive.firebase.Fragments.MainFragment;
 import info.androidhive.firebase.R;
 
-/**
- * Created by andri on 22.07.2016.
- */
 public class NavigationDrawerManager {
 
     private Context context;
@@ -42,8 +39,6 @@ public class NavigationDrawerManager {
         this.context = context;
         this.user = user;
     }
-
-
 
     public Drawer initializeNavigationDrawer(Toolbar toolbar) throws IOException, ExecutionException, InterruptedException {
 
@@ -61,7 +56,6 @@ public class NavigationDrawerManager {
                                 .withName("Home")
                                 .withIcon(GoogleMaterial.Icon.gmd_balance),
                         new SectionDrawerItem()
-                                .withIdentifier(2)
                                 .withName("Rates"),
                         new PrimaryDrawerItem()
                                 .withIdentifier(3)
