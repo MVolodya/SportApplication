@@ -56,6 +56,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private ProgressDialog mProgressDialog;
     private ProgressDialogManager progressDialogManager;
     private RelativeLayout relativeLayout;
+    private RemoteDatabaseManager remoteDatabaseManager;
 
 
     @Override
@@ -75,6 +76,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         etEmail = (TextView) findViewById(R.id.email_setting);
         userPhoto = (ImageView) findViewById(R.id.imageViewPhoto);
 
+        remoteDatabaseManager = new RemoteDatabaseManager(this);
         localDatabaseManager = new LocalDatabaseManager(this);
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getInstance().getCurrentUser();
@@ -357,8 +359,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     public void setUrl(String url) {
 
         UserManager.updateUrl(url);
-
         LocalDatabaseManager.updateUrl(url);
+        remoteDatabaseManager.updatePhotoUrl(firebaseUser.getDisplayName(), url);
 
         Glide.with(this)
                 .load(user.getPhotoURL())

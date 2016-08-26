@@ -56,7 +56,7 @@
         android:layout_below="@+id/textViewUserRateName"
         android:fontFamily="sans-serif"
         android:paddingTop="5dp"
-        android:text="Your points: "
+        android:text="Points: "
         android:textSize="14sp" />
 
 </RelativeLayout>

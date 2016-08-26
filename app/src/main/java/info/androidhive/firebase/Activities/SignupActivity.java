@@ -2,6 +2,7 @@ package info.androidhive.firebase.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -107,20 +108,23 @@ public class SignupActivity extends AppCompatActivity {
 
                                         localDatabaseManager.setUser(auth.getCurrentUser().getDisplayName(),
                                                 auth.getCurrentUser().getEmail(),
-                                                auth.getCurrentUser().getPhotoUrl());
+                                                Uri.parse(getString(R.string.user_photo_url)));
 
                                         new RemoteDatabaseManager(getApplicationContext())
-                                                .setUserData(auth.getCurrentUser().getDisplayName());
+                                                .setUserData(auth.getCurrentUser().getDisplayName(),
+                                                        getString(R.string.user_photo_url));
                                     } else {
 
                                         localDatabaseManager.setUser("Anonymous"+currentTime,
                                                 auth.getCurrentUser().getEmail(),
-                                                auth.getCurrentUser().getPhotoUrl());
+                                                Uri.parse(getString(R.string.user_photo_url)));
 
                                         UserManager.updateUsername("Anonymous"+currentTime);
+                                        UserManager.updateUrl(getString(R.string.user_photo_url));
 
                                         new RemoteDatabaseManager(getApplicationContext())
-                                                .setUserData("Anonymous"+currentTime);
+                                                .setUserData("Anonymous"+currentTime,
+                                                        getString(R.string.user_photo_url));
                                     }
 
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class));

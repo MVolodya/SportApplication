@@ -10,6 +10,7 @@ public class RatedUser {
 
     public String name;
     public String currentPoints;
+    public String photoUrl;
     public ArrayList<RatedMatches> ratedMatches;
 
 
@@ -35,5 +36,13 @@ public class RatedUser {
 
     public String getCurrentPoints() {
         return currentPoints;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

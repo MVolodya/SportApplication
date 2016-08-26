@@ -107,7 +107,7 @@ public class RemoteDatabaseManager {
     }
 
 
-    public void setUserData(final String displayName) {
+    public void setUserData(final String displayName, final String photoUri) {
         mDatabase.child(displayName).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -115,6 +115,7 @@ public class RemoteDatabaseManager {
                 if (!dataSnapshot.exists()) {
                     mDatabase.child(displayName).child("name").setValue(displayName);
                     mDatabase.child(displayName).child("currentPoints").setValue("100");
+                    mDatabase.child(displayName).child("photoUrl").setValue(photoUri);
                 }
             }
 
@@ -123,8 +124,39 @@ public class RemoteDatabaseManager {
                 Toast.makeText(context, databaseError.toString(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    public void updatePhotoUrl(final String displayName, final String photoUri) {
+        mDatabase.child(displayName).addListenerForSingleValueEvent(new ValueEventListener() {
 
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    mDatabase.child(displayName).child("photoUrl").setValue(photoUri);
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(context, databaseError.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void updateUsername(final String displayName, final String newName) {
+        mDatabase.child(displayName).addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    mDatabase.child(displayName).child("name").setValue(newName);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(context, databaseError.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

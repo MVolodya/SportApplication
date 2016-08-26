@@ -93,10 +93,7 @@ public class NavigationDrawerManager {
                         if (drawerItem != null) {
                             switch (itemSelected) {
                                 case 1:
-                                    if(!(fr instanceof MainFragment))
-                                        ((MainActivity) context).getSupportFragmentManager().beginTransaction()
-                                                .replace(R.id.container, new MainFragment())
-                                                .commit();
+                                    ((MainActivity) context).getSupportFragmentManager().popBackStack();
                                     break;
                                 case 3:
                                     if(!(fr instanceof AllUsersFragment))
