@@ -29,7 +29,7 @@
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/football_stadium"
+                android:background="@drawable/w"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
@@ -56,18 +56,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/aaa"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:nestedScrollingEnabled="true"
-                android:text="faq"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/aaa">
+                android:layout_height="wrap_content">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/scrollableview"
