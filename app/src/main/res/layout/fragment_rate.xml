@@ -156,7 +156,7 @@
             android:id="@+id/tabs_match_rate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
+            android:background="#628f3e"
             android:theme="@style/AppTheme.AppBarOverlay"
             app:tabGravity="fill"
             app:tabMode="fixed" />
