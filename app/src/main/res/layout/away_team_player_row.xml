@@ -31,93 +31,80 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView7Name">
 
-        <TextView
-            android:id="@+id/textYear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView7Name"
-            android:layout_marginLeft="72dp"
-            android:text="Birthday: "
-            android:textSize="14sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textViewYear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/textNationality"
-            android:layout_toEndOf="@+id/textNationality"
-            android:layout_toRightOf="@+id/textNationality"
-            android:text="year"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/textYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="72dp"
+                android:text="Birthday: "
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/textPosition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/textViewNumber"
-            android:layout_toLeftOf="@+id/textViewNumber"
-            android:layout_toStartOf="@+id/textViewNumber"
-            android:text="Position: "
-            android:textSize="14sp" />
-        <TextView
-            android:id="@+id/textViewPosition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/linearLayout"
-            android:text="position"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/textViewNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="number"
+                android:textSize="14sp" />
 
+            <TextView
+                android:id="@+id/textViewYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/textYear"
+                android:layout_toRightOf="@+id/textYear"
+                android:text="year"
+                android:textSize="14sp" />
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
-        android:layout_marginLeft="72dp"
         android:layout_height="match_parent"
-        android:layout_below="@id/linearLayout">
+        android:layout_below="@id/linearLayout"
+        android:layout_marginLeft="72dp">
 
-        <TextView
-            android:id="@+id/textNationality"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textViewYear"
-            android:layout_alignStart="@+id/textViewYear"
-            android:layout_below="@+id/textViewYear"
-            android:text="Nationality: "
-            android:textSize="14sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textViewNationality"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textYear"
-            android:layout_toEndOf="@+id/textNationality"
-            android:layout_toRightOf="@+id/textNationality"
-            android:text="nationality"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/textNationality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nationality: "
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/textNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textViewNumber"
-            android:layout_toLeftOf="@+id/textViewNumber"
-            android:layout_toStartOf="@+id/textViewNumber"
-            android:text="Number: "
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/textViewNationality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/textNationality"
+                android:layout_toRightOf="@+id/textNationality"
+                android:maxLength="11"
+                android:text="nationality"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/textViewNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textViewPosition"
-            android:layout_alignStart="@+id/textViewPosition"
-            android:layout_alignTop="@+id/textViewNationality"
-            android:text="number"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/textViewPosition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:maxLength="11"
+                android:text="position"
+                android:textSize="14sp" />
 
 
-
+        </RelativeLayout>
     </LinearLayout>
+
 </RelativeLayout>
