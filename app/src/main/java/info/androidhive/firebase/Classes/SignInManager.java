@@ -12,6 +12,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -24,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import info.androidhive.firebase.Activities.MainActivity;
+import info.androidhive.firebase.R;
 
 
 public class SignInManager {
@@ -83,14 +85,16 @@ public class SignInManager {
                             Toast.makeText(context, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }else {
-
+                            Profile profile = Profile.getCurrentProfile();
                             FirebaseUser firebaseUser = auth.getInstance().getCurrentUser();
 
                             if(firebaseUser.getDisplayName() != null)
                             new RemoteDatabaseManager(context)
-                                    .setUserData(firebaseUser.getDisplayName());
+                                    .setUserData(firebaseUser.getDisplayName(),
+                                            profile.getProfilePictureUri(500, 281).toString());
                             else new RemoteDatabaseManager(context)
-                                    .setUserData("Anonymous"+System.currentTimeMillis());
+                                    .setUserData("Anonymous"+System.currentTimeMillis(),
+                                            context.getString(R.string.user_photo_url));
 
                             localDatabaseManager.setUser(firebaseUser.getDisplayName(),
                                     firebaseUser.getEmail(),
