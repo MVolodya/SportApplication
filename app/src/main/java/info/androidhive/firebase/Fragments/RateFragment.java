@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +61,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     private TextView status;
     private ImageView imageHomeTeam;
     private ImageView imageAwayTeam;
+    private ImageView backArrow;
     private CustomViewPager customViewPagerRate;
     private TabLayout tabLayout;
 
@@ -83,6 +85,8 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
 
         view = inflater.inflate(R.layout.fragment_rate, container, false);
 
+
+
         homeTeam = (TextView) view.findViewById(R.id.textViewTeamHome);
         awayTeam = (TextView) view.findViewById(R.id.textViewTeamAway);
         round = (TextView) view.findViewById(R.id.tv_round);
@@ -99,6 +103,9 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
 
         imageHomeTeam = (ImageView) view.findViewById(R.id.imageHomeTeam);
         imageAwayTeam = (ImageView) view.findViewById(R.id.imageAwayTeam);
+        backArrow = (ImageView)view.findViewById(R.id.imageViewBackArrow);
+
+        backArrow.setOnClickListener(this);
 
         dialogManager = new ProgressDialogManager(getActivity(), progressDialog);
         dialogManager.showProgressDialog();
@@ -277,6 +284,11 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
                 break;
             case R.id.textViewLose:
                 showDialog(Double.parseDouble(lose.getText().toString()), RateManager.WIN_SECOND);
+                break;
+            case R.id.imageViewBackArrow:
+                getFragmentManager().popBackStack();
+                ((MainActivity) this.view.getContext()).showToolbar();
+                ((MainActivity) this.view.getContext()).unlockSwipe();
                 break;
         }
     }
