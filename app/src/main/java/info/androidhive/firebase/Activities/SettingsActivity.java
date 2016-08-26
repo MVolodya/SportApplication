@@ -231,6 +231,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                             public void onClick(DialogInterface dialog, int which) {
                                 UserManager.updateUsername(inputUsername.getText().toString());
                                 LocalDatabaseManager.updateName(inputUsername.getText().toString());
+                                remoteDatabaseManager.updateUsername(firebaseUser.getDisplayName(),
+                                        inputUsername.getText().toString());
                                 etUsername.setText(user.getName());
                                 dialog.cancel();
                             }

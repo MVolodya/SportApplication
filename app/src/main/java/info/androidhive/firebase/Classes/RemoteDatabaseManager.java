@@ -149,7 +149,16 @@ public class RemoteDatabaseManager {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    mDatabase.child(displayName).child("name").setValue(newName);
+                    RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
+                    RatedUser newRatedUser = new RatedUser();
+
+                    newRatedUser.setName(newName);
+                    newRatedUser.setCurrentPoints(ratedUser.getCurrentPoints());
+                    newRatedUser.setPhotoUrl(ratedUser.getPhotoUrl());
+                    newRatedUser.setRatedMatches(ratedUser.getRatedMatches());
+
+                    mDatabase.child(newName).setValue(newRatedUser);
+                    mDatabase.child(displayName).removeValue();
                 }
             }
 
