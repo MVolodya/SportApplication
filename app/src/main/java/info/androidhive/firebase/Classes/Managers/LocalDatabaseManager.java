@@ -1,8 +1,9 @@
-package info.androidhive.firebase.Classes;
+package info.androidhive.firebase.Classes.Managers;
 
 import android.content.Context;
 import android.net.Uri;
 
+import info.androidhive.firebase.Classes.Models.User;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 

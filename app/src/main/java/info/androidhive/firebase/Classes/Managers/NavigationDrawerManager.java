@@ -1,4 +1,4 @@
-package info.androidhive.firebase.Classes;
+package info.androidhive.firebase.Classes.Managers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,9 +25,9 @@ import java.util.concurrent.ExecutionException;
 import info.androidhive.firebase.Activities.LoginActivity;
 import info.androidhive.firebase.Activities.MainActivity;
 import info.androidhive.firebase.Activities.SettingsActivity;
+import info.androidhive.firebase.Classes.Models.User;
 import info.androidhive.firebase.Fragments.AllUsersFragment;
 import info.androidhive.firebase.Fragments.CurrentUserRateFragment;
-import info.androidhive.firebase.Fragments.MainFragment;
 import info.androidhive.firebase.R;
 
 public class NavigationDrawerManager {

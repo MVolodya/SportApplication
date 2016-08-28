@@ -1,4 +1,4 @@
-package info.androidhive.firebase.Classes;
+package info.androidhive.firebase.Classes.Managers;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

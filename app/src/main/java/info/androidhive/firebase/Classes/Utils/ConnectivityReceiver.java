@@ -1,4 +1,4 @@
-package info.androidhive.firebase.Classes;
+package info.androidhive.firebase.Classes.Utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

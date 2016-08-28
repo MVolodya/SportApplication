@@ -29,13 +29,13 @@ import com.google.firebase.auth.UserInfo;
 
 import java.io.IOException;
 
-import info.androidhive.firebase.Classes.AlertDialogCreator;
-import info.androidhive.firebase.Classes.LocalDatabaseManager;
-import info.androidhive.firebase.Classes.ProgressDialogManager;
-import info.androidhive.firebase.Classes.RemoteDatabaseManager;
-import info.androidhive.firebase.Classes.ResponseUrl;
-import info.androidhive.firebase.Classes.User;
-import info.androidhive.firebase.Classes.UserManager;
+import info.androidhive.firebase.Classes.Utils.AlertDialogCreator;
+import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
+import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
+import info.androidhive.firebase.Classes.Managers.RemoteDatabaseManager;
+import info.androidhive.firebase.Classes.Managers.ResponseUrl;
+import info.androidhive.firebase.Classes.Models.User;
+import info.androidhive.firebase.Classes.Managers.UserManager;
 import info.androidhive.firebase.Fragments.BottomSheetFaqFragment;
 import info.androidhive.firebase.R;
 

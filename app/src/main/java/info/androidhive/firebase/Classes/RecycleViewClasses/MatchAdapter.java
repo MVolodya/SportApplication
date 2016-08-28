@@ -32,10 +32,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
             holder.tvHomeTeam.setText(fixturesList.get(position).getHomeTeamName());
             holder.tvAwayTeam.setText(fixturesList.get(position).getAwayTeamName());
-            holder.tvHomeTeamGoal.setText(getMatchId(fixturesList.get(position)
-                                    .getLinks()
-                                    .getSelf()
-                                    .getHref()));
             holder.tvAwayTeamGoal.setText(fixturesList.get(position).getDate());
     }
 
@@ -53,7 +49,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
 
         public TextView tvHomeTeam;
         public TextView tvAwayTeam;
-        public TextView tvHomeTeamGoal;
         public TextView tvAwayTeamGoal;
 
 
@@ -61,7 +56,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
             super(view);
             tvHomeTeam = (TextView) view.findViewById(R.id.homeTeam);
             tvAwayTeam = (TextView) view.findViewById(R.id.awayTeam);
-            tvHomeTeamGoal = (TextView) view.findViewById(R.id.goalsHomeTeam);
             tvAwayTeamGoal = (TextView) view.findViewById(R.id.goalsAwayTeam);
         }
     }

@@ -20,10 +20,10 @@ import java.io.InputStream;
 import java.util.List;
 
 import info.androidhive.firebase.Classes.Retrofit.LeagueTable.Standing;
-import info.androidhive.firebase.Classes.SvgDecoder;
-import info.androidhive.firebase.Classes.SvgSoftwareLayerSetter;
+import info.androidhive.firebase.Classes.Utils.SvgDecoder;
+import info.androidhive.firebase.Classes.Utils.SvgSoftwareLayerSetter;
 import info.androidhive.firebase.R;
-import info.androidhive.firebase.Classes.SvgDrawableTranscoder;
+import info.androidhive.firebase.Classes.Utils.SvgDrawableTranscoder;
 
 /**
  * Created by andri on 05.08.2016.

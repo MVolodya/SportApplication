@@ -1,6 +1,8 @@
-package info.androidhive.firebase.Classes;
+package info.androidhive.firebase.Classes.Managers;
 
 import android.content.Context;
+
+import info.androidhive.firebase.Classes.Managers.RemoteDatabaseManager;
 
 
 public class RateManager {

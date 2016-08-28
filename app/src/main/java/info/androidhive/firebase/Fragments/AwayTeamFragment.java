@@ -10,14 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
-import info.androidhive.firebase.Classes.DataHelper;
+import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.RecycleViewClasses.AwayTeamPlayerAdapter;
 import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
-import info.androidhive.firebase.Classes.RecycleViewClasses.HomeTeamPlayerAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
-import info.androidhive.firebase.Classes.Retrofit.Players.Player;
 import info.androidhive.firebase.Classes.Retrofit.Players.PlayersResponse;
 import info.androidhive.firebase.Classes.Retrofit.Players.PlayersService;
 import info.androidhive.firebase.R;

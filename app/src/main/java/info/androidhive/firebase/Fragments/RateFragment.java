@@ -8,8 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,20 +26,20 @@ import com.caverock.androidsvg.SVG;
 import java.io.InputStream;
 
 import info.androidhive.firebase.Activities.MainActivity;
-import info.androidhive.firebase.Classes.CustomViewPager;
-import info.androidhive.firebase.Classes.DataHelper;
-import info.androidhive.firebase.Classes.MaterialDialogManager;
-import info.androidhive.firebase.Classes.ProgressDialogManager;
-import info.androidhive.firebase.Classes.RateManager;
-import info.androidhive.firebase.Classes.RateViewPagerAdapter;
+import info.androidhive.firebase.Classes.Utils.CustomViewPager;
+import info.androidhive.firebase.Classes.Models.DataHelper;
+import info.androidhive.firebase.Classes.Managers.MaterialDialogManager;
+import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
+import info.androidhive.firebase.Classes.Managers.RateManager;
+import info.androidhive.firebase.Classes.Managers.RateViewPagerAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.RateMatch.RateMatchResponse;
 import info.androidhive.firebase.Classes.Retrofit.RateMatch.RateMatchService;
 import info.androidhive.firebase.Classes.Retrofit.Team.TeamResponse;
 import info.androidhive.firebase.Classes.Retrofit.Team.TeamService;
-import info.androidhive.firebase.Classes.SvgDecoder;
-import info.androidhive.firebase.Classes.SvgDrawableTranscoder;
-import info.androidhive.firebase.Classes.SvgSoftwareLayerSetter;
+import info.androidhive.firebase.Classes.Utils.SvgDecoder;
+import info.androidhive.firebase.Classes.Utils.SvgDrawableTranscoder;
+import info.androidhive.firebase.Classes.Utils.SvgSoftwareLayerSetter;
 import info.androidhive.firebase.R;
 import retrofit.Call;
 import retrofit.Callback;
@@ -59,6 +57,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     private TextView lose;
     private TextView round;
     private TextView status;
+    private TextView result;
     private ImageView imageHomeTeam;
     private ImageView imageAwayTeam;
     private ImageView backArrow;
@@ -85,8 +84,6 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
 
         view = inflater.inflate(R.layout.fragment_rate, container, false);
 
-
-
         homeTeam = (TextView) view.findViewById(R.id.textViewTeamHome);
         awayTeam = (TextView) view.findViewById(R.id.textViewTeamAway);
         round = (TextView) view.findViewById(R.id.tv_round);
@@ -94,8 +91,9 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         wins = (TextView) view.findViewById(R.id.textViewWin);
         draw = (TextView) view.findViewById(R.id.textViewDraw);
         lose = (TextView) view.findViewById(R.id.textViewLose);
-        customViewPagerRate = (CustomViewPager)view.findViewById(R.id.viewpager_rate);
-        tabLayout = (TabLayout)view.findViewById(R.id.tabs_match_rate);
+        result = (TextView) view.findViewById(R.id.textView2);
+        customViewPagerRate = (CustomViewPager) view.findViewById(R.id.viewpager_rate);
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs_match_rate);
 
         wins.setOnClickListener(this);
         draw.setOnClickListener(this);
@@ -103,7 +101,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
 
         imageHomeTeam = (ImageView) view.findViewById(R.id.imageHomeTeam);
         imageAwayTeam = (ImageView) view.findViewById(R.id.imageAwayTeam);
-        backArrow = (ImageView)view.findViewById(R.id.imageViewBackArrow);
+        backArrow = (ImageView) view.findViewById(R.id.imageViewBackArrow);
 
         backArrow.setOnClickListener(this);
 
@@ -127,7 +125,6 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         RateMatchService service = ApiFactory.getRateMatchService();
         Call<RateMatchResponse> call = service.match(dataHelper.getMatchId());
         call.enqueue(this);
-
 
 
         return view;
@@ -179,16 +176,32 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         awayTeam.setText(rateMatchResponse.getFixture().getAwayTeamName());
         round.setText("Round of " + rateMatchResponse.getFixture().getMatchday().toString());
         status.setText(rateMatchResponse.getFixture().getStatus());
-        if (rateMatchResponse.getFixture().getOdds() != null) {
-            wins.setText(rateMatchResponse.getFixture().getOdds().getHomeWin().toString());
-            draw.setText(rateMatchResponse.getFixture().getOdds().getDraw().toString());
-            lose.setText(rateMatchResponse.getFixture().getOdds().getAwayWin().toString());
-        } else {
-            wins.setText("2");
-            draw.setText("4");
-            lose.setText("2");
+
+
+
+
+        if (rateMatchResponse.getFixture().getResult().getGoalsHomeTeam() != null
+                && rateMatchResponse.getFixture().getResult().getGoalsAwayTeam() != null) {
+            String r = String.valueOf(rateMatchResponse.getFixture().getResult().getGoalsHomeTeam().toString())+ " - " +
+                    rateMatchResponse.getFixture().getResult().getGoalsAwayTeam().toString();
+            result.setText(r);
         }
 
+        if(!rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
+            if (rateMatchResponse.getFixture().getOdds() != null) {
+                wins.setText(rateMatchResponse.getFixture().getOdds().getHomeWin().toString());
+                draw.setText(rateMatchResponse.getFixture().getOdds().getDraw().toString());
+                lose.setText(rateMatchResponse.getFixture().getOdds().getAwayWin().toString());
+            } else {
+                wins.setText("2");
+                draw.setText("4");
+                lose.setText("2");
+            }
+        }else{
+            wins.setVisibility(View.GONE);
+            draw.setVisibility(View.GONE);
+            lose.setVisibility(View.GONE);
+        }
 
     }
 
@@ -269,7 +282,8 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
             }
 
             @Override
-            public void onFailure(Throwable t) {}
+            public void onFailure(Throwable t) {
+            }
         });
     }
 
