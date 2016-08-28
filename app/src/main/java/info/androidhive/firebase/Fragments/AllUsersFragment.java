@@ -97,6 +97,7 @@ private CircleRefreshLayout refreshLayout;
             }
         });
 
+        
 
         return ratedUserList;
     }
