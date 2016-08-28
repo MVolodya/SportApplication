@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-import info.androidhive.firebase.Classes.ProgressDialogManager;
+import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
 import info.androidhive.firebase.R;
 
 public class ResetPasswordActivity extends AppCompatActivity {

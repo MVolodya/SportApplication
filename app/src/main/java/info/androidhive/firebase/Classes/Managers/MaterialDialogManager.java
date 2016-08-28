@@ -1,10 +1,9 @@
-package info.androidhive.firebase.Classes;
+package info.androidhive.firebase.Classes.Managers;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -13,12 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import info.androidhive.firebase.Activities.MainActivity;
 import info.androidhive.firebase.R;
 
 

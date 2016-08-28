@@ -29,9 +29,9 @@ import java.util.List;
 import java.util.Locale;
 
 import info.androidhive.firebase.Activities.MainActivity;
-import info.androidhive.firebase.Classes.ConvertDate;
-import info.androidhive.firebase.Classes.DataHelper;
-import info.androidhive.firebase.Classes.ProgressDialogManager;
+import info.androidhive.firebase.Classes.Utils.ConvertDate;
+import info.androidhive.firebase.Classes.Models.DataHelper;
+import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RecycleViewClasses.ClickListener;
 import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
 import info.androidhive.firebase.Classes.RecycleViewClasses.MatchAdapter;
@@ -159,13 +159,6 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
 
             }
         }));
-
-
-        final DayView dayView = calendarView.findViewByDate(new Date(System.currentTimeMillis()));
-        if (null != dayView)
-            Toast.makeText(view.getContext(), "Today is: " + dayView.getText().toString() +
-                    "/" + calendarView.getCurrentMonth() +
-                    "/" + calendarView.getCurrentYear(), Toast.LENGTH_SHORT).show();
         return view;
     }
 

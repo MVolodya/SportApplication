@@ -1,12 +1,10 @@
-package info.androidhive.firebase.Classes;
+package info.androidhive.firebase.Classes.Managers;
 
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,9 +20,9 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
-import info.androidhive.firebase.Classes.RecycleViewClasses.AllUsersAdapter;
+import info.androidhive.firebase.Classes.Models.RatedMatches;
+import info.androidhive.firebase.Classes.Models.RatedUser;
 
 public class RemoteDatabaseManager {
 

@@ -1,4 +1,4 @@
-package info.androidhive.firebase.Classes;
+package info.androidhive.firebase.Classes.Models;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

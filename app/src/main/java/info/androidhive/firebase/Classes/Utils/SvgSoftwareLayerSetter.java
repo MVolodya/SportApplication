@@ -1,4 +1,4 @@
-package info.androidhive.firebase.Classes;
+package info.androidhive.firebase.Classes.Utils;
 
 import android.graphics.drawable.PictureDrawable;
 import android.os.Build;

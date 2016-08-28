@@ -17,8 +17,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import info.androidhive.firebase.Classes.ConnectivityReceiver;
-import info.androidhive.firebase.Classes.CustomViewPager;
+import info.androidhive.firebase.Classes.Utils.ConnectivityReceiver;
+import info.androidhive.firebase.Classes.Utils.CustomViewPager;
 import info.androidhive.firebase.R;
 
 /**

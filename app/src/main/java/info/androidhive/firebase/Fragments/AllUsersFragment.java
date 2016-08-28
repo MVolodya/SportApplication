@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.widget.Toast;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +22,7 @@ import com.tuesda.walker.circlerefresh.CircleRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import info.androidhive.firebase.Classes.RatedUser;
+import info.androidhive.firebase.Classes.Models.RatedUser;
 import info.androidhive.firebase.Classes.RecycleViewClasses.AllUsersAdapter;
 import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
 import info.androidhive.firebase.R;
@@ -86,6 +85,7 @@ private CircleRefreshLayout refreshLayout;
                 }
                 progressView.stopAnimation();
                 progressView.setVisibility(View.GONE);
+                refreshLayout.finishRefreshing();
                 refreshLayout.finishRefreshing();
                 usersAdapter = new AllUsersAdapter(ratedUserList);
                 recyclerView.setAdapter(usersAdapter);

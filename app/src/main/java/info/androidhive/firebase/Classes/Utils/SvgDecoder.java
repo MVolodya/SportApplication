@@ -1,4 +1,4 @@
-package info.androidhive.firebase.Classes;
+package info.androidhive.firebase.Classes.Utils;
 
 import com.bumptech.glide.load.ResourceDecoder;
 import com.bumptech.glide.load.engine.Resource;

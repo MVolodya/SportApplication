@@ -7,17 +7,17 @@ public class Result {
 
     @SerializedName("goalsHomeTeam")
     @Expose
-    private Object goalsHomeTeam;
+    private Integer goalsHomeTeam;
     @SerializedName("goalsAwayTeam")
     @Expose
-    private Object goalsAwayTeam;
+    private Integer goalsAwayTeam;
 
     /**
      *
      * @return
      * The goalsHomeTeam
      */
-    public Object getGoalsHomeTeam() {
+    public Integer getGoalsHomeTeam() {
         return goalsHomeTeam;
     }
 
@@ -26,7 +26,7 @@ public class Result {
      * @param goalsHomeTeam
      * The goalsHomeTeam
      */
-    public void setGoalsHomeTeam(Object goalsHomeTeam) {
+    public void setGoalsHomeTeam(Integer goalsHomeTeam) {
         this.goalsHomeTeam = goalsHomeTeam;
     }
 
@@ -35,7 +35,7 @@ public class Result {
      * @return
      * The goalsAwayTeam
      */
-    public Object getGoalsAwayTeam() {
+    public Integer getGoalsAwayTeam() {
         return goalsAwayTeam;
     }
 
@@ -44,7 +44,7 @@ public class Result {
      * @param goalsAwayTeam
      * The goalsAwayTeam
      */
-    public void setGoalsAwayTeam(Object goalsAwayTeam) {
+    public void setGoalsAwayTeam(Integer goalsAwayTeam) {
         this.goalsAwayTeam = goalsAwayTeam;
     }
 

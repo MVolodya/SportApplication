@@ -20,10 +20,10 @@ import com.mikepenz.materialdrawer.Drawer;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-import info.androidhive.firebase.Classes.ConnectivityReceiver;
-import info.androidhive.firebase.Classes.LocalDatabaseManager;
-import info.androidhive.firebase.Classes.NavigationDrawerManager;
-import info.androidhive.firebase.Classes.User;
+import info.androidhive.firebase.Classes.Utils.ConnectivityReceiver;
+import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
+import info.androidhive.firebase.Classes.Managers.NavigationDrawerManager;
+import info.androidhive.firebase.Classes.Models.User;
 import info.androidhive.firebase.Fragments.MainFragment;
 import info.androidhive.firebase.R;
 

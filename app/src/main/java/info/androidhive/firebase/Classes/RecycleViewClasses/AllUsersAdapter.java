@@ -1,6 +1,5 @@
 package info.androidhive.firebase.Classes.RecycleViewClasses;
 
-import android.provider.Telephony;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +11,9 @@ import com.bumptech.glide.Glide;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import info.androidhive.firebase.Classes.RatedUser;
-import info.androidhive.firebase.Classes.Retrofit.League.LeagueModel;
+import info.androidhive.firebase.Classes.Models.RatedUser;
 import info.androidhive.firebase.R;
 
 

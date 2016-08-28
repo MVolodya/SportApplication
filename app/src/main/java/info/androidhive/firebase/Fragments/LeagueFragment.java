@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.firebase.Activities.MainActivity;
-import info.androidhive.firebase.Classes.DataHelper;
-import info.androidhive.firebase.Classes.ProgressDialogManager;
+import info.androidhive.firebase.Classes.Models.DataHelper;
+import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RecycleViewClasses.ClickListener;
 import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
 import info.androidhive.firebase.Classes.RecycleViewClasses.LeagueAdapter;

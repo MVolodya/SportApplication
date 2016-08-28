@@ -23,10 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import info.androidhive.firebase.Classes.Rate;
-import info.androidhive.firebase.Classes.RatedMatches;
-import info.androidhive.firebase.Classes.RatedUser;
-import info.androidhive.firebase.Classes.RecycleViewClasses.AllUsersAdapter;
+import info.androidhive.firebase.Classes.Models.Rate;
+import info.androidhive.firebase.Classes.Models.RatedMatches;
+import info.androidhive.firebase.Classes.Models.RatedUser;
 import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
 import info.androidhive.firebase.Classes.RecycleViewClasses.UsersRateAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;

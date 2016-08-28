@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import info.androidhive.firebase.Classes.DataHelper;
+import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
 import info.androidhive.firebase.Classes.RecycleViewClasses.HomeTeamPlayerAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;

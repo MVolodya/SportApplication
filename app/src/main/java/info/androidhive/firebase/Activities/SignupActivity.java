@@ -17,10 +17,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import info.androidhive.firebase.Classes.LocalDatabaseManager;
-import info.androidhive.firebase.Classes.ProgressDialogManager;
-import info.androidhive.firebase.Classes.RemoteDatabaseManager;
-import info.androidhive.firebase.Classes.UserManager;
+import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
+import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
+import info.androidhive.firebase.Classes.Managers.RemoteDatabaseManager;
+import info.androidhive.firebase.Classes.Managers.UserManager;
 import info.androidhive.firebase.R;
 
 public class SignupActivity extends AppCompatActivity {

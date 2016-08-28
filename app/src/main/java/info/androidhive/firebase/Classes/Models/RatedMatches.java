@@ -1,4 +1,4 @@
-package info.androidhive.firebase.Classes;
+package info.androidhive.firebase.Classes.Models;
 
 /**
  * Created by andrii on 17.08.16.
