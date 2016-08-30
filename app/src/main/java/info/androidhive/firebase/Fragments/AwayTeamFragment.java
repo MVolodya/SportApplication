@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import info.androidhive.firebase.Classes.Models.DataHelper;
-import info.androidhive.firebase.Classes.RecycleViewClasses.AwayTeamPlayerAdapter;
-import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.AwayTeamPlayerAdapter;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.DividerItemDecoration;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.Players.PlayersResponse;
 import info.androidhive.firebase.Classes.Retrofit.Players.PlayersService;

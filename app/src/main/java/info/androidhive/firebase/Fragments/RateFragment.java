@@ -23,6 +23,7 @@ import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import info.androidhive.firebase.Activities.MainActivity;
@@ -31,7 +32,7 @@ import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Managers.MaterialDialogManager;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
 import info.androidhive.firebase.Classes.Managers.RateManager;
-import info.androidhive.firebase.Classes.Managers.RateViewPagerAdapter;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.RateViewPagerAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.RateMatch.RateMatchResponse;
 import info.androidhive.firebase.Classes.Retrofit.RateMatch.RateMatchService;
@@ -222,6 +223,14 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
             @Override
             public void onResponse(Response<TeamResponse> response) {
 
+                if(response.errorBody()!=null)
+                    try {
+                        String er = response.errorBody().string();
+                        System.out.print(er);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 TeamResponse teamResponse = response.body();
                 String linkHomeTeamImage = teamResponse.getCrestUrl();
 
@@ -260,6 +269,14 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         callTeam.enqueue(new Callback<TeamResponse>() {
             @Override
             public void onResponse(Response<TeamResponse> response) {
+
+                if(response.errorBody()!=null)
+                    try {
+                        String er = response.errorBody().string();
+                        System.out.print(er);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 TeamResponse teamResponse = response.body();
                 String linkAwayTeamImage = teamResponse.getCrestUrl();

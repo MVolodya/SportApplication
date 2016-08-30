@@ -20,7 +20,7 @@ import java.util.List;
 import info.androidhive.firebase.Activities.MainActivity;
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
-import info.androidhive.firebase.Classes.RecycleViewClasses.LeagueTableAdapter;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.LeagueTableAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.LeagueTable.LeagueTableResponse;
 import info.androidhive.firebase.Classes.Retrofit.LeagueTable.LeagueTableService;

@@ -1,4 +1,4 @@
-package info.androidhive.firebase.Classes.Managers;
+package info.androidhive.firebase.Classes.RecycleViewAdapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

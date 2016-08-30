@@ -30,7 +30,6 @@
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
     <string name="facebook_app_id">1150276381681321</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fbloginText">Facebook</string>
     <string name="googleloginText">Google+</string>
@@ -39,6 +38,17 @@
     <string name="save">Save</string>
     <string name="error_while_loading_data_please_check_your_network_connection">Error while loading data! Please check your network connection!</string>
     <string name="try_again">Try again</string>
+
+    <!--Start ND strings -->
+    <string name="nd_home">Home</string>
+    <string name="nd_sub_rates">Rates</string>
+    <string name="nd_all_users">All users</string>
+    <string name="nd_my_rates">My rates</string>
+    <string name="nd_sub_option">Options</string>
+    <string name="nd_settings">Settings</string>
+    <string name="nd_exit">Exit</string>
+    <!--End ND strings -->
+
 
     <!-- Start Settings -->
     <string name="settings_username_title">Username</string>

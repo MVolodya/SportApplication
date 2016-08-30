@@ -3,20 +3,22 @@ package info.androidhive.firebase.Classes.Models;
 /**
  * Created by andrii on 17.08.16.
  */
-public class RatedMatches {
+public class RatedMatchesToDB {
 
     public String matchId;
     public String points;
     public String typeOfRate;
-    private static RatedMatches ratedMatches;
+    public String status;
 
-    public static RatedMatches getInstance() {
+    private static RatedMatchesToDB ratedMatches;
 
-        if(ratedMatches == null) ratedMatches = new RatedMatches();
+    public static RatedMatchesToDB getInstance() {
+
+        if(ratedMatches == null) ratedMatches = new RatedMatchesToDB();
         return ratedMatches;
     }
 
-    private RatedMatches(){}
+    private RatedMatchesToDB(){}
 
     public void setMatchId(String matchId) {
         this.matchId = matchId;
@@ -40,5 +42,13 @@ public class RatedMatches {
 
     public void setTypeOfRate(String typeOfRate) {
         this.typeOfRate = typeOfRate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -1,4 +1,4 @@
-package info.androidhive.firebase.Classes.RecycleViewClasses;
+package info.androidhive.firebase.Classes.RecycleViewAdapters;
 
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;

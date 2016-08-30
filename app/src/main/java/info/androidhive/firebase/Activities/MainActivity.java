@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -15,30 +14,24 @@ import android.widget.TextView;
 import com.facebook.AccessToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.mikepenz.materialdrawer.Drawer;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import info.androidhive.firebase.Classes.Utils.ConnectivityReceiver;
 import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
-import info.androidhive.firebase.Classes.Managers.NavigationDrawerManager;
 import info.androidhive.firebase.Classes.Models.User;
 import info.androidhive.firebase.Fragments.MainFragment;
 import info.androidhive.firebase.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends NavigationDrawerActivity {
 
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
-    private Drawer result;
     private LocalDatabaseManager localDatabaseManager;
     private FirebaseUser user;
 
     private Toolbar toolbar;
-
-
-    private NavigationDrawerManager drawerManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
 //        RemoteDatabaseManager remoteDatabaseManager = new RemoteDatabaseManager(this);
 //        remoteDatabaseManager.setUserData(user.getUid(),"jjj","1000");
-
-        drawerManager = new NavigationDrawerManager(this, userCustom);
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -77,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         try {
-            result = drawerManager.initializeNavigationDrawer(toolbar);
+            initializeNavigationDrawer(toolbar, userCustom);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

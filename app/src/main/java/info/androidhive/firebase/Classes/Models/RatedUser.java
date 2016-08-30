@@ -1,6 +1,6 @@
 package info.androidhive.firebase.Classes.Models;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by andrii on 17.08.16.
@@ -10,7 +10,7 @@ public class RatedUser {
     public String name;
     public String currentPoints;
     public String photoUrl;
-    public ArrayList<RatedMatches> ratedMatches;
+    public List<RatedMatchesToDB> ratedMatches;
 
 
     public void setName(String name) {
@@ -21,7 +21,7 @@ public class RatedUser {
         this.currentPoints = currentPoints;
     }
 
-    public void setRatedMatches(ArrayList<RatedMatches> ratedMatches) {
+    public void setRatedMatches(List<RatedMatchesToDB> ratedMatches) {
         this.ratedMatches = ratedMatches;
     }
 
@@ -29,7 +29,7 @@ public class RatedUser {
         return name;
     }
 
-    public ArrayList<RatedMatches> getRatedMatches() {
+    public List<RatedMatchesToDB> getRatedMatches() {
         return ratedMatches;
     }
 

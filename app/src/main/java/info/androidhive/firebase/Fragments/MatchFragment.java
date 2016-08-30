@@ -14,11 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.github.fabtransitionactivity.SheetLayout;
 import com.samsistemas.calendarview.widget.CalendarView;
-import com.samsistemas.calendarview.widget.DayView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,10 +30,10 @@ import info.androidhive.firebase.Activities.MainActivity;
 import info.androidhive.firebase.Classes.Utils.ConvertDate;
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
-import info.androidhive.firebase.Classes.RecycleViewClasses.ClickListener;
-import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
-import info.androidhive.firebase.Classes.RecycleViewClasses.MatchAdapter;
-import info.androidhive.firebase.Classes.RecycleViewClasses.RecyclerTouchListener;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.ClickListener;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.DividerItemDecoration;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.MatchAdapter;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.RecyclerTouchListener;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.Match.Fixture;
 import info.androidhive.firebase.Classes.Retrofit.Match.MatchResponse;
@@ -64,7 +62,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     private MainFragment fragment;
     private ImageView backImageView;
     private List<Fixture> matches;
-
+    private MatchResponse matchResponse;
 
 
     private String currentDate = getCurrentDate();
@@ -79,7 +77,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_match, container, false);
 
-        fragment = (MainFragment)getActivity().getSupportFragmentManager().findFragmentByTag("main");
+        fragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("main");
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_match);
         fabCalendar = (FloatingActionButton) view.findViewById(R.id.fabCalendar);
@@ -106,23 +104,23 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
                 dataHelper.setHomeTeamId(getTeamId(matches.get(position).getLinks().getHomeTeam().getHref()));
                 dataHelper.setAwayTeamId(getTeamId(matches.get(position).getLinks().getAwayTeam().getHref()));
 
-                Fragment fr =getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
+                Fragment fr = getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
 
-                if(!(fr instanceof RateFragment)){
+                if (!(fr instanceof RateFragment)) {
                     getActivity().getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                             .replace(R.id.container, new RateFragment())
                             .addToBackStack(null)
                             .commit();
                 }
 
-
-
-                ((MainActivity)view.getContext()).hideToolbar();
-                ((MainActivity)view.getContext()).lockSwipe();
+                ((MainActivity) view.getContext()).hideToolbar();
+                ((MainActivity) view.getContext()).lockSwipe();
             }
 
             @Override
-            public void onLongClick(View view, int position) {}
+            public void onLongClick(View view, int position) {
+            }
         }));
 
         MatchService service = ApiFactory.getMatchService();
@@ -143,33 +141,14 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         calendarView.refreshCalendar(Calendar.getInstance(Locale.getDefault()));
         calendarView.setOnDateSelectedListener(this);
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .add(R.id.container, new RateFragment())
-                        .addToBackStack(null)
-                        .commit();
-
-
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
         return view;
     }
 
     @Override
     public void onResponse(Response<MatchResponse> response) {
-
-
-
         if (response.isSuccess()) {
             dialogManager.hideProgressDialog();
-            MatchResponse matchResponse = response.body();
+            matchResponse = response.body();
             matches = getCorrectMatches(matchResponse.getFixtures());
             mAdapter = new MatchAdapter(matches);
 
@@ -190,7 +169,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.fabCalendar:
                 sheetLayout.expandFab();
                 fragment.hideTabs();

@@ -7,10 +7,10 @@ public class Result {
 
     @SerializedName("goalsHomeTeam")
     @Expose
-    private Object goalsHomeTeam;
+    private Integer goalsHomeTeam;
     @SerializedName("goalsAwayTeam")
     @Expose
-    private Object goalsAwayTeam;
+    private Integer goalsAwayTeam;
 
     /**
      *
@@ -26,7 +26,7 @@ public class Result {
      * @param goalsHomeTeam
      * The goalsHomeTeam
      */
-    public void setGoalsHomeTeam(Object goalsHomeTeam) {
+    public void setGoalsHomeTeam(Integer goalsHomeTeam) {
         this.goalsHomeTeam = goalsHomeTeam;
     }
 
@@ -44,7 +44,7 @@ public class Result {
      * @param goalsAwayTeam
      * The goalsAwayTeam
      */
-    public void setGoalsAwayTeam(Object goalsAwayTeam) {
+    public void setGoalsAwayTeam(Integer goalsAwayTeam) {
         this.goalsAwayTeam = goalsAwayTeam;
     }
 

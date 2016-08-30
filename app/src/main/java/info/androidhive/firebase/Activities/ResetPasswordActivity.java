@@ -1,6 +1,8 @@
 package info.androidhive.firebase.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ProgressDialog progressDialog;
     private ProgressDialogManager dialogManager;
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, ResetPasswordActivity.class);
+//        starter.putExtra();
+        context.startActivity(starter);
+    }
 
 
     @Override

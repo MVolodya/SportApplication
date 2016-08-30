@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.firebase.Classes.Models.RatedUser;
-import info.androidhive.firebase.Classes.RecycleViewClasses.AllUsersAdapter;
-import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.AllUsersAdapter;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.DividerItemDecoration;
 import info.androidhive.firebase.R;
 
 /**
@@ -63,6 +63,7 @@ private CircleRefreshLayout refreshLayout;
                     @Override
                     public void refreshing() {
                         getUsers();
+                        refreshLayout.finishRefreshing();
                     }
                     @Override
                     public void completeRefresh() {}
@@ -85,8 +86,6 @@ private CircleRefreshLayout refreshLayout;
                 }
                 progressView.stopAnimation();
                 progressView.setVisibility(View.GONE);
-                refreshLayout.finishRefreshing();
-                refreshLayout.finishRefreshing();
                 usersAdapter = new AllUsersAdapter(ratedUserList);
                 recyclerView.setAdapter(usersAdapter);
             }

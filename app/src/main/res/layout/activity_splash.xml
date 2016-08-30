@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lib="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
@@ -47,6 +48,19 @@
             android:layout_alignLeft="@+id/textView5"
             android:layout_alignStart="@+id/textView5"
             android:padding="15dp" />
+
+        <com.github.glomadrian.loadingballs.BallView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            lib:balls="10"
+            lib:movement_cycle_time="2500"
+            lib:enable_size_animation="false"
+            lib:ball_colors="@array/colors"
+            lib:path="star"
+            lib:ball_size="5dp"
+            android:layout_gravity="center"
+            android:layout_above="@+id/textView6"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
