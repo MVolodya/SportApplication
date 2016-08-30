@@ -42,8 +42,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     private SignInManager signInManager;
 
     private LocalDatabaseManager localDatabaseManager;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
     private ProgressDialogManager dialogManager;
 

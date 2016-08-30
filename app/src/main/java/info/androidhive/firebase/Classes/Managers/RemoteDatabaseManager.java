@@ -20,8 +20,9 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
-import info.androidhive.firebase.Classes.Models.RatedMatches;
+import info.androidhive.firebase.Classes.Models.RatedMatchesToDB;
 import info.androidhive.firebase.Classes.Models.RatedUser;
 
 public class RemoteDatabaseManager {
@@ -40,11 +41,14 @@ public class RemoteDatabaseManager {
     }
 
 
-    public void setRateToDatabase(final String name, String matchId, final String points, String typeOfRate) {
-        final RatedMatches ratedMatchesClass = RatedMatches.getInstance();
+    public void setRateToDatabase(final String name, String matchId, final String pointsRate,
+                                  final String points,
+                                  String typeOfRate) {
+        final RatedMatchesToDB ratedMatchesClass = RatedMatchesToDB.getInstance();
         ratedMatchesClass.setMatchId(matchId);
-        ratedMatchesClass.setPoints(points);
+        ratedMatchesClass.setPoints(pointsRate);
         ratedMatchesClass.setTypeOfRate(typeOfRate);
+        ratedMatchesClass.setStatus("unchecked");
 
         mDatabase.child(name).addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -55,7 +59,7 @@ public class RemoteDatabaseManager {
                 ratedUser.setCurrentPoints(String.valueOf(
                         Double.parseDouble(ratedUser.getCurrentPoints()) - Double.parseDouble(points)));
 
-                ArrayList<RatedMatches> ratedMatches;
+                List<RatedMatchesToDB> ratedMatches;
 
                 if (dataSnapshot.getValue(RatedUser.class).getRatedMatches() != null) {
                     ratedMatches = dataSnapshot.getValue(RatedUser.class).getRatedMatches();

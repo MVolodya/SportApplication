@@ -1,4 +1,4 @@
-package info.androidhive.firebase.Classes.RecycleViewClasses;
+package info.androidhive.firebase.Classes.RecycleViewAdapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

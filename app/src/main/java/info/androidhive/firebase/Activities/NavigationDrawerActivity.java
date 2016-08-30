@@ -1,52 +1,63 @@
-package info.androidhive.firebase.Classes.Managers;
+package info.androidhive.firebase.Activities;
 
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.materialize.util.UIUtils;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-import info.androidhive.firebase.Activities.LoginActivity;
-import info.androidhive.firebase.Activities.MainActivity;
-import info.androidhive.firebase.Activities.SettingsActivity;
+import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
+import info.androidhive.firebase.Classes.Managers.SignInManager;
 import info.androidhive.firebase.Classes.Models.User;
 import info.androidhive.firebase.Fragments.AllUsersFragment;
 import info.androidhive.firebase.Fragments.CurrentUserRateFragment;
 import info.androidhive.firebase.R;
 
-public class NavigationDrawerManager {
+public class NavigationDrawerActivity extends AppCompatActivity {
 
-    private Context context;
-    private User user;
+    public Drawer result;
 
-    public NavigationDrawerManager(Context context, User user){
-        this.context = context;
-        this.user = user;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_navigation_drawer);
     }
 
-    public Drawer initializeNavigationDrawer(Toolbar toolbar) throws IOException, ExecutionException, InterruptedException {
+    public void initializeNavigationDrawer(Toolbar toolbar, User user) throws IOException, ExecutionException, InterruptedException {
 
-        AccountHeader headerResult = createAccount();
+        AccountHeader headerResult = createAccount(user);
 
 
-       Drawer result = new DrawerBuilder()
-                .withActivity((MainActivity)context)
+        result = new DrawerBuilder()
+                .withActivity(this)
                 .withToolbar(toolbar)
                 .withAccountHeader(headerResult)
                 .withActionBarDrawerToggleAnimated(true)
@@ -54,24 +65,20 @@ public class NavigationDrawerManager {
                         new PrimaryDrawerItem()
                                 .withIdentifier(1)
                                 .withName("Home")
-                                .withIcon(GoogleMaterial.Icon.gmd_balance),
+                                .withIcon(GoogleMaterial.Icon.gmd_home),
                         new SectionDrawerItem()
                                 .withName("Rates"),
-                        new PrimaryDrawerItem()
+                        new SecondaryDrawerItem()
                                 .withIdentifier(3)
                                 .withName("All users")
-                                .withIcon(GoogleMaterial.Icon.gmd_balance),
-                        new PrimaryDrawerItem()
+                                .withIcon(GoogleMaterial.Icon.gmd_account),
+                        new SecondaryDrawerItem()
                                 .withIdentifier(4)
                                 .withName("My rate")
-                                .withIcon(GoogleMaterial.Icon.gmd_balance),
+                                .withIcon(GoogleMaterial.Icon.gmd_plus),
                         new SectionDrawerItem()
                                 .withIdentifier(5)
                                 .withName("Options"),
-                        new SecondaryDrawerItem()
-                                .withIdentifier(6)
-                                .withName("FAQ")
-                                .withIcon(FontAwesome.Icon.faw_cog),
                         new SecondaryDrawerItem()
                                 .withIdentifier(7)
                                 .withName("Settings")
@@ -79,45 +86,49 @@ public class NavigationDrawerManager {
                         new SecondaryDrawerItem()
                                 .withIdentifier(8)
                                 .withName("Exit")
-                                .withIcon(FontAwesome.Icon.faw_cog)
+                                .withIcon(GoogleMaterial.Icon.gmd_fullscreen_exit)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
-
-
                         int itemSelected = (int) drawerItem.getIdentifier();
-                        Fragment fr =((MainActivity) context).getSupportFragmentManager().findFragmentById(R.id.container);
+
+                        Fragment fr =getSupportFragmentManager()
+                                .findFragmentById(R.id.container);
+
+                        FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
 
                         if (drawerItem != null) {
                             switch (itemSelected) {
                                 case 1:
-                                    ((MainActivity) context).getSupportFragmentManager().popBackStack();
+                                    getSupportFragmentManager().popBackStack();
                                     break;
                                 case 3:
-                                    if(!(fr instanceof AllUsersFragment))
-                                    ((MainActivity) context).getSupportFragmentManager().beginTransaction()
+
+                                    if (!(fr instanceof AllUsersFragment))
+                                    fragmentManager
+                                            .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                                             .replace(R.id.container, new AllUsersFragment())
                                             .addToBackStack(null)
                                             .commit();
                                     break;
                                 case 4:
-                                    if(!(fr instanceof CurrentUserRateFragment))
-                                    ((MainActivity) context).getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.container, new CurrentUserRateFragment())
+                                    if (!(fr instanceof CurrentUserRateFragment))
+                                    fragmentManager
+                                            .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
+                                            .replace(R.id.container, CurrentUserRateFragment.newInstance())
                                             .addToBackStack(null)
                                             .commit();
                                     break;
                                 case 7:
-                                    context.startActivity(new Intent(context, SettingsActivity.class));
+                                    startActivity(new Intent(NavigationDrawerActivity.this, SettingsActivity.class));
                                     break;
-
                                 case 8:
                                     SignInManager.signOut();
                                     LocalDatabaseManager.delete();
-                                    context.startActivity(new Intent(context, LoginActivity.class));
-                                    ((MainActivity) context).finish();
+                                    startActivity(new Intent(NavigationDrawerActivity.this, LoginActivity.class));
+                                    finish();
                                     break;
                             }
                         }
@@ -126,26 +137,24 @@ public class NavigationDrawerManager {
                     }
                 })
                 .build();
-
-        return  result;
     }
 
 
-    private AccountHeader createAccount() throws IOException, ExecutionException, InterruptedException {
+    private AccountHeader createAccount(User user) throws IOException, ExecutionException, InterruptedException {
 
         IProfile profile = new ProfileDrawerItem();
 
         if (user.getName() != null) profile.withName(user.getName());
         else profile.withName("Anonymous");
 
-        if (user.getEmail()!=null) profile.withEmail(user.getEmail());
+        if (user.getEmail() != null) profile.withEmail(user.getEmail());
         else profile.withEmail("Anonymous@Anonymous.com");
 
-        if (user.getPhotoURL()!=null) profile.withIcon(user.getPhotoURL());
+        if (user.getPhotoURL() != null) profile.withIcon(user.getPhotoURL());
         else profile.withIcon(R.drawable.prof);
 
         return new AccountHeaderBuilder()
-                .withActivity((MainActivity)context)
+                .withActivity(this)
                 .withHeaderBackground(R.drawable.back)
                 .addProfiles(profile)
                 .build();

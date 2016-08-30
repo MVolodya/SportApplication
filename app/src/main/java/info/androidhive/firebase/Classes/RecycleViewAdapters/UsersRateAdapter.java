@@ -1,4 +1,4 @@
-package info.androidhive.firebase.Classes.RecycleViewClasses;
+package info.androidhive.firebase.Classes.RecycleViewAdapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.firebase.Classes.Models.Rate;
@@ -18,8 +19,15 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
 
     private List<Rate> ratesList;
 
-    public UsersRateAdapter(List<Rate> ratesList) {
-        this.ratesList = ratesList;
+    public UsersRateAdapter() {
+        this.ratesList = new ArrayList<>();
+        ratesList.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addRates(Rate rates) {
+        ratesList.add(rates);
+        notifyDataSetChanged();
     }
 
     @Override

@@ -18,10 +18,10 @@ import java.util.List;
 import info.androidhive.firebase.Activities.MainActivity;
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
-import info.androidhive.firebase.Classes.RecycleViewClasses.ClickListener;
-import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
-import info.androidhive.firebase.Classes.RecycleViewClasses.LeagueAdapter;
-import info.androidhive.firebase.Classes.RecycleViewClasses.RecyclerTouchListener;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.ClickListener;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.DividerItemDecoration;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.LeagueAdapter;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.RecyclerTouchListener;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.League.LeagueModel;
 import info.androidhive.firebase.Classes.Retrofit.League.LeagueService;
@@ -79,6 +79,7 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
                 dataHelper.setLeagueName(leagueList.get(position).getCaption());
 
                 getActivity().getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                         .add(R.id.container, new LeagueTableFragment())
                         .addToBackStack(null)
                         .commit();
@@ -102,13 +103,8 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
             mAdapter = new LeagueAdapter(leagueList);
             recyclerView.setAdapter(mAdapter);
             //Log.d("Retrofit", football.get(0).getId()+ " " + football.get(0).getCaption());
-
-
-
-
         }
     }
-
 
 
     @Override

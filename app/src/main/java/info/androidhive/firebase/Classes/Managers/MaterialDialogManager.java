@@ -61,8 +61,7 @@ public class MaterialDialogManager {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!input.getText().toString().isEmpty()) {
-                    double currentSum = (coff * Integer.parseInt(input.getText().toString()))
-                            - Integer.parseInt(input.getText().toString());
+                    double currentSum = (coff * Integer.parseInt(input.getText().toString()));
                     sum.setText("" + currentSum);
                 } else {
                     sum.setText("0");
@@ -88,7 +87,9 @@ public class MaterialDialogManager {
                             input.setError("Enter rate!");
                         } else {
                             new RateManager(context).setRate(user.getDisplayName(),
-                                    String.valueOf(matchId) ,sum.getText().toString(), typeOfRate);
+                                    String.valueOf(matchId) ,sum.getText().toString(),
+                                    input.getText().toString(),
+                                    typeOfRate);
                             dialog.hide();
                         }
                     }
