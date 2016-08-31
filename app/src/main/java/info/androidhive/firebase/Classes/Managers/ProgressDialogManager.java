@@ -2,6 +2,7 @@ package info.androidhive.firebase.Classes.Managers;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 
 /**
@@ -9,28 +10,16 @@ import android.content.Context;
  */
 public class ProgressDialogManager {
 
-    private ProgressDialog mProgressDialog;
-    private Context context;
-
-    public ProgressDialogManager(Context context, ProgressDialog mProgressDialog){
-        this.context = context;
-    }
-
-    public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(context);
-            mProgressDialog.setMessage("Wait...");
+    public static void showProgressDialog(@NonNull ProgressDialog mProgressDialog, String msg) {
+            mProgressDialog.setMessage(msg);
             mProgressDialog.setCanceledOnTouchOutside(false);
             mProgressDialog.setCancelable(false);
             mProgressDialog.setIndeterminate(true);
             mProgressDialog.show();
-        }
     }
 
-    public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+    public static void hideProgressDialog(@NonNull ProgressDialog mProgressDialog) {
             mProgressDialog.hide();
             mProgressDialog.dismiss();
-        }
     }
 }

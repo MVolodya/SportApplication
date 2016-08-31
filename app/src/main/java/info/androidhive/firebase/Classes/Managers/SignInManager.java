@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,7 +25,9 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import info.androidhive.firebase.Activities.LoginActivity;
 import info.androidhive.firebase.Activities.MainActivity;
+import info.androidhive.firebase.Activities.SignupActivity;
 import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
 import info.androidhive.firebase.Classes.Managers.RemoteDatabaseManager;
@@ -38,17 +41,100 @@ public class SignInManager {
     private Context context;
     private LocalDatabaseManager localDatabaseManager;
     private FirebaseAuth auth;
-    private FirebaseUser user;
     private ProgressDialog mProgressDialog;
-    private ProgressDialogManager dialogManager;
 
     public SignInManager(Context context, FirebaseAuth auth) {
         this.context = context;
         this.auth = auth;
+        mProgressDialog = new ProgressDialog(context);
+        localDatabaseManager = new LocalDatabaseManager(context);
+    }
+
+    public void signUpWithEmailAndPassword(String email,final String password){
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener((SignupActivity) context, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Toast.makeText(context, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                        ProgressDialogManager.hideProgressDialog(mProgressDialog);
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(context, "Authentication failed." + task.getException(),
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            long currentTime = System.currentTimeMillis();
+
+                            if(auth.getCurrentUser().getDisplayName() != null) {
+
+                                localDatabaseManager.setUser(auth.getCurrentUser().getDisplayName(),
+                                        auth.getCurrentUser().getEmail(),
+                                        Uri.parse(context.getString(R.string.user_photo_url)));
+
+                                new RemoteDatabaseManager(context)
+                                        .setUserData(auth.getCurrentUser().getDisplayName(),
+                                                context.getString(R.string.user_photo_url));
+                            } else {
+
+                                localDatabaseManager.setUser("Anonymous"+currentTime,
+                                        auth.getCurrentUser().getEmail(),
+                                        Uri.parse(context.getString(R.string.user_photo_url)));
+
+                                UserManager.updateUsername("Anonymous"+currentTime);
+                                UserManager.updateUrl(context.getString(R.string.user_photo_url));
+
+                                new RemoteDatabaseManager(context)
+                                        .setUserData("Anonymous"+currentTime,
+                                                context.getString(R.string.user_photo_url));
+                            }
+
+                            context.startActivity(new Intent(context, MainActivity.class));
+                            ((SignupActivity)context).finish();
+                            LoginActivity.loginActivity.finish();
+                        }
+                    }
+                });
+    }
+
+    public void loginWithEmailAndPassword(String email,final String password){
+        //authenticate user
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(((LoginActivity)context), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        ProgressDialogManager.hideProgressDialog(mProgressDialog);
+                        if (!task.isSuccessful()) {
+                            // there was an error
+                            if (password.length() < 6) {
+                                ((LoginActivity)context).getInputPassword().setError(context.getString(R.string.minimum_password));
+                            } else {
+                                Toast.makeText(context, context.getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            FirebaseUser fbUser = auth.getInstance().getCurrentUser();
+
+                            if(fbUser != null){
+                                localDatabaseManager.setUser(fbUser.getDisplayName(),
+                                        fbUser.getEmail(),
+                                        fbUser.getPhotoUrl());
+
+                                context.startActivity(new Intent(context, MainActivity.class));
+                                ((LoginActivity)context).finish();
+                            }else
+                                Toast.makeText(context, "Wrong with fbUser", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                });
     }
 
     public void loginWithFacebook(LoginButton loginButton, CallbackManager callbackManager) {
-        localDatabaseManager = new LocalDatabaseManager(context);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -56,12 +142,10 @@ public class SignInManager {
             }
 
             @Override
-            public void onCancel() {
-            }
+            public void onCancel() {}
 
             @Override
-            public void onError(FacebookException error) {
-            }
+            public void onError(FacebookException error) {}
 
         });
     }
@@ -70,8 +154,7 @@ public class SignInManager {
     private void handleFacebookAccessToken(AccessToken token) {
         //Log.d(TAG, "handleFacebookAccessToken:" + token);
 
-        dialogManager = new ProgressDialogManager(context,mProgressDialog);
-        dialogManager.showProgressDialog();
+        ProgressDialogManager.showProgressDialog(mProgressDialog,"Sign in");
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         auth.signInWithCredential(credential)
@@ -105,7 +188,7 @@ public class SignInManager {
                             context.startActivity(new Intent(context, MainActivity.class));
                             ((Activity)context).finish();
                         }
-                        dialogManager.hideProgressDialog();
+                        ProgressDialogManager.hideProgressDialog(mProgressDialog);
 
                     }
                 });

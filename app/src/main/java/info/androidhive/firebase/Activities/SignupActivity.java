@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
 import info.androidhive.firebase.Classes.Managers.RemoteDatabaseManager;
+import info.androidhive.firebase.Classes.Managers.SignInManager;
 import info.androidhive.firebase.Classes.Managers.UserManager;
 import info.androidhive.firebase.R;
 
@@ -29,7 +30,7 @@ public class SignupActivity extends AppCompatActivity {
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressDialog progressDialog;
     private FirebaseAuth auth;
-    private ProgressDialogManager dialogManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class SignupActivity extends AppCompatActivity {
         inputPassword = (EditText) findViewById(R.id.password);
         btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
 
-        dialogManager = new ProgressDialogManager(this, progressDialog);
+        progressDialog = new ProgressDialog(this);
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +70,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 final String email = inputEmail.getText().toString().trim();
-                String password = inputPassword.getText().toString().trim();
+                final String password = inputPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -86,54 +87,8 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
 
-                dialogManager.showProgressDialog();
-                //create user
-                auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(SignupActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                                dialogManager.hideProgressDialog();
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-
-                                    long currentTime = System.currentTimeMillis();
-
-                                    if(auth.getCurrentUser().getDisplayName() != null) {
-
-                                        localDatabaseManager.setUser(auth.getCurrentUser().getDisplayName(),
-                                                auth.getCurrentUser().getEmail(),
-                                                Uri.parse(getString(R.string.user_photo_url)));
-
-                                        new RemoteDatabaseManager(getApplicationContext())
-                                                .setUserData(auth.getCurrentUser().getDisplayName(),
-                                                        getString(R.string.user_photo_url));
-                                    } else {
-
-                                        localDatabaseManager.setUser("Anonymous"+currentTime,
-                                                auth.getCurrentUser().getEmail(),
-                                                Uri.parse(getString(R.string.user_photo_url)));
-
-                                        UserManager.updateUsername("Anonymous"+currentTime);
-                                        UserManager.updateUrl(getString(R.string.user_photo_url));
-
-                                        new RemoteDatabaseManager(getApplicationContext())
-                                                .setUserData("Anonymous"+currentTime,
-                                                        getString(R.string.user_photo_url));
-                                    }
-
-                                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
-                                    finish();
-                                    LoginActivity.loginActivity.finish();
-                                }
-                            }
-                        });
-
+                ProgressDialogManager.showProgressDialog(progressDialog,"Sing up");
+                new SignInManager(SignupActivity.this, auth).signUpWithEmailAndPassword(email,password);
             }
         });
     }
@@ -141,6 +96,6 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        dialogManager.hideProgressDialog();
+        ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 }

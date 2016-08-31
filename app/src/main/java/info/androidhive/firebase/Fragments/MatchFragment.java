@@ -54,7 +54,6 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     private MatchAdapter mAdapter;
     private View view;
     private ProgressDialog progressDialog;
-    private ProgressDialogManager dialogManager;
     private FloatingActionButton fabCalendar;
     private SheetLayout sheetLayout;
     private CalendarView calendarView;
@@ -84,10 +83,10 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         sheetLayout = (SheetLayout) view.findViewById(R.id.bottom_sheet);
         backImageView = (ImageView) view.findViewById(R.id.imageViewBackButton);
         calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
+        progressDialog = new ProgressDialog(view.getContext());
 
 
-        dialogManager = new ProgressDialogManager(getActivity(), progressDialog);
-        dialogManager.showProgressDialog();
+        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
 
         mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
@@ -147,7 +146,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     @Override
     public void onResponse(Response<MatchResponse> response) {
         if (response.isSuccess()) {
-            dialogManager.hideProgressDialog();
+            ProgressDialogManager.hideProgressDialog(progressDialog);
             matchResponse = response.body();
             matches = getCorrectMatches(matchResponse.getFixtures());
             mAdapter = new MatchAdapter(matches);
@@ -163,7 +162,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     @Override
     public void onFailure(Throwable t) {
         Log.d("Retrofit", "" + t);
-        dialogManager.hideProgressDialog();
+        ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 
     @Override
@@ -190,7 +189,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     @Override
     public void onDateSelected(@NonNull Date date) {
 
-        dialogManager.showProgressDialog();
+        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         currentDate = df.format(date);

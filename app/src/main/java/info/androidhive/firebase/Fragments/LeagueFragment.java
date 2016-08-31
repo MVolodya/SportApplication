@@ -38,7 +38,7 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
     private List<LeagueModel> leagueList = new ArrayList<>();
     private LeagueAdapter mAdapter;
     private View view;
-    private ProgressDialogManager dialogManager;
+    private ProgressDialog progressDialog;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView recyclerView;
 
@@ -55,14 +55,14 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
         view = inflater.inflate(R.layout.fragment_league, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_league);
+        progressDialog = new ProgressDialog(view.getContext());
 
         mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        dialogManager = new ProgressDialogManager(getActivity(), new ProgressDialog(view.getContext()));
-        dialogManager.showProgressDialog();
+        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
 
         LeagueService service = ApiFactory.getLeagueService();
         Call<List<LeagueModel>> call = service.leagues();
@@ -98,7 +98,7 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
     @Override
     public void onResponse(Response<List<LeagueModel>> response) {
         if (response.isSuccess()) {
-            dialogManager.hideProgressDialog();
+            ProgressDialogManager.hideProgressDialog(progressDialog);
             leagueList = response.body();
             mAdapter = new LeagueAdapter(leagueList);
             recyclerView.setAdapter(mAdapter);
@@ -109,7 +109,7 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
 
     @Override
     public void onFailure(Throwable t) {
-        dialogManager.hideProgressDialog();
+        ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 
     @Override

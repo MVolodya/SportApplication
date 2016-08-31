@@ -68,7 +68,6 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     private DataHelper dataHelper;
 
     private ProgressDialog progressDialog;
-    private ProgressDialogManager dialogManager;
     private GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder;
     private RateMatchResponse rateMatchResponse;
     private MaterialDialogManager materialDialogManager;
@@ -103,11 +102,11 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         imageHomeTeam = (ImageView) view.findViewById(R.id.imageHomeTeam);
         imageAwayTeam = (ImageView) view.findViewById(R.id.imageAwayTeam);
         backArrow = (ImageView) view.findViewById(R.id.imageViewBackArrow);
+        progressDialog = new ProgressDialog(view.getContext());
 
         backArrow.setOnClickListener(this);
 
-        dialogManager = new ProgressDialogManager(getActivity(), progressDialog);
-        dialogManager.showProgressDialog();
+        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
 
         dataHelper = DataHelper.getInstance();
         materialDialogManager = new MaterialDialogManager(view.getContext(), view);
@@ -134,7 +133,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     @Override
     public void onResponse(Response<RateMatchResponse> response) {
         if (response.isSuccess()) {
-            dialogManager.hideProgressDialog();
+            ProgressDialogManager.hideProgressDialog(progressDialog);
             rateMatchResponse = response.body();
             setView();
         }
@@ -143,7 +142,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     @Override
     public void onFailure(Throwable t) {
         Log.d("Retrofit", "" + t);
-        dialogManager.hideProgressDialog();
+        ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 
     @Override

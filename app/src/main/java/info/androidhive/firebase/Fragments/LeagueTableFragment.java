@@ -40,7 +40,6 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
     private RecyclerView recyclerView;
     private LeagueTableAdapter mAdapter;
     private ProgressDialog progressDialog;
-    private ProgressDialogManager dialogManager;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -67,11 +66,11 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
         toolbar.setNavigationOnClickListener(this);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.scrollableview);
+        progressDialog = new ProgressDialog(view.getContext());
         mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setNestedScrollingEnabled(false);
 
-        dialogManager = new ProgressDialogManager(getActivity(), progressDialog);
-        dialogManager.showProgressDialog();
+        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
 
         DataHelper dataHelper = DataHelper.getInstance();
         int id = dataHelper.getId();
@@ -94,7 +93,7 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
         List<Standing> tables;
 
         if (response.isSuccess()) {
-            dialogManager.hideProgressDialog();
+            ProgressDialogManager.hideProgressDialog(progressDialog);
             tableResponse = response.body();
             tables = tableResponse.getStanding();
             mAdapter = new LeagueTableAdapter(tables);
@@ -108,7 +107,7 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
 
     @Override
     public void onFailure(Throwable t) {
-        dialogManager.hideProgressDialog();
+        ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 
     @Override
