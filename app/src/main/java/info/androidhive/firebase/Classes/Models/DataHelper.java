@@ -15,7 +15,7 @@ public class DataHelper {
 
     public static DataHelper getInstance() {
 
-        if(ourInstance== null) ourInstance = new DataHelper();
+        if (ourInstance == null) ourInstance = new DataHelper();
         return ourInstance;
     }
 

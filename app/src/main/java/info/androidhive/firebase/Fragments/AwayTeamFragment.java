@@ -39,7 +39,7 @@ public class AwayTeamFragment extends Fragment implements Callback<PlayersRespon
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_away_team, container, false);
-        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view_away_team_players);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_away_team_players);
         mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());

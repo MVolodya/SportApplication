@@ -2,9 +2,6 @@ package info.androidhive.firebase.Classes.Models;
 
 import java.util.List;
 
-/**
- * Created by andrii on 17.08.16.
- */
 public class RatedUser {
 
     public String name;

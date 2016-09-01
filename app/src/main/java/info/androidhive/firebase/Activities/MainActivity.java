@@ -161,11 +161,11 @@ public class MainActivity extends NavigationDrawerActivity {
 
         if (result != null && result.isDrawerOpen())
             result.closeDrawer();
-            else if (getFragmentManager().getBackStackEntryCount() > 0) {
-                getFragmentManager().popBackStack();
-                toolbar.setVisibility(View.VISIBLE);
-            } else super.onBackPressed();
-        }
+        else if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+            toolbar.setVisibility(View.VISIBLE);
+        } else super.onBackPressed();
+    }
 
 
 

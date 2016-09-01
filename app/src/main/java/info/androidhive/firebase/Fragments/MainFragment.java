@@ -49,8 +49,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 //        String date = df.format(Calendar.getInstance().getTime());
 //        Log.d("data", date);
 
-        viewPager = (CustomViewPager)view.findViewById(R.id.viewpager);
-        tabLayout = (TabLayout)view.findViewById(R.id.tabs);
+        viewPager = (CustomViewPager) view.findViewById(R.id.viewpager);
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         imageViewInfo = (ImageView) view.findViewById(R.id.imageViewBadConnection);
         textViewInfo = (TextView) view.findViewById(R.id.textViewInfo);
         buttonTryAgain = (Button) view.findViewById(R.id.buttonTryAgain);
@@ -75,7 +75,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
             setupViewPager(viewPager);
             tabLayout.setupWithViewPager(viewPager);
-        }else {
+        } else {
             imageViewInfo.setVisibility(View.VISIBLE);
             textViewInfo.setVisibility(View.VISIBLE);
             buttonTryAgain.setVisibility(View.VISIBLE);
@@ -92,11 +92,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         viewPager.setAdapter(adapter);
     }
 
-    public void hideTabs(){
+    public void hideTabs() {
         tabLayout.setVisibility(View.GONE);
     }
 
-    public void showTabs(){
+    public void showTabs() {
         tabLayout.setVisibility(View.VISIBLE);
     }
 
@@ -113,7 +113,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
             setupViewPager(viewPager);
             tabLayout.setupWithViewPager(viewPager);
-        }else {
+        } else {
             imageViewInfo.setVisibility(View.VISIBLE);
             textViewInfo.setVisibility(View.VISIBLE);
             buttonTryAgain.setVisibility(View.VISIBLE);

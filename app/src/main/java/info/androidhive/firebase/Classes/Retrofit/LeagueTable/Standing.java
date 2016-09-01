@@ -2,9 +2,6 @@ package info.androidhive.firebase.Classes.Retrofit.LeagueTable;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by andri on 05.08.2016.
- */
 public class Standing {
 
     @SerializedName("position")

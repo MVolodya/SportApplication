@@ -38,7 +38,7 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolderUsers holder, int position) {
         RatedUser ratedUser = usersList.get(position);
-        String positionUser = String.valueOf(position+1);
+        String positionUser = String.valueOf(position + 1);
 
         holder.position.setText(positionUser);
         holder.name.setText(ratedUser.getName());
@@ -48,7 +48,7 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
                 .into(holder.userPhoto);
     }
 
-    private void getSortedUsers(){
+    private void getSortedUsers() {
         Collections.sort(usersList, new Comparator<RatedUser>() {
             public int compare(RatedUser o1, RatedUser o2) {
                 return Double.compare(Double.parseDouble(o2.getCurrentPoints()),
@@ -71,10 +71,10 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
 
         public ViewHolderUsers(View v) {
             super(v);
-            position = (TextView)v.findViewById(R.id.textViewUserPosition);
-            name = (TextView)v.findViewById(R.id.textViewUserRateName);
-            points = (TextView)v.findViewById(R.id.textView7UserPoints);
-            userPhoto = (CircleImageView)v.findViewById(R.id.profile_image);
+            position = (TextView) v.findViewById(R.id.textViewUserPosition);
+            name = (TextView) v.findViewById(R.id.textViewUserRateName);
+            points = (TextView) v.findViewById(R.id.textView7UserPoints);
+            userPhoto = (CircleImageView) v.findViewById(R.id.profile_image);
         }
     }
 }

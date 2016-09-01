@@ -1,6 +1,7 @@
 package info.androidhive.firebase.Classes.Retrofit.Match;
 
 import android.util.Log;
+
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.Team.TeamResponse;
 import info.androidhive.firebase.Classes.Retrofit.Team.TeamService;
@@ -14,7 +15,7 @@ public class TeamsImage implements Callback<TeamResponse> {
     private String teamImageLink;
 
 
-    public TeamsImage(int teamId){
+    public TeamsImage(int teamId) {
         TeamService service = ApiFactory.getTeamService();
         Call<TeamResponse> call = service.teams(teamId);
         call.enqueue(this);
@@ -31,7 +32,7 @@ public class TeamsImage implements Callback<TeamResponse> {
 
     @Override
     public void onFailure(Throwable t) {
-        Log.d("imageTeam",""+t);
+        Log.d("imageTeam", "" + t);
     }
 
 

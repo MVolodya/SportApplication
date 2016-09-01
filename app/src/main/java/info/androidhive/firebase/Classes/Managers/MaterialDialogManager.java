@@ -34,10 +34,10 @@ public class MaterialDialogManager {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View promptView = layoutInflater.inflate(R.layout.dialog_rate, null);
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        alert.setTitle("Enter points...");
+        alert.setTitle(R.string.enter_points);
         alert.setView(promptView);
-        alert.setPositiveButton("Set rate", null);
-        alert.setNegativeButton("Cancel", null);
+        alert.setPositiveButton(R.string.set_rate, null);
+        alert.setNegativeButton(R.string.cancel, null);
 
         final EditText input = (EditText) promptView
                 .findViewById(R.id.etCategory);
@@ -49,7 +49,7 @@ public class MaterialDialogManager {
         type.setText(typeOfRate);
 
         input.requestFocus();
-        input.setHint("Points...");
+        input.setHint(R.string.points);
         input.setTextColor(Color.BLACK);
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
 
@@ -69,7 +69,8 @@ public class MaterialDialogManager {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+            }
         });
 
         final AlertDialog dialog = alert.create();
@@ -87,7 +88,7 @@ public class MaterialDialogManager {
                             input.setError("Enter rate!");
                         } else {
                             new RateManager(context).setRate(user.getDisplayName(),
-                                    String.valueOf(matchId) ,sum.getText().toString(),
+                                    String.valueOf(matchId), sum.getText().toString(),
                                     input.getText().toString(),
                                     typeOfRate);
                             dialog.hide();

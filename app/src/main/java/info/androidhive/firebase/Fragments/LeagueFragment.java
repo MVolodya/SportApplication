@@ -62,7 +62,7 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
+        ProgressDialogManager.showProgressDialog(progressDialog, getString(R.string.loading));
 
         LeagueService service = ApiFactory.getLeagueService();
         Call<List<LeagueModel>> call = service.leagues();
@@ -84,12 +84,13 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
                         .addToBackStack(null)
                         .commit();
 
-                ((MainActivity)view.getContext()).hideToolbar();
-                ((MainActivity)view.getContext()).lockSwipe();
+                ((MainActivity) view.getContext()).hideToolbar();
+                ((MainActivity) view.getContext()).lockSwipe();
             }
 
             @Override
-            public void onLongClick(View view, int position) {}
+            public void onLongClick(View view, int position) {
+            }
         }));
 
         return view;

@@ -1,8 +1,5 @@
 package info.androidhive.firebase.Classes.Models;
 
-/**
- * Created by andrii on 17.08.16.
- */
 public class RatedMatchesToDB {
 
     public String matchId;
@@ -14,11 +11,12 @@ public class RatedMatchesToDB {
 
     public static RatedMatchesToDB getInstance() {
 
-        if(ratedMatches == null) ratedMatches = new RatedMatchesToDB();
+        if (ratedMatches == null) ratedMatches = new RatedMatchesToDB();
         return ratedMatches;
     }
 
-    private RatedMatchesToDB(){}
+    private RatedMatchesToDB() {
+    }
 
     public void setMatchId(String matchId) {
         this.matchId = matchId;

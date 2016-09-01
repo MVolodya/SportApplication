@@ -3,9 +3,6 @@ package info.androidhive.firebase.Classes.Retrofit.Players;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by andrii on 25.08.16.
- */
 public class Links {
     @SerializedName("self")
     @Expose
@@ -15,36 +12,28 @@ public class Links {
     private Team team;
 
     /**
-     *
-     * @return
-     * The self
+     * @return The self
      */
     public Self getSelf() {
         return self;
     }
 
     /**
-     *
-     * @param self
-     * The self
+     * @param self The self
      */
     public void setSelf(Self self) {
         this.self = self;
     }
 
     /**
-     *
-     * @return
-     * The team
+     * @return The team
      */
     public Team getTeam() {
         return team;
     }
 
     /**
-     *
-     * @param team
-     * The team
+     * @param team The team
      */
     public void setTeam(Team team) {
         this.team = team;

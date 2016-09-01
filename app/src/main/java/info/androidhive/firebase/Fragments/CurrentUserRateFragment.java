@@ -96,9 +96,9 @@ public class CurrentUserRateFragment extends Fragment {
                 dataHelper.setHomeTeamId(getTeamId(matches.getLinks().getHomeTeam().getHref()));
                 dataHelper.setAwayTeamId(getTeamId(matches.getLinks().getAwayTeam().getHref()));
 
-                Fragment fr =getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
+                Fragment fr = getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
 
-                if(!(fr instanceof RateFragment)){
+                if (!(fr instanceof RateFragment)) {
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                             .add(R.id.container, new RateFragment())
@@ -106,12 +106,13 @@ public class CurrentUserRateFragment extends Fragment {
                             .commit();
                 }
 
-                ((MainActivity)view.getContext()).hideToolbar();
-                ((MainActivity)view.getContext()).lockSwipe();
+                ((MainActivity) view.getContext()).hideToolbar();
+                ((MainActivity) view.getContext()).lockSwipe();
             }
 
             @Override
-            public void onLongClick(View view, int position) {}
+            public void onLongClick(View view, int position) {
+            }
         }));
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -149,37 +150,37 @@ public class CurrentUserRateFragment extends Fragment {
                                                         RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
                                                         final List<RatedMatchesToDB> ratedMatchesList = ratedUser.getRatedMatches();
 
-                                                        if(ratedMatchesList!= null){
-                                                        for (int i = 0; i < ratedMatchesList.size(); i++) {
+                                                        if (ratedMatchesList != null) {
+                                                            for (int i = 0; i < ratedMatchesList.size(); i++) {
 
-                                                            RateMatchService service = ApiFactory.getRateMatchService();
-                                                            Call<RateMatchResponse> call = service.match(Integer.parseInt(ratedMatchesList.get(i).getMatchId()));
+                                                                RateMatchService service = ApiFactory.getRateMatchService();
+                                                                Call<RateMatchResponse> call = service.match(Integer.parseInt(ratedMatchesList.get(i).getMatchId()));
 
-                                                            final int finalI = i;
+                                                                final int finalI = i;
 
-                                                            call.enqueue(new Callback<RateMatchResponse>() {
-                                                                @Override
-                                                                public void onResponse(Response<RateMatchResponse> response) {
-                                                                    rateMatchResponse = response.body();
-                                                                    matches = rateMatchResponse.getFixture();
-                                                                    Rate rate = new Rate();
-                                                                    rate.setHomeTeamName(rateMatchResponse.getFixture().getHomeTeamName());
-                                                                    rate.setAwayTeamName(rateMatchResponse.getFixture().getAwayTeamName());
-                                                                    rate.setPoints(ratedMatchesList.get(finalI).getPoints());
-                                                                    rate.setType(ratedMatchesList.get(finalI).getTypeOfRate());
-                                                                    usersRateAdapter.addRates(rate);
-                                                                }
+                                                                call.enqueue(new Callback<RateMatchResponse>() {
+                                                                    @Override
+                                                                    public void onResponse(Response<RateMatchResponse> response) {
+                                                                        rateMatchResponse = response.body();
+                                                                        matches = rateMatchResponse.getFixture();
+                                                                        Rate rate = new Rate();
+                                                                        rate.setHomeTeamName(rateMatchResponse.getFixture().getHomeTeamName());
+                                                                        rate.setAwayTeamName(rateMatchResponse.getFixture().getAwayTeamName());
+                                                                        rate.setPoints(ratedMatchesList.get(finalI).getPoints());
+                                                                        rate.setType(ratedMatchesList.get(finalI).getTypeOfRate());
+                                                                        usersRateAdapter.addRates(rate);
+                                                                    }
 
-                                                                @Override
-                                                                public void onFailure(Throwable t) {
-                                                                }
-                                                            });
+                                                                    @Override
+                                                                    public void onFailure(Throwable t) {
+                                                                    }
+                                                                });
+                                                            }
                                                         }
-                                                        }
-                                                            progressView.stopAnimation();
-                                                            progressView.setVisibility(View.GONE);
-                                                            swipeRefreshLayout.setRefreshing(false);
-                                                            recyclerView.setAdapter(usersRateAdapter);
+                                                        progressView.stopAnimation();
+                                                        progressView.setVisibility(View.GONE);
+                                                        swipeRefreshLayout.setRefreshing(false);
+                                                        recyclerView.setAdapter(usersRateAdapter);
                                                     }
 
                                                     @Override
@@ -190,6 +191,7 @@ public class CurrentUserRateFragment extends Fragment {
                 );
 
     }
+
     private int getTeamId(String link) {
         Log.d("teamId", link);
         return Integer.parseInt(link.replaceAll("http://api.football-data.org/v1/teams/", ""));

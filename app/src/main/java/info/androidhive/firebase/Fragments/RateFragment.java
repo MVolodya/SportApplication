@@ -106,7 +106,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
 
         backArrow.setOnClickListener(this);
 
-        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
+        ProgressDialogManager.showProgressDialog(progressDialog, getString(R.string.loading));
 
         dataHelper = DataHelper.getInstance();
         materialDialogManager = new MaterialDialogManager(view.getContext(), view);
@@ -149,7 +149,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         if (!enter) {
             //leaving fragment
-           // getFragmentManager().popBackStack();
+            // getFragmentManager().popBackStack();
             ((MainActivity) this.view.getContext()).showToolbar();
             ((MainActivity) this.view.getContext()).unlockSwipe();
         }
@@ -174,20 +174,18 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
 
         homeTeam.setText(rateMatchResponse.getFixture().getHomeTeamName());
         awayTeam.setText(rateMatchResponse.getFixture().getAwayTeamName());
-        round.setText("Round of " + rateMatchResponse.getFixture().getMatchday().toString());
+        round.setText(getString(R.string.roundof) + rateMatchResponse.getFixture().getMatchday().toString());
         status.setText(rateMatchResponse.getFixture().getStatus());
-
-
 
 
         if (rateMatchResponse.getFixture().getResult().getGoalsHomeTeam() != null
                 && rateMatchResponse.getFixture().getResult().getGoalsAwayTeam() != null) {
-            String r = String.valueOf(rateMatchResponse.getFixture().getResult().getGoalsHomeTeam().toString())+ " - " +
+            String r = String.valueOf(rateMatchResponse.getFixture().getResult().getGoalsHomeTeam().toString()) + " - " +
                     rateMatchResponse.getFixture().getResult().getGoalsAwayTeam().toString();
             result.setText(r);
         }
 
-        if(!rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
+        if (!rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
             if (rateMatchResponse.getFixture().getOdds() != null) {
                 wins.setText(rateMatchResponse.getFixture().getOdds().getHomeWin().toString());
                 draw.setText(rateMatchResponse.getFixture().getOdds().getDraw().toString());
@@ -197,7 +195,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
                 draw.setText("4");
                 lose.setText("2");
             }
-        }else{
+        } else {
             wins.setVisibility(View.GONE);
             draw.setVisibility(View.GONE);
             lose.setVisibility(View.GONE);
@@ -222,7 +220,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
             @Override
             public void onResponse(Response<TeamResponse> response) {
 
-                if(response.errorBody()!=null)
+                if (response.errorBody() != null)
                     try {
                         String er = response.errorBody().string();
                         System.out.print(er);
@@ -269,7 +267,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
             @Override
             public void onResponse(Response<TeamResponse> response) {
 
-                if(response.errorBody()!=null)
+                if (response.errorBody() != null)
                     try {
                         String er = response.errorBody().string();
                         System.out.print(er);

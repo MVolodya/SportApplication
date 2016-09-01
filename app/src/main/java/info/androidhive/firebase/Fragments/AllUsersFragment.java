@@ -36,7 +36,7 @@ public class AllUsersFragment extends Fragment {
     private AllUsersAdapter usersAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView recyclerView;
-private CircleRefreshLayout refreshLayout;
+    private CircleRefreshLayout refreshLayout;
     private CircularProgressView progressView;
 
     public AllUsersFragment() {
@@ -65,8 +65,10 @@ private CircleRefreshLayout refreshLayout;
                         getUsers();
                         refreshLayout.finishRefreshing();
                     }
+
                     @Override
-                    public void completeRefresh() {}
+                    public void completeRefresh() {
+                    }
                 });
 
         getUsers();
@@ -96,7 +98,6 @@ private CircleRefreshLayout refreshLayout;
             }
         });
 
-        
 
         return ratedUserList;
     }
@@ -109,7 +110,6 @@ private CircleRefreshLayout refreshLayout;
         }
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
-
 
 
 }

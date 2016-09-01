@@ -30,25 +30,25 @@ public class HomeTeamPlayerAdapter extends RecyclerView.Adapter<HomeTeamPlayerAd
 
     @Override
     public void onBindViewHolder(ViewHolderPlayer holder, int position) {
-        if(playerList.get(position).getJerseyNumber()!=null)
+        if (playerList.get(position).getJerseyNumber() != null)
             holder.number.setText(playerList.get(position).getJerseyNumber().toString());
-        else holder.number.setText("..!.");
+        else holder.number.setText(R.string.none);
 
-        if(playerList.get(position).getNationality()!=null)
+        if (playerList.get(position).getNationality() != null)
             holder.nationality.setText(playerList.get(position).getNationality());
-        else holder.number.setText("..!.");
+        else holder.number.setText(R.string.none);
 
-        if(playerList.get(position).getName()!=null)
+        if (playerList.get(position).getName() != null)
             holder.name.setText(playerList.get(position).getName());
-        else holder.name.setText("..!.");
+        else holder.name.setText(R.string.none);
 
-        if(playerList.get(position).getDateOfBirth()!=null)
+        if (playerList.get(position).getDateOfBirth() != null)
             holder.year.setText(playerList.get(position).getDateOfBirth());
-        else holder.year.setText("..!.");
+        else holder.year.setText(R.string.none);
 
-        if(playerList.get(position).getPosition()!=null)
+        if (playerList.get(position).getPosition() != null)
             holder.position.setText(playerList.get(position).getPosition());
-        else holder.position.setText("..!.");
+        else holder.position.setText(R.string.none);
     }
 
     @Override
@@ -65,13 +65,13 @@ public class HomeTeamPlayerAdapter extends RecyclerView.Adapter<HomeTeamPlayerAd
         private TextView year;
         private TextView position;
 
-        public ViewHolderPlayer (View v) {
+        public ViewHolderPlayer(View v) {
             super(v);
-            number = (TextView)v.findViewById(R.id.textViewNumber);
-            nationality = (TextView)v.findViewById(R.id.textViewNationality);
-            name = (TextView)v.findViewById(R.id.textView7Name);
-            year = (TextView)v.findViewById(R.id.textViewYear);
-            position = (TextView)v.findViewById(R.id.textViewPosition);
+            number = (TextView) v.findViewById(R.id.textViewNumber);
+            nationality = (TextView) v.findViewById(R.id.textViewNationality);
+            name = (TextView) v.findViewById(R.id.textView7Name);
+            year = (TextView) v.findViewById(R.id.textViewYear);
+            position = (TextView) v.findViewById(R.id.textViewPosition);
         }
     }
 

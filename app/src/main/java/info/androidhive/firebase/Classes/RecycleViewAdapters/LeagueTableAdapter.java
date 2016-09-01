@@ -25,9 +25,6 @@ import info.androidhive.firebase.Classes.Utils.SvgSoftwareLayerSetter;
 import info.androidhive.firebase.R;
 import info.androidhive.firebase.Classes.Utils.SvgDrawableTranscoder;
 
-/**
- * Created by andri on 05.08.2016.
- */
 public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.LeagueTableViewHolder> {
 
     private List<Standing> standingsList;
@@ -51,7 +48,7 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
         int count = position;
 
         requestBuilder = Glide.with(holder.view.getContext())
-                .using(Glide.buildStreamModelLoader(Uri.class,holder.view.getContext()), InputStream.class)
+                .using(Glide.buildStreamModelLoader(Uri.class, holder.view.getContext()), InputStream.class)
                 .from(Uri.class)
                 .as(SVG.class)
                 .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
@@ -61,13 +58,13 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
                 .animate(android.R.anim.fade_in)
                 .listener(new SvgSoftwareLayerSetter<Uri>());
 
-        if(standingsList.get(position).getCrestURI().toString().contains("svg")){
+        if (standingsList.get(position).getCrestURI().toString().contains("svg")) {
             requestBuilder
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     // SVG cannot be serialized so it's not worth to cache it
                     .load(Uri.parse(standingsList.get(position).getCrestURI()))
                     .into(holder.logo);
-        }else{
+        } else {
             Glide.with(holder.view.getContext())
                     .load(standingsList.get(position).getCrestURI())
                     .into(holder.logo);
@@ -118,15 +115,15 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
             super(view);
             this.view = view;
 
-            tvTeamName = (TextView)view.findViewById(R.id.textViewTeamRow);
-            logo = (ImageView)view.findViewById(R.id.imageView);
-            tvPosition = (TextView)view.findViewById(R.id.textViewPositionRow);
-            tvPlayedGamesWins = (TextView)view.findViewById(R.id.textViewGamesWinRow);
-            tvPlayedGamesDraws = (TextView)view.findViewById(R.id.textViewGamesDrawsRow);
-            tvPlayedGamesLose = (TextView)view.findViewById(R.id.textViewGamesLoseRow);
-            tvGoalsWin = (TextView)view.findViewById(R.id.textViewGoalWinRow);
-            tvGoalsLose = (TextView)view.findViewById(R.id.textViewGoalLoseRow);
-            tvPoints = (TextView)view.findViewById(R.id.textViewPointsRow);
+            tvTeamName = (TextView) view.findViewById(R.id.textViewTeamRow);
+            logo = (ImageView) view.findViewById(R.id.imageView);
+            tvPosition = (TextView) view.findViewById(R.id.textViewPositionRow);
+            tvPlayedGamesWins = (TextView) view.findViewById(R.id.textViewGamesWinRow);
+            tvPlayedGamesDraws = (TextView) view.findViewById(R.id.textViewGamesDrawsRow);
+            tvPlayedGamesLose = (TextView) view.findViewById(R.id.textViewGamesLoseRow);
+            tvGoalsWin = (TextView) view.findViewById(R.id.textViewGoalWinRow);
+            tvGoalsLose = (TextView) view.findViewById(R.id.textViewGoalLoseRow);
+            tvPoints = (TextView) view.findViewById(R.id.textViewPointsRow);
 
 
         }

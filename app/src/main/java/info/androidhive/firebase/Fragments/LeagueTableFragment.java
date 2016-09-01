@@ -33,7 +33,7 @@ import retrofit.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LeagueTableFragment extends Fragment implements Callback<LeagueTableResponse>, View.OnClickListener{
+public class LeagueTableFragment extends Fragment implements Callback<LeagueTableResponse>, View.OnClickListener {
 
     private View view;
     private LeagueTableResponse tableResponse;
@@ -56,11 +56,11 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
 
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.anim_toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        if (((AppCompatActivity)getActivity()).getSupportActionBar() != null){
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
         toolbar.setNavigationOnClickListener(this);
@@ -70,7 +70,7 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
         mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setNestedScrollingEnabled(false);
 
-        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
+        ProgressDialogManager.showProgressDialog(progressDialog, getString(R.string.loading));
 
         DataHelper dataHelper = DataHelper.getInstance();
         int id = dataHelper.getId();
@@ -113,21 +113,20 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
     @Override
     public void onClick(View view) {
         getFragmentManager().popBackStack();
-        ((MainActivity)this.view.getContext()).showToolbar();
-        ((MainActivity)this.view.getContext()).unlockSwipe();
+        ((MainActivity) this.view.getContext()).showToolbar();
+        ((MainActivity) this.view.getContext()).unlockSwipe();
     }
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        if(!enter){
+        if (!enter) {
             //leaving fragment
             getFragmentManager().popBackStack();
-            ((MainActivity)this.view.getContext()).showToolbar();
-            ((MainActivity)this.view.getContext()).unlockSwipe();
+            ((MainActivity) this.view.getContext()).showToolbar();
+            ((MainActivity) this.view.getContext()).unlockSwipe();
         }
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
-
 
 
 }

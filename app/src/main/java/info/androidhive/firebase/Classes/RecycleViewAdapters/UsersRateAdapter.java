@@ -12,9 +12,6 @@ import java.util.List;
 import info.androidhive.firebase.Classes.Models.Rate;
 import info.androidhive.firebase.R;
 
-/**
- * Created by andrii on 23.08.16.
- */
 public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.ViewHolderUsersRates> {
 
     private List<Rate> ratesList;
@@ -61,10 +58,10 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
 
         public ViewHolderUsersRates(View v) {
             super(v);
-            homeTeam = (TextView)v.findViewById(R.id.rated_home_team);
-            awayTeam = (TextView)v.findViewById(R.id.rated_away_team);
-            type = (TextView)v.findViewById(R.id.ratedType);
-            points = (TextView)v.findViewById(R.id.ratedPoints);
+            homeTeam = (TextView) v.findViewById(R.id.rated_home_team);
+            awayTeam = (TextView) v.findViewById(R.id.rated_away_team);
+            type = (TextView) v.findViewById(R.id.ratedType);
+            points = (TextView) v.findViewById(R.id.ratedPoints);
         }
     }
 }

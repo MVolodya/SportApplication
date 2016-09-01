@@ -6,9 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by andrii on 25.08.16.
- */
+
 public class PlayersResponse {
     @SerializedName("_links")
     @Expose
@@ -21,54 +19,42 @@ public class PlayersResponse {
     private List<Player> players = new ArrayList<Player>();
 
     /**
-     *
-     * @return
-     * The links
+     * @return The links
      */
     public Links getLinks() {
         return links;
     }
 
     /**
-     *
-     * @param links
-     * The _links
+     * @param links The _links
      */
     public void setLinks(Links links) {
         this.links = links;
     }
 
     /**
-     *
-     * @return
-     * The count
+     * @return The count
      */
     public Integer getCount() {
         return count;
     }
 
     /**
-     *
-     * @param count
-     * The count
+     * @param count The count
      */
     public void setCount(Integer count) {
         this.count = count;
     }
 
     /**
-     *
-     * @return
-     * The players
+     * @return The players
      */
     public List<Player> getPlayers() {
         return players;
     }
 
     /**
-     *
-     * @param players
-     * The players
+     * @param players The players
      */
     public void setPlayers(List<Player> players) {
         this.players = players;

@@ -6,9 +6,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by andrii on 15.08.16.
- */
 public class MatchResponse {
 
     @SerializedName("timeFrameStart")
@@ -25,72 +22,56 @@ public class MatchResponse {
     private List<Fixture> fixtures = new ArrayList<Fixture>();
 
     /**
-     *
-     * @return
-     * The timeFrameStart
+     * @return The timeFrameStart
      */
     public String getTimeFrameStart() {
         return timeFrameStart;
     }
 
     /**
-     *
-     * @param timeFrameStart
-     * The timeFrameStart
+     * @param timeFrameStart The timeFrameStart
      */
     public void setTimeFrameStart(String timeFrameStart) {
         this.timeFrameStart = timeFrameStart;
     }
 
     /**
-     *
-     * @return
-     * The timeFrameEnd
+     * @return The timeFrameEnd
      */
     public String getTimeFrameEnd() {
         return timeFrameEnd;
     }
 
     /**
-     *
-     * @param timeFrameEnd
-     * The timeFrameEnd
+     * @param timeFrameEnd The timeFrameEnd
      */
     public void setTimeFrameEnd(String timeFrameEnd) {
         this.timeFrameEnd = timeFrameEnd;
     }
 
     /**
-     *
-     * @return
-     * The count
+     * @return The count
      */
     public Integer getCount() {
         return count;
     }
 
     /**
-     *
-     * @param count
-     * The count
+     * @param count The count
      */
     public void setCount(Integer count) {
         this.count = count;
     }
 
     /**
-     *
-     * @return
-     * The fixtures
+     * @return The fixtures
      */
     public List<Fixture> getFixtures() {
         return fixtures;
     }
 
     /**
-     *
-     * @param fixtures
-     * The fixtures
+     * @param fixtures The fixtures
      */
     public void setFixtures(List<Fixture> fixtures) {
         this.fixtures = fixtures;

@@ -12,9 +12,7 @@ public class RateMatchResponse {
     private Fixture fixture;
 
     /**
-     *
-     * @return
-     * The fixture
+     * @return The fixture
      */
     public Fixture getFixture() {
         return fixture;

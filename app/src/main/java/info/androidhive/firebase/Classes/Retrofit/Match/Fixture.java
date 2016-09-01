@@ -3,9 +3,6 @@ package info.androidhive.firebase.Classes.Retrofit.Match;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by andrii on 15.08.16.
- */
 public class Fixture {
 
     @SerializedName("_links")
@@ -34,144 +31,112 @@ public class Fixture {
     private Odds odds;
 
     /**
-     *
-     * @return
-     * The links
+     * @return The links
      */
     public Links getLinks() {
         return links;
     }
 
     /**
-     *
-     * @param links
-     * The _links
+     * @param links The _links
      */
     public void setLinks(Links links) {
         this.links = links;
     }
 
     /**
-     *
-     * @return
-     * The date
+     * @return The date
      */
     public String getDate() {
         return date;
     }
 
     /**
-     *
-     * @param date
-     * The date
+     * @param date The date
      */
     public void setDate(String date) {
         this.date = date;
     }
 
     /**
-     *
-     * @return
-     * The status
+     * @return The status
      */
     public String getStatus() {
         return status;
     }
 
     /**
-     *
-     * @param status
-     * The status
+     * @param status The status
      */
     public void setStatus(String status) {
         this.status = status;
     }
 
     /**
-     *
-     * @return
-     * The matchday
+     * @return The matchday
      */
     public Integer getMatchday() {
         return matchday;
     }
 
     /**
-     *
-     * @param matchday
-     * The matchday
+     * @param matchday The matchday
      */
     public void setMatchday(Integer matchday) {
         this.matchday = matchday;
     }
 
     /**
-     *
-     * @return
-     * The homeTeamName
+     * @return The homeTeamName
      */
     public String getHomeTeamName() {
         return homeTeamName;
     }
 
     /**
-     *
-     * @param homeTeamName
-     * The homeTeamName
+     * @param homeTeamName The homeTeamName
      */
     public void setHomeTeamName(String homeTeamName) {
         this.homeTeamName = homeTeamName;
     }
 
     /**
-     *
-     * @return
-     * The awayTeamName
+     * @return The awayTeamName
      */
     public String getAwayTeamName() {
         return awayTeamName;
     }
 
     /**
-     *
-     * @param awayTeamName
-     * The awayTeamName
+     * @param awayTeamName The awayTeamName
      */
     public void setAwayTeamName(String awayTeamName) {
         this.awayTeamName = awayTeamName;
     }
 
     /**
-     *
-     * @return
-     * The result
+     * @return The result
      */
     public Result getResult() {
         return result;
     }
 
     /**
-     *
-     * @param result
-     * The result
+     * @param result The result
      */
     public void setResult(Result result) {
         this.result = result;
     }
 
     /**
-     *
-     * @return
-     * The odds
+     * @return The odds
      */
     public Odds getOdds() {
         return odds;
     }
 
     /**
-     *
-     * @param odds
-     * The odds
+     * @param odds The odds
      */
     public void setOdds(Odds odds) {
         this.odds = odds;

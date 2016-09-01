@@ -31,8 +31,8 @@ public class MyApplication extends Application {
                 md.update(signature.toByteArray());
                 Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
-        } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException ignored) {}
+        } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException ignored) {
+        }
     }
-
 
 }

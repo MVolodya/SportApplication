@@ -36,7 +36,7 @@ public class RateManager {
 
     public void setRate(String name, String matchId, String pointsRate, String points, String typeOfRate) {
         remoteDatabaseManager = new RemoteDatabaseManager(context);
-        remoteDatabaseManager.setRateToDatabase(name, matchId, pointsRate,points, typeOfRate);
+        remoteDatabaseManager.setRateToDatabase(name, matchId, pointsRate, points, typeOfRate);
     }
 
     public void getUsersRates(final String username,

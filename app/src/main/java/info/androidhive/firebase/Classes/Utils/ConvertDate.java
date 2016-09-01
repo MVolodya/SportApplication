@@ -10,8 +10,8 @@ public class ConvertDate {
         StringBuilder builder = new StringBuilder();
         char dateArray[] = date.toCharArray();
 
-        for(char c:dateArray){
-            if(c != 'T') builder.append(c);
+        for (char c : dateArray) {
+            if (c != 'T') builder.append(c);
             else break;
         }
         return builder.toString();

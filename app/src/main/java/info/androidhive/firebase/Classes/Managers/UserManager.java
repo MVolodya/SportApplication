@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import info.androidhive.firebase.Activities.ResetPasswordActivity;
+import info.androidhive.firebase.R;
 
 public class UserManager {
 
@@ -30,9 +31,9 @@ public class UserManager {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(context, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.we_have_sent, Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(context, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.failed_to_send, Toast.LENGTH_SHORT).show();
                         }
 
                         ProgressDialogManager.hideProgressDialog(new ProgressDialog(context));

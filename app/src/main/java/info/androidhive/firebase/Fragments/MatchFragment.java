@@ -87,10 +87,10 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         backImageView = (ImageView) view.findViewById(R.id.imageViewBackButton);
         calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
         progressDialog = new ProgressDialog(view.getContext());
-        circularProgressView = (CircularProgressView)view.findViewById(R.id.progress_view_match);
+        circularProgressView = (CircularProgressView) view.findViewById(R.id.progress_view_match);
 
 
-        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
+        ProgressDialogManager.showProgressDialog(progressDialog, getString(R.string.loading));
 
         mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
@@ -204,7 +204,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     @Override
     public void onDateSelected(@NonNull Date date) {
 
-        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
+        ProgressDialogManager.showProgressDialog(progressDialog, getString(R.string.loading));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         currentDate = df.format(date);

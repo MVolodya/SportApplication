@@ -1,8 +1,5 @@
 package info.androidhive.firebase.Classes.Models;
 
-/**
- * Created by andrii on 23.08.16.
- */
 public class Rate {
     private String homeTeamName;
     private String awayTeamName;

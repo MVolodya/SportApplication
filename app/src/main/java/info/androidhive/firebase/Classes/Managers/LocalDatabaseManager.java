@@ -31,14 +31,14 @@ public class LocalDatabaseManager {
         user.setName(name);
         user.setEmail(email);
 
-        if(photoUrl != null)
-        user.setPhotoURL(photoUrl.toString());
+        if (photoUrl != null)
+            user.setPhotoURL(photoUrl.toString());
         else user.setPhotoURL(null);
 
         userRealm.commitTransaction();
     }
 
-    public static void updateName(String name){
+    public static void updateName(String name) {
         userRealm.beginTransaction();
         User user = getUser();
 
@@ -47,7 +47,7 @@ public class LocalDatabaseManager {
         userRealm.commitTransaction();
     }
 
-    public static void updateEmail(String email){
+    public static void updateEmail(String email) {
         userRealm.beginTransaction();
         User user = getUser();
 
@@ -56,7 +56,7 @@ public class LocalDatabaseManager {
         userRealm.commitTransaction();
     }
 
-    public static void updateUrl(String url){
+    public static void updateUrl(String url) {
         userRealm.beginTransaction();
         User user = getUser();
 
@@ -76,7 +76,7 @@ public class LocalDatabaseManager {
         userRealm.close();
     }
 
-    public static void delete(){
+    public static void delete() {
         userRealm.beginTransaction();
         userRealm.deleteAll();
         userRealm.commitTransaction();

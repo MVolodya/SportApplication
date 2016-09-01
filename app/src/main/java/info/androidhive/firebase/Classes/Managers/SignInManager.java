@@ -50,7 +50,7 @@ public class SignInManager {
         localDatabaseManager = new LocalDatabaseManager(context);
     }
 
-    public void signUpWithEmailAndPassword(String email,final String password){
+    public void signUpWithEmailAndPassword(String email, final String password) {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((SignupActivity) context, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -67,7 +67,7 @@ public class SignInManager {
 
                             long currentTime = System.currentTimeMillis();
 
-                            if(auth.getCurrentUser().getDisplayName() != null) {
+                            if (auth.getCurrentUser().getDisplayName() != null) {
 
                                 localDatabaseManager.setUser(auth.getCurrentUser().getDisplayName(),
                                         auth.getCurrentUser().getEmail(),
@@ -78,30 +78,30 @@ public class SignInManager {
                                                 context.getString(R.string.user_photo_url));
                             } else {
 
-                                localDatabaseManager.setUser("Anonymous"+currentTime,
+                                localDatabaseManager.setUser("Anonymous" + currentTime,
                                         auth.getCurrentUser().getEmail(),
                                         Uri.parse(context.getString(R.string.user_photo_url)));
 
-                                UserManager.updateUsername("Anonymous"+currentTime);
+                                UserManager.updateUsername("Anonymous" + currentTime);
                                 UserManager.updateUrl(context.getString(R.string.user_photo_url));
 
                                 new RemoteDatabaseManager(context)
-                                        .setUserData("Anonymous"+currentTime,
+                                        .setUserData("Anonymous" + currentTime,
                                                 context.getString(R.string.user_photo_url));
                             }
 
                             context.startActivity(new Intent(context, MainActivity.class));
-                            ((SignupActivity)context).finish();
+                            ((SignupActivity) context).finish();
                             LoginActivity.loginActivity.finish();
                         }
                     }
                 });
     }
 
-    public void loginWithEmailAndPassword(String email,final String password){
+    public void loginWithEmailAndPassword(String email, final String password) {
         //authenticate user
         auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(((LoginActivity)context), new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(((LoginActivity) context), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         // If sign in fails, display a message to the user. If sign in succeeds
@@ -111,21 +111,21 @@ public class SignInManager {
                         if (!task.isSuccessful()) {
                             // there was an error
                             if (password.length() < 6) {
-                                ((LoginActivity)context).getInputPassword().setError(context.getString(R.string.minimum_password));
+                                ((LoginActivity) context).getInputPassword().setError(context.getString(R.string.minimum_password));
                             } else {
                                 Toast.makeText(context, context.getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                             }
                         } else {
                             FirebaseUser fbUser = auth.getInstance().getCurrentUser();
 
-                            if(fbUser != null){
+                            if (fbUser != null) {
                                 localDatabaseManager.setUser(fbUser.getDisplayName(),
                                         fbUser.getEmail(),
                                         fbUser.getPhotoUrl());
 
                                 context.startActivity(new Intent(context, MainActivity.class));
-                                ((LoginActivity)context).finish();
-                            }else
+                                ((LoginActivity) context).finish();
+                            } else
                                 Toast.makeText(context, "Wrong with fbUser", Toast.LENGTH_SHORT).show();
 
                         }
@@ -142,10 +142,12 @@ public class SignInManager {
             }
 
             @Override
-            public void onCancel() {}
+            public void onCancel() {
+            }
 
             @Override
-            public void onError(FacebookException error) {}
+            public void onError(FacebookException error) {
+            }
 
         });
     }
@@ -154,7 +156,7 @@ public class SignInManager {
     private void handleFacebookAccessToken(AccessToken token) {
         //Log.d(TAG, "handleFacebookAccessToken:" + token);
 
-        ProgressDialogManager.showProgressDialog(mProgressDialog,"Sign in");
+        ProgressDialogManager.showProgressDialog(mProgressDialog, "Sign in");
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         auth.signInWithCredential(credential)
@@ -170,23 +172,23 @@ public class SignInManager {
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(context, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
                             Profile profile = Profile.getCurrentProfile();
                             FirebaseUser firebaseUser = auth.getInstance().getCurrentUser();
 
-                            if(firebaseUser.getDisplayName() != null)
-                            new RemoteDatabaseManager(context)
-                                    .setUserData(firebaseUser.getDisplayName(),
-                                            profile.getProfilePictureUri(500, 281).toString());
+                            if (firebaseUser.getDisplayName() != null)
+                                new RemoteDatabaseManager(context)
+                                        .setUserData(firebaseUser.getDisplayName(),
+                                                profile.getProfilePictureUri(500, 281).toString());
                             else new RemoteDatabaseManager(context)
-                                    .setUserData("Anonymous"+System.currentTimeMillis(),
+                                    .setUserData("Anonymous" + System.currentTimeMillis(),
                                             context.getString(R.string.user_photo_url));
 
                             localDatabaseManager.setUser(firebaseUser.getDisplayName(),
                                     firebaseUser.getEmail(),
                                     firebaseUser.getPhotoUrl());
                             context.startActivity(new Intent(context, MainActivity.class));
-                            ((Activity)context).finish();
+                            ((Activity) context).finish();
                         }
                         ProgressDialogManager.hideProgressDialog(mProgressDialog);
 
@@ -195,14 +197,11 @@ public class SignInManager {
     }
 
 
-
-    public static void signOut(){
+    public static void signOut() {
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
         LocalDatabaseManager.delete();
     }
-
-
 
 
 }

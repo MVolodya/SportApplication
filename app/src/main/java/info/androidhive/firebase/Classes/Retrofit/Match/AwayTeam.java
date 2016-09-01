@@ -3,18 +3,16 @@ package info.androidhive.firebase.Classes.Retrofit.Match;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-    public class AwayTeam {
+public class AwayTeam {
 
-        @SerializedName("href")
-        @Expose
-        private String href;
+    @SerializedName("href")
+    @Expose
+    private String href;
 
-        /**
-         *
-         * @return
-         * The href
-         */
-        public String getHref() {
-            return href;
-        }
+    /**
+     * @return The href
+     */
+    public String getHref() {
+        return href;
+    }
 }

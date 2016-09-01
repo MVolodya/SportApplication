@@ -164,6 +164,14 @@
     <string name="enter_password">Enter password!</string>
     <string name="password_too_short">Password too short, enter minimum 6 characters!</string>
     <string name="sing_up">Sing up</string>
+    <string name="loading">Loading</string>
+    <string name="roundof">Round of </string>
+    <string name="none"> </string>
+    <string name="we_have_sent">We have sent you instructions to reset your password!</string>
+    <string name="failed_to_send">Failed to send reset email!</string>
+    <string name="enter_points">Enter points...</string>
+    <string name="set_rate">Set rate</string>
+    <string name="points">Points...</string>
 
      <string name="lorem_ipsum">Lorem ipsum dolor sit amet, mauris suscipit eros curabitur vel,
         purus ullamcorper quam dignissim ligula vitae, tellus pharetra, urna arcu nunc ut sem
