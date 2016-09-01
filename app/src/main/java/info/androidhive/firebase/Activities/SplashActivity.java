@@ -22,7 +22,7 @@ public class SplashActivity extends Activity implements UserRateManager {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
             rateManager.getUsersRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), this);
         }else{
             Intent i = new Intent(SplashActivity.this, LoginActivity.class);

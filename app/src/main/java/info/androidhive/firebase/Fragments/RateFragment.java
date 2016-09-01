@@ -149,7 +149,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         if (!enter) {
             //leaving fragment
-            getFragmentManager().popBackStack();
+           // getFragmentManager().popBackStack();
             ((MainActivity) this.view.getContext()).showToolbar();
             ((MainActivity) this.view.getContext()).unlockSwipe();
         }

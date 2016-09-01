@@ -13,9 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import com.github.fabtransitionactivity.SheetLayout;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.samsistemas.calendarview.widget.CalendarView;
 
 import java.text.DateFormat;
@@ -62,6 +64,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     private ImageView backImageView;
     private List<Fixture> matches;
     private MatchResponse matchResponse;
+    private CircularProgressView circularProgressView;
 
 
     private String currentDate = getCurrentDate();
@@ -84,6 +87,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         backImageView = (ImageView) view.findViewById(R.id.imageViewBackButton);
         calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
         progressDialog = new ProgressDialog(view.getContext());
+        circularProgressView = (CircularProgressView)view.findViewById(R.id.progress_view_match);
 
 
         ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
@@ -154,6 +158,8 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setAdapter(mAdapter);
 
+            circularProgressView.stopAnimation();
+            circularProgressView.setVisibility(View.INVISIBLE);
             //mAdapter.notifyDataSetChanged();
             //mAdapter.swap(matchResponse.getFixtures());
         }
@@ -183,6 +189,15 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     }
 
     @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (!enter) {
+
+        }
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+
+    @Override
     public void onFabAnimationEnd() {
     }
 
@@ -194,16 +209,19 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
 
         currentDate = df.format(date);
 
+        matches = new ArrayList<>();
+        mAdapter = new MatchAdapter(matches);
+        recyclerView.setAdapter(mAdapter);
+
+        circularProgressView.setVisibility(View.VISIBLE);
+        circularProgressView.startAnimation();
         MatchService service = ApiFactory.getMatchService();
         Call<MatchResponse> call = service.matches();
         call.enqueue(this);
 
         sheetLayout.contractFab();
-
         fragment.showTabs();
-
         fragment.getViewPager().setPagingEnabled(true);
-
     }
 
     private String getCurrentDate() {
