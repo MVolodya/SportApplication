@@ -1,8 +1,10 @@
 package info.androidhive.firebase.Activities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import info.androidhive.firebase.Classes.Managers.AlertDialogManager;
 import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
@@ -54,6 +57,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private ProgressDialog mProgressDialog;
     private RelativeLayout relativeLayout;
     private RemoteDatabaseManager remoteDatabaseManager;
+    private RelativeLayout langrelativeLayout;
+    private Locale myLocale;
 
 
     @Override
@@ -132,7 +137,55 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         else collapsingToolbar.setTitle(getString(R.string.anonymous));
 
         setUserInformation();
+
+        langrelativeLayout = (RelativeLayout) findViewById(R.id.languagechange);
+        langrelativeLayout.setOnClickListener(this);
+
+        loadLocale();
     }
+
+    public void loadLocale()
+    {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        String language = prefs.getString(langPref, "");
+        changeLang(language);
+    }
+    public void saveLocale(String lang)
+    {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(langPref, lang);
+        editor.commit();
+    }
+    public void changeLang(String lang)
+    {
+        if (lang.equalsIgnoreCase(""))
+            return;
+        myLocale = new Locale(lang);
+        saveLocale(lang);
+        Locale.setDefault(myLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = myLocale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        updateTexts();
+    }
+    private void updateTexts()
+    {
+        // langrelativeLayout.setText(R.string.dialog_photo_take_photo);
+    }
+
+    @Override
+    public void onConfigurationChanged(android.content.res.Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (myLocale != null){
+            newConfig.locale = myLocale;
+            Locale.setDefault(myLocale);
+            getBaseContext().getResources().updateConfiguration(newConfig, getBaseContext().getResources().getDisplayMetrics());
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -163,6 +216,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
+        String lang = "en";
         switch (view.getId()) {
             case R.id.change_photo:
 
@@ -236,7 +290,12 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         });
                 alertDialogPassword.show();
                 break;
+
+            case R.id.languagechange:
+                lang = "uk";
+                break;
         }
+        changeLang(lang);
     }
 
     @Override

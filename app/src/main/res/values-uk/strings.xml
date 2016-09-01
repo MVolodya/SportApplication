@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Soccer Events</string>
+    <string name="basic_line">-</string>
+    <string name="connected_to_internet">Підключено до інтернету</string>
+    <string name="dialog_photo_load_from_gallery">Завантажити з галереї</string>
+    <string name="dialog_photo_photo">Фото</string>
+    <string name="dialog_photo_take_photo">Зробити фото</string>
+    <string name="email">Email</string>
+    <string name="enter_email_address">Введіть email</string>
+    <string name="enter_new_email">Введіть новий email</string>
+    <string name="enter_new_name">Введіть нове ім\'я</string>
+    <string name="enter_new_password">Введіть новий пароль</string>
+    <string name="enter_password">Введіть пароль</string>
+</resources>
