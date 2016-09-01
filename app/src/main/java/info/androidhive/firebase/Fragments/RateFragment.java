@@ -3,6 +3,7 @@ package info.androidhive.firebase.Fragments;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -84,6 +85,8 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
 
         view = inflater.inflate(R.layout.fragment_rate, container, false);
 
+        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar));
+
         homeTeam = (TextView) view.findViewById(R.id.textViewTeamHome);
         awayTeam = (TextView) view.findViewById(R.id.textViewTeamAway);
         round = (TextView) view.findViewById(R.id.tv_round);
@@ -148,8 +151,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         if (!enter) {
-            //leaving fragment
-           // getFragmentManager().popBackStack();
+            getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
             ((MainActivity) this.view.getContext()).showToolbar();
             ((MainActivity) this.view.getContext()).unlockSwipe();
         }

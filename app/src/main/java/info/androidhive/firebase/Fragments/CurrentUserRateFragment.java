@@ -2,6 +2,7 @@ package info.androidhive.firebase.Fragments;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.tuesda.walker.circlerefresh.CircleRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +55,7 @@ public class CurrentUserRateFragment extends Fragment {
     private View view;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private CircleRefreshLayout swipeRefreshLayout;
     private CircularProgressView progressView;
     private RateMatchResponse rateMatchResponse;
     private Fixture matches;
@@ -79,7 +81,7 @@ public class CurrentUserRateFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_cuurent_user_rate, container, false);
 
         progressView = (CircularProgressView) view.findViewById(R.id.progress_view_user_rate);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayoutRate);
+        swipeRefreshLayout = (CircleRefreshLayout) view.findViewById(R.id.refresh_layout_users_rate);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_user_rate);
         mLayoutManager = new LinearLayoutManager(view.getContext());
 
@@ -114,15 +116,23 @@ public class CurrentUserRateFragment extends Fragment {
             public void onLongClick(View view, int position) {}
         }));
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(new CircleRefreshLayout.OnCircleRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void completeRefresh() {}
+
+            @Override
+            public void refreshing() {
                 getUsersRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        swipeRefreshLayout.finishRefreshing();
+                    }
+                }, 2 * 1000);
             }
         });
 
         getUsersRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-        // Inflate the layout for this fragment
         return view;
     }
 
@@ -178,7 +188,6 @@ public class CurrentUserRateFragment extends Fragment {
                                                         }
                                                             progressView.stopAnimation();
                                                             progressView.setVisibility(View.GONE);
-                                                            swipeRefreshLayout.setRefreshing(false);
                                                             recyclerView.setAdapter(usersRateAdapter);
                                                     }
 

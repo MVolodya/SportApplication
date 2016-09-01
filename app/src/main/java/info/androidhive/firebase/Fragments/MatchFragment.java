@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.fabtransitionactivity.SheetLayout;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Locale;
 
 import info.androidhive.firebase.Activities.MainActivity;
+import info.androidhive.firebase.Classes.Managers.DataGetter;
 import info.androidhive.firebase.Classes.Utils.ConvertDate;
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
@@ -52,6 +54,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         SheetLayout.OnFabAnimationEndListener,
         CalendarView.OnDateSelectedListener {
 
+    private TextView msg;
     private RecyclerView recyclerView;
     private MatchAdapter mAdapter;
     private View view;
@@ -67,7 +70,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     private CircularProgressView circularProgressView;
 
 
-    private String currentDate = getCurrentDate();
+    private String currentDate = new DataGetter().getCurrentDate();
 
     public MatchFragment() {
         // Required empty public constructor
@@ -84,11 +87,13 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_match);
         fabCalendar = (FloatingActionButton) view.findViewById(R.id.fabCalendar);
         sheetLayout = (SheetLayout) view.findViewById(R.id.bottom_sheet);
+        msg = (TextView) view.findViewById(R.id.textViewMsg);
         backImageView = (ImageView) view.findViewById(R.id.imageViewBackButton);
         calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
         progressDialog = new ProgressDialog(view.getContext());
         circularProgressView = (CircularProgressView)view.findViewById(R.id.progress_view_match);
 
+        msg.setVisibility(View.GONE);
 
         ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
 
@@ -104,8 +109,10 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
                 DataHelper dataHelper = DataHelper.getInstance();
                 dataHelper.setMatchId(Integer.parseInt(MatchAdapter.getMatchId(matches.get(position)
                         .getLinks().getSelf().getHref())));
-                dataHelper.setHomeTeamId(getTeamId(matches.get(position).getLinks().getHomeTeam().getHref()));
-                dataHelper.setAwayTeamId(getTeamId(matches.get(position).getLinks().getAwayTeam().getHref()));
+                dataHelper.setHomeTeamId(new DataGetter().getTeamId(matches.get(position)
+                        .getLinks().getHomeTeam().getHref()));
+                dataHelper.setAwayTeamId(new DataGetter().getTeamId(matches.get(position)
+                        .getLinks().getAwayTeam().getHref()));
 
                 Fragment fr = getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
 
@@ -152,8 +159,12 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         if (response.isSuccess()) {
             ProgressDialogManager.hideProgressDialog(progressDialog);
             matchResponse = response.body();
-            matches = getCorrectMatches(matchResponse.getFixtures());
+            matches = new DataGetter().getCorrectMatches(matchResponse.getFixtures(), currentDate);
             mAdapter = new MatchAdapter(matches);
+
+            if(matches.size()==0){
+                msg.setVisibility(View.VISIBLE);
+            }
 
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setAdapter(mAdapter);
@@ -215,6 +226,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
 
         circularProgressView.setVisibility(View.VISIBLE);
         circularProgressView.startAnimation();
+        msg.setVisibility(View.GONE);
         MatchService service = ApiFactory.getMatchService();
         Call<MatchResponse> call = service.matches();
         call.enqueue(this);
@@ -224,26 +236,4 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         fragment.getViewPager().setPagingEnabled(true);
     }
 
-    private String getCurrentDate() {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String date = df.format(Calendar.getInstance().getTime());
-        return date;
-    }
-
-    private List<Fixture> getCorrectMatches(List<Fixture> list) {
-
-        ArrayList<Fixture> listCorrect = new ArrayList<>();
-
-        for (Fixture f : list) {
-            if (currentDate.equals(ConvertDate.getDate(f.getDate()))) {
-                listCorrect.add(f);
-            }
-        }
-        return listCorrect;
-    }
-
-    private int getTeamId(String link) {
-        Log.d("teamId", link);
-        return Integer.parseInt(link.replaceAll("http://api.football-data.org/v1/teams/", ""));
-    }
 }

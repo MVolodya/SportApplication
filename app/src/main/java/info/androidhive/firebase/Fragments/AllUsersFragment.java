@@ -2,6 +2,7 @@ package info.androidhive.firebase.Fragments;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,7 +37,7 @@ public class AllUsersFragment extends Fragment {
     private AllUsersAdapter usersAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView recyclerView;
-private CircleRefreshLayout refreshLayout;
+    private CircleRefreshLayout refreshLayout;
     private CircularProgressView progressView;
 
     public AllUsersFragment() {
@@ -63,10 +64,17 @@ private CircleRefreshLayout refreshLayout;
                     @Override
                     public void refreshing() {
                         getUsers();
-                        refreshLayout.finishRefreshing();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                refreshLayout.finishRefreshing();
+                            }
+                        }, 2 * 1000);
                     }
+
                     @Override
-                    public void completeRefresh() {}
+                    public void completeRefresh() {
+                    }
                 });
 
         getUsers();
@@ -108,7 +116,6 @@ private CircleRefreshLayout refreshLayout;
         }
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
-
 
 
 }

@@ -56,17 +56,22 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.tvHomeTeam.setText(fixturesList.get(position).getHomeTeamName());
-        holder.tvAwayTeam.setText(fixturesList.get(position).getAwayTeamName());
-        holder.tvTime.setText(fixturesList.get(position).getDate());
 
-        if (fixturesList.get(position).getResult().getGoalsHomeTeam() != null
-                && fixturesList.get(position).getResult().getGoalsAwayTeam() != null) {
-            holder.tvScore.setText(fixturesList.get(position).getResult().getGoalsHomeTeam().toString()
-                    + " - " + fixturesList.get(position).getResult().getGoalsAwayTeam().toString());
+        if(fixturesList.size()>0) {
+            holder.tvHomeTeam.setText(fixturesList.get(position).getHomeTeamName());
+            holder.tvAwayTeam.setText(fixturesList.get(position).getAwayTeamName());
+            holder.tvTime.setText(fixturesList.get(position).getDate());
+
+            if (fixturesList.get(position).getResult().getGoalsHomeTeam() != null
+                    && fixturesList.get(position).getResult().getGoalsAwayTeam() != null) {
+                holder.tvScore.setText(fixturesList.get(position).getResult().getGoalsHomeTeam().toString()
+                        + " - " + fixturesList.get(position).getResult().getGoalsAwayTeam().toString());
+            }
+
+            holder.tvStatus.setText(fixturesList.get(position).getStatus());
+        }else{
+
         }
-
-        holder.tvStatus.setText(fixturesList.get(position).getStatus());
     }
 
     @Override

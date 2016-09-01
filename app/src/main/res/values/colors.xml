@@ -30,6 +30,7 @@
     <color name="navigationBarColor">#000000</color>
 
     <color name="dark">#000000</color>
+    <color name="status_bar">#628f3e</color>
 
     <color name="disableback">#DFDFDF</color>
     <color name="disabletext">#A5A5A5</color>

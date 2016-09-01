@@ -60,6 +60,7 @@
                 android:id="@+id/imageViewBackButton"
                 android:src="@drawable/ic_keyboard_arrow_left_white" />
 
+
         </RelativeLayout>
     </com.github.fabtransitionactivity.SheetLayout>
 
@@ -76,7 +77,12 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="No matches today..."
+        android:id="@+id/textViewMsg"
+        android:layout_gravity="center" />
 
 </FrameLayout>
