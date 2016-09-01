@@ -1,5 +1,6 @@
 package info.androidhive.firebase.Activities;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -39,6 +40,7 @@ import info.androidhive.firebase.Classes.Managers.SignInManager;
 import info.androidhive.firebase.Classes.Models.User;
 import info.androidhive.firebase.Fragments.AllUsersFragment;
 import info.androidhive.firebase.Fragments.CurrentUserRateFragment;
+import info.androidhive.firebase.Fragments.MainFragment;
 import info.androidhive.firebase.R;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
@@ -102,15 +104,17 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                         if (drawerItem != null) {
                             switch (itemSelected) {
                                 case 1:
-                                    getSupportFragmentManager().popBackStack();
+                                    if (!(fr instanceof MainFragment))
+                                        fragmentManager
+                                                .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
+                                                .replace(R.id.container, new MainFragment())
+                                                .commit();
                                     break;
                                 case 3:
-
                                     if (!(fr instanceof AllUsersFragment))
                                     fragmentManager
                                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                                             .replace(R.id.container, new AllUsersFragment())
-                                            .addToBackStack(null)
                                             .commit();
                                     break;
                                 case 4:
@@ -118,7 +122,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                                     fragmentManager
                                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                                             .replace(R.id.container, CurrentUserRateFragment.newInstance())
-                                            .addToBackStack(null)
                                             .commit();
                                     break;
                                 case 7:

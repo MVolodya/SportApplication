@@ -149,6 +149,7 @@ public class CurrentUserRateFragment extends Fragment {
                                                         RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
                                                         final List<RatedMatchesToDB> ratedMatchesList = ratedUser.getRatedMatches();
 
+                                                        if(ratedMatchesList!= null){
                                                         for (int i = 0; i < ratedMatchesList.size(); i++) {
 
                                                             RateMatchService service = ApiFactory.getRateMatchService();
@@ -173,6 +174,7 @@ public class CurrentUserRateFragment extends Fragment {
                                                                 public void onFailure(Throwable t) {
                                                                 }
                                                             });
+                                                        }
                                                         }
                                                             progressView.stopAnimation();
                                                             progressView.setVisibility(View.GONE);

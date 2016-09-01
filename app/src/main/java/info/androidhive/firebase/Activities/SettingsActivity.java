@@ -39,8 +39,8 @@ import info.androidhive.firebase.R;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener, ResponseUrl {
 
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private static final int CAMERA_REQUEST = 2;
+    public static final int PICK_IMAGE_REQUEST = 1;
+    public static final int CAMERA_REQUEST = 2;
 
 
     private TextView etUsername;
@@ -52,7 +52,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private FirebaseAuth auth;
     private FirebaseUser firebaseUser;
     private ProgressDialog mProgressDialog;
-    private ProgressDialogManager progressDialogManager;
     private RelativeLayout relativeLayout;
     private RemoteDatabaseManager remoteDatabaseManager;
 
@@ -74,6 +73,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         etEmail = (TextView) findViewById(R.id.email_setting);
         userPhoto = (ImageView) findViewById(R.id.imageViewPhoto);
 
+        mProgressDialog = new ProgressDialog(this);
         remoteDatabaseManager = new RemoteDatabaseManager(this);
         localDatabaseManager = new LocalDatabaseManager(this);
         auth = FirebaseAuth.getInstance();
@@ -84,8 +84,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         String providerId = userInfo.getProviderId();
 
         user = LocalDatabaseManager.getUser();
-
-        progressDialogManager = new ProgressDialogManager(this, mProgressDialog);
 
         //start AlertDialog FAB -------------------------
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.change_photo);
@@ -115,10 +113,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         } else relativeLayout.setEnabled(true);
         //end AlertDialog password
 
-        //start BottomSheetFAQ
+
         relativeLayout = (RelativeLayout) findViewById(R.id.bottomsheet_faq_relative);
-        // View bottomSheetView = findViewById(R.id.bottomSheet);
-        // BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView);
+
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,7 +123,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         SettingsActivity.class.getSimpleName());
             }
         });
-        //end BottomSheetFAQ
+
 
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -168,37 +165,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.change_photo:
-                LayoutInflater layoutInflater = LayoutInflater.from(this);
-                view = layoutInflater.inflate(R.layout.dialog_photo, null);
 
-                AlertDialog.Builder alertDialogBuilderPhoto = new AlertDialog.Builder(this);
-                alertDialogBuilderPhoto.setView(view);
+                AlertDialog.Builder alertDialogPhoto = AlertDialogManager.getPhotoAlertDialog(this);
+                alertDialogPhoto.show();
 
-                final AlertDialog alertDialogFAB = alertDialogBuilderPhoto.create();
-                alertDialogFAB.show();
-
-                Button buttonGallery = (Button) view.findViewById(R.id.buttonGallery);
-                buttonGallery.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent();
-                        intent.setType("image/*");
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-                        alertDialogFAB.dismiss();
-                        alertDialogFAB.hide();
-                    }
-                });
-                Button buttonCamera = (Button) view.findViewById(R.id.buttonCamera);
-                buttonCamera.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                        alertDialogFAB.dismiss();
-                        alertDialogFAB.hide();
-                    }
-                });
                 break;
 
             case R.id.usernameDialog:
@@ -208,10 +178,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 UserManager.updateUsername(AlertDialogManager.getInput().getText().toString());
+
                                 LocalDatabaseManager.updateName(AlertDialogManager.getInput().getText().toString());
+
                                 remoteDatabaseManager.updateUsername(firebaseUser.getDisplayName(),
                                         AlertDialogManager.getInput().getText().toString());
                                 etUsername.setText(user.getName());
+
                                 dialog.cancel();
                             }
                         });
@@ -273,12 +246,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
             try {
-                mProgressDialog = new ProgressDialog(this);
-                mProgressDialog.setMessage("Wait, while loading photo!");
-                mProgressDialog.setCanceledOnTouchOutside(false);
-                mProgressDialog.setCancelable(false);
-                mProgressDialog.setIndeterminate(true);
-                mProgressDialog.show();
+
+
+                ProgressDialogManager.showProgressDialog(mProgressDialog, "Wait, while loading photo!");
 
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 new RemoteDatabaseManager(this).uploadImage(bitmap, firebaseUser.getUid(), this);
@@ -289,12 +259,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
 
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage("Wait, while loading photo!");
-            mProgressDialog.setCanceledOnTouchOutside(false);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.show();
+
+            ProgressDialogManager.showProgressDialog(mProgressDialog, "Wait, while loading photo!");
 
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             new RemoteDatabaseManager(this).uploadImage(photo, firebaseUser.getUid(), this);
@@ -310,8 +276,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 .load(user.getPhotoURL())
                 .into(userPhoto);
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
-            mProgressDialog.dismiss();
+            ProgressDialogManager.hideProgressDialog(mProgressDialog);
         }
     }
 }

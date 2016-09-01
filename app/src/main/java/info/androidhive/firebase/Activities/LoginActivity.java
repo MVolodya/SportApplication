@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
 
         signInManager = new SignInManager(this, auth);
         localDatabaseManager = new LocalDatabaseManager(this);
-        dialogManager = new ProgressDialogManager(this,mProgressDialog);
+        mProgressDialog = new ProgressDialog(this);
 
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
@@ -125,41 +125,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                     return;
                 }
 
-                dialogManager.showProgressDialog();
-
-                //authenticate user
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                dialogManager.hideProgressDialog();
-                                if (!task.isSuccessful()) {
-                                    // there was an error
-                                    if (password.length() < 6) {
-                                        inputPassword.setError(getString(R.string.minimum_password));
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
-                                    }
-                                } else {
-                                    FirebaseUser fbUser = auth.getInstance().getCurrentUser();
-
-                                    if(fbUser != null){
-                                        localDatabaseManager.setUser(fbUser.getDisplayName(),
-                                                fbUser.getEmail(),
-                                                fbUser.getPhotoUrl());
-
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                        finish();
-                                    }else
-                                        Toast.makeText(LoginActivity.this, "Wrong with fbUser", Toast.LENGTH_SHORT).show();
-
-                                }
-                            }
-
-                        });
+                ProgressDialogManager.showProgressDialog(mProgressDialog, "Sign in");
+                signInManager.loginWithEmailAndPassword(email, password);
             }
         });
 
@@ -169,7 +136,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-
     }
 
     public void hideKeyboard(View view) {
@@ -184,7 +150,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         }
     }
 
+    public EditText getInputPassword() {
+        return inputPassword;
+    }
 
+    public ProgressDialogManager getDialogManager() {
+        return dialogManager;
+    }
 }
 
 

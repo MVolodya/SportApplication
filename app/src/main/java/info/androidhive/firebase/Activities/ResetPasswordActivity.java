@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
+import info.androidhive.firebase.Classes.Managers.UserManager;
 import info.androidhive.firebase.R;
 
 public class ResetPasswordActivity extends AppCompatActivity {
@@ -42,8 +43,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         inputEmail = (EditText) findViewById(R.id.email);
         btnReset = (Button) findViewById(R.id.btn_reset_password);
         btnBack = (Button) findViewById(R.id.btn_back);
-
-        dialogManager = new ProgressDialogManager(this,progressDialog);
+        progressDialog = new ProgressDialog(this);
 
         auth = FirebaseAuth.getInstance();
 
@@ -65,22 +65,9 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     return;
                 }
 
-                dialogManager.showProgressDialog();
-                auth.sendPasswordResetEmail(email)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(ResetPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(ResetPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
-                                }
-
-                                dialogManager.hideProgressDialog();
-                            }
-                        });
+                ProgressDialogManager.showProgressDialog(progressDialog, "Sign in");
+               new UserManager(ResetPasswordActivity.this).resetPassword(email);
             }
         });
     }
-
 }

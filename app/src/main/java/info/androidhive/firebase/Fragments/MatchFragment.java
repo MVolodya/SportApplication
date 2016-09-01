@@ -13,9 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import com.github.fabtransitionactivity.SheetLayout;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.samsistemas.calendarview.widget.CalendarView;
 
 import java.text.DateFormat;
@@ -54,7 +56,6 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     private MatchAdapter mAdapter;
     private View view;
     private ProgressDialog progressDialog;
-    private ProgressDialogManager dialogManager;
     private FloatingActionButton fabCalendar;
     private SheetLayout sheetLayout;
     private CalendarView calendarView;
@@ -63,6 +64,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     private ImageView backImageView;
     private List<Fixture> matches;
     private MatchResponse matchResponse;
+    private CircularProgressView circularProgressView;
 
 
     private String currentDate = getCurrentDate();
@@ -84,10 +86,11 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         sheetLayout = (SheetLayout) view.findViewById(R.id.bottom_sheet);
         backImageView = (ImageView) view.findViewById(R.id.imageViewBackButton);
         calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
+        progressDialog = new ProgressDialog(view.getContext());
+        circularProgressView = (CircularProgressView)view.findViewById(R.id.progress_view_match);
 
 
-        dialogManager = new ProgressDialogManager(getActivity(), progressDialog);
-        dialogManager.showProgressDialog();
+        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
 
         mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
@@ -147,7 +150,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     @Override
     public void onResponse(Response<MatchResponse> response) {
         if (response.isSuccess()) {
-            dialogManager.hideProgressDialog();
+            ProgressDialogManager.hideProgressDialog(progressDialog);
             matchResponse = response.body();
             matches = getCorrectMatches(matchResponse.getFixtures());
             mAdapter = new MatchAdapter(matches);
@@ -155,6 +158,8 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setAdapter(mAdapter);
 
+            circularProgressView.stopAnimation();
+            circularProgressView.setVisibility(View.INVISIBLE);
             //mAdapter.notifyDataSetChanged();
             //mAdapter.swap(matchResponse.getFixtures());
         }
@@ -163,7 +168,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     @Override
     public void onFailure(Throwable t) {
         Log.d("Retrofit", "" + t);
-        dialogManager.hideProgressDialog();
+        ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 
     @Override
@@ -184,27 +189,39 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     }
 
     @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (!enter) {
+
+        }
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+
+    @Override
     public void onFabAnimationEnd() {
     }
 
     @Override
     public void onDateSelected(@NonNull Date date) {
 
-        dialogManager.showProgressDialog();
+        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         currentDate = df.format(date);
 
+        matches = new ArrayList<>();
+        mAdapter = new MatchAdapter(matches);
+        recyclerView.setAdapter(mAdapter);
+
+        circularProgressView.setVisibility(View.VISIBLE);
+        circularProgressView.startAnimation();
         MatchService service = ApiFactory.getMatchService();
         Call<MatchResponse> call = service.matches();
         call.enqueue(this);
 
         sheetLayout.contractFab();
-
         fragment.showTabs();
-
         fragment.getViewPager().setPagingEnabled(true);
-
     }
 
     private String getCurrentDate() {

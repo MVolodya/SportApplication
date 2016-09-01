@@ -61,9 +61,22 @@
                 android:src="@drawable/ic_keyboard_arrow_left_white" />
 
         </RelativeLayout>
-
-
     </com.github.fabtransitionactivity.SheetLayout>
+
+    <com.github.rahatarmanahmed.cpv.CircularProgressView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progress_view_match"
+        android:visibility="invisible"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:cpv_animAutostart="true"
+        app:cpv_indeterminate="true"
+        app:cpv_color="@color/colorPrimaryDark"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+
 
 
 </FrameLayout>
