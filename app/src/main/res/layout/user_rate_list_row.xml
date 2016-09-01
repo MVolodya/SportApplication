@@ -10,6 +10,16 @@
     android:paddingRight="16dp"
     android:paddingTop="10dp">
 
+
+    <TextView
+        android:id="@+id/textViewStatusRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/cv"
+        android:layout_below="@+id/rated_away_team"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <TextView
         android:id="@+id/rated_home_team"
         android:layout_width="match_parent"
@@ -22,11 +32,11 @@
         android:id="@+id/rated_away_team"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rated_home_team"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/rated_home_team"
         android:textColor="@color/title"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/ratedType"
@@ -41,8 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_below="@+id/ratedType"
         android:textColor="@color/title"
-        android:textStyle="bold"
-        android:layout_below="@+id/ratedType" />
+        android:textStyle="bold" />
 
 </RelativeLayout>

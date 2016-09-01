@@ -4,10 +4,12 @@ package info.androidhive.firebase.Classes.Models;
  * Created by andrii on 23.08.16.
  */
 public class Rate {
+
     private String homeTeamName;
     private String awayTeamName;
     private String type;
     private String points;
+    private String status;
 
     public String getHomeTeamName() {
         return homeTeamName;
@@ -39,5 +41,13 @@ public class Rate {
 
     public void setAwayTeamName(String awayTeamName) {
         this.awayTeamName = awayTeamName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

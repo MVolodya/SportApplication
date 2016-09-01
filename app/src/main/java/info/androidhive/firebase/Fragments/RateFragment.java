@@ -129,6 +129,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         Call<RateMatchResponse> call = service.match(dataHelper.getMatchId());
         call.enqueue(this);
 
+        
 
         return view;
     }

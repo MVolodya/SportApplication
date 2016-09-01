@@ -12,9 +12,7 @@ import java.util.List;
 import info.androidhive.firebase.Classes.Models.Rate;
 import info.androidhive.firebase.R;
 
-/**
- * Created by andrii on 23.08.16.
- */
+
 public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.ViewHolderUsersRates> {
 
     private List<Rate> ratesList;
@@ -44,6 +42,7 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
         holder.awayTeam.setText(ratesList.get(position).getAwayTeamName());
         holder.type.setText(ratesList.get(position).getType());
         holder.points.setText(ratesList.get(position).getPoints());
+        holder.checkStatus.setText(ratesList.get(position).getStatus());
     }
 
 
@@ -58,6 +57,7 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
         public TextView awayTeam;
         public TextView type;
         public TextView points;
+        public TextView checkStatus;
 
         public ViewHolderUsersRates(View v) {
             super(v);
@@ -65,6 +65,7 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
             awayTeam = (TextView)v.findViewById(R.id.rated_away_team);
             type = (TextView)v.findViewById(R.id.ratedType);
             points = (TextView)v.findViewById(R.id.ratedPoints);
+            checkStatus = (TextView)v.findViewById(R.id.textViewStatusRate);
         }
     }
 }

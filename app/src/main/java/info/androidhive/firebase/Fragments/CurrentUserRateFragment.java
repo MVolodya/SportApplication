@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,7 +49,7 @@ import retrofit.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CurrentUserRateFragment extends Fragment {
+public class    CurrentUserRateFragment extends Fragment {
 
     private View view;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -59,6 +58,9 @@ public class CurrentUserRateFragment extends Fragment {
     private CircularProgressView progressView;
     private RateMatchResponse rateMatchResponse;
     private Fixture matches;
+    private List<RatedMatchesToDB> ratedMatchesList;
+    final List<Rate> rateList = new ArrayList<>();
+
 
 
     public CurrentUserRateFragment() {
@@ -88,15 +90,13 @@ public class CurrentUserRateFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
+
                 DataHelper dataHelper = DataHelper.getInstance();
-                dataHelper.setMatchId(Integer.parseInt(MatchAdapter.getMatchId(matches
-                        .getLinks().getSelf().getHref())));
-                dataHelper.setHomeTeamId(getTeamId(matches.getLinks().getHomeTeam().getHref()));
-                dataHelper.setAwayTeamId(getTeamId(matches.getLinks().getAwayTeam().getHref()));
+                dataHelper.setMatchId(Integer.parseInt(ratedMatchesList
+                        .get(position).getMatchId()));
 
                 Fragment fr =getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
 
@@ -157,7 +157,7 @@ public class CurrentUserRateFragment extends Fragment {
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                                         final UsersRateAdapter usersRateAdapter = new UsersRateAdapter();
                                                         RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
-                                                        final List<RatedMatchesToDB> ratedMatchesList = ratedUser.getRatedMatches();
+                                                        ratedMatchesList = ratedUser.getRatedMatches();
 
                                                         if(ratedMatchesList!= null){
                                                         for (int i = 0; i < ratedMatchesList.size(); i++) {
@@ -177,6 +177,8 @@ public class CurrentUserRateFragment extends Fragment {
                                                                     rate.setAwayTeamName(rateMatchResponse.getFixture().getAwayTeamName());
                                                                     rate.setPoints(ratedMatchesList.get(finalI).getPoints());
                                                                     rate.setType(ratedMatchesList.get(finalI).getTypeOfRate());
+                                                                    rate.setStatus(ratedMatchesList.get(finalI).getStatus());
+                                                                    rateList.add(rate);
                                                                     usersRateAdapter.addRates(rate);
                                                                 }
 
@@ -198,10 +200,6 @@ public class CurrentUserRateFragment extends Fragment {
 
                 );
 
-    }
-    private int getTeamId(String link) {
-        Log.d("teamId", link);
-        return Integer.parseInt(link.replaceAll("http://api.football-data.org/v1/teams/", ""));
     }
 
 }
