@@ -129,7 +129,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 
         if (user.getName() != null) collapsingToolbar.setTitle(user.getName());
-        else collapsingToolbar.setTitle("Anonymous");
+        else collapsingToolbar.setTitle(getString(R.string.anonymous));
 
         setUserInformation();
     }
@@ -147,10 +147,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private void setUserInformation() {
 
         if (user.getName() != null) etUsername.setText(user.getName());
-        else etUsername.setText("Anonymous");
+        else etUsername.setText(getString(R.string.anonymous));
 
         if (user.getEmail() != null) etEmail.setText(user.getEmail());
-        else etEmail.setText("Anonymous@Anonymous.com");
+        else etEmail.setText(getString(R.string.anonymous_email));
 
         if (user.getPhotoURL() != null) {
             Glide.with(this)
@@ -173,8 +173,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.usernameDialog:
                 AlertDialog.Builder alertDialogUsername = AlertDialogManager.getAlertDialog(this,
-                        "Enter new name", "Edit name");
-                alertDialogUsername.setPositiveButton("Save",
+                        getString(R.string.enter_new_name), getString(R.string.edit_name));
+                alertDialogUsername.setPositiveButton(getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 UserManager.updateUsername(AlertDialogManager.getInput().getText().toString());
@@ -188,7 +188,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                                 dialog.cancel();
                             }
                         });
-                alertDialogUsername.setNegativeButton("Cancel",
+                alertDialogUsername.setNegativeButton(getString(R.string.cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
@@ -199,8 +199,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.emailDialog:
                 AlertDialog.Builder alertDialogEmail = AlertDialogManager.getAlertDialog(this,
-                        "Enter new email", "Edit email");
-                alertDialogEmail.setPositiveButton("Save",
+                        getString(R.string.enter_new_email), getString(R.string.edit_email));
+                alertDialogEmail.setPositiveButton(getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 UserManager.updateEmail(AlertDialogManager.getInput().getText().toString());
@@ -209,7 +209,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                                 dialog.cancel();
                             }
                         });
-                alertDialogEmail.setNegativeButton("Cancel",
+                alertDialogEmail.setNegativeButton(getString(R.string.cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
@@ -220,15 +220,15 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.passDialog:
                 AlertDialog.Builder alertDialogPassword =AlertDialogManager.getAlertDialog(this,
-                        "Enter new password", "Edit password");
-                alertDialogPassword.setPositiveButton("Save",
+                        getString(R.string.enter_new_password), getString(R.string.edit_password));
+                alertDialogPassword.setPositiveButton(getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 UserManager.updatePassword(AlertDialogManager.getInput().getText().toString());
                                 dialog.cancel();
                             }
                         });
-                alertDialogPassword.setNegativeButton("Cancel",
+                alertDialogPassword.setNegativeButton(getString(R.string.cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
@@ -248,7 +248,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             try {
 
 
-                ProgressDialogManager.showProgressDialog(mProgressDialog, "Wait, while loading photo!");
+                ProgressDialogManager.showProgressDialog(mProgressDialog, getString(R.string.wait_while_loading_photo));
 
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 new RemoteDatabaseManager(this).uploadImage(bitmap, firebaseUser.getUid(), this);
@@ -260,7 +260,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
 
 
-            ProgressDialogManager.showProgressDialog(mProgressDialog, "Wait, while loading photo!");
+            ProgressDialogManager.showProgressDialog(mProgressDialog, getString(R.string.wait_while_loading_photo));
 
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             new RemoteDatabaseManager(this).uploadImage(photo, firebaseUser.getUid(), this);

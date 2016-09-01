@@ -37,6 +37,7 @@
     <string name="username">Username</string>
     <string name="change_photo">Change photo</string>
     <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
     <string name="error_while_loading_data_please_check_your_network_connection">Error while loading data! Please check your network connection!</string>
     <string name="try_again">Try again</string>
 
@@ -145,6 +146,24 @@
     <string name="activity_splash_the_art_of_shitcoding">The Art Of ShitCoding</string>
     <string name="activity_splash_simplevision_studio">© Simplevision Studio</string>
     <!-- End Activity splash -->
+
+    <string name="no_connected_to_internet">Not connected to internet</string>
+    <string name="connected_to_internet">Connected to internet</string>
+    <string name="anonymous">Anonymous</string>
+    <string name="anonymous_email">anonymous@hacker.com</string>
+    <string name="enter_your_registered_email_id">Enter your registered email id</string>
+    <string name="sign_in">Sign in</string>
+    <string name="enter_new_name">Enter new name</string>
+    <string name="edit_name">Edit name</string>
+    <string name="wait_while_loading_photo"> Wait, while loading photo!</string>
+    <string name="enter_new_email">Enter new email</string>
+    <string name="edit_email">Edit email</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="edit_password">Edit password</string>
+    <string name="enter_email_address">Enter email address!</string>
+    <string name="enter_password">Enter password!</string>
+    <string name="password_too_short">Password too short, enter minimum 6 characters!</string>
+    <string name="sing_up">Sing up</string>
 
      <string name="lorem_ipsum">Lorem ipsum dolor sit amet, mauris suscipit eros curabitur vel,
         purus ullamcorper quam dignissim ligula vitae, tellus pharetra, urna arcu nunc ut sem

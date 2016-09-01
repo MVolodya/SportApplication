@@ -132,10 +132,10 @@ public class MainActivity extends NavigationDrawerActivity {
         String message;
         int color;
         if (isConnected) {
-            message = "Connected to Internet";
+            message = getString(R.string.connected_to_internet);
             color = Color.WHITE;
         } else {
-            message = "Not connected to internet";
+            message = getString(R.string.no_connected_to_internet);
             color = Color.WHITE;
         }
 

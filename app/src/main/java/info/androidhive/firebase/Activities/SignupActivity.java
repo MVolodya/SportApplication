@@ -73,21 +73,21 @@ public class SignupActivity extends AppCompatActivity {
                 final String password = inputPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.enter_email_address), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.enter_password), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.password_too_short), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                ProgressDialogManager.showProgressDialog(progressDialog,"Sing up");
+                ProgressDialogManager.showProgressDialog(progressDialog,getString(R.string.sing_up));
                 new SignInManager(SignupActivity.this, auth).signUpWithEmailAndPassword(email,password);
             }
         });

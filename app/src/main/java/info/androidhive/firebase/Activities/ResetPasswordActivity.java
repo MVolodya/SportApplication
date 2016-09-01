@@ -61,11 +61,11 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 String email = inputEmail.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), getString(R.string.enter_your_registered_email_id), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                ProgressDialogManager.showProgressDialog(progressDialog, "Sign in");
+                ProgressDialogManager.showProgressDialog(progressDialog, getString(R.string.sign_in));
                new UserManager(ResetPasswordActivity.this).resetPassword(email);
             }
         });

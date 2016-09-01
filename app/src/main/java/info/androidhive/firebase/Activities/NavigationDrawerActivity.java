@@ -66,28 +66,28 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 .addDrawerItems(
                         new PrimaryDrawerItem()
                                 .withIdentifier(1)
-                                .withName("Home")
+                                .withName(getString(R.string.nd_home))
                                 .withIcon(GoogleMaterial.Icon.gmd_home),
                         new SectionDrawerItem()
-                                .withName("Rates"),
+                                .withName(getString(R.string.nd_sub_rates)),
                         new SecondaryDrawerItem()
                                 .withIdentifier(3)
-                                .withName("All users")
+                                .withName(getString(R.string.nd_all_users))
                                 .withIcon(GoogleMaterial.Icon.gmd_account),
                         new SecondaryDrawerItem()
                                 .withIdentifier(4)
-                                .withName("My rate")
+                                .withName(getString(R.string.nd_my_rates))
                                 .withIcon(GoogleMaterial.Icon.gmd_plus),
                         new SectionDrawerItem()
                                 .withIdentifier(5)
-                                .withName("Options"),
+                                .withName(getString(R.string.nd_sub_option)),
                         new SecondaryDrawerItem()
                                 .withIdentifier(7)
-                                .withName("Settings")
+                                .withName(getString(R.string.nd_settings))
                                 .withIcon(FontAwesome.Icon.faw_cog),
                         new SecondaryDrawerItem()
                                 .withIdentifier(8)
-                                .withName("Exit")
+                                .withName(getString(R.string.nd_exit))
                                 .withIcon(GoogleMaterial.Icon.gmd_fullscreen_exit)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -148,10 +148,10 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         IProfile profile = new ProfileDrawerItem();
 
         if (user.getName() != null) profile.withName(user.getName());
-        else profile.withName("Anonymous");
+        else profile.withName(getString(R.string.anonymous));
 
         if (user.getEmail() != null) profile.withEmail(user.getEmail());
-        else profile.withEmail("Anonymous@Anonymous.com");
+        else profile.withEmail(getString(R.string.anonymous_email));
 
         if (user.getPhotoURL() != null) profile.withIcon(user.getPhotoURL());
         else profile.withIcon(R.drawable.prof);
