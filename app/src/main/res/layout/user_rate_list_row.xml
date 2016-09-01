@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:text="@string/user_rate_list_row_rated_home_team"
         android:textColor="@color/title"
         android:textStyle="bold" />
 
@@ -22,17 +23,19 @@
         android:id="@+id/rated_away_team"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rated_home_team"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/rated_home_team"
+        android:text="@string/user_rate_list_row_rated_away_team"
         android:textColor="@color/title"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/ratedType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:text="@string/user_rate_list_row_ratedtype"
         android:textColor="@color/title"
         android:textStyle="bold" />
 
@@ -41,8 +44,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_below="@+id/ratedType"
+        android:text="@string/user_rate_list_row_ratedpoints"
         android:textColor="@color/title"
-        android:textStyle="bold"
-        android:layout_below="@+id/ratedType" />
+        android:textStyle="bold" />
 
 </RelativeLayout>

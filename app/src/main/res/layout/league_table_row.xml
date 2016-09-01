@@ -19,10 +19,10 @@
             android:paddingTop="24dp">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="100dip"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -34,11 +34,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:maxLength="17"
-                    android:textSize="16dp"
+                    android:ellipsize="end"
                     android:gravity="center"
+                    android:maxLength="17"
+                    android:text="@string/league_table_row_nameteam"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:ellipsize="end" />
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
@@ -55,9 +56,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="16dp"
-                    android:text="Pos"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:text="@string/league_table_row_pos"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/textViewPositionRow"
@@ -65,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:text="@string/league_table_row_p"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
 
@@ -80,22 +82,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="16dp"
-                    android:text="Games"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:text="@string/league_table_row_games"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="16dp" />
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/textViewGamesWinRow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:text="@string/league_table_row_g"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/bg_login" />
 
@@ -105,9 +109,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:text="@string/basic_line"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/black"
-                        android:text="-" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/textViewGamesDrawsRow"
@@ -115,6 +119,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:text="@string/league_table_row_g"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/md_amber_300" />
 
@@ -124,9 +129,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:text="@string/basic_line"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/black"
-                        android:text="-" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/textViewGamesLoseRow"
@@ -134,6 +139,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:text="@string/league_table_row_g"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/btn_logut_bg" />
 
@@ -152,25 +158,27 @@
                     android:id="@+id/textViewGD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="GD"
-                    android:textSize="16dp"
+                    android:text="@string/league_table_row_gd"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_gravity="center_horizontal" />
+                    android:textSize="16dp" />
 
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/textViewGoalWinRow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:text="@string/league_table_row_d"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/bg_login" />
 
@@ -180,9 +188,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:text="@string/basic_line"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/black"
-                        android:text="-" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/textViewGoalLoseRow"
@@ -190,6 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:text="@string/league_table_row_d"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/btn_logut_bg" />
 
@@ -209,9 +218,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="16dp"
-                    android:text="Pts"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:text="@string/league_table_row_pts"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="16dp" />
 
 
                 <TextView
@@ -222,12 +231,11 @@
                     android:gravity="center"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
+                    android:text="@string/league_table_row_pt"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/mat_normal" />
 
             </LinearLayout>
-
-
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

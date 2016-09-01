@@ -1,11 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerRate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:clickable="false"
-    android:id="@+id/containerRate">
+    android:clickable="false">
     <!--android:padding="8dp"-->
     <RelativeLayout
         android:id="@+id/relLy"
@@ -17,50 +17,51 @@
             android:id="@+id/rlll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
 
             <ImageView
+                android:id="@+id/imageViewBackArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageViewBackArrow"
-                android:src="@drawable/ic_arrow_back_white_24dp"
+                android:paddingLeft="16dp"
                 android:paddingTop="16dp"
-                android:paddingLeft="16dp" />
+                android:src="@drawable/ic_arrow_back_white_24dp" />
 
             <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/imageHomeTeam"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_marginLeft="40dp"
-                android:scaleType="fitCenter"
-                android:layout_marginStart="40dp"
-                android:layout_alignTop="@+id/textView2"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/textView2"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"
+                android:scaleType="fitCenter" />
 
             <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/imageAwayTeam"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_marginRight="42dp"
                 android:layout_above="@+id/textViewStatus"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="42dp" />
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="42dp"
+                android:layout_marginRight="42dp" />
 
             <TextView
                 android:id="@+id/tv_round"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:layout_marginTop="20dp"
                 android:gravity="center_horizontal"
+                android:text="@string/fragment_rate_round"
                 android:textColor="#fff"
-                android:textSize="16sp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/textViewStatus"
@@ -70,85 +71,91 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/imageHomeTeam"
                 android:gravity="center_horizontal"
+                android:text="@string/fragment_rate_status"
                 android:textColor="#fff"
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/textViewTeamHome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignRight="@+id/imageHomeTeam"
                 android:layout_below="@+id/imageAwayTeam"
                 android:layout_marginLeft="40dp"
-                android:gravity="center"
-                android:id="@+id/textViewTeamHome"
-                android:textColor="#fff"
-                android:textSize="14sp"
                 android:ellipsize="end"
-                android:maxLength="20" />
+                android:gravity="center"
+                android:maxLength="20"
+                android:text="@string/fragment_rate_home_team"
+                android:textColor="#fff"
+                android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/textViewTeamAway"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/imageAwayTeam"
                 android:layout_below="@+id/imageAwayTeam"
                 android:layout_marginRight="40dp"
+                android:ellipsize="end"
                 android:gravity="center"
-                android:id="@+id/textViewTeamAway"
-                android:textColor="#fff"
-                android:textSize="14sp"
                 android:maxLength="20"
-                android:ellipsize="end" />
+                android:text="@string/fragment_rate_away_team"
+                android:textColor="#fff"
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="16dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="1"
                     android:id="@+id/textViewWin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/fragment_rate_win"
                     android:textColor="#fff"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:id="@+id/textViewDraw"
-                    android:textColor="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/fragment_rate_draw"
+                    android:textColor="#fff"
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/textViewLose"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:id="@+id/textViewLose"
                     android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/fragment_rate_lose"
                     android:textColor="#fff"
                     android:textSize="14sp" />
             </LinearLayout>
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text=" - "
-                android:textColor="#fff"
-                android:textSize="45sp"
-                android:layout_below="@+id/tv_round"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:id="@+id/textView2" />
+                android:layout_below="@+id/tv_round"
+                android:gravity="center_horizontal"
+                android:text="@string/basic_line"
+                android:textColor="#fff"
+                android:textSize="45sp" />
 
         </RelativeLayout>
 
@@ -171,9 +178,9 @@
 
         <info.androidhive.firebase.Classes.Utils.CustomViewPager
             android:id="@+id/viewpager_rate"
-            android:layout_below="@+id/tabs_match_rate"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tabs_match_rate" />
 
     </RelativeLayout>
 

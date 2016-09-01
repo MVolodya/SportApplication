@@ -21,7 +21,7 @@
         android:layout_marginLeft="72dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
-        android:text="Name"
+        android:text="@string/home_team_player_row_name"
         android:textColor="#000"
         android:textSize="16sp" />
 
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="72dp"
-                android:text="Birthday: "
+                android:text="@string/home_team_player_row_birthday"
                 android:textSize="14sp" />
 
             <TextView
@@ -50,7 +50,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:text="number"
+                android:text="@string/home_team_player_row_number"
                 android:textSize="14sp" />
 
             <TextView
@@ -60,7 +60,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/textYear"
                 android:layout_toRightOf="@+id/textYear"
-                android:text="year"
+                android:text="@string/home_team_player_row_year"
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
@@ -80,7 +80,7 @@
                 android:id="@+id/textNationality"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nationality: "
+                android:text="@string/home_team_player_row_nationality"
                 android:textSize="14sp" />
 
             <TextView
@@ -90,7 +90,7 @@
                 android:layout_toEndOf="@+id/textNationality"
                 android:layout_toRightOf="@+id/textNationality"
                 android:maxLength="11"
-                android:text="nationality"
+                android:text="@string/home_team_player_row_nationality"
                 android:textSize="14sp" />
 
             <TextView
@@ -100,7 +100,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:maxLength="11"
-                android:text="position"
+                android:text="@string/home_team_player_row_position"
                 android:textSize="14sp" />
 
 

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:lib="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:orientation="vertical">
 
     <ImageView
-        android:src="@drawable/icon_converted"
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:src="@drawable/icon_converted" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,49 +19,49 @@
         android:paddingBottom="15dp">
 
         <TextView
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="SOCCER EVENTS"
-            android:id="@+id/textView5"
-            android:textColor="@color/colorPrimaryDark"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="70dp" />
+            android:layout_marginTop="70dp"
+            android:text="@string/activity_splash_soccer_events"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorPrimaryDark" />
 
         <TextView
+            android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="The Art Of ShitCoding "
-            android:id="@+id/textView7"
             android:layout_below="@+id/textView5"
             android:layout_centerHorizontal="true"
+            android:text="@string/activity_splash_the_art_of_shitcoding"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/accent_material_light" />
 
         <TextView
+            android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="© Simplevision Studio "
-            android:id="@+id/textView6"
-            android:layout_alignParentBottom="true"
             android:layout_alignLeft="@+id/textView5"
+            android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/textView5"
-            android:padding="15dp" />
+            android:padding="15dp"
+            android:text="@string/activity_splash_simplevision_studio"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <com.github.glomadrian.loadingballs.BallView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            lib:balls="10"
-            lib:movement_cycle_time="2500"
-            lib:enable_size_animation="false"
-            lib:ball_colors="@array/colors"
-            lib:path="star"
-            lib:ball_size="5dp"
-            android:layout_gravity="center"
             android:layout_above="@+id/textView6"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            lib:ball_colors="@array/colors"
+            lib:ball_size="5dp"
+            lib:balls="10"
+            lib:enable_size_animation="false"
+            lib:movement_cycle_time="2500"
+            lib:path="star" />
 
     </RelativeLayout>
 
