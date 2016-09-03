@@ -307,8 +307,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                                     case 1:
                                         lang = "uk";
                                         break;
-                                    default:
-                                        break;
                                 }
                                 changeLang(lang);
                             }

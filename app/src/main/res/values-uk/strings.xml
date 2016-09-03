@@ -38,6 +38,6 @@
     <string name="nd_my_rates">Мої ставки</string>
     <string name="nd_exit">Вийти</string>
     <string name="nd_all_users">Всі користувачі</string>
-    <string name="btn_forgot_password"></string>
-    <string name="username"></string>
+    <string name="btn_forgot_password">Забули пароль?</string>
+    <string name="username">Ім`я користувача</string>
 </resources>
