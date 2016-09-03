@@ -5,11 +5,10 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,23 +24,24 @@ import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import info.androidhive.firebase.Activities.MainActivity;
-import info.androidhive.firebase.Classes.CustomViewPager;
-import info.androidhive.firebase.Classes.DataHelper;
-import info.androidhive.firebase.Classes.MaterialDialogManager;
-import info.androidhive.firebase.Classes.ProgressDialogManager;
-import info.androidhive.firebase.Classes.RateManager;
-import info.androidhive.firebase.Classes.RateViewPagerAdapter;
+import info.androidhive.firebase.Classes.Utils.CustomViewPager;
+import info.androidhive.firebase.Classes.Models.DataHelper;
+import info.androidhive.firebase.Classes.Managers.MaterialDialogManager;
+import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
+import info.androidhive.firebase.Classes.Managers.RateManager;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.RateViewPagerAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.RateMatch.RateMatchResponse;
 import info.androidhive.firebase.Classes.Retrofit.RateMatch.RateMatchService;
 import info.androidhive.firebase.Classes.Retrofit.Team.TeamResponse;
 import info.androidhive.firebase.Classes.Retrofit.Team.TeamService;
-import info.androidhive.firebase.Classes.SvgDecoder;
-import info.androidhive.firebase.Classes.SvgDrawableTranscoder;
-import info.androidhive.firebase.Classes.SvgSoftwareLayerSetter;
+import info.androidhive.firebase.Classes.Utils.SvgDecoder;
+import info.androidhive.firebase.Classes.Utils.SvgDrawableTranscoder;
+import info.androidhive.firebase.Classes.Utils.SvgSoftwareLayerSetter;
 import info.androidhive.firebase.R;
 import retrofit.Call;
 import retrofit.Callback;
@@ -59,16 +59,15 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     private TextView lose;
     private TextView round;
     private TextView status;
+    private TextView result;
     private ImageView imageHomeTeam;
     private ImageView imageAwayTeam;
-    private ImageView backArrow;
     private CustomViewPager customViewPagerRate;
     private TabLayout tabLayout;
 
     private DataHelper dataHelper;
 
     private ProgressDialog progressDialog;
-    private ProgressDialogManager dialogManager;
     private GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder;
     private RateMatchResponse rateMatchResponse;
     private MaterialDialogManager materialDialogManager;
@@ -85,7 +84,8 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
 
         view = inflater.inflate(R.layout.fragment_rate, container, false);
 
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar));
 
         homeTeam = (TextView) view.findViewById(R.id.textViewTeamHome);
         awayTeam = (TextView) view.findViewById(R.id.textViewTeamAway);
@@ -94,8 +94,9 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         wins = (TextView) view.findViewById(R.id.textViewWin);
         draw = (TextView) view.findViewById(R.id.textViewDraw);
         lose = (TextView) view.findViewById(R.id.textViewLose);
-        customViewPagerRate = (CustomViewPager)view.findViewById(R.id.viewpager_rate);
-        tabLayout = (TabLayout)view.findViewById(R.id.tabs_match_rate);
+        result = (TextView) view.findViewById(R.id.textView2);
+        customViewPagerRate = (CustomViewPager) view.findViewById(R.id.viewpager_rate);
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs_match_rate);
 
         wins.setOnClickListener(this);
         draw.setOnClickListener(this);
@@ -103,12 +104,12 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
 
         imageHomeTeam = (ImageView) view.findViewById(R.id.imageHomeTeam);
         imageAwayTeam = (ImageView) view.findViewById(R.id.imageAwayTeam);
-        backArrow = (ImageView)view.findViewById(R.id.imageViewBackArrow);
+        ImageView backArrow = (ImageView) view.findViewById(R.id.imageViewBackArrow);
+        progressDialog = new ProgressDialog(view.getContext());
 
         backArrow.setOnClickListener(this);
 
-        dialogManager = new ProgressDialogManager(getActivity(), progressDialog);
-        dialogManager.showProgressDialog();
+        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
 
         dataHelper = DataHelper.getInstance();
         materialDialogManager = new MaterialDialogManager(view.getContext(), view);
@@ -128,15 +129,13 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         Call<RateMatchResponse> call = service.match(dataHelper.getMatchId());
         call.enqueue(this);
 
-
-
         return view;
     }
 
     @Override
     public void onResponse(Response<RateMatchResponse> response) {
         if (response.isSuccess()) {
-            dialogManager.hideProgressDialog();
+            ProgressDialogManager.hideProgressDialog(progressDialog);
             rateMatchResponse = response.body();
             setView();
         }
@@ -145,14 +144,14 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     @Override
     public void onFailure(Throwable t) {
         Log.d("Retrofit", "" + t);
-        dialogManager.hideProgressDialog();
+        ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         if (!enter) {
-            //leaving fragment
-            getFragmentManager().popBackStack();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
             ((MainActivity) this.view.getContext()).showToolbar();
             ((MainActivity) this.view.getContext()).unlockSwipe();
         }
@@ -172,24 +171,35 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         setHomeTeamImage();
         setAwayTeamImage();
 
-        setupViewPager(customViewPagerRate);
-        tabLayout.setupWithViewPager(customViewPagerRate);
-
         homeTeam.setText(rateMatchResponse.getFixture().getHomeTeamName());
         awayTeam.setText(rateMatchResponse.getFixture().getAwayTeamName());
         round.setText("Round of " + rateMatchResponse.getFixture().getMatchday().toString());
         status.setText(rateMatchResponse.getFixture().getStatus());
-        if (rateMatchResponse.getFixture().getOdds() != null) {
-            wins.setText(rateMatchResponse.getFixture().getOdds().getHomeWin().toString());
-            draw.setText(rateMatchResponse.getFixture().getOdds().getDraw().toString());
-            lose.setText(rateMatchResponse.getFixture().getOdds().getAwayWin().toString());
-        } else {
-            wins.setText("2");
-            draw.setText("4");
-            lose.setText("2");
+
+        if (rateMatchResponse.getFixture().getResult().getGoalsHomeTeam() != null
+                && rateMatchResponse.getFixture().getResult().getGoalsAwayTeam() != null) {
+            String r = String.valueOf(rateMatchResponse.getFixture().getResult().getGoalsHomeTeam().toString())+ " - " +
+                    rateMatchResponse.getFixture().getResult().getGoalsAwayTeam().toString();
+            result.setText(r);
         }
 
-
+        if(!rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
+            if (rateMatchResponse.getFixture().getOdds() != null) {
+                wins.setText(rateMatchResponse.getFixture().getOdds().getHomeWin().toString());
+                draw.setText(rateMatchResponse.getFixture().getOdds().getDraw().toString());
+                lose.setText(rateMatchResponse.getFixture().getOdds().getAwayWin().toString());
+            } else {
+                wins.setText("2");
+                draw.setText("4");
+                lose.setText("2");
+            }
+        }else{
+            wins.setVisibility(View.GONE);
+            draw.setVisibility(View.GONE);
+            lose.setVisibility(View.GONE);
+        }
+        setupViewPager(customViewPagerRate);
+        tabLayout.setupWithViewPager(customViewPagerRate);
     }
 
     private int getTeamId(String link) {
@@ -203,11 +213,21 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
                 rateMatchResponse.getFixture().getLinks().getHomeTeam().getHref()
         );
 
+        dataHelper.setHomeTeamId(homeTeamId);
+
         TeamService serviceTeam = ApiFactory.getTeamService();
         Call<TeamResponse> callTeam = serviceTeam.teams(homeTeamId);
         callTeam.enqueue(new Callback<TeamResponse>() {
             @Override
             public void onResponse(Response<TeamResponse> response) {
+
+                if(response.errorBody()!=null)
+                    try {
+                        String er = response.errorBody().string();
+                        System.out.print(er);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 TeamResponse teamResponse = response.body();
                 String linkHomeTeamImage = teamResponse.getCrestUrl();
@@ -242,11 +262,21 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
                 rateMatchResponse.getFixture().getLinks().getAwayTeam().getHref()
         );
 
+        dataHelper.setAwayTeamId(awayTeamId);
+
         TeamService serviceTeam = ApiFactory.getTeamService();
         Call<TeamResponse> callTeam = serviceTeam.teams(awayTeamId);
         callTeam.enqueue(new Callback<TeamResponse>() {
             @Override
             public void onResponse(Response<TeamResponse> response) {
+
+                if(response.errorBody()!=null)
+                    try {
+                        String er = response.errorBody().string();
+                        System.out.print(er);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 TeamResponse teamResponse = response.body();
                 String linkAwayTeamImage = teamResponse.getCrestUrl();
@@ -269,7 +299,8 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
             }
 
             @Override
-            public void onFailure(Throwable t) {}
+            public void onFailure(Throwable t) {
+            }
         });
     }
 

@@ -12,13 +12,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,33 +25,29 @@ import com.google.firebase.auth.UserInfo;
 
 import java.io.IOException;
 
-import info.androidhive.firebase.Classes.AlertDialogCreator;
-import info.androidhive.firebase.Classes.LocalDatabaseManager;
-import info.androidhive.firebase.Classes.ProgressDialogManager;
-import info.androidhive.firebase.Classes.RemoteDatabaseManager;
-import info.androidhive.firebase.Classes.ResponseUrl;
-import info.androidhive.firebase.Classes.User;
-import info.androidhive.firebase.Classes.UserManager;
+import info.androidhive.firebase.Classes.Managers.AlertDialogManager;
+import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
+import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
+import info.androidhive.firebase.Classes.Managers.RemoteDatabaseManager;
+import info.androidhive.firebase.Classes.Managers.ResponseUrl;
+import info.androidhive.firebase.Classes.Models.User;
+import info.androidhive.firebase.Classes.Managers.UserManager;
 import info.androidhive.firebase.Fragments.BottomSheetFaqFragment;
 import info.androidhive.firebase.R;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener, ResponseUrl {
 
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private static final int CAMERA_REQUEST = 2;
+    public static final int PICK_IMAGE_REQUEST = 1;
+    public static final int CAMERA_REQUEST = 2;
 
 
     private TextView etUsername;
     private TextView etEmail;
     private ImageView userPhoto;
     private User user;
-    private LocalDatabaseManager localDatabaseManager;
 
-    private FirebaseAuth auth;
     private FirebaseUser firebaseUser;
     private ProgressDialog mProgressDialog;
-    private ProgressDialogManager progressDialogManager;
-    private RelativeLayout relativeLayout;
     private RemoteDatabaseManager remoteDatabaseManager;
 
 
@@ -76,18 +68,17 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         etEmail = (TextView) findViewById(R.id.email_setting);
         userPhoto = (ImageView) findViewById(R.id.imageViewPhoto);
 
+        mProgressDialog = new ProgressDialog(this);
         remoteDatabaseManager = new RemoteDatabaseManager(this);
-        localDatabaseManager = new LocalDatabaseManager(this);
-        auth = FirebaseAuth.getInstance();
-        firebaseUser = auth.getInstance().getCurrentUser();
+        LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(this);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        UserInfo userInfo = firebaseUser.getProviderData().get(1);
+        UserInfo userInfo = firebaseUser != null ? firebaseUser.getProviderData().get(1) : null;
         // Id of the provider (ex: google.com)
         String providerId = userInfo.getProviderId();
 
         user = LocalDatabaseManager.getUser();
-
-        progressDialogManager = new ProgressDialogManager(this, mProgressDialog);
 
         //start AlertDialog FAB -------------------------
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.change_photo);
@@ -96,7 +87,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
 
         //start AlertDialog username
-        relativeLayout = (RelativeLayout) findViewById(R.id.usernameDialog);
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.usernameDialog);
         relativeLayout.setOnClickListener(this);
         //end AlertDialog username
 
@@ -117,10 +108,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         } else relativeLayout.setEnabled(true);
         //end AlertDialog password
 
-        //start BottomSheetFAQ
+
         relativeLayout = (RelativeLayout) findViewById(R.id.bottomsheet_faq_relative);
-        // View bottomSheetView = findViewById(R.id.bottomSheet);
-        // BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView);
+
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,7 +118,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         SettingsActivity.class.getSimpleName());
             }
         });
-        //end BottomSheetFAQ
+
 
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -169,151 +159,76 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
-
             case R.id.change_photo:
 
-                LayoutInflater layoutInflater = LayoutInflater.from(this);
-                view = layoutInflater.inflate(R.layout.dialog_photo, null);
-
-                AlertDialog.Builder alertDialogBuilderPhoto = new AlertDialogCreator(this)
-                        .initDialogPhoto(view, R.layout.dialog_photo);
-                alertDialogBuilderPhoto.setView(view);
-
-                final AlertDialog alertDialogFAB = alertDialogBuilderPhoto.create();
-                alertDialogFAB.show();
-
-                Button buttonGallery = (Button) view.findViewById(R.id.buttonGallery);
-                buttonGallery.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent();
-                        intent.setType("image/*");
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-                        alertDialogFAB.dismiss();
-                        alertDialogFAB.hide();
-                    }
-                });
-
-                Button buttonCamera = (Button) view.findViewById(R.id.buttonCamera);
-                buttonCamera.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                        alertDialogFAB.dismiss();
-                        alertDialogFAB.hide();
-                    }
-                });
-
+                AlertDialog.Builder alertDialogPhoto = AlertDialogManager.getPhotoAlertDialog(this);
+                alertDialogPhoto.show();
 
                 break;
 
             case R.id.usernameDialog:
-
-                AlertDialog.Builder alertDialogUsername = new AlertDialog.Builder(view.getContext());
-                alertDialogUsername.setTitle("Edit name");
-
-                final EditText inputUsername = new EditText(view.getContext());
-                LinearLayout.LayoutParams lpUsername = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
-                inputUsername.setSelection(inputUsername.getText().length());
-                inputUsername.setPadding(20, 30, 20, 30);
-                inputUsername.setHint("Enter new name");
-                inputUsername.setLayoutParams(lpUsername);
-                alertDialogUsername.setView(inputUsername);
-
-
+                AlertDialog.Builder alertDialogUsername = AlertDialogManager.getAlertDialog(this,
+                        "Enter new name");
                 alertDialogUsername.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                UserManager.updateUsername(inputUsername.getText().toString());
-                                LocalDatabaseManager.updateName(inputUsername.getText().toString());
+                                UserManager.updateUsername(AlertDialogManager.getInput().getText().toString());
+
+                                LocalDatabaseManager.updateName(AlertDialogManager.getInput().getText().toString());
+
                                 remoteDatabaseManager.updateUsername(firebaseUser.getDisplayName(),
-                                        inputUsername.getText().toString());
+                                        AlertDialogManager.getInput().getText().toString());
                                 etUsername.setText(user.getName());
+
                                 dialog.cancel();
                             }
                         });
-
                 alertDialogUsername.setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
                         });
-
                 alertDialogUsername.show();
-
                 break;
 
             case R.id.emailDialog:
-                AlertDialog.Builder alertDialogEmail = new AlertDialog.Builder(view.getContext());
-                alertDialogEmail.setTitle("Edit email");
-
-                final EditText inputEmail = new EditText(view.getContext());
-                LinearLayout.LayoutParams lpEmail = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
-                inputEmail.setSelection(inputEmail.getText().length());
-                inputEmail.setPadding(20, 30, 20, 30);
-                inputEmail.setHint("Enter new email");
-                inputEmail.setLayoutParams(lpEmail);
-                alertDialogEmail.setView(inputEmail);
-
+                AlertDialog.Builder alertDialogEmail = AlertDialogManager.getAlertDialog(this,
+                "Enter new email");
                 alertDialogEmail.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                UserManager.updateEmail(inputEmail.getText().toString());
-                                LocalDatabaseManager.updateEmail(inputEmail.getText().toString());
+                                UserManager.updateEmail(AlertDialogManager.getInput().getText().toString());
+                                LocalDatabaseManager.updateEmail(AlertDialogManager.getInput().getText().toString());
                                 etEmail.setText(user.getEmail());
                                 dialog.cancel();
                             }
                         });
-
                 alertDialogEmail.setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
                         });
-
                 alertDialogEmail.show();
-
-
                 break;
 
             case R.id.passDialog:
-                AlertDialog.Builder alertDialogPassword = new AlertDialog.Builder(view.getContext());
-                alertDialogPassword.setTitle("Edit password");
-
-                final EditText inputPassword = new EditText(view.getContext());
-                LinearLayout.LayoutParams lpPassword = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
-                inputPassword.setSelection(inputPassword.getText().length());
-                inputPassword.setPadding(20, 30, 20, 30);
-                inputPassword.setHint("Enter password");
-                inputPassword.setLayoutParams(lpPassword);
-                alertDialogPassword.setView(inputPassword);
-
+                AlertDialog.Builder alertDialogPassword =AlertDialogManager.getAlertDialog(this,
+                "Enter new password");
                 alertDialogPassword.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                UserManager.updatePassword(inputPassword.getText().toString());
+                                UserManager.updatePassword(AlertDialogManager.getInput().getText().toString());
                                 dialog.cancel();
                             }
                         });
-
                 alertDialogPassword.setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
                         });
-
                 alertDialogPassword.show();
                 break;
         }
@@ -327,17 +242,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             Uri uri = data.getData();
             try {
 
-                mProgressDialog = new ProgressDialog(this);
-                mProgressDialog.setMessage("Wait, while loading photo!");
-                mProgressDialog.setCanceledOnTouchOutside(false);
-                mProgressDialog.setCancelable(false);
-                mProgressDialog.setIndeterminate(true);
-                mProgressDialog.show();
+
+                ProgressDialogManager.showProgressDialog(mProgressDialog, "Wait, while loading photo!");
 
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 new RemoteDatabaseManager(this).uploadImage(bitmap, firebaseUser.getUid(), this);
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -345,12 +254,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
 
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage("Wait, while loading photo!");
-            mProgressDialog.setCanceledOnTouchOutside(false);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.show();
+
+            ProgressDialogManager.showProgressDialog(mProgressDialog, "Wait, while loading photo!");
 
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             new RemoteDatabaseManager(this).uploadImage(photo, firebaseUser.getUid(), this);
@@ -359,21 +264,14 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void setUrl(String url) {
-
         UserManager.updateUrl(url);
         LocalDatabaseManager.updateUrl(url);
         remoteDatabaseManager.updatePhotoUrl(firebaseUser.getDisplayName(), url);
-
         Glide.with(this)
                 .load(user.getPhotoURL())
                 .into(userPhoto);
-
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
-            mProgressDialog.dismiss();
+            ProgressDialogManager.hideProgressDialog(mProgressDialog);
         }
-
     }
-
-
 }

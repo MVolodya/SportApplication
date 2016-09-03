@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import info.androidhive.firebase.R;
 
-/**
- * Created by Volodymyr on 8/9/2016.
- */
 public class BottomSheetFaqFragment extends BottomSheetDialogFragment {
 
     @Nullable

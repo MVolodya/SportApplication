@@ -18,9 +18,9 @@ import android.view.animation.Animation;
 import java.util.List;
 
 import info.androidhive.firebase.Activities.MainActivity;
-import info.androidhive.firebase.Classes.DataHelper;
-import info.androidhive.firebase.Classes.ProgressDialogManager;
-import info.androidhive.firebase.Classes.RecycleViewClasses.LeagueTableAdapter;
+import info.androidhive.firebase.Classes.Models.DataHelper;
+import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.LeagueTableAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.LeagueTable.LeagueTableResponse;
 import info.androidhive.firebase.Classes.Retrofit.LeagueTable.LeagueTableService;
@@ -36,11 +36,8 @@ import retrofit.Response;
 public class LeagueTableFragment extends Fragment implements Callback<LeagueTableResponse>, View.OnClickListener{
 
     private View view;
-    private LeagueTableResponse tableResponse;
     private RecyclerView recyclerView;
-    private LeagueTableAdapter mAdapter;
     private ProgressDialog progressDialog;
-    private ProgressDialogManager dialogManager;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -67,11 +64,11 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
         toolbar.setNavigationOnClickListener(this);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.scrollableview);
+        progressDialog = new ProgressDialog(view.getContext());
         mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setNestedScrollingEnabled(false);
 
-        dialogManager = new ProgressDialogManager(getActivity(), progressDialog);
-        dialogManager.showProgressDialog();
+        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
 
         DataHelper dataHelper = DataHelper.getInstance();
         int id = dataHelper.getId();
@@ -94,10 +91,10 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
         List<Standing> tables;
 
         if (response.isSuccess()) {
-            dialogManager.hideProgressDialog();
-            tableResponse = response.body();
+            ProgressDialogManager.hideProgressDialog(progressDialog);
+            LeagueTableResponse tableResponse = response.body();
             tables = tableResponse.getStanding();
-            mAdapter = new LeagueTableAdapter(tables);
+            LeagueTableAdapter mAdapter = new LeagueTableAdapter(tables);
 
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setAdapter(mAdapter);
@@ -108,7 +105,7 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
 
     @Override
     public void onFailure(Throwable t) {
-        dialogManager.hideProgressDialog();
+        ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 
     @Override

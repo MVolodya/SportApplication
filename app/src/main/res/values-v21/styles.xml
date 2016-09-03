@@ -20,5 +20,11 @@
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
     </style>
 
+    <style name="StatusBarColor" parent="AppBaseTheme">
+        <item name="android:statusBarColor">#F5F5F5
+        </item>
+    </style>
+
+
 
 </resources>

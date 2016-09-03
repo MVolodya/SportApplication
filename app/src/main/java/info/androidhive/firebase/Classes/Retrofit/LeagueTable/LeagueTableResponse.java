@@ -15,7 +15,7 @@ public class LeagueTableResponse {
     private Integer matchday;
 
     @SerializedName("standing")
-    private List<Standing> standing = new ArrayList<Standing>();
+    private final List<Standing> standing = new ArrayList<>();
 
     public String getLeagueCaption() {
         return leagueCaption;

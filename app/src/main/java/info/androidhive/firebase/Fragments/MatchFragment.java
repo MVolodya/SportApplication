@@ -13,14 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.github.fabtransitionactivity.SheetLayout;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.samsistemas.calendarview.widget.CalendarView;
-import com.samsistemas.calendarview.widget.DayView;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,13 +29,13 @@ import java.util.List;
 import java.util.Locale;
 
 import info.androidhive.firebase.Activities.MainActivity;
-import info.androidhive.firebase.Classes.ConvertDate;
-import info.androidhive.firebase.Classes.DataHelper;
-import info.androidhive.firebase.Classes.ProgressDialogManager;
-import info.androidhive.firebase.Classes.RecycleViewClasses.ClickListener;
-import info.androidhive.firebase.Classes.RecycleViewClasses.DividerItemDecoration;
-import info.androidhive.firebase.Classes.RecycleViewClasses.MatchAdapter;
-import info.androidhive.firebase.Classes.RecycleViewClasses.RecyclerTouchListener;
+import info.androidhive.firebase.Classes.Managers.DataGetter;
+import info.androidhive.firebase.Classes.Models.DataHelper;
+import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.ClickListener;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.DividerItemDecoration;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.MatchAdapter;
+import info.androidhive.firebase.Classes.RecycleViewAdapters.RecyclerTouchListener;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.Match.Fixture;
 import info.androidhive.firebase.Classes.Retrofit.Match.MatchResponse;
@@ -52,22 +52,18 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         SheetLayout.OnFabAnimationEndListener,
         CalendarView.OnDateSelectedListener {
 
+    private TextView msg;
     private RecyclerView recyclerView;
     private MatchAdapter mAdapter;
-    private View view;
     private ProgressDialog progressDialog;
-    private ProgressDialogManager dialogManager;
-    private FloatingActionButton fabCalendar;
     private SheetLayout sheetLayout;
-    private CalendarView calendarView;
     private RecyclerView.LayoutManager mLayoutManager;
     private MainFragment fragment;
-    private ImageView backImageView;
     private List<Fixture> matches;
+    private CircularProgressView circularProgressView;
 
 
-
-    private String currentDate = getCurrentDate();
+    private String currentDate = new DataGetter().getCurrentDate();
 
     public MatchFragment() {
         // Required empty public constructor
@@ -77,22 +73,25 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_match, container, false);
+        View view = inflater.inflate(R.layout.fragment_match, container, false);
 
-        fragment = (MainFragment)getActivity().getSupportFragmentManager().findFragmentByTag("main");
+        fragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("main");
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_match);
-        fabCalendar = (FloatingActionButton) view.findViewById(R.id.fabCalendar);
+        FloatingActionButton fabCalendar = (FloatingActionButton) view.findViewById(R.id.fabCalendar);
         sheetLayout = (SheetLayout) view.findViewById(R.id.bottom_sheet);
-        backImageView = (ImageView) view.findViewById(R.id.imageViewBackButton);
-        calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
+        msg = (TextView) view.findViewById(R.id.textViewMsg);
+        ImageView backImageView = (ImageView) view.findViewById(R.id.imageViewBackButton);
+        CalendarView calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
+        progressDialog = new ProgressDialog(view.getContext());
+        circularProgressView = (CircularProgressView) view.findViewById(R.id.progress_view_match);
 
+        msg.setVisibility(View.GONE);
 
-        dialogManager = new ProgressDialogManager(getActivity(), progressDialog);
-        dialogManager.showProgressDialog();
+        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
 
         mLayoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
@@ -103,26 +102,28 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
                 DataHelper dataHelper = DataHelper.getInstance();
                 dataHelper.setMatchId(Integer.parseInt(MatchAdapter.getMatchId(matches.get(position)
                         .getLinks().getSelf().getHref())));
-                dataHelper.setHomeTeamId(getTeamId(matches.get(position).getLinks().getHomeTeam().getHref()));
-                dataHelper.setAwayTeamId(getTeamId(matches.get(position).getLinks().getAwayTeam().getHref()));
+                dataHelper.setHomeTeamId(new DataGetter().getTeamId(matches.get(position)
+                        .getLinks().getHomeTeam().getHref()));
+                dataHelper.setAwayTeamId(new DataGetter().getTeamId(matches.get(position)
+                        .getLinks().getAwayTeam().getHref()));
 
-                Fragment fr =getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
+                Fragment fr = getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
 
-                if(!(fr instanceof RateFragment)){
+                if (!(fr instanceof RateFragment)) {
                     getActivity().getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                             .replace(R.id.container, new RateFragment())
                             .addToBackStack(null)
                             .commit();
                 }
 
-
-
-                ((MainActivity)view.getContext()).hideToolbar();
-                ((MainActivity)view.getContext()).lockSwipe();
+                ((MainActivity) view.getContext()).hideToolbar();
+                ((MainActivity) view.getContext()).lockSwipe();
             }
 
             @Override
-            public void onLongClick(View view, int position) {}
+            public void onLongClick(int position) {
+            }
         }));
 
         MatchService service = ApiFactory.getMatchService();
@@ -143,46 +144,26 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         calendarView.refreshCalendar(Calendar.getInstance(Locale.getDefault()));
         calendarView.setOnDateSelectedListener(this);
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .add(R.id.container, new RateFragment())
-                        .addToBackStack(null)
-                        .commit();
-
-
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
-
-
-        final DayView dayView = calendarView.findViewByDate(new Date(System.currentTimeMillis()));
-        if (null != dayView)
-            Toast.makeText(view.getContext(), "Today is: " + dayView.getText().toString() +
-                    "/" + calendarView.getCurrentMonth() +
-                    "/" + calendarView.getCurrentYear(), Toast.LENGTH_SHORT).show();
         return view;
     }
 
     @Override
     public void onResponse(Response<MatchResponse> response) {
-
-
-
         if (response.isSuccess()) {
-            dialogManager.hideProgressDialog();
+            ProgressDialogManager.hideProgressDialog(progressDialog);
             MatchResponse matchResponse = response.body();
-            matches = getCorrectMatches(matchResponse.getFixtures());
+            matches = new DataGetter().getCorrectMatches(matchResponse.getFixtures(), currentDate);
             mAdapter = new MatchAdapter(matches);
+
+            if(matches.size()==0){
+                msg.setVisibility(View.VISIBLE);
+            }
 
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setAdapter(mAdapter);
 
+            circularProgressView.stopAnimation();
+            circularProgressView.setVisibility(View.INVISIBLE);
             //mAdapter.notifyDataSetChanged();
             //mAdapter.swap(matchResponse.getFixtures());
         }
@@ -191,13 +172,13 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     @Override
     public void onFailure(Throwable t) {
         Log.d("Retrofit", "" + t);
-        dialogManager.hideProgressDialog();
+        ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.fabCalendar:
                 sheetLayout.expandFab();
                 fragment.hideTabs();
@@ -212,49 +193,40 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     }
 
     @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (!enter) {
+
+        }
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+
+    @Override
     public void onFabAnimationEnd() {
     }
 
     @Override
     public void onDateSelected(@NonNull Date date) {
 
-        dialogManager.showProgressDialog();
+        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         currentDate = df.format(date);
 
+        matches = new ArrayList<>();
+        mAdapter = new MatchAdapter(matches);
+        recyclerView.setAdapter(mAdapter);
+
+        circularProgressView.setVisibility(View.VISIBLE);
+        circularProgressView.startAnimation();
+        msg.setVisibility(View.GONE);
         MatchService service = ApiFactory.getMatchService();
         Call<MatchResponse> call = service.matches();
         call.enqueue(this);
 
         sheetLayout.contractFab();
-
         fragment.showTabs();
-
         fragment.getViewPager().setPagingEnabled(true);
-
     }
 
-    private String getCurrentDate() {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String date = df.format(Calendar.getInstance().getTime());
-        return date;
-    }
-
-    private List<Fixture> getCorrectMatches(List<Fixture> list) {
-
-        ArrayList<Fixture> listCorrect = new ArrayList<>();
-
-        for (Fixture f : list) {
-            if (currentDate.equals(ConvertDate.getDate(f.getDate()))) {
-                listCorrect.add(f);
-            }
-        }
-        return listCorrect;
-    }
-
-    private int getTeamId(String link) {
-        Log.d("teamId", link);
-        return Integer.parseInt(link.replaceAll("http://api.football-data.org/v1/teams/", ""));
-    }
 }

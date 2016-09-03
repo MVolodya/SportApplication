@@ -22,7 +22,7 @@ public class MatchResponse {
     private Integer count;
     @SerializedName("fixtures")
     @Expose
-    private List<Fixture> fixtures = new ArrayList<Fixture>();
+    private List<Fixture> fixtures = new ArrayList<>();
 
     /**
      *

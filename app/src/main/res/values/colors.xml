@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#1976d2</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorAccent">#c1c1c1</color>
 
     <color name="bg_login">#26ae90</color>
     <color name="bg_register">#2e3237</color>
@@ -30,6 +30,7 @@
     <color name="navigationBarColor">#000000</color>
 
     <color name="dark">#000000</color>
+    <color name="status_bar">#628f3e</color>
 
     <color name="disableback">#DFDFDF</color>
     <color name="disabletext">#A5A5A5</color>

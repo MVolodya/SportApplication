@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -15,30 +14,25 @@ import android.widget.TextView;
 import com.facebook.AccessToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-import info.androidhive.firebase.Classes.ConnectivityReceiver;
-import info.androidhive.firebase.Classes.LocalDatabaseManager;
-import info.androidhive.firebase.Classes.NavigationDrawerManager;
-import info.androidhive.firebase.Classes.User;
+import info.androidhive.firebase.Classes.Models.DataHelper;
+import info.androidhive.firebase.Classes.Utils.ConnectivityReceiver;
+import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
+import info.androidhive.firebase.Classes.Models.User;
 import info.androidhive.firebase.Fragments.MainFragment;
 import info.androidhive.firebase.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends NavigationDrawerActivity {
 
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
-    private Drawer result;
-    private LocalDatabaseManager localDatabaseManager;
     private FirebaseUser user;
 
     private Toolbar toolbar;
-
-
-    private NavigationDrawerManager drawerManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +45,8 @@ public class MainActivity extends AppCompatActivity {
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        localDatabaseManager = new LocalDatabaseManager(this);
-        User userCustom = localDatabaseManager.getUser();
-
-//        RemoteDatabaseManager remoteDatabaseManager = new RemoteDatabaseManager(this);
-//        remoteDatabaseManager.setUserData(user.getUid(),"jjj","1000");
-
-        drawerManager = new NavigationDrawerManager(this, userCustom);
+        LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(this);
+        User userCustom = LocalDatabaseManager.getUser();
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -76,15 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        try {
-            result = drawerManager.initializeNavigationDrawer(toolbar);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        initializeNavigationDrawer(toolbar, userCustom);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new MainFragment(), "main")
@@ -98,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         auth.addAuthStateListener(authListener);
+        SecondaryDrawerItem rate = (SecondaryDrawerItem)result.getDrawerItem(4);
+        int count = DataHelper.getInstance().getCount();
+        if(count>0) rate.withBadge("+"+count);
     }
 
     @Override
@@ -141,10 +125,10 @@ public class MainActivity extends AppCompatActivity {
         String message;
         int color;
         if (isConnected) {
-            message = "Good! Connected to Internet";
+            message = "Connected to Internet";
             color = Color.WHITE;
         } else {
-            message = "Sorry! Not connected to internet";
+            message = "Not connected to internet";
             color = Color.WHITE;
         }
 

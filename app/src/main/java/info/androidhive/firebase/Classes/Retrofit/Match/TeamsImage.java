@@ -9,7 +9,7 @@ import retrofit.Callback;
 import retrofit.Response;
 
 
-public class TeamsImage implements Callback<TeamResponse> {
+class TeamsImage implements Callback<TeamResponse> {
 
     private String teamImageLink;
 

@@ -10,4 +10,14 @@
         android:layout_height="wrap_content"
         android:scrollbars="vertical" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Sorry, the API developer is fool"
+        android:textColor="#628f3e"
+        android:textSize="15sp"
+        android:id="@+id/textViewHomeMsg"
+        android:layout_gravity="center" />
+
 </FrameLayout>
