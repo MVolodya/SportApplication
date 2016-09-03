@@ -9,6 +9,7 @@ public class DataHelper {
     private int homeTeamId;
     private int awayTeamId;
     private int deletedPosition;
+    private int count = 0;
 
     private RatedMatchesToDB ratedMatchesToDB;
     private Rate rate;
@@ -19,7 +20,7 @@ public class DataHelper {
 
     public static DataHelper getInstance() {
 
-        if(ourInstance== null) ourInstance = new DataHelper();
+        if (ourInstance == null) ourInstance = new DataHelper();
         return ourInstance;
     }
 
@@ -89,5 +90,13 @@ public class DataHelper {
 
     public void setDeletedPosition(int deletedPosition) {
         this.deletedPosition = deletedPosition;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

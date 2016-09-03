@@ -9,9 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-/**
- * Created by Lincoln on 30/10/15.
- */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{
@@ -30,14 +27,11 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();
-        setOrientation(LinearLayoutManager.VERTICAL);
+        setOrientation();
     }
 
-    private void setOrientation(int orientation) {
-        if (orientation != HORIZONTAL_LIST && orientation != VERTICAL_LIST) {
-            throw new IllegalArgumentException("invalid orientation");
-        }
-        mOrientation = orientation;
+    private void setOrientation() {
+        mOrientation = LinearLayoutManager.VERTICAL;
     }
 
     @Override

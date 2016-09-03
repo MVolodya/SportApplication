@@ -68,7 +68,7 @@
         <activity
             android:name=".Activities.SettingsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.NavigationDrawerActivity"></activity>
+        <activity android:name=".Activities.NavigationDrawerActivity"/>
     </application>
 
 </manifest>

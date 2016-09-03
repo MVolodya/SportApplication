@@ -39,7 +39,6 @@ public class SignInManager {
     private static final String TAG = "facebookLogin";
 
     private final Context context;
-    private final LocalDatabaseManager localDatabaseManager;
     private final FirebaseAuth auth;
     private final ProgressDialog mProgressDialog;
 
@@ -47,7 +46,7 @@ public class SignInManager {
         this.context = context;
         this.auth = auth;
         mProgressDialog = new ProgressDialog(context);
-        localDatabaseManager = new LocalDatabaseManager(context);
+        LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(context);
     }
 
     public void signUpWithEmailAndPassword(String email,final String password){
@@ -174,7 +173,7 @@ public class SignInManager {
                             Profile profile = Profile.getCurrentProfile();
                             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                            if(firebaseUser.getDisplayName() != null)
+                            if((firebaseUser != null ? firebaseUser.getDisplayName() : null) != null)
                             new RemoteDatabaseManager(context)
                                     .setUserData(firebaseUser.getDisplayName(),
                                             profile.getProfilePictureUri(500, 281).toString());

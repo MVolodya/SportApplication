@@ -18,7 +18,7 @@ public class PlayersResponse {
     private Integer count;
     @SerializedName("players")
     @Expose
-    private List<Player> players = new ArrayList<Player>();
+    private List<Player> players = new ArrayList<>();
 
     /**
      *

@@ -1,8 +1,5 @@
 package info.androidhive.firebase.Classes.Utils;
 
-/**
- * Created by andri on 04.08.2016.
- */
 public class ConvertDate {
 
     public static String getDate(String date) {

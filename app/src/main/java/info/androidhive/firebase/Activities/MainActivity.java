@@ -14,10 +14,12 @@ import android.widget.TextView;
 import com.facebook.AccessToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
+import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Utils.ConnectivityReceiver;
 import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.Models.User;
@@ -46,9 +48,6 @@ public class MainActivity extends NavigationDrawerActivity {
         LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(this);
         User userCustom = LocalDatabaseManager.getUser();
 
-//        RemoteDatabaseManager remoteDatabaseManager = new RemoteDatabaseManager(this);
-//        remoteDatabaseManager.setUserData(user.getUid(),"jjj","1000");
-
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -66,15 +65,7 @@ public class MainActivity extends NavigationDrawerActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        try {
-            initializeNavigationDrawer(toolbar, userCustom);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        initializeNavigationDrawer(toolbar, userCustom);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new MainFragment(), "main")
@@ -88,6 +79,9 @@ public class MainActivity extends NavigationDrawerActivity {
     public void onStart() {
         super.onStart();
         auth.addAuthStateListener(authListener);
+        SecondaryDrawerItem rate = (SecondaryDrawerItem)result.getDrawerItem(4);
+        int count = DataHelper.getInstance().getCount();
+        if(count>0) rate.withBadge("+"+count);
     }
 
     @Override

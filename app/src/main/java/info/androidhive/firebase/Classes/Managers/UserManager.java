@@ -60,7 +60,7 @@ public class UserManager {
                 .setDisplayName(username)
                 .build();
 
-        firebaseUser.updateProfile(profileUpdates)
+       firebaseUser.updateProfile(profileUpdates)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

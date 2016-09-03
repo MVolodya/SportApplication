@@ -10,13 +10,11 @@ import io.realm.RealmConfiguration;
 
 public class LocalDatabaseManager {
 
-    private final Context context;
-
     private static Realm userRealm;
 
 
     public LocalDatabaseManager(Context contextFromActivity) {
-        this.context = contextFromActivity;
+        Context context = contextFromActivity;
         userRealm = Realm.getInstance(new RealmConfiguration.Builder(contextFromActivity)
                 .build());
     }

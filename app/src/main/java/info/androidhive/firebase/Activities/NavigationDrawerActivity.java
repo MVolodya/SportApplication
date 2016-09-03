@@ -21,11 +21,9 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
 import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.Managers.SignInManager;
+import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Models.User;
 import info.androidhive.firebase.Fragments.AllUsersFragment;
 import info.androidhive.firebase.Fragments.CurrentUserRateFragment;
@@ -36,14 +34,14 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
     Drawer result;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
-}
+    }
 
-    void initializeNavigationDrawer(Toolbar toolbar, User user) throws IOException, ExecutionException, InterruptedException {
+    void initializeNavigationDrawer(Toolbar toolbar, User user) {
+
         AccountHeader headerResult = createAccount(user);
         result = new DrawerBuilder()
                 .withActivity(this)
@@ -83,44 +81,44 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
                         int itemSelected = (int) drawerItem.getIdentifier();
 
-                        Fragment fr =getSupportFragmentManager()
+                        Fragment fr = getSupportFragmentManager()
                                 .findFragmentById(R.id.container);
 
                         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
 
-                        if (drawerItem != null) {
-                            switch (itemSelected) {
-                                case 1:
-                                    if (!(fr instanceof MainFragment))
-                                        fragmentManager
-                                                .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
-                                                .replace(R.id.container, new MainFragment(), "main")
-                                                .commit();
-                                    break;
-                                case 3:
-                                    if (!(fr instanceof AllUsersFragment))
+                        switch (itemSelected) {
+                            case 1:
+                                if (!(fr instanceof MainFragment))
+                                    fragmentManager
+                                            .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
+                                            .replace(R.id.container, new MainFragment(), "main")
+                                            .commit();
+                                break;
+                            case 3:
+                                if (!(fr instanceof AllUsersFragment))
                                     fragmentManager
                                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                                             .replace(R.id.container, new AllUsersFragment())
                                             .commit();
-                                    break;
-                                case 4:
-                                    if (!(fr instanceof CurrentUserRateFragment))
+                                break;
+                            case 4:
+                                if (!(fr instanceof CurrentUserRateFragment)) {
+                                    DataHelper.getInstance().setCount(0);
                                     fragmentManager
                                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                                             .replace(R.id.container, CurrentUserRateFragment.newInstance())
                                             .commit();
-                                    break;
-                                case 7:
-                                    startActivity(new Intent(NavigationDrawerActivity.this, SettingsActivity.class));
-                                    break;
-                                case 8:
-                                    SignInManager.signOut();
-                                    LocalDatabaseManager.delete();
-                                    startActivity(new Intent(NavigationDrawerActivity.this, LoginActivity.class));
-                                    finish();
-                                    break;
-                            }
+                                }
+                                break;
+                            case 7:
+                                startActivity(new Intent(NavigationDrawerActivity.this, SettingsActivity.class));
+                                break;
+                            case 8:
+                                SignInManager.signOut();
+                                LocalDatabaseManager.delete();
+                                startActivity(new Intent(NavigationDrawerActivity.this, LoginActivity.class));
+                                finish();
+                                break;
                         }
                         return false;
                     }
@@ -136,10 +134,10 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         if (user.getName() != null) profile.withName(user.getName());
         else profile.withName("Anonymous");
 
-        if (user.getEmail()!=null) profile.withEmail(user.getEmail());
+        if (user.getEmail() != null) profile.withEmail(user.getEmail());
         else profile.withEmail("Anonymous@Anonymous.com");
 
-        if (user.getPhotoURL()!= null) profile.withIcon(user.getPhotoURL());
+        if (user.getPhotoURL() != null) profile.withIcon(user.getPhotoURL());
         else profile.withIcon(R.drawable.prof);
 
 

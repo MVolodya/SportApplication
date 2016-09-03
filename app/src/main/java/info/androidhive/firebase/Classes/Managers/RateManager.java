@@ -144,6 +144,7 @@ public class RateManager {
                                                 ratedUser.setCurrentPoints("" + (currentPoints + ratePoints));
                                                 ratedUser.getRatedMatches().get(finalI).setStatus("checked");
                                                 mDatabase.child(name).setValue(ratedUser);
+                                                DataHelper.getInstance().setCount(DataHelper.getInstance().getCount()+1);
                                             }
                                         }
 
@@ -200,6 +201,7 @@ public class RateManager {
                                                 ratedUser.setCurrentPoints("" + (currentPoints + ratePoints));
                                                 ratedUser.getRatedMatches().get(finalI).setStatus("checked");
                                                 mDatabase.child(name).setValue(ratedUser);
+                                                DataHelper.getInstance().setCount(DataHelper.getInstance().getCount()+1);
                                             }
                                         }
 
@@ -255,6 +257,7 @@ public class RateManager {
                                                 ratedUser.setCurrentPoints("" + (currentPoints + ratePoints));
                                                 ratedUser.getRatedMatches().get(finalI).setStatus("checked");
                                                 mDatabase.child(name).setValue(ratedUser);
+                                                DataHelper.getInstance().setCount(DataHelper.getInstance().getCount()+1);
                                             }
                                         }
 

@@ -102,7 +102,7 @@ public class RemoteDatabaseManager {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 downloadUrl = taskSnapshot.getDownloadUrl();
-                responseUrl.setUrl(downloadUrl.toString());
+                responseUrl.setUrl(downloadUrl != null ? downloadUrl.toString() : null);
             }
         });
 

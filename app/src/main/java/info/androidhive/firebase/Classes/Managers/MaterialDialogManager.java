@@ -25,7 +25,6 @@ public class MaterialDialogManager {
 
     public MaterialDialogManager(Context context, View view) {
         this.context = context;
-        View view1 = view;
     }
 
     public AlertDialog openDialogBox(final double coff, final int matchId, final String typeOfRate) {
@@ -85,7 +84,7 @@ public class MaterialDialogManager {
                         if (input.getText().toString().isEmpty()) {
                             input.setError("Enter rate!");
                         } else {
-                            new RateManager(context).setRate(user.getDisplayName(),
+                            new RateManager(context).setRate(user != null ? user.getDisplayName() : null,
                                     String.valueOf(matchId) ,sum.getText().toString(),
                                     input.getText().toString(),
                                     typeOfRate);

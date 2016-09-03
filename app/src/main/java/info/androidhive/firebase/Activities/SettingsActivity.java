@@ -74,7 +74,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         FirebaseAuth auth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        UserInfo userInfo = firebaseUser.getProviderData().get(1);
+        UserInfo userInfo = firebaseUser != null ? firebaseUser.getProviderData().get(1) : null;
         // Id of the provider (ex: google.com)
         String providerId = userInfo.getProviderId();
 

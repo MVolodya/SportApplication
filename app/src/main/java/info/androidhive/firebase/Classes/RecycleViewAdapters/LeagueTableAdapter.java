@@ -28,7 +28,7 @@ import info.androidhive.firebase.Classes.Utils.SvgDrawableTranscoder;
 
 public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.LeagueTableViewHolder> {
 
-    private List<Standing> standingsList;
+    private final List<Standing> standingsList;
 
     public LeagueTableAdapter(List<Standing> standingsList) {
         this.standingsList = standingsList;

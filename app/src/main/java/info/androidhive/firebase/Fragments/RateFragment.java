@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -83,6 +84,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
 
         view = inflater.inflate(R.layout.fragment_rate, container, false);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar));
 
         homeTeam = (TextView) view.findViewById(R.id.textViewTeamHome);
@@ -148,7 +150,8 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         if (!enter) {
-            getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
             ((MainActivity) this.view.getContext()).showToolbar();
             ((MainActivity) this.view.getContext()).unlockSwipe();
         }
