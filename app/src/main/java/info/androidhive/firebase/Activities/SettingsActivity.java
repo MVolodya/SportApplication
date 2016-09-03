@@ -167,8 +167,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.usernameDialog:
-                AlertDialog.Builder alertDialogUsername = AlertDialogManager.getAlertDialog(this
-                );
+                AlertDialog.Builder alertDialogUsername = AlertDialogManager.getAlertDialog(this,
+                        "Enter new name");
                 alertDialogUsername.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -193,8 +193,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.emailDialog:
-                AlertDialog.Builder alertDialogEmail = AlertDialogManager.getAlertDialog(this
-                );
+                AlertDialog.Builder alertDialogEmail = AlertDialogManager.getAlertDialog(this,
+                "Enate new email");
                 alertDialogEmail.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -214,8 +214,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.passDialog:
-                AlertDialog.Builder alertDialogPassword =AlertDialogManager.getAlertDialog(this
-                );
+                AlertDialog.Builder alertDialogPassword =AlertDialogManager.getAlertDialog(this,
+                "Enter new password");
                 alertDialogPassword.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

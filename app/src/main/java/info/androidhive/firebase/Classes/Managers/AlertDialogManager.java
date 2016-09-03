@@ -17,9 +17,9 @@ public class AlertDialogManager {
 
     private static EditText input;
 
-    public static AlertDialog.Builder getAlertDialog(Context context){
+    public static AlertDialog.Builder getAlertDialog(Context context, String msg){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        alertDialog.setTitle("Edit email");
+        alertDialog.setTitle("Edit");
 
         input = new EditText(context);
         LinearLayout.LayoutParams lpEmail = new LinearLayout.LayoutParams(
@@ -27,7 +27,7 @@ public class AlertDialogManager {
                 LinearLayout.LayoutParams.MATCH_PARENT);
         input.setSelection(input.getText().length());
         input.setPadding(20, 30, 20, 30);
-        input.setHint("Enter new email");
+        input.setHint(msg);
         input.setLayoutParams(lpEmail);
         alertDialog.setView(input);
 
@@ -42,7 +42,6 @@ public class AlertDialogManager {
         alertDialogBuilderPhoto.setView(view);
 
         final AlertDialog alertDialogFAB = alertDialogBuilderPhoto.create();
-        //alertDialogFAB.show();
 
         Button buttonGallery = (Button) view.findViewById(R.id.buttonGallery);
         buttonGallery.setOnClickListener(new View.OnClickListener() {
