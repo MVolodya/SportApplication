@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,6 +49,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     private TextView etUsername;
     private TextView etEmail;
+    private TextView language_change_set;
     private ImageView userPhoto;
     private User user;
     private LocalDatabaseManager localDatabaseManager;
@@ -77,6 +79,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         etUsername = (TextView) findViewById(R.id.username_setting);
         etEmail = (TextView) findViewById(R.id.email_setting);
         userPhoto = (ImageView) findViewById(R.id.imageViewPhoto);
+        language_change_set = (TextView) findViewById(R.id.language_change);
 
         mProgressDialog = new ProgressDialog(this);
         remoteDatabaseManager = new RemoteDatabaseManager(this);
@@ -140,12 +143,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         langrelativeLayout = (RelativeLayout) findViewById(R.id.languagechange);
         langrelativeLayout.setOnClickListener(this);
-
         loadLocale();
     }
 
-    public void loadLocale()
-    {
+    public void loadLocale(){
         String langPref = "Language";
         SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         String language = prefs.getString(langPref, "");
@@ -159,8 +160,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         editor.putString(langPref, lang);
         editor.commit();
     }
-    public void changeLang(String lang)
-    {
+    public void changeLang(String lang) {
         if (lang.equalsIgnoreCase(""))
             return;
         myLocale = new Locale(lang);
@@ -173,7 +173,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
     private void updateTexts()
     {
-        // langrelativeLayout.setText(R.string.dialog_photo_take_photo);
+
     }
 
     @Override
@@ -215,8 +215,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
 
     @Override
-    public void onClick(View view) {
-        String lang = "en";
+    public void onClick(final View view) {
         switch (view.getId()) {
             case R.id.change_photo:
 
@@ -292,10 +291,51 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.languagechange:
-                lang = "uk";
-                break;
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                builder.setTitle(R.string.language);
+                //list of items
+                final String[] items = getResources().getStringArray(R.array.language_array);
+                builder.setSingleChoiceItems(items, 0,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String lang = "en";
+                                switch (which){
+                                    case 0:
+                                        lang = "en";
+                                        break;
+                                    case 1:
+                                        lang = "uk";
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                changeLang(lang);
+                            }
+                        });
+
+                String positiveText = getString(android.R.string.ok);
+                builder.setPositiveButton(positiveText,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                updateTexts();
+                            }
+                        });
+
+                String negativeText = getString(android.R.string.cancel);
+                builder.setNegativeButton(negativeText,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog dialog = builder.create();
+                // display dialog
+                dialog.show();
         }
-        changeLang(lang);
     }
 
     @Override

@@ -202,4 +202,12 @@
         vitae curabitur velit ullamcorper. Sed luctus amet pretium, sodales vivamus, magna nonummy, inceptos duis feugiat
         diam magna lectus. Ultricies et, in nibh et orci ac donec nunc.</string>
 
+    <string-array name="language_array">
+        <item>English</item>
+        <item>Ukraine</item>
+    </string-array>
+    <string name="english">English</string>
+    <string name="ukraine">Ukraine</string>
+    <string name="language">Language</string>
+
 </resources>
