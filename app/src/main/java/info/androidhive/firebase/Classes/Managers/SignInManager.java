@@ -38,10 +38,10 @@ public class SignInManager {
 
     private static final String TAG = "facebookLogin";
 
-    private Context context;
-    private LocalDatabaseManager localDatabaseManager;
-    private FirebaseAuth auth;
-    private ProgressDialog mProgressDialog;
+    private final Context context;
+    private final LocalDatabaseManager localDatabaseManager;
+    private final FirebaseAuth auth;
+    private final ProgressDialog mProgressDialog;
 
     public SignInManager(Context context, FirebaseAuth auth) {
         this.context = context;
@@ -69,7 +69,7 @@ public class SignInManager {
 
                             if(auth.getCurrentUser().getDisplayName() != null) {
 
-                                localDatabaseManager.setUser(auth.getCurrentUser().getDisplayName(),
+                                LocalDatabaseManager.setUser(auth.getCurrentUser().getDisplayName(),
                                         auth.getCurrentUser().getEmail(),
                                         Uri.parse(context.getString(R.string.user_photo_url)));
 
@@ -78,7 +78,7 @@ public class SignInManager {
                                                 context.getString(R.string.user_photo_url));
                             } else {
 
-                                localDatabaseManager.setUser("Anonymous"+currentTime,
+                                LocalDatabaseManager.setUser("Anonymous"+currentTime,
                                         auth.getCurrentUser().getEmail(),
                                         Uri.parse(context.getString(R.string.user_photo_url)));
 
@@ -116,10 +116,10 @@ public class SignInManager {
                                 Toast.makeText(context, context.getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            FirebaseUser fbUser = auth.getInstance().getCurrentUser();
+                            FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
 
                             if(fbUser != null){
-                                localDatabaseManager.setUser(fbUser.getDisplayName(),
+                                LocalDatabaseManager.setUser(fbUser.getDisplayName(),
                                         fbUser.getEmail(),
                                         fbUser.getPhotoUrl());
 
@@ -172,7 +172,7 @@ public class SignInManager {
                                     Toast.LENGTH_SHORT).show();
                         }else {
                             Profile profile = Profile.getCurrentProfile();
-                            FirebaseUser firebaseUser = auth.getInstance().getCurrentUser();
+                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                             if(firebaseUser.getDisplayName() != null)
                             new RemoteDatabaseManager(context)
@@ -182,7 +182,7 @@ public class SignInManager {
                                     .setUserData("Anonymous"+System.currentTimeMillis(),
                                             context.getString(R.string.user_photo_url));
 
-                            localDatabaseManager.setUser(firebaseUser.getDisplayName(),
+                            LocalDatabaseManager.setUser(firebaseUser.getDisplayName(),
                                     firebaseUser.getEmail(),
                                     firebaseUser.getPhotoUrl());
                             context.startActivity(new Intent(context, MainActivity.class));

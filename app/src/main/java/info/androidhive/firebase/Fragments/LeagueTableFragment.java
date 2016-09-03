@@ -36,9 +36,7 @@ import retrofit.Response;
 public class LeagueTableFragment extends Fragment implements Callback<LeagueTableResponse>, View.OnClickListener{
 
     private View view;
-    private LeagueTableResponse tableResponse;
     private RecyclerView recyclerView;
-    private LeagueTableAdapter mAdapter;
     private ProgressDialog progressDialog;
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -94,9 +92,9 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
 
         if (response.isSuccess()) {
             ProgressDialogManager.hideProgressDialog(progressDialog);
-            tableResponse = response.body();
+            LeagueTableResponse tableResponse = response.body();
             tables = tableResponse.getStanding();
-            mAdapter = new LeagueTableAdapter(tables);
+            LeagueTableAdapter mAdapter = new LeagueTableAdapter(tables);
 
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setAdapter(mAdapter);

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -18,12 +17,7 @@ import android.widget.Toast;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
@@ -34,14 +28,10 @@ import info.androidhive.firebase.R;
 public class LoginActivity extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private EditText inputEmail, inputPassword;
-    private FirebaseAuth auth;
-    private ProgressBar progressBar;
-    private Button btnSignup, btnLogin, btnReset;
 
     private CallbackManager callbackManager;
     private SignInManager signInManager;
 
-    private LocalDatabaseManager localDatabaseManager;
     private ProgressDialog mProgressDialog;
     private ProgressDialogManager dialogManager;
 
@@ -56,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         //create facebook callback
         callbackManager = CallbackManager.Factory.create();
 
-        auth = FirebaseAuth.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null || AccessToken.getCurrentAccessToken() != null) {
             // user auth state is changed - user is null
@@ -72,15 +62,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         setSupportActionBar(toolbar);
 
         signInManager = new SignInManager(this, auth);
-        localDatabaseManager = new LocalDatabaseManager(this);
+        LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(this);
         mProgressDialog = new ProgressDialog(this);
 
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btnSignup = (Button) findViewById(R.id.btn_signup);
-        btnLogin = (Button) findViewById(R.id.btn_login);
-        btnReset = (Button) findViewById(R.id.btn_reset_password);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        Button btnSignup = (Button) findViewById(R.id.btn_signup);
+        Button btnLogin = (Button) findViewById(R.id.btn_login);
+        Button btnReset = (Button) findViewById(R.id.btn_reset_password);
 
         inputEmail.setOnFocusChangeListener(this);
         inputPassword.setOnFocusChangeListener(this);
@@ -138,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void hideKeyboard(View view) {
+    private void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }

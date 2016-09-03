@@ -27,9 +27,8 @@ import info.androidhive.firebase.R;
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder> {
 
-    private List<Fixture> fixturesList;
+    private final List<Fixture> fixturesList;
     private View view;
-    private GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder;
 
     public MatchAdapter(List<Fixture> fixturesList) {
         this.fixturesList = fixturesList;
@@ -40,7 +39,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
         view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.match_list_row, parent, false);
 
-        requestBuilder = Glide.with(view.getContext())
+        GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(view.getContext())
                 .using(Glide.buildStreamModelLoader(Uri.class, view.getContext()), InputStream.class)
                 .from(Uri.class)
                 .as(SVG.class)
@@ -92,13 +91,13 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvHomeTeam;
-        public TextView tvAwayTeam;
-        public TextView tvTime;
-        public TextView tvStatus;
-        public TextView tvScore;
-        public ImageView circleImageHomeTeam;
-        public ImageView circleImageAwayTeam;
+        public final TextView tvHomeTeam;
+        public final TextView tvAwayTeam;
+        public final TextView tvTime;
+        public final TextView tvStatus;
+        public final TextView tvScore;
+        public final ImageView circleImageHomeTeam;
+        public final ImageView circleImageAwayTeam;
 
 
         public MyViewHolder(View v) {

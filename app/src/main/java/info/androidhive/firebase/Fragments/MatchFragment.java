@@ -21,7 +21,6 @@ import com.github.fabtransitionactivity.SheetLayout;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.samsistemas.calendarview.widget.CalendarView;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,7 +30,6 @@ import java.util.Locale;
 
 import info.androidhive.firebase.Activities.MainActivity;
 import info.androidhive.firebase.Classes.Managers.DataGetter;
-import info.androidhive.firebase.Classes.Utils.ConvertDate;
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RecycleViewAdapters.ClickListener;
@@ -57,16 +55,11 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     private TextView msg;
     private RecyclerView recyclerView;
     private MatchAdapter mAdapter;
-    private View view;
     private ProgressDialog progressDialog;
-    private FloatingActionButton fabCalendar;
     private SheetLayout sheetLayout;
-    private CalendarView calendarView;
     private RecyclerView.LayoutManager mLayoutManager;
     private MainFragment fragment;
-    private ImageView backImageView;
     private List<Fixture> matches;
-    private MatchResponse matchResponse;
     private CircularProgressView circularProgressView;
 
 
@@ -80,25 +73,25 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_match, container, false);
+        View view = inflater.inflate(R.layout.fragment_match, container, false);
 
         fragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("main");
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_match);
-        fabCalendar = (FloatingActionButton) view.findViewById(R.id.fabCalendar);
+        FloatingActionButton fabCalendar = (FloatingActionButton) view.findViewById(R.id.fabCalendar);
         sheetLayout = (SheetLayout) view.findViewById(R.id.bottom_sheet);
         msg = (TextView) view.findViewById(R.id.textViewMsg);
-        backImageView = (ImageView) view.findViewById(R.id.imageViewBackButton);
-        calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
+        ImageView backImageView = (ImageView) view.findViewById(R.id.imageViewBackButton);
+        CalendarView calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
         progressDialog = new ProgressDialog(view.getContext());
-        circularProgressView = (CircularProgressView)view.findViewById(R.id.progress_view_match);
+        circularProgressView = (CircularProgressView) view.findViewById(R.id.progress_view_match);
 
         msg.setVisibility(View.GONE);
 
         ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
 
         mLayoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
@@ -129,7 +122,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
             }
 
             @Override
-            public void onLongClick(View view, int position) {
+            public void onLongClick(int position) {
             }
         }));
 
@@ -158,7 +151,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     public void onResponse(Response<MatchResponse> response) {
         if (response.isSuccess()) {
             ProgressDialogManager.hideProgressDialog(progressDialog);
-            matchResponse = response.body();
+            MatchResponse matchResponse = response.body();
             matches = new DataGetter().getCorrectMatches(matchResponse.getFixtures(), currentDate);
             mAdapter = new MatchAdapter(matches);
 

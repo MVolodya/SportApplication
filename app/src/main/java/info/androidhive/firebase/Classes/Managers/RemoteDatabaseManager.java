@@ -27,11 +27,11 @@ import info.androidhive.firebase.Classes.Models.RatedUser;
 
 public class RemoteDatabaseManager {
 
-    private FirebaseStorage storage;
-    private DatabaseReference mDatabase;
+    private final FirebaseStorage storage;
+    private final DatabaseReference mDatabase;
     private Uri downloadUrl;
     private ProgressDialogManager progressDialogManager;
-    private Context context;
+    private final Context context;
 
 
     public RemoteDatabaseManager(Context context) {

@@ -21,9 +21,9 @@ import info.androidhive.firebase.R;
 
 public class SwipeManager {
 
-    private Paint p = new Paint();
-    private Context context;
-    private RateManager rateManager;
+    private final Paint p = new Paint();
+    private final Context context;
+    private final RateManager rateManager;
 
     public SwipeManager(Context context) {
         this.context = context;

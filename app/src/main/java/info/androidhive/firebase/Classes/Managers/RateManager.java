@@ -11,7 +11,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 import info.androidhive.firebase.Classes.Models.DataHelper;
-import info.androidhive.firebase.Classes.Models.Rate;
 import info.androidhive.firebase.Classes.Models.RatedMatchesToDB;
 import info.androidhive.firebase.Classes.Models.RatedUser;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
@@ -28,16 +27,15 @@ public class RateManager {
     public static final String DRAW = "D";
     public static final String WIN_SECOND = "W2";
 
-    private Context context;
-    private RemoteDatabaseManager remoteDatabaseManager;
-    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private final Context context;
+    private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     public RateManager(Context context) {
         this.context = context;
     }
 
     public void setRate(String name, String matchId, String pointsRate, String points, String typeOfRate) {
-        remoteDatabaseManager = new RemoteDatabaseManager(context);
+        RemoteDatabaseManager remoteDatabaseManager = new RemoteDatabaseManager(context);
         remoteDatabaseManager.setRateToDatabase(name, matchId, pointsRate, points, typeOfRate);
     }
 
@@ -108,8 +106,6 @@ public class RateManager {
     public void checkRate(final List<RatedMatchesToDB> rateList, final String name) {
 
         if (rateList != null) {
-
-
             for (int i = 0; i < rateList.size(); i++) {
 
                 if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_FIRST)) {
@@ -166,7 +162,9 @@ public class RateManager {
                         }
                     });
 
-                } else if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(DRAW)) {
+                }
+
+                if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(DRAW)   ) {
                     RateMatchService service = ApiFactory.getRateMatchService();
                     Call<RateMatchResponse> call = service.match(Integer.parseInt(rateList.get(i).getMatchId()));
 
@@ -219,7 +217,9 @@ public class RateManager {
                         public void onFailure(Throwable t) {
                         }
                     });
-                } else if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_SECOND)) {
+                }
+
+                if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_SECOND)) {
                     RateMatchService service = ApiFactory.getRateMatchService();
                     Call<RateMatchResponse> call = service.match(Integer.parseInt(rateList.get(i).getMatchId()));
 

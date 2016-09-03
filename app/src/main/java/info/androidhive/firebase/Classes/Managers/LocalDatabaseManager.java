@@ -10,7 +10,7 @@ import io.realm.RealmConfiguration;
 
 public class LocalDatabaseManager {
 
-    public Context context;
+    private final Context context;
 
     private static Realm userRealm;
 
@@ -18,9 +18,7 @@ public class LocalDatabaseManager {
     public LocalDatabaseManager(Context contextFromActivity) {
         this.context = contextFromActivity;
         userRealm = Realm.getInstance(new RealmConfiguration.Builder(contextFromActivity)
-                .name("User.realm")
                 .build());
-
     }
 
     public static void setUser(String name, String email, Uri photoUrl) {
@@ -66,9 +64,8 @@ public class LocalDatabaseManager {
     }
 
     public static User getUser() {
-        User result = userRealm.where(User.class)
+        return userRealm.where(User.class)
                 .findFirst();
-        return result;
     }
 
 

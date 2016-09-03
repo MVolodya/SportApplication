@@ -28,7 +28,6 @@ public class MainActivity extends NavigationDrawerActivity {
 
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
-    private LocalDatabaseManager localDatabaseManager;
     private FirebaseUser user;
 
     private Toolbar toolbar;
@@ -44,8 +43,8 @@ public class MainActivity extends NavigationDrawerActivity {
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        localDatabaseManager = new LocalDatabaseManager(this);
-        User userCustom = localDatabaseManager.getUser();
+        LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(this);
+        User userCustom = LocalDatabaseManager.getUser();
 
 //        RemoteDatabaseManager remoteDatabaseManager = new RemoteDatabaseManager(this);
 //        remoteDatabaseManager.setUserData(user.getUid(),"jjj","1000");

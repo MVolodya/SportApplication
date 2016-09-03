@@ -1,6 +1,5 @@
 package info.androidhive.firebase.Classes.Retrofit.Players;
 
-import info.androidhive.firebase.Classes.Retrofit.Team.TeamResponse;
 import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Headers;

@@ -17,7 +17,7 @@ public class AlertDialogManager {
 
     private static EditText input;
 
-    public static AlertDialog.Builder getAlertDialog(Context context, String hint, String title){
+    public static AlertDialog.Builder getAlertDialog(Context context){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setTitle("Edit email");
 

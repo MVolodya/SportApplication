@@ -1,20 +1,12 @@
 package info.androidhive.firebase.Fragments;
 
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.tuesda.walker.circlerefresh.CircleRefreshLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.firebase.Activities.MainActivity;
@@ -43,7 +33,6 @@ import info.androidhive.firebase.Classes.RecycleViewAdapters.DividerItemDecorati
 import info.androidhive.firebase.Classes.RecycleViewAdapters.RecyclerTouchListener;
 import info.androidhive.firebase.Classes.RecycleViewAdapters.UsersRateAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
-import info.androidhive.firebase.Classes.Retrofit.RateMatch.Fixture;
 import info.androidhive.firebase.Classes.Retrofit.RateMatch.RateMatchResponse;
 import info.androidhive.firebase.Classes.Retrofit.RateMatch.RateMatchService;
 import info.androidhive.firebase.R;
@@ -58,8 +47,6 @@ public class CurrentUserRateFragment extends Fragment {
 
 
     private View view;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private RecyclerView recyclerView;
     private CircularProgressView progressView;
     private RateMatchResponse rateMatchResponse;
     private List<RatedMatchesToDB> ratedMatchesList;
@@ -88,13 +75,13 @@ public class CurrentUserRateFragment extends Fragment {
 
 
         progressView = (CircularProgressView) view.findViewById(R.id.progress_view_user_rate);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_user_rate);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_user_rate);
 
         swipeManager = new SwipeManager(getContext());
-        mLayoutManager = new LinearLayoutManager(view.getContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
 
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
             @Override
@@ -119,7 +106,7 @@ public class CurrentUserRateFragment extends Fragment {
             }
 
             @Override
-            public void onLongClick(View view, int position) {
+            public void onLongClick(int position) {
             }
         }));
 

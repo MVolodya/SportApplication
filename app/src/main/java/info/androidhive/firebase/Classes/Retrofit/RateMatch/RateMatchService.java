@@ -1,6 +1,5 @@
 package info.androidhive.firebase.Classes.Retrofit.RateMatch;
 
-import info.androidhive.firebase.Classes.Retrofit.Match.MatchResponse;
 import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Headers;

@@ -16,7 +16,7 @@ import info.androidhive.firebase.R;
 
 public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.ViewHolderUsersRates> {
 
-    private List<Rate> ratesList;
+    private final List<Rate> ratesList;
 
     public UsersRateAdapter() {
         this.ratesList = new ArrayList<>();
@@ -68,11 +68,11 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
 
     public class ViewHolderUsersRates extends RecyclerView.ViewHolder {
 
-        public TextView homeTeam;
-        public TextView awayTeam;
-        public TextView type;
-        public TextView points;
-        public TextView checkStatus;
+        public final TextView homeTeam;
+        public final TextView awayTeam;
+        public final TextView type;
+        public final TextView points;
+        public final TextView checkStatus;
 
         public ViewHolderUsersRates(View v) {
             super(v);

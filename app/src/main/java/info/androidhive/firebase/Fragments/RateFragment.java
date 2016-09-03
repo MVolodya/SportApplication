@@ -3,7 +3,6 @@ package info.androidhive.firebase.Fragments;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,7 +61,6 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     private TextView result;
     private ImageView imageHomeTeam;
     private ImageView imageAwayTeam;
-    private ImageView backArrow;
     private CustomViewPager customViewPagerRate;
     private TabLayout tabLayout;
 
@@ -104,7 +102,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
 
         imageHomeTeam = (ImageView) view.findViewById(R.id.imageHomeTeam);
         imageAwayTeam = (ImageView) view.findViewById(R.id.imageAwayTeam);
-        backArrow = (ImageView) view.findViewById(R.id.imageViewBackArrow);
+        ImageView backArrow = (ImageView) view.findViewById(R.id.imageViewBackArrow);
         progressDialog = new ProgressDialog(view.getContext());
 
         backArrow.setOnClickListener(this);

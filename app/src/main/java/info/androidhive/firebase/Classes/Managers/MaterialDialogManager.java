@@ -21,12 +21,11 @@ import info.androidhive.firebase.R;
 
 public class MaterialDialogManager {
 
-    private Context context;
-    private View view;
+    private final Context context;
 
     public MaterialDialogManager(Context context, View view) {
         this.context = context;
-        this.view = view;
+        View view1 = view;
     }
 
     public AlertDialog openDialogBox(final double coff, final int matchId, final String typeOfRate) {

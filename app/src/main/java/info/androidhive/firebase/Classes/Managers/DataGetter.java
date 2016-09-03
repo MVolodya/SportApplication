@@ -15,8 +15,7 @@ public class DataGetter {
 
     public String getCurrentDate() {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String date = df.format(Calendar.getInstance().getTime());
-        return date;
+        return df.format(Calendar.getInstance().getTime());
     }
 
     public List<Fixture> getCorrectMatches(List<Fixture> list, String currentDate) {

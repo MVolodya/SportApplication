@@ -2,7 +2,6 @@ package info.androidhive.firebase.Fragments;
 
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -36,10 +35,7 @@ import retrofit.Response;
 public class LeagueFragment extends Fragment implements Callback<List<LeagueModel>> {
 
     private List<LeagueModel> leagueList = new ArrayList<>();
-    private LeagueAdapter mAdapter;
-    private View view;
     private ProgressDialog progressDialog;
-    private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView recyclerView;
 
     private int leagueId;
@@ -52,14 +48,14 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_league, container, false);
+        View view = inflater.inflate(R.layout.fragment_league, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_league);
         progressDialog = new ProgressDialog(view.getContext());
 
-        mLayoutManager = new LinearLayoutManager(view.getContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
@@ -89,7 +85,7 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
             }
 
             @Override
-            public void onLongClick(View view, int position) {}
+            public void onLongClick(int position) {}
         }));
 
         return view;
@@ -100,7 +96,7 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
         if (response.isSuccess()) {
             ProgressDialogManager.hideProgressDialog(progressDialog);
             leagueList = response.body();
-            mAdapter = new LeagueAdapter(leagueList);
+            LeagueAdapter mAdapter = new LeagueAdapter(leagueList);
             recyclerView.setAdapter(mAdapter);
             //Log.d("Retrofit", football.get(0).getId()+ " " + football.get(0).getCaption());
         }
@@ -112,8 +108,4 @@ public class LeagueFragment extends Fragment implements Callback<List<LeagueMode
         ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
 }

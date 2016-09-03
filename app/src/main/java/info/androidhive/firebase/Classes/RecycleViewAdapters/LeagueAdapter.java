@@ -16,7 +16,7 @@ import info.androidhive.firebase.R;
  */
 public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.MyViewHolder> {
 
-    private List<LeagueModel> leagueList;
+    private final List<LeagueModel> leagueList;
 
     public LeagueAdapter(List<LeagueModel> leagueList) {
         this.leagueList = leagueList;
@@ -48,7 +48,10 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView caption, league, year, numberOfTeams;
+        public final TextView caption;
+        public final TextView league;
+        public final TextView year;
+        public final TextView numberOfTeams;
 
         public MyViewHolder(View view) {
             super(view);

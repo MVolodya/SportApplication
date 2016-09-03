@@ -11,14 +11,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import info.androidhive.firebase.Activities.ResetPasswordActivity;
 
 public class UserManager {
 
-    private Context context;
+    private final Context context;
 
     public UserManager(Context context) {
         this.context = context;

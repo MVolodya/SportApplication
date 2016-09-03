@@ -15,7 +15,7 @@ import info.androidhive.firebase.R;
 
 public class SplashActivity extends Activity implements UserRateManager {
 
-    private RateManager rateManager = new RateManager(this);
+    private final RateManager rateManager = new RateManager(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

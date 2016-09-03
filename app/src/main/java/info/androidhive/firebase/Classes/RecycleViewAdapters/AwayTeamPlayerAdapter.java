@@ -11,12 +11,9 @@ import java.util.List;
 import info.androidhive.firebase.Classes.Retrofit.Players.Player;
 import info.androidhive.firebase.R;
 
-/**
- * Created by andrii on 25.08.16.
- */
 public class AwayTeamPlayerAdapter extends RecyclerView.Adapter<AwayTeamPlayerAdapter.ViewHolderPlayer> {
 
-    private List<Player> playerList;
+    private final List<Player> playerList;
 
 
     public AwayTeamPlayerAdapter(List<Player> playerList) {
@@ -62,11 +59,11 @@ public class AwayTeamPlayerAdapter extends RecyclerView.Adapter<AwayTeamPlayerAd
 
     public class ViewHolderPlayer extends RecyclerView.ViewHolder {
 
-        private TextView number;
-        private TextView nationality;
-        private TextView name;
-        private TextView year;
-        private TextView position;
+        private final TextView number;
+        private final TextView nationality;
+        private final TextView name;
+        private final TextView year;
+        private final TextView position;
 
         public ViewHolderPlayer (View v) {
             super(v);

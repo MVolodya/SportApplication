@@ -33,9 +33,7 @@ import info.androidhive.firebase.R;
  */
 public class AllUsersFragment extends Fragment {
 
-    private View view;
     private AllUsersAdapter usersAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView recyclerView;
     private CircleRefreshLayout refreshLayout;
     private CircularProgressView progressView;
@@ -49,15 +47,15 @@ public class AllUsersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_all_users, container, false);
+        View view = inflater.inflate(R.layout.fragment_all_users, container, false);
 
         progressView = (CircularProgressView) view.findViewById(R.id.progress_view);
         refreshLayout = (CircleRefreshLayout) view.findViewById(R.id.refresh_layout_users);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_users);
-        mLayoutManager = new LinearLayoutManager(view.getContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
 
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         refreshLayout.setOnRefreshListener(
                 new CircleRefreshLayout.OnCircleRefreshListener() {
@@ -82,7 +80,7 @@ public class AllUsersFragment extends Fragment {
         return view;
     }
 
-    private List<RatedUser> getUsers() {
+    private void getUsers() {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         final List<RatedUser> ratedUserList = new ArrayList<>();
         progressView.startAnimation();
@@ -103,9 +101,6 @@ public class AllUsersFragment extends Fragment {
 
             }
         });
-
-
-        return ratedUserList;
     }
 
     @Override

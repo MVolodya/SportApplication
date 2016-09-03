@@ -1,0 +1,88 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="info.androidhive.firebase.Fragments.MatchFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_match"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabCalendar"
+        android:layout_width="64dp"
+        android:layout_height="68dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_menu_today"
+        app:backgroundTint="@color/bg_main" />
+
+    <com.github.fabtransitionactivity.SheetLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:elevation="2dp"
+        app:ft_color="@color/colorPrimary"
+        app:ft_container_gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.samsistemas.calendarview.widget.CalendarView
+                android:id="@+id/calendar_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="56dp"
+                android:background="@color/colorPrimary"
+                app:calendarBackgroundColor="@color/colorPrimary"
+                app:calendarTitleTextColor="@color/colorAccent"
+                app:currentDayOfMonthColor="@color/white"
+                app:dayOfMonthTextColor="@color/white"
+                app:dayOfWeekTextColor="@color/white"
+                app:disabledDayBackgroundColor="@color/colorPrimary"
+                app:disabledDayTextColor="@color/colorAccent"
+                app:selectedDayBackgroundColor="@color/year"
+                app:titleLayoutBackgroundColor="@color/colorPrimary"
+                app:weekLayoutBackgroundColor="@color/colorPrimary" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewBackButton"
+                android:src="@drawable/ic_keyboard_arrow_left_white" />
+
+
+        </RelativeLayout>
+    </com.github.fabtransitionactivity.SheetLayout>
+
+    <com.github.rahatarmanahmed.cpv.CircularProgressView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progress_view_match"
+        android:visibility="invisible"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:cpv_animAutostart="true"
+        app:cpv_indeterminate="true"
+        app:cpv_color="@color/colorPrimaryDark"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="No matches today..."
+        android:id="@+id/textViewMsg"
+        android:layout_gravity="center" />
+
+</FrameLayout>

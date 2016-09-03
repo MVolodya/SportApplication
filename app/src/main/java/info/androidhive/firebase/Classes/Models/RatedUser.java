@@ -7,10 +7,10 @@ import java.util.List;
  */
 public class RatedUser {
 
-    public String name;
-    public String currentPoints;
-    public String photoUrl;
-    public List<RatedMatchesToDB> ratedMatches;
+    private String name;
+    private String currentPoints;
+    private String photoUrl;
+    private List<RatedMatchesToDB> ratedMatches;
 
 
     public void setName(String name) {

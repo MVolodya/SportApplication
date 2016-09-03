@@ -12,10 +12,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -47,12 +45,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private TextView etEmail;
     private ImageView userPhoto;
     private User user;
-    private LocalDatabaseManager localDatabaseManager;
 
-    private FirebaseAuth auth;
     private FirebaseUser firebaseUser;
     private ProgressDialog mProgressDialog;
-    private RelativeLayout relativeLayout;
     private RemoteDatabaseManager remoteDatabaseManager;
 
 
@@ -75,9 +70,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         mProgressDialog = new ProgressDialog(this);
         remoteDatabaseManager = new RemoteDatabaseManager(this);
-        localDatabaseManager = new LocalDatabaseManager(this);
-        auth = FirebaseAuth.getInstance();
-        firebaseUser = auth.getInstance().getCurrentUser();
+        LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(this);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         UserInfo userInfo = firebaseUser.getProviderData().get(1);
         // Id of the provider (ex: google.com)
@@ -92,7 +87,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
 
         //start AlertDialog username
-        relativeLayout = (RelativeLayout) findViewById(R.id.usernameDialog);
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.usernameDialog);
         relativeLayout.setOnClickListener(this);
         //end AlertDialog username
 
@@ -172,8 +167,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.usernameDialog:
-                AlertDialog.Builder alertDialogUsername = AlertDialogManager.getAlertDialog(this,
-                        "Enter new name", "Edit name");
+                AlertDialog.Builder alertDialogUsername = AlertDialogManager.getAlertDialog(this
+                );
                 alertDialogUsername.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -198,8 +193,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.emailDialog:
-                AlertDialog.Builder alertDialogEmail = AlertDialogManager.getAlertDialog(this,
-                        "Enter new email", "Edit email");
+                AlertDialog.Builder alertDialogEmail = AlertDialogManager.getAlertDialog(this
+                );
                 alertDialogEmail.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -219,8 +214,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.passDialog:
-                AlertDialog.Builder alertDialogPassword =AlertDialogManager.getAlertDialog(this,
-                        "Enter new password", "Edit password");
+                AlertDialog.Builder alertDialogPassword =AlertDialogManager.getAlertDialog(this
+                );
                 alertDialogPassword.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

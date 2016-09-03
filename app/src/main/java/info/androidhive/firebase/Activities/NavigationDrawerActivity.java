@@ -1,36 +1,25 @@
 package info.androidhive.firebase.Activities;
 
-import android.app.FragmentManager;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import com.mikepenz.materialize.util.UIUtils;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -45,23 +34,21 @@ import info.androidhive.firebase.R;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
 
-    public Drawer result;
+    Drawer result;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
-    }
+}
 
-    public void initializeNavigationDrawer(Toolbar toolbar, User user) throws IOException, ExecutionException, InterruptedException {
-
+    void initializeNavigationDrawer(Toolbar toolbar, User user) throws IOException, ExecutionException, InterruptedException {
         AccountHeader headerResult = createAccount(user);
-
-
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withHeader(R.layout.header)
+                .withAccountHeader(headerResult)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem()
@@ -135,30 +122,29 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                                     break;
                             }
                         }
-
                         return false;
                     }
                 })
                 .build();
+
     }
 
-
-    private AccountHeader createAccount(User user) throws IOException, ExecutionException, InterruptedException {
+    private AccountHeader createAccount(User user) {
 
         IProfile profile = new ProfileDrawerItem();
 
         if (user.getName() != null) profile.withName(user.getName());
         else profile.withName("Anonymous");
 
-        if (user.getEmail() != null) profile.withEmail(user.getEmail());
+        if (user.getEmail()!=null) profile.withEmail(user.getEmail());
         else profile.withEmail("Anonymous@Anonymous.com");
 
-        if (user.getPhotoURL() != null) profile.withIcon(user.getPhotoURL());
+        if (user.getPhotoURL()!= null) profile.withIcon(user.getPhotoURL());
         else profile.withIcon(R.drawable.prof);
+
 
         return new AccountHeaderBuilder()
                 .withActivity(this)
-                .withCompactStyle(true)
                 .withHeaderBackground(R.drawable.w)
                 .addProfiles(profile)
                 .build();

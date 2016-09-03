@@ -21,7 +21,7 @@ import info.androidhive.firebase.R;
 
 public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHolderUsers> {
 
-    private List<RatedUser> usersList;
+    private final List<RatedUser> usersList;
     private View view;
 
     public AllUsersAdapter(List<RatedUser> usersList) {
@@ -73,11 +73,11 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
 
     public class ViewHolderUsers extends RecyclerView.ViewHolder {
 
-        public TextView position;
-        public TextView name;
-        public TextView points;
-        public TextView tvHint;
-        public CircleImageView userPhoto;
+        public final TextView position;
+        public final TextView name;
+        public final TextView points;
+        public final TextView tvHint;
+        public final CircleImageView userPhoto;
 
         public ViewHolderUsers(View v) {
             super(v);

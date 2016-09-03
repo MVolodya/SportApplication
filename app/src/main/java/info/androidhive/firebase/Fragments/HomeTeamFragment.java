@@ -10,13 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.RecycleViewAdapters.DividerItemDecoration;
 import info.androidhive.firebase.Classes.RecycleViewAdapters.HomeTeamPlayerAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
-import info.androidhive.firebase.Classes.Retrofit.Players.Player;
 import info.androidhive.firebase.Classes.Retrofit.Players.PlayersResponse;
 import info.androidhive.firebase.Classes.Retrofit.Players.PlayersService;
 import info.androidhive.firebase.R;
@@ -29,10 +26,7 @@ import retrofit.Response;
  */
 public class HomeTeamFragment extends Fragment implements Callback<PlayersResponse> {
 
-    private View view;
-    private PlayersResponse playersResponse;
     private RecyclerView recyclerView;
-    private HomeTeamPlayerAdapter homeTeamPlayerAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -44,10 +38,10 @@ public class HomeTeamFragment extends Fragment implements Callback<PlayersRespon
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home_team, container, false);
-        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view_home_team_players);
+        View view = inflater.inflate(R.layout.fragment_home_team, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_home_team_players);
         mLayoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         PlayersService service = ApiFactory.getPlayerService();
@@ -62,9 +56,9 @@ public class HomeTeamFragment extends Fragment implements Callback<PlayersRespon
     @Override
     public void onResponse(Response<PlayersResponse> response) {
         if (response.isSuccess()) {
-            playersResponse = response.body();
+            PlayersResponse playersResponse = response.body();
             recyclerView.setLayoutManager(mLayoutManager);
-            homeTeamPlayerAdapter = new HomeTeamPlayerAdapter(playersResponse.getPlayers());
+            HomeTeamPlayerAdapter homeTeamPlayerAdapter = new HomeTeamPlayerAdapter(playersResponse.getPlayers());
             recyclerView.setAdapter(homeTeamPlayerAdapter);
         }
     }

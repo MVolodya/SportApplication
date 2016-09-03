@@ -5,10 +5,10 @@ package info.androidhive.firebase.Classes.Models;
  */
 public class RatedMatchesToDB {
 
-    public String matchId;
-    public String points;
-    public String typeOfRate;
-    public String status;
+    private String matchId;
+    private String points;
+    private String typeOfRate;
+    private String status;
 
     private static RatedMatchesToDB ratedMatches;
 

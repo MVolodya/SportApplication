@@ -25,13 +25,10 @@ import info.androidhive.firebase.Classes.Utils.SvgSoftwareLayerSetter;
 import info.androidhive.firebase.R;
 import info.androidhive.firebase.Classes.Utils.SvgDrawableTranscoder;
 
-/**
- * Created by andri on 05.08.2016.
- */
+
 public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.LeagueTableViewHolder> {
 
     private List<Standing> standingsList;
-    private GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder;
 
     public LeagueTableAdapter(List<Standing> standingsList) {
         this.standingsList = standingsList;
@@ -50,8 +47,8 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
 
         int count = position;
 
-        requestBuilder = Glide.with(holder.view.getContext())
-                .using(Glide.buildStreamModelLoader(Uri.class,holder.view.getContext()), InputStream.class)
+        GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(holder.view.getContext())
+                .using(Glide.buildStreamModelLoader(Uri.class, holder.view.getContext()), InputStream.class)
                 .from(Uri.class)
                 .as(SVG.class)
                 .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
@@ -61,7 +58,7 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
                 .animate(android.R.anim.fade_in)
                 .listener(new SvgSoftwareLayerSetter<Uri>());
 
-        if(standingsList.get(position).getCrestURI().toString().contains("svg")){
+        if(standingsList.get(position).getCrestURI().contains("svg")){
             requestBuilder
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     // SVG cannot be serialized so it's not worth to cache it
@@ -90,28 +87,19 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
         return standingsList.size();
     }
 
-    public void swap(List list) {
-        if (standingsList != null) {
-            standingsList.clear();
-            standingsList.addAll(list);
-        } else {
-            standingsList = list;
-        }
-        notifyDataSetChanged();
-    }
 
     public class LeagueTableViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvPosition;
-        public TextView tvTeamName;
-        public TextView tvPlayedGamesWins;
-        public TextView tvPlayedGamesDraws;
-        public TextView tvPlayedGamesLose;
-        public TextView tvGoalsWin;
-        public TextView tvGoalsLose;
-        public TextView tvPoints;
-        public ImageView logo;
-        public View view;
+        public final TextView tvPosition;
+        public final TextView tvTeamName;
+        public final TextView tvPlayedGamesWins;
+        public final TextView tvPlayedGamesDraws;
+        public final TextView tvPlayedGamesLose;
+        public final TextView tvGoalsWin;
+        public final TextView tvGoalsLose;
+        public final TextView tvPoints;
+        public final ImageView logo;
+        public final View view;
 
 
         public LeagueTableViewHolder(View view) {

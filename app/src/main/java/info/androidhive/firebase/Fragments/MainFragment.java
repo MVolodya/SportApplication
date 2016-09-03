@@ -26,7 +26,6 @@ import info.androidhive.firebase.R;
  */
 public class MainFragment extends Fragment implements View.OnClickListener {
 
-    private View view;
     private CustomViewPager viewPager;
     private TabLayout tabLayout;
     private ImageView imageViewInfo;
@@ -43,14 +42,14 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
 
 //        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 //        String date = df.format(Calendar.getInstance().getTime());
 //        Log.d("data", date);
 
-        viewPager = (CustomViewPager)view.findViewById(R.id.viewpager);
-        tabLayout = (TabLayout)view.findViewById(R.id.tabs);
+        viewPager = (CustomViewPager) view.findViewById(R.id.viewpager);
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         imageViewInfo = (ImageView) view.findViewById(R.id.imageViewBadConnection);
         textViewInfo = (TextView) view.findViewById(R.id.textViewInfo);
         buttonTryAgain = (Button) view.findViewById(R.id.buttonTryAgain);

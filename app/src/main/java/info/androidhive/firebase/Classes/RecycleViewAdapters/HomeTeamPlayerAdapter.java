@@ -13,7 +13,7 @@ import info.androidhive.firebase.R;
 
 public class HomeTeamPlayerAdapter extends RecyclerView.Adapter<HomeTeamPlayerAdapter.ViewHolderPlayer> {
 
-    private List<Player> playerList;
+    private final List<Player> playerList;
 
 
     public HomeTeamPlayerAdapter(List<Player> playerList) {
@@ -59,11 +59,11 @@ public class HomeTeamPlayerAdapter extends RecyclerView.Adapter<HomeTeamPlayerAd
 
     public class ViewHolderPlayer extends RecyclerView.ViewHolder {
 
-        private TextView number;
-        private TextView nationality;
-        private TextView name;
-        private TextView year;
-        private TextView position;
+        private final TextView number;
+        private final TextView nationality;
+        private final TextView name;
+        private final TextView year;
+        private final TextView position;
 
         public ViewHolderPlayer (View v) {
             super(v);
