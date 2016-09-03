@@ -129,8 +129,6 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         Call<RateMatchResponse> call = service.match(dataHelper.getMatchId());
         call.enqueue(this);
 
-        
-
         return view;
     }
 
@@ -172,16 +170,10 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         setHomeTeamImage();
         setAwayTeamImage();
 
-        setupViewPager(customViewPagerRate);
-        tabLayout.setupWithViewPager(customViewPagerRate);
-
         homeTeam.setText(rateMatchResponse.getFixture().getHomeTeamName());
         awayTeam.setText(rateMatchResponse.getFixture().getAwayTeamName());
         round.setText("Round of " + rateMatchResponse.getFixture().getMatchday().toString());
         status.setText(rateMatchResponse.getFixture().getStatus());
-
-
-
 
         if (rateMatchResponse.getFixture().getResult().getGoalsHomeTeam() != null
                 && rateMatchResponse.getFixture().getResult().getGoalsAwayTeam() != null) {
@@ -205,7 +197,8 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
             draw.setVisibility(View.GONE);
             lose.setVisibility(View.GONE);
         }
-
+        setupViewPager(customViewPagerRate);
+        tabLayout.setupWithViewPager(customViewPagerRate);
     }
 
     private int getTeamId(String link) {
@@ -218,6 +211,8 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         int homeTeamId = getTeamId(
                 rateMatchResponse.getFixture().getLinks().getHomeTeam().getHref()
         );
+
+        dataHelper.setHomeTeamId(homeTeamId);
 
         TeamService serviceTeam = ApiFactory.getTeamService();
         Call<TeamResponse> callTeam = serviceTeam.teams(homeTeamId);
@@ -265,6 +260,8 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         int awayTeamId = getTeamId(
                 rateMatchResponse.getFixture().getLinks().getAwayTeam().getHref()
         );
+
+        dataHelper.setAwayTeamId(awayTeamId);
 
         TeamService serviceTeam = ApiFactory.getTeamService();
         Call<TeamResponse> callTeam = serviceTeam.teams(awayTeamId);

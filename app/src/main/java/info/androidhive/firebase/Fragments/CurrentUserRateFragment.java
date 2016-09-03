@@ -1,6 +1,12 @@
 package info.androidhive.firebase.Fragments;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -8,7 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,17 +33,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.firebase.Activities.MainActivity;
+import info.androidhive.firebase.Classes.Managers.SwipeManager;
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Models.Rate;
 import info.androidhive.firebase.Classes.Models.RatedMatchesToDB;
 import info.androidhive.firebase.Classes.Models.RatedUser;
 import info.androidhive.firebase.Classes.RecycleViewAdapters.ClickListener;
 import info.androidhive.firebase.Classes.RecycleViewAdapters.DividerItemDecoration;
-import info.androidhive.firebase.Classes.RecycleViewAdapters.MatchAdapter;
 import info.androidhive.firebase.Classes.RecycleViewAdapters.RecyclerTouchListener;
 import info.androidhive.firebase.Classes.RecycleViewAdapters.UsersRateAdapter;
 import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
-
 import info.androidhive.firebase.Classes.Retrofit.RateMatch.Fixture;
 import info.androidhive.firebase.Classes.Retrofit.RateMatch.RateMatchResponse;
 import info.androidhive.firebase.Classes.Retrofit.RateMatch.RateMatchService;
@@ -49,18 +54,17 @@ import retrofit.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class    CurrentUserRateFragment extends Fragment {
+public class CurrentUserRateFragment extends Fragment {
+
 
     private View view;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView recyclerView;
-    private CircleRefreshLayout swipeRefreshLayout;
     private CircularProgressView progressView;
     private RateMatchResponse rateMatchResponse;
-    private Fixture matches;
     private List<RatedMatchesToDB> ratedMatchesList;
-    final List<Rate> rateList = new ArrayList<>();
-
+    private UsersRateAdapter usersRateAdapter;
+    private SwipeManager swipeManager;
 
 
     public CurrentUserRateFragment() {
@@ -82,9 +86,11 @@ public class    CurrentUserRateFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_cuurent_user_rate, container, false);
 
+
         progressView = (CircularProgressView) view.findViewById(R.id.progress_view_user_rate);
-        swipeRefreshLayout = (CircleRefreshLayout) view.findViewById(R.id.refresh_layout_users_rate);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_user_rate);
+
+        swipeManager = new SwipeManager(getContext());
         mLayoutManager = new LinearLayoutManager(view.getContext());
 
         recyclerView.setLayoutManager(mLayoutManager);
@@ -98,9 +104,9 @@ public class    CurrentUserRateFragment extends Fragment {
                 dataHelper.setMatchId(Integer.parseInt(ratedMatchesList
                         .get(position).getMatchId()));
 
-                Fragment fr =getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
+                Fragment fr = getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
 
-                if(!(fr instanceof RateFragment)){
+                if (!(fr instanceof RateFragment)) {
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                             .add(R.id.container, new RateFragment())
@@ -108,31 +114,16 @@ public class    CurrentUserRateFragment extends Fragment {
                             .commit();
                 }
 
-                ((MainActivity)view.getContext()).hideToolbar();
-                ((MainActivity)view.getContext()).lockSwipe();
+                ((MainActivity) view.getContext()).hideToolbar();
+                ((MainActivity) view.getContext()).lockSwipe();
             }
 
             @Override
-            public void onLongClick(View view, int position) {}
+            public void onLongClick(View view, int position) {
+            }
         }));
 
-        swipeRefreshLayout.setOnRefreshListener(new CircleRefreshLayout.OnCircleRefreshListener() {
-            @Override
-            public void completeRefresh() {}
-
-            @Override
-            public void refreshing() {
-                getUsersRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        swipeRefreshLayout.finishRefreshing();
-                    }
-                }, 2 * 1000);
-            }
-        });
-
-        getUsersRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        getUsersRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), recyclerView);
         return view;
     }
 
@@ -146,7 +137,7 @@ public class    CurrentUserRateFragment extends Fragment {
     }
 
 
-    private void getUsersRates(final String username) {
+    private void getUsersRates(final String username,final RecyclerView recyclerView) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         progressView.startAnimation();
@@ -155,42 +146,40 @@ public class    CurrentUserRateFragment extends Fragment {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                                        final UsersRateAdapter usersRateAdapter = new UsersRateAdapter();
+
                                                         RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
                                                         ratedMatchesList = ratedUser.getRatedMatches();
+                                                        usersRateAdapter = new UsersRateAdapter();
+                                                        if (ratedMatchesList != null) {
+                                                            for (int i = 0; i < ratedMatchesList.size(); i++) {
 
-                                                        if(ratedMatchesList!= null){
-                                                        for (int i = 0; i < ratedMatchesList.size(); i++) {
+                                                                RateMatchService service = ApiFactory.getRateMatchService();
+                                                                Call<RateMatchResponse> call = service.match(Integer.parseInt(ratedMatchesList.get(i).getMatchId()));
 
-                                                            RateMatchService service = ApiFactory.getRateMatchService();
-                                                            Call<RateMatchResponse> call = service.match(Integer.parseInt(ratedMatchesList.get(i).getMatchId()));
+                                                                final int finalI = i;
 
-                                                            final int finalI = i;
-
-                                                            call.enqueue(new Callback<RateMatchResponse>() {
-                                                                @Override
-                                                                public void onResponse(Response<RateMatchResponse> response) {
-                                                                    rateMatchResponse = response.body();
-                                                                    matches = rateMatchResponse.getFixture();
-                                                                    Rate rate = new Rate();
-                                                                    rate.setHomeTeamName(rateMatchResponse.getFixture().getHomeTeamName());
-                                                                    rate.setAwayTeamName(rateMatchResponse.getFixture().getAwayTeamName());
-                                                                    rate.setPoints(ratedMatchesList.get(finalI).getPoints());
-                                                                    rate.setType(ratedMatchesList.get(finalI).getTypeOfRate());
-                                                                    rate.setStatus(ratedMatchesList.get(finalI).getStatus());
-                                                                    rateList.add(rate);
-                                                                    usersRateAdapter.addRates(rate);
-                                                                }
-
-                                                                @Override
-                                                                public void onFailure(Throwable t) {
-                                                                }
-                                                            });
+                                                                call.enqueue(new Callback<RateMatchResponse>() {
+                                                                    @Override
+                                                                    public void onResponse(Response<RateMatchResponse> response) {
+                                                                        rateMatchResponse = response.body();
+                                                                        Rate rate = new Rate();
+                                                                        rate.setHomeTeamName(rateMatchResponse.getFixture().getHomeTeamName());
+                                                                        rate.setAwayTeamName(rateMatchResponse.getFixture().getAwayTeamName());
+                                                                        rate.setPoints(ratedMatchesList.get(finalI).getPoints());
+                                                                        rate.setType(ratedMatchesList.get(finalI).getTypeOfRate());
+                                                                        rate.setStatus(ratedMatchesList.get(finalI).getStatus());
+                                                                        usersRateAdapter.addRates(rate);
+                                                                    }
+                                                                    @Override
+                                                                    public void onFailure(Throwable t) {
+                                                                    }
+                                                                });
+                                                            }
                                                         }
-                                                        }
-                                                            progressView.stopAnimation();
-                                                            progressView.setVisibility(View.GONE);
-                                                            recyclerView.setAdapter(usersRateAdapter);
+                                                        progressView.stopAnimation();
+                                                        progressView.setVisibility(View.GONE);
+                                                        recyclerView.setAdapter(usersRateAdapter);
+                                                        swipeManager.initSwipe(usersRateAdapter, recyclerView, view);
                                                     }
 
                                                     @Override

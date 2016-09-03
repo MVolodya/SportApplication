@@ -34,7 +34,6 @@ public class UserManager {
                         } else {
                             Toast.makeText(context, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                         }
-
                         ProgressDialogManager.hideProgressDialog(new ProgressDialog(context));
                     }
                 });

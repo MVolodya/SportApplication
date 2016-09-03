@@ -34,7 +34,6 @@ public class HomeTeamFragment extends Fragment implements Callback<PlayersRespon
     private RecyclerView recyclerView;
     private HomeTeamPlayerAdapter homeTeamPlayerAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private List<Player> players;
 
 
     public HomeTeamFragment() {

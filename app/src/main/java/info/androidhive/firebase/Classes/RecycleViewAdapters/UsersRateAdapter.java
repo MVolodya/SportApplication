@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Models.Rate;
 import info.androidhive.firebase.R;
 
@@ -19,13 +20,26 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
 
     public UsersRateAdapter() {
         this.ratesList = new ArrayList<>();
-        ratesList.clear();
-        notifyDataSetChanged();
     }
 
     public void addRates(Rate rates) {
         ratesList.add(rates);
         notifyDataSetChanged();
+        //notifyItemInserted(ratesList.size());
+    }
+
+    public void addDeletedRate(Rate rates){
+        ratesList.add(DataHelper.getInstance().getDeletedPosition(),rates);
+        notifyDataSetChanged();
+       // notifyItemInserted(ratesList.size());
+    }
+
+    public void remove(int position) {
+        DataHelper.getInstance().setRate(ratesList.get(position));
+        ratesList.remove(position);
+        notifyDataSetChanged();
+//        notifyItemRemoved(position);
+//        notifyItemRangeChanged(position, ratesList.size());
     }
 
     @Override
@@ -50,6 +64,7 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
     public int getItemCount() {
         return ratesList.size();
     }
+
 
     public class ViewHolderUsersRates extends RecyclerView.ViewHolder {
 

@@ -1,5 +1,6 @@
 package info.androidhive.firebase.Classes.RecycleViewAdapters;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,8 +40,15 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolderUsers holder, int position) {
         RatedUser ratedUser = usersList.get(position);
-        String positionUser = String.valueOf(position+1);
 
+        if(ratedUser.getName().equalsIgnoreCase(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())){
+            holder.position.setTextColor(Color.parseColor("#ff6861"));
+            holder.name.setTextColor(Color.parseColor("#ff6861"));
+            holder.points.setTextColor(Color.parseColor("#ff6861"));
+            holder.tvHint.setTextColor(Color.parseColor("#ff6861"));
+        }
+
+        String positionUser = String.valueOf(position+1);
         holder.position.setText(positionUser);
         holder.name.setText(ratedUser.getName());
         holder.points.setText(ratedUser.getCurrentPoints());
@@ -67,6 +76,7 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
         public TextView position;
         public TextView name;
         public TextView points;
+        public TextView tvHint;
         public CircleImageView userPhoto;
 
         public ViewHolderUsers(View v) {
@@ -75,6 +85,7 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
             name = (TextView)v.findViewById(R.id.textViewUserRateName);
             points = (TextView)v.findViewById(R.id.textView7UserPoints);
             userPhoto = (CircleImageView)v.findViewById(R.id.profile_image);
+            tvHint = (TextView)v.findViewById(R.id.textView3);
         }
     }
 }

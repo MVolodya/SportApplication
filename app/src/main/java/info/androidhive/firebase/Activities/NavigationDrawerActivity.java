@@ -61,7 +61,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withAccountHeader(headerResult)
+                .withHeader(R.layout.header)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem()
@@ -107,7 +107,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                                     if (!(fr instanceof MainFragment))
                                         fragmentManager
                                                 .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
-                                                .replace(R.id.container, new MainFragment())
+                                                .replace(R.id.container, new MainFragment(), "main")
                                                 .commit();
                                     break;
                                 case 3:
@@ -158,7 +158,8 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
         return new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.drawable.back)
+                .withCompactStyle(true)
+                .withHeaderBackground(R.drawable.w)
                 .addProfiles(profile)
                 .build();
     }

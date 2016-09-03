@@ -1,19 +1,9 @@
-<com.tuesda.walker.circlerefresh.CircleRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/refresh_layout_users_rate"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Table"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:AniBackColor="@color/colorPrimary"
-    app:AniForeColor="#ffffffff"
-    app:CircleSmaller="2">
-
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/Table"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Fragments.CurrentUserRateFragment">
-
+    tools:context=".Fragments.CurrentUserRateFragment">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_user_rate"
             android:layout_width="match_parent"
@@ -33,6 +23,4 @@
             app:cpv_animAutostart="true"
             app:cpv_color="@color/colorPrimaryDark"
             app:cpv_indeterminate="true" />
-
-    </FrameLayout>
-</com.tuesda.walker.circlerefresh.CircleRefreshLayout>
+</FrameLayout>

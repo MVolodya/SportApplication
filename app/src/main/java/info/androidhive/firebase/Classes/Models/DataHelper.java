@@ -8,6 +8,10 @@ public class DataHelper {
     private int matchId;
     private int homeTeamId;
     private int awayTeamId;
+    private int deletedPosition;
+
+    private RatedMatchesToDB ratedMatchesToDB;
+    private Rate rate;
 
 
     private String leagueName;
@@ -61,5 +65,29 @@ public class DataHelper {
 
     public void setAwayTeamId(int awayTeamId) {
         this.awayTeamId = awayTeamId;
+    }
+
+    public RatedMatchesToDB getRatedMatchesToDB() {
+        return ratedMatchesToDB;
+    }
+
+    public void setRatedMatchesToDB(RatedMatchesToDB ratedMatchesToDB) {
+        this.ratedMatchesToDB = ratedMatchesToDB;
+    }
+
+    public Rate getRate() {
+        return rate;
+    }
+
+    public void setRate(Rate rate) {
+        this.rate = rate;
+    }
+
+    public int getDeletedPosition() {
+        return deletedPosition;
+    }
+
+    public void setDeletedPosition(int deletedPosition) {
+        this.deletedPosition = deletedPosition;
     }
 }

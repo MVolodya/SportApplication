@@ -62,7 +62,7 @@ public class MaterialDialogManager {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!input.getText().toString().isEmpty()) {
                     double currentSum = (coff * Integer.parseInt(input.getText().toString()));
-                    sum.setText("" + currentSum);
+                    sum.setText(String.format("%.1f", currentSum));
                 } else {
                     sum.setText("0");
                 }
