@@ -194,7 +194,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.emailDialog:
                 AlertDialog.Builder alertDialogEmail = AlertDialogManager.getAlertDialog(this,
-                "Enate new email");
+                "Enter new email");
                 alertDialogEmail.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
