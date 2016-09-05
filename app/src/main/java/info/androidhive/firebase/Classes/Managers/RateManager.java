@@ -95,8 +95,7 @@ public class RateManager {
                                                     }
 
                                                     @Override
-                                                    public void onCancelled(DatabaseError databaseError) {
-                                                    }
+                                                    public void onCancelled(DatabaseError databaseError) {}
                                                 }
 
                 );
@@ -106,102 +105,24 @@ public class RateManager {
     public void checkRate(final List<RatedMatchesToDB> rateList, final String name) {
 
         mDatabase.child(name).addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(final DataSnapshot dataSnapshot) {
                 final RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
                 if (rateList != null) {
                     for (int i = 0; i < rateList.size(); i++) {
                         if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_FIRST)) {
-                            final int finalI = i;
-                            RateMatchService service = ApiFactory.getRateMatchService();
-                            Call<RateMatchResponse> call = service.match(Integer.parseInt(rateList.get(i).getMatchId()));
-                            call.enqueue(new Callback<RateMatchResponse>() {
-                                @Override
-                                public void onResponse(Response<RateMatchResponse> response) {
-                                    RateMatchResponse rateMatchResponse = response.body();
-                                    if (rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
-                                        final int homeTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsHomeTeam();
-                                        final int awayTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsAwayTeam();
-                                        if (ratedUser.getRatedMatches().get(finalI).getStatus()
-                                                .equalsIgnoreCase("unchecked")) {
-                                            ratedUser.getRatedMatches().get(finalI).setStatus("checked");
-                                            if (homeTeamGoal > awayTeamGoal) {
-                                                double currentPoints = Double.parseDouble(ratedUser.getCurrentPoints());
-                                                double ratePoints = Double.parseDouble(rateList.get(finalI).getPoints());
-                                                ratedUser.setCurrentPoints("" + (currentPoints + ratePoints));
-                                            }
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Throwable t) {
-
-                                }
-                            });
+                           checkWithApi(rateList, ratedUser, i, name, WIN_FIRST);
                         }
 
                         if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(DRAW)) {
-                            final int finalI = i;
-                            RateMatchService service = ApiFactory.getRateMatchService();
-                            Call<RateMatchResponse> call = service.match(Integer.parseInt(rateList.get(i).getMatchId()));
-                            call.enqueue(new Callback<RateMatchResponse>() {
-                                @Override
-                                public void onResponse(Response<RateMatchResponse> response) {
-                                    RateMatchResponse rateMatchResponse = response.body();
-                                    if (rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
-                                        final int homeTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsHomeTeam();
-                                        final int awayTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsAwayTeam();
-                                        if (ratedUser.getRatedMatches().get(finalI).getStatus()
-                                                .equalsIgnoreCase("unchecked")) {
-                                            ratedUser.getRatedMatches().get(finalI).setStatus("checked");
-                                            if (homeTeamGoal == awayTeamGoal) {
-                                                double currentPoints = Double.parseDouble(ratedUser.getCurrentPoints());
-                                                double ratePoints = Double.parseDouble(rateList.get(finalI).getPoints());
-                                                ratedUser.setCurrentPoints("" + (currentPoints + ratePoints));
-                                            }
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Throwable t) {
-
-                                }
-                            });
+                            checkWithApi(rateList, ratedUser, i, name, DRAW);
                         }
 
                         if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_SECOND)) {
-                            final int finalI = i;
-                            RateMatchService service = ApiFactory.getRateMatchService();
-                            Call<RateMatchResponse> call = service.match(Integer.parseInt(rateList.get(i).getMatchId()));
-                            call.enqueue(new Callback<RateMatchResponse>() {
-                                @Override
-                                public void onResponse(Response<RateMatchResponse> response) {
-                                    RateMatchResponse rateMatchResponse = response.body();
-                                    if (rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
-                                        final int homeTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsHomeTeam();
-                                        final int awayTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsAwayTeam();
-                                        if (ratedUser.getRatedMatches().get(finalI).getStatus()
-                                                .equalsIgnoreCase("unchecked")) {
-                                            ratedUser.getRatedMatches().get(finalI).setStatus("checked");
-                                            if (homeTeamGoal < awayTeamGoal) {
-                                                double currentPoints = Double.parseDouble(ratedUser.getCurrentPoints());
-                                                double ratePoints = Double.parseDouble(rateList.get(finalI).getPoints());
-                                                ratedUser.setCurrentPoints("" + (currentPoints + ratePoints));
-                                            }
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Throwable t) {
-
-                                }
-                            });
+                            checkWithApi(rateList, ratedUser, i, name, WIN_SECOND);
                         }
                     }
-                    mDatabase.child(name).setValue(ratedUser);
                 }
             }
 
@@ -210,6 +131,48 @@ public class RateManager {
 
             }
         });
-
     }
+
+    private void checkWithApi(final List<RatedMatchesToDB> rateList, final RatedUser ratedUser,
+                             final int i, final String name, final String userType){
+        RateMatchService service = ApiFactory.getRateMatchService();
+        Call<RateMatchResponse> call = service.match(Integer.parseInt(rateList.get(i).getMatchId()));
+        call.enqueue(new Callback<RateMatchResponse>() {
+            @Override
+            public void onResponse(Response<RateMatchResponse> response) {
+                RateMatchResponse rateMatchResponse = response.body();
+                if (rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
+                    final int homeTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsHomeTeam();
+                    final int awayTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsAwayTeam();
+                    String type = null;
+                    if(homeTeamGoal>awayTeamGoal) type = WIN_FIRST;
+                    if(homeTeamGoal==awayTeamGoal) type = DRAW;
+                    if(homeTeamGoal<awayTeamGoal) type = WIN_SECOND;
+
+                    if (ratedUser.getRatedMatches().get(i).getStatus()
+                            .equalsIgnoreCase("unchecked")) {
+                        ratedUser.getRatedMatches().get(i).setStatus("checked");
+
+                        if(type!=null && type.equalsIgnoreCase(userType)) {
+                            double currentPoints = Double.parseDouble(ratedUser.getCurrentPoints());
+                            double ratePoints = Double.parseDouble(rateList.get(i).getPoints());
+                            ratedUser.setCurrentPoints("" + (currentPoints + ratePoints));
+                            mDatabase.child(name).child("currentPoints")
+                                    .setValue(ratedUser.getCurrentPoints());
+                        }
+                        mDatabase.child(name).child("ratedMatches")
+                                .child(""+i).child("status")
+                                .setValue(ratedUser.getRatedMatches().get(i).getStatus());
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
+
 }
