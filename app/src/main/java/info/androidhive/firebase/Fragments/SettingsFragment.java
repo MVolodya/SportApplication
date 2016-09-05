@@ -45,8 +45,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     private TextView etUsername;
     private TextView etEmail;
     private ImageView userPhoto;
-    private User user;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
+    private User user;
     private FirebaseUser firebaseUser;
     private ProgressDialog mProgressDialog;
     private RemoteDatabaseManager remoteDatabaseManager;
@@ -54,9 +55,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_settings, container, false);
-        Toolbar toolbar = (Toolbar)view.findViewById(R.id.toolbar);
-
+        view = inflater.inflate(R.layout.fragment_settings, container, false);
+        Toolbar toolbar = (Toolbar)view.findViewById(R.id.toolbarSettings);
+        toolbar.showOverflowMenu();
 
         etUsername = (TextView)view.findViewById(R.id.username_setting);
         etEmail = (TextView)view.findViewById(R.id.email_setting);
@@ -108,17 +109,17 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                new BottomSheetFaqFragment().show(view.getSupportFragmentManager(),
-//                        SettingsActivity.class.getSimpleName());
+                new BottomSheetFaqFragment().show(getFragmentManager(),
+                       null);
             }
         });
 
 
 
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)view.findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout = (CollapsingToolbarLayout)view.findViewById(R.id.collapsing_toolbar_setting);
 
-        if (user.getName() != null) collapsingToolbar.setTitle(user.getName());
-        else collapsingToolbar.setTitle("Anonymous");
+        if (user.getName() != null) collapsingToolbarLayout.setTitle(user.getName());
+        else collapsingToolbarLayout.setTitle("Anonymous");
 
         setUserInformation();
         return view;
@@ -160,6 +161,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                                 remoteDatabaseManager.updateUsername(firebaseUser.getDisplayName(),
                                         AlertDialogManager.getInput().getText().toString());
                                 etUsername.setText(user.getName());
+                                collapsingToolbarLayout.setTitle(user.getName());
                                 dialog.cancel();
                             }
                         });

@@ -52,7 +52,7 @@ public class CurrentUserRateFragment extends Fragment {
     private List<RatedMatchesToDB> ratedMatchesList;
     private UsersRateAdapter usersRateAdapter;
     private SwipeManager swipeManager;
-
+    private CurrentUserRateFragment currentUserRateFragment = this;
 
     public CurrentUserRateFragment() {
         // Required empty public constructor
@@ -96,6 +96,7 @@ public class CurrentUserRateFragment extends Fragment {
                 if (!(fr instanceof RateFragment)) {
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
+                            .hide(currentUserRateFragment)
                             .add(R.id.container, new RateFragment())
                             .addToBackStack(null)
                             .commit();

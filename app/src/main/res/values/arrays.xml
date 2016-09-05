@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ball1">#1c64ff</color>
-    <color name="ball2">#4adbff</color>
-    <color name="ball3">#3D8EFF</color>
+    <color name="ball1">#1976d2</color>
+    <color name="ball2">#1976d2</color>
+    <color name="ball3">#1976d2</color>
 
     <integer-array name="colors">
         <item>@color/ball1</item>

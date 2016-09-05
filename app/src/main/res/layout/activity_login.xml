@@ -20,11 +20,11 @@
 
 
         <ImageView
-            android:layout_width="@dimen/logo_w_h"
+            android:layout_width="141dp"
             android:layout_height="@dimen/logo_w_h"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
-            android:src="@drawable/soccer_ball" />
+            android:src="@drawable/soccer_football_icon" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"

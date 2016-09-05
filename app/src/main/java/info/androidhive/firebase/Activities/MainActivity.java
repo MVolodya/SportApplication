@@ -65,7 +65,7 @@ public class MainActivity extends NavigationDrawerActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        initializeNavigationDrawer(toolbar, userCustom);
+        initializeNavigationDrawer(toolbar, userCustom, this);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new MainFragment(), "main")

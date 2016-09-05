@@ -14,7 +14,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="407dp"
         android:paddingBottom="15dp">
 
         <TextView
@@ -28,40 +28,21 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="The Art Of ShitCoding "
-            android:id="@+id/textView7"
-            android:layout_below="@+id/textView5"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/accent_material_light" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="© Simplevision Studio "
-            android:id="@+id/textView6"
-            android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/textView5"
-            android:layout_alignStart="@+id/textView5"
-            android:padding="15dp" />
-
-        <com.github.glomadrian.loadingballs.BallView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            lib:balls="10"
-            lib:movement_cycle_time="2500"
-            lib:enable_size_animation="false"
-            lib:ball_colors="@array/colors"
-            lib:path="star"
-            lib:ball_size="5dp"
-            android:layout_gravity="center"
-            android:layout_above="@+id/textView6"
-            android:layout_centerHorizontal="true" />
-
     </RelativeLayout>
+
+    <com.github.glomadrian.loadingballs.BallView
+        android:layout_margin="30dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        lib:balls="8"
+        lib:movement_cycle_time="2000"
+        lib:enable_size_animation="true"
+        lib:size_cycle_time="500"
+        lib:min_ball_size="5dp"
+        lib:max_ball_size="12dp"
+        lib:ball_colors="@array/colors"
+        lib:path="square"
+        android:layout_gravity="center_horizontal|bottom"
+        />
 
 </FrameLayout>

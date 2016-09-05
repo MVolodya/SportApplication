@@ -61,7 +61,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     private MainFragment fragment;
     private List<Fixture> matches;
     private CircularProgressView circularProgressView;
-
+    private MatchFragment matchFragment = this;
 
     private String currentDate = new DataGetter().getCurrentDate();
 
@@ -112,7 +112,8 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
                 if (!(fr instanceof RateFragment)) {
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
-                            .replace(R.id.container, new RateFragment())
+                            .hide(matchFragment)
+                            .add(R.id.container, new RateFragment())
                             .addToBackStack(null)
                             .commit();
                 }

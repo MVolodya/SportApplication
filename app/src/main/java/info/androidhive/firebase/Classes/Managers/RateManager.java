@@ -164,14 +164,11 @@ public class RateManager {
                                 .child(""+i).child("status")
                                 .setValue(ratedUser.getRatedMatches().get(i).getStatus());
                     }
-
                 }
             }
 
             @Override
-            public void onFailure(Throwable t) {
-
-            }
+            public void onFailure(Throwable t) {}
         });
     }
 

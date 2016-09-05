@@ -1,6 +1,5 @@
 package info.androidhive.firebase.Classes.Managers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -10,9 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import info.androidhive.firebase.Activities.MainActivity;
-import info.androidhive.firebase.Activities.PhotoActivity;
-import info.androidhive.firebase.Fragments.MainFragment;
 import info.androidhive.firebase.Fragments.SettingsFragment;
 import info.androidhive.firebase.R;
 
@@ -55,7 +51,7 @@ public class AlertDialogManager {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                settingsFragment.startActivityForResult(Intent.createChooser(intent, "Select Picture"), PhotoActivity.PICK_IMAGE_REQUEST);
+                settingsFragment.startActivityForResult(Intent.createChooser(intent, "Select Picture"), SettingsFragment.PICK_IMAGE_REQUEST);
                 alertDialogFAB.dismiss();
                 alertDialogFAB.hide();
             }
@@ -65,7 +61,7 @@ public class AlertDialogManager {
             @Override
             public void onClick(View view) {
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                settingsFragment.startActivityForResult(cameraIntent, PhotoActivity.CAMERA_REQUEST);
+                settingsFragment.startActivityForResult(cameraIntent, SettingsFragment.CAMERA_REQUEST);
                 alertDialogFAB.dismiss();
                 alertDialogFAB.hide();
             }

@@ -41,7 +41,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navigation_drawer);
     }
 
-    void initializeNavigationDrawer(Toolbar toolbar, User user) {
+    void initializeNavigationDrawer(Toolbar toolbar, User user, final MainActivity mainActivity) {
 
         AccountHeader headerResult = createAccount(user);
         result = new DrawerBuilder()
@@ -81,11 +81,10 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
                         int itemSelected = (int) drawerItem.getIdentifier();
-
                         Fragment fr = getSupportFragmentManager()
                                 .findFragmentById(R.id.container);
-
                         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
+                        mainActivity.showToolbar();
 
                         switch (itemSelected) {
                             case 1:
@@ -112,11 +111,13 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                                 }
                                 break;
                             case 7:
-                                if (!(fr instanceof SettingsFragment))
+                                if (!(fr instanceof SettingsFragment)) {
                                     fragmentManager
                                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                                             .replace(R.id.container, new SettingsFragment())
                                             .commit();
+                                    mainActivity.hideToolbar();
+                                }
                                 break;
                             case 8:
                                 SignInManager.signOut();
