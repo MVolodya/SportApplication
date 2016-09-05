@@ -1,5 +1,6 @@
-package info.androidhive.firebase.Activities;
+package info.androidhive.firebase.Fragments;
 
+import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,13 +8,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,17 +32,16 @@ import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
 import info.androidhive.firebase.Classes.Managers.RemoteDatabaseManager;
 import info.androidhive.firebase.Classes.Managers.ResponseUrl;
-import info.androidhive.firebase.Classes.Models.User;
 import info.androidhive.firebase.Classes.Managers.UserManager;
-import info.androidhive.firebase.Fragments.BottomSheetFaqFragment;
+import info.androidhive.firebase.Classes.Models.User;
 import info.androidhive.firebase.R;
 
-public class SettingsActivity extends AppCompatActivity implements View.OnClickListener, ResponseUrl {
+public class SettingsFragment extends Fragment implements View.OnClickListener, ResponseUrl {
 
     public static final int PICK_IMAGE_REQUEST = 1;
     public static final int CAMERA_REQUEST = 2;
 
-
+    private View view;
     private TextView etUsername;
     private TextView etEmail;
     private ImageView userPhoto;
@@ -50,27 +51,20 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private ProgressDialog mProgressDialog;
     private RemoteDatabaseManager remoteDatabaseManager;
 
-
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_settings, container, false);
+        Toolbar toolbar = (Toolbar)view.findViewById(R.id.toolbar);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+        etUsername = (TextView)view.findViewById(R.id.username_setting);
+        etEmail = (TextView)view.findViewById(R.id.email_setting);
+        userPhoto = (ImageView)view.findViewById(R.id.imageViewPhoto);
 
-        etUsername = (TextView) findViewById(R.id.username_setting);
-        etEmail = (TextView) findViewById(R.id.email_setting);
-        userPhoto = (ImageView) findViewById(R.id.imageViewPhoto);
-
-        mProgressDialog = new ProgressDialog(this);
-        remoteDatabaseManager = new RemoteDatabaseManager(this);
-        LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(this);
+        mProgressDialog = new ProgressDialog(getActivity());
+        remoteDatabaseManager = new RemoteDatabaseManager(getActivity());
+        LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(getActivity());
         FirebaseAuth auth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -81,23 +75,23 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         user = LocalDatabaseManager.getUser();
 
         //start AlertDialog FAB -------------------------
-        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.change_photo);
+        FloatingActionButton floatingActionButton = (FloatingActionButton)view.findViewById(R.id.change_photo);
         floatingActionButton.setOnClickListener(this);
         //end /AlertDialog FAB
 
 
         //start AlertDialog username
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.usernameDialog);
+        RelativeLayout relativeLayout = (RelativeLayout)view.findViewById(R.id.usernameDialog);
         relativeLayout.setOnClickListener(this);
         //end AlertDialog username
 
         //start AlertDialog email
-        relativeLayout = (RelativeLayout) findViewById(R.id.emailDialog);
+        relativeLayout = (RelativeLayout)view.findViewById(R.id.emailDialog);
         relativeLayout.setOnClickListener(this);
         //end AlertDialog email
 
         //start AlertDialog password
-        relativeLayout = (RelativeLayout) findViewById(R.id.passDialog);
+        relativeLayout = (RelativeLayout)view.findViewById(R.id.passDialog);
         relativeLayout.setOnClickListener(this);
         if (providerId.equals("facebook.com") || providerId.equals("google.com")) {
             TextView tvPassword = (TextView) relativeLayout.findViewById(R.id.password_setting);
@@ -109,34 +103,25 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         //end AlertDialog password
 
 
-        relativeLayout = (RelativeLayout) findViewById(R.id.bottomsheet_faq_relative);
+        relativeLayout = (RelativeLayout)view.findViewById(R.id.bottomsheet_faq_relative);
 
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new BottomSheetFaqFragment().show(getSupportFragmentManager(),
-                        SettingsActivity.class.getSimpleName());
+//                new BottomSheetFaqFragment().show(view.getSupportFragmentManager(),
+//                        SettingsActivity.class.getSimpleName());
             }
         });
 
 
 
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)view.findViewById(R.id.collapsing_toolbar);
 
         if (user.getName() != null) collapsingToolbar.setTitle(user.getName());
         else collapsingToolbar.setTitle("Anonymous");
 
         setUserInformation();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle arrow click here
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
-
-        return super.onOptionsItemSelected(item);
+        return view;
     }
 
     private void setUserInformation() {
@@ -160,26 +145,21 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.change_photo:
-
-                AlertDialog.Builder alertDialogPhoto = AlertDialogManager.getPhotoAlertDialog(this);
+                AlertDialog.Builder alertDialogPhoto = new AlertDialogManager().getPhotoAlertDialog(getActivity(), this);
                 alertDialogPhoto.show();
-
                 break;
 
             case R.id.usernameDialog:
-                AlertDialog.Builder alertDialogUsername = AlertDialogManager.getAlertDialog(this,
+                AlertDialog.Builder alertDialogUsername = AlertDialogManager.getAlertDialog(getActivity(),
                         "Enter new name");
                 alertDialogUsername.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 UserManager.updateUsername(AlertDialogManager.getInput().getText().toString());
-
                                 LocalDatabaseManager.updateName(AlertDialogManager.getInput().getText().toString());
-
                                 remoteDatabaseManager.updateUsername(firebaseUser.getDisplayName(),
                                         AlertDialogManager.getInput().getText().toString());
                                 etUsername.setText(user.getName());
-
                                 dialog.cancel();
                             }
                         });
@@ -193,8 +173,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.emailDialog:
-                AlertDialog.Builder alertDialogEmail = AlertDialogManager.getAlertDialog(this,
-                "Enter new email");
+                AlertDialog.Builder alertDialogEmail = AlertDialogManager.getAlertDialog(getActivity(),
+                        "Enter new email");
                 alertDialogEmail.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -214,8 +194,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.passDialog:
-                AlertDialog.Builder alertDialogPassword =AlertDialogManager.getAlertDialog(this,
-                "Enter new password");
+                AlertDialog.Builder alertDialogPassword =AlertDialogManager.getAlertDialog(getActivity(),
+                        "Enter new password");
                 alertDialogPassword.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -235,30 +215,24 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
             try {
-
-
                 ProgressDialogManager.showProgressDialog(mProgressDialog, "Wait, while loading photo!");
-
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                new RemoteDatabaseManager(this).uploadImage(bitmap, firebaseUser.getUid(), this);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+                new RemoteDatabaseManager(getActivity()).uploadImage(bitmap, firebaseUser.getUid(), this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-
-
+        if (requestCode == CAMERA_REQUEST && resultCode == getActivity().RESULT_OK) {
             ProgressDialogManager.showProgressDialog(mProgressDialog, "Wait, while loading photo!");
-
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            new RemoteDatabaseManager(this).uploadImage(photo, firebaseUser.getUid(), this);
+            new RemoteDatabaseManager(getActivity()).uploadImage(photo, firebaseUser.getUid(), this);
         }
     }
 

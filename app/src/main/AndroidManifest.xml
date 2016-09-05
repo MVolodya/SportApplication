@@ -65,9 +65,6 @@
             android:label="@string/title_activity_reset_password"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Activities.SettingsActivity"
-            android:screenOrientation="portrait" />
         <activity android:name=".Activities.NavigationDrawerActivity"/>
     </application>
 

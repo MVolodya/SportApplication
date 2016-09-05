@@ -28,6 +28,7 @@ import info.androidhive.firebase.Classes.Models.User;
 import info.androidhive.firebase.Fragments.AllUsersFragment;
 import info.androidhive.firebase.Fragments.CurrentUserRateFragment;
 import info.androidhive.firebase.Fragments.MainFragment;
+import info.androidhive.firebase.Fragments.SettingsFragment;
 import info.androidhive.firebase.R;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
@@ -111,7 +112,11 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                                 }
                                 break;
                             case 7:
-                                startActivity(new Intent(NavigationDrawerActivity.this, SettingsActivity.class));
+                                if (!(fr instanceof SettingsFragment))
+                                    fragmentManager
+                                            .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
+                                            .replace(R.id.container, new SettingsFragment())
+                                            .commit();
                                 break;
                             case 8:
                                 SignInManager.signOut();
