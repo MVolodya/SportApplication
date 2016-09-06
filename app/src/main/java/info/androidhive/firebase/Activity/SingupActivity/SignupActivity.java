@@ -1,6 +1,7 @@
-package info.androidhive.firebase.Activities;
+package info.androidhive.firebase.Activity.SingupActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,17 +13,25 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
+import info.androidhive.firebase.Activities.MainActivity;
+import info.androidhive.firebase.Activity.ResetPasswordActivity.ResetPasswordActivity;
+import info.androidhive.firebase.Activity.LoginActivity.LoginActivity;
+import info.androidhive.firebase.Activity.SingupActivity.Presenter.SignUpPresenter;
+import info.androidhive.firebase.Activity.SingupActivity.View.SignUpView;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
-import info.androidhive.firebase.Classes.Managers.SignInManager;
 import info.androidhive.firebase.R;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity implements SignUpView {
 
     private EditText inputEmail, inputPassword;
     private ProgressDialog progressDialog;
     private FirebaseAuth auth;
+    private SignUpPresenter signUpPresenter;
 
+    public static void start(Context context) {
+        Intent starter = new Intent(context, SignupActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +40,7 @@ public class SignupActivity extends AppCompatActivity {
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
-
-        final LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(this);
+        signUpPresenter = new SignUpPresenter(this);
 
         Button btnSignIn = (Button) findViewById(R.id.sign_in_button);
         Button btnSignUp = (Button) findViewById(R.id.sign_up_button);
@@ -45,14 +53,14 @@ public class SignupActivity extends AppCompatActivity {
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignupActivity.this, ResetPasswordActivity.class));
+               ResetPasswordActivity.start(getApplicationContext());
             }
         });
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                LoginActivity.start(getApplicationContext());
                 finish();
             }
         });
@@ -80,14 +88,25 @@ public class SignupActivity extends AppCompatActivity {
                 }
 
                 ProgressDialogManager.showProgressDialog(progressDialog,"Sing up");
-                new SignInManager(SignupActivity.this, auth).signUpWithEmailAndPassword(email,password);
+                signUpPresenter.login(email, password);
             }
         });
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        ProgressDialogManager.hideProgressDialog(progressDialog);
+    public void okSignUp() {
+        startActivity(new Intent(SignupActivity.this, MainActivity.class));
+        finish();
+        LoginActivity.loginActivity.finish();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public FirebaseAuth getAuth() {
+        return auth;
     }
 }

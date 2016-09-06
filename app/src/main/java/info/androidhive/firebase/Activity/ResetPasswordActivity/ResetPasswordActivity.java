@@ -1,4 +1,4 @@
-package info.androidhive.firebase.Activities;
+package info.androidhive.firebase.Activity.ResetPasswordActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,19 +13,21 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import info.androidhive.firebase.Activity.ResetPasswordActivity.Presenter.ResetPasswordPresenter;
+import info.androidhive.firebase.Activity.ResetPasswordActivity.View.ResetPasswordView;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
 import info.androidhive.firebase.Classes.Managers.UserManager;
 import info.androidhive.firebase.R;
 
-public class ResetPasswordActivity extends AppCompatActivity {
+public class ResetPasswordActivity extends AppCompatActivity implements ResetPasswordView {
 
     private EditText inputEmail;
     private ProgressDialog progressDialog;
     private ProgressDialogManager dialogManager;
+    private ResetPasswordPresenter resetPasswordPresenter;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ResetPasswordActivity.class);
-//        starter.putExtra();
         context.startActivity(starter);
     }
 
@@ -39,6 +41,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         Button btnReset = (Button) findViewById(R.id.btn_reset_password);
         Button btnBack = (Button) findViewById(R.id.btn_back);
         progressDialog = new ProgressDialog(this);
+        resetPasswordPresenter = new ResetPasswordPresenter(this);
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -61,8 +64,18 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 }
 
                 ProgressDialogManager.showProgressDialog(progressDialog, "Sign in");
-               new UserManager(ResetPasswordActivity.this).resetPassword(email);
+                resetPasswordPresenter.resetPassword(email);
             }
         });
+    }
+
+    @Override
+    public void resetOk() {
+        ProgressDialogManager.hideProgressDialog(progressDialog);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

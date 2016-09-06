@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
+import info.androidhive.firebase.Activity.LoginActivity.LoginActivity;
 import info.androidhive.firebase.Classes.Managers.RateManager;
 import info.androidhive.firebase.Classes.Managers.UserRateManager;
 import info.androidhive.firebase.Classes.Models.RatedMatchesToDB;

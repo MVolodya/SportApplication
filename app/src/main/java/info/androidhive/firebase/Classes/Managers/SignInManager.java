@@ -1,9 +1,7 @@
 package info.androidhive.firebase.Classes.Managers;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -25,12 +23,10 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import info.androidhive.firebase.Activities.LoginActivity;
-import info.androidhive.firebase.Activities.MainActivity;
-import info.androidhive.firebase.Activities.SignupActivity;
-import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
-import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
-import info.androidhive.firebase.Classes.Managers.RemoteDatabaseManager;
+import info.androidhive.firebase.Activity.LoginActivity.LoginActivity;
+import info.androidhive.firebase.Activity.SingupActivity.SignupActivity;
+import info.androidhive.firebase.Activity.LoginActivity.View.CallbackLogin;
+import info.androidhive.firebase.Activity.SingupActivity.View.CallbackSignUp;
 import info.androidhive.firebase.R;
 
 
@@ -40,22 +36,23 @@ public class SignInManager {
 
     private final Context context;
     private final FirebaseAuth auth;
-    private final ProgressDialog mProgressDialog;
+    //private final ProgressDialog mProgressDialog;
+    private CallbackLogin callbackLogin;
 
     public SignInManager(Context context, FirebaseAuth auth) {
         this.context = context;
         this.auth = auth;
-        mProgressDialog = new ProgressDialog(context);
+        //mProgressDialog = new ProgressDialog(context);
         LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(context);
     }
 
-    public void signUpWithEmailAndPassword(String email,final String password){
+    public void signUpWithEmailAndPassword(String email, final String password, final CallbackSignUp callbackSignUp){
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((SignupActivity) context, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Toast.makeText(context, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                        ProgressDialogManager.hideProgressDialog(mProgressDialog);
+                        //ProgressDialogManager.hideProgressDialog(mProgressDialog);
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
@@ -88,16 +85,13 @@ public class SignInManager {
                                         .setUserData("Anonymous"+currentTime,
                                                 context.getString(R.string.user_photo_url));
                             }
-
-                            context.startActivity(new Intent(context, MainActivity.class));
-                            ((SignupActivity)context).finish();
-                            LoginActivity.loginActivity.finish();
+                            callbackSignUp.okSignUp();
                         }
                     }
                 });
     }
 
-    public void loginWithEmailAndPassword(String email,final String password){
+    public void loginWithEmailAndPassword(String email,final String password, final CallbackLogin callbackLogin){
         //authenticate user
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(((LoginActivity)context), new OnCompleteListener<AuthResult>() {
@@ -106,7 +100,6 @@ public class SignInManager {
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
-                        ProgressDialogManager.hideProgressDialog(mProgressDialog);
                         if (!task.isSuccessful()) {
                             // there was an error
                             if (password.length() < 6) {
@@ -122,22 +115,21 @@ public class SignInManager {
                                         fbUser.getEmail(),
                                         fbUser.getPhotoUrl());
 
-                                context.startActivity(new Intent(context, MainActivity.class));
-                                ((LoginActivity)context).finish();
+                                callbackLogin.okLogin();
                             }else
                                 Toast.makeText(context, "Wrong with fbUser", Toast.LENGTH_SHORT).show();
-
                         }
                     }
 
                 });
     }
 
-    public void loginWithFacebook(LoginButton loginButton, CallbackManager callbackManager) {
+    public void loginWithFacebook(LoginButton loginButton, final CallbackManager callbackManager,
+                                  final CallbackLogin callbackLogin) {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                handleFacebookAccessToken(loginResult.getAccessToken());
+                handleFacebookAccessToken(loginResult.getAccessToken(), callbackLogin);
             }
 
             @Override
@@ -145,16 +137,11 @@ public class SignInManager {
 
             @Override
             public void onError(FacebookException error) {}
-
         });
     }
 
 
-    private void handleFacebookAccessToken(AccessToken token) {
-        //Log.d(TAG, "handleFacebookAccessToken:" + token);
-
-        ProgressDialogManager.showProgressDialog(mProgressDialog,"Sign in");
-
+    private void handleFacebookAccessToken(AccessToken token, final CallbackLogin callbackLogin) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         auth.signInWithCredential(credential)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
@@ -184,11 +171,8 @@ public class SignInManager {
                             LocalDatabaseManager.setUser(firebaseUser.getDisplayName(),
                                     firebaseUser.getEmail(),
                                     firebaseUser.getPhotoUrl());
-                            context.startActivity(new Intent(context, MainActivity.class));
-                            ((Activity)context).finish();
+                            callbackLogin.okLogin();
                         }
-                        ProgressDialogManager.hideProgressDialog(mProgressDialog);
-
                     }
                 });
     }

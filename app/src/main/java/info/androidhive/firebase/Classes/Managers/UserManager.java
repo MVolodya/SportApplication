@@ -12,6 +12,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import info.androidhive.firebase.Activity.ResetPasswordActivity.View.CallbackResetPassword;
+
 public class UserManager {
 
     private final Context context;
@@ -20,7 +22,7 @@ public class UserManager {
         this.context = context;
     }
 
-    public void resetPassword(String email) {
+    public void resetPassword(String email, final CallbackResetPassword callbackResetPassword) {
         FirebaseAuth.getInstance().sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -30,7 +32,8 @@ public class UserManager {
                         } else {
                             Toast.makeText(context, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                         }
-                        ProgressDialogManager.hideProgressDialog(new ProgressDialog(context));
+                        callbackResetPassword.ok();
+                        //ProgressDialogManager.hideProgressDialog(new ProgressDialog(context));
                     }
                 });
 

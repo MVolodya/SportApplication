@@ -21,6 +21,7 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import info.androidhive.firebase.Activity.LoginActivity.LoginActivity;
 import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.Managers.SignInManager;
 import info.androidhive.firebase.Classes.Models.DataHelper;
@@ -145,7 +146,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
         if (user.getPhotoURL() != null) profile.withIcon(user.getPhotoURL());
         else profile.withIcon(R.drawable.prof);
-
 
         return new AccountHeaderBuilder()
                 .withActivity(this)

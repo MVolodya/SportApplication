@@ -16,9 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
+import info.androidhive.firebase.Activity.LoginActivity.LoginActivity;
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Utils.ConnectivityReceiver;
 import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
@@ -151,7 +149,6 @@ public class MainActivity extends NavigationDrawerActivity {
     // close ND on button back
     @Override
     public void onBackPressed() {
-
         if (result != null && result.isDrawerOpen())
             result.closeDrawer();
             else if (getFragmentManager().getBackStackEntryCount() > 0) {
