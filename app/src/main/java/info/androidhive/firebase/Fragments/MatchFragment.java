@@ -40,6 +40,8 @@ import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.Match.Fixture;
 import info.androidhive.firebase.Classes.Retrofit.Match.MatchResponse;
 import info.androidhive.firebase.Classes.Retrofit.Match.MatchService;
+import info.androidhive.firebase.Classes.Retrofit.Team.TeamResponse;
+import info.androidhive.firebase.Classes.Retrofit.Team.TeamService;
 import info.androidhive.firebase.R;
 import retrofit.Call;
 import retrofit.Callback;
@@ -53,6 +55,8 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         CalendarView.OnDateSelectedListener {
 
     private TextView msg;
+    private ImageView homeTeam;
+    private ImageView awayTeam;
     private RecyclerView recyclerView;
     private MatchAdapter mAdapter;
     private ProgressDialog progressDialog;
@@ -62,6 +66,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     private List<Fixture> matches;
     private CircularProgressView circularProgressView;
     private MatchFragment matchFragment = this;
+    private View photoView;
 
     private String currentDate = new DataGetter().getCurrentDate();
 
@@ -74,6 +79,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_match, container, false);
+        photoView = inflater.inflate(R.layout.match_list_row, container, false);
 
         fragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("main");
 
@@ -229,5 +235,7 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         fragment.showTabs();
         fragment.getViewPager().setPagingEnabled(true);
     }
+
+
 
 }

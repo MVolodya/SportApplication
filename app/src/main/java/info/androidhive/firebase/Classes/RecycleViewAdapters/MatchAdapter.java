@@ -12,23 +12,36 @@ import android.widget.TextView;
 
 import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
+import com.google.android.gms.dynamic.LifecycleDelegate;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import info.androidhive.firebase.Classes.Managers.DataGetter;
+import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.Match.Fixture;
+import info.androidhive.firebase.Classes.Retrofit.Match.MatchResponse;
+import info.androidhive.firebase.Classes.Retrofit.Match.MatchService;
+import info.androidhive.firebase.Classes.Retrofit.Team.TeamResponse;
+import info.androidhive.firebase.Classes.Retrofit.Team.TeamService;
 import info.androidhive.firebase.Classes.Utils.SvgDecoder;
 import info.androidhive.firebase.Classes.Utils.SvgDrawableTranscoder;
 import info.androidhive.firebase.Classes.Utils.SvgSoftwareLayerSetter;
 import info.androidhive.firebase.R;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder> {
 
     private final List<Fixture> fixturesList;
     private View view;
+    private GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder;
 
     public MatchAdapter(List<Fixture> fixturesList) {
         this.fixturesList = fixturesList;
@@ -39,7 +52,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
         view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.match_list_row, parent, false);
 
-        GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(view.getContext())
+        requestBuilder = Glide.with(view.getContext())
                 .using(Glide.buildStreamModelLoader(Uri.class, view.getContext()), InputStream.class)
                 .from(Uri.class)
                 .as(SVG.class)
@@ -55,8 +68,9 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-
         if(fixturesList.size()>0) {
+            setHomeTeamImage(holder, position);
+            setAwayTeamImage(holder, position);
             holder.tvHomeTeam.setText(fixturesList.get(position).getHomeTeamName());
             holder.tvAwayTeam.setText(fixturesList.get(position).getAwayTeamName());
             holder.tvTime.setText(fixturesList.get(position).getDate());
@@ -68,14 +82,11 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
             }
 
             holder.tvStatus.setText(fixturesList.get(position).getStatus());
-        }else{
-
         }
     }
 
     @Override
     public int getItemCount() {
-
         return fixturesList.size();
     }
 
@@ -83,11 +94,85 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
         return link.substring(41);
     }
 
-    private int getTeamId(String link) {
-        Log.d("teamId", link);
-        return Integer.parseInt(link.replaceAll("http://api.football-data.org/v1/teams/", ""));
+    private void setHomeTeamImage(final MyViewHolder holder, int position) {
+
+        int awayTeamId = new DataGetter().getTeamId(fixturesList.get(position)
+                .getLinks().getHomeTeam().getHref());
+
+        TeamService serviceTeam = ApiFactory.getTeamService();
+        Call<TeamResponse> callTeam = serviceTeam.teams(awayTeamId);
+        callTeam.enqueue(new Callback<TeamResponse>() {
+            @Override
+            public void onResponse(Response<TeamResponse> response) {
+
+                if(response.errorBody() == null){
+                    TeamResponse teamResponse = response.body();
+                    String linkHomeTeamImage = teamResponse.getCrestUrl();
+                    if (linkHomeTeamImage != null ) {
+                        if (linkHomeTeamImage.contains("svg")) {
+                            requestBuilder
+                                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                                    // SVG cannot be serialized so it's not worth to cache it
+                                    .load(Uri.parse(teamResponse.getCrestUrl()))
+                                    .into(holder.circleImageHomeTeam);
+                        } else {
+                            Glide.with(view.getContext())
+                                    .load(linkHomeTeamImage)
+                                    .into(holder.circleImageHomeTeam);
+                        }
+                    } else {
+                        holder.circleImageHomeTeam.setImageDrawable(view.getResources()
+                                .getDrawable(R.drawable.soccer_football_icon));
+                    }
+                } else  holder.circleImageHomeTeam.setImageDrawable(view.getResources()
+                        .getDrawable(R.drawable.soccer_football_icon));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+            }
+        });
     }
 
+    private void setAwayTeamImage(final MyViewHolder holder, int position) {
+
+        int awayTeamId = new DataGetter().getTeamId(fixturesList.get(position)
+                .getLinks().getAwayTeam().getHref());
+
+        TeamService serviceTeam = ApiFactory.getTeamService();
+        Call<TeamResponse> callTeam = serviceTeam.teams(awayTeamId);
+        callTeam.enqueue(new Callback<TeamResponse>() {
+            @Override
+            public void onResponse(Response<TeamResponse> response) {
+
+                if(response.errorBody() == null){
+                    TeamResponse teamResponse = response.body();
+                    String linkAwayTeamImage = teamResponse.getCrestUrl();
+                    if (linkAwayTeamImage != null ) {
+                        if (linkAwayTeamImage.contains("svg")) {
+                            requestBuilder
+                                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                                    // SVG cannot be serialized so it's not worth to cache it
+                                    .load(Uri.parse(teamResponse.getCrestUrl()))
+                                    .into(holder.circleImageAwayTeam);
+                        } else {
+                            Glide.with(view.getContext())
+                                    .load(linkAwayTeamImage)
+                                    .into(holder.circleImageAwayTeam);
+                        }
+                    } else {
+                        holder.circleImageAwayTeam.setImageDrawable(view.getResources()
+                                .getDrawable(R.drawable.soccer_football_icon));
+                    }
+                } else  holder.circleImageAwayTeam.setImageDrawable(view.getResources()
+                        .getDrawable(R.drawable.soccer_football_icon));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+            }
+        });
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
