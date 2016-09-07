@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-import info.androidhive.firebase.Activities.MainActivity;
+import info.androidhive.firebase.Activity.MainActivity.MainActivity;
 import info.androidhive.firebase.Classes.Managers.SwipeManager;
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Models.Rate;

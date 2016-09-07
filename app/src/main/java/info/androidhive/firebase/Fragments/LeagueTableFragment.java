@@ -17,7 +17,7 @@ import android.view.animation.Animation;
 
 import java.util.List;
 
-import info.androidhive.firebase.Activities.MainActivity;
+import info.androidhive.firebase.Activity.MainActivity.MainActivity;
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
 import info.androidhive.firebase.Classes.RecycleViewAdapters.LeagueTableAdapter;

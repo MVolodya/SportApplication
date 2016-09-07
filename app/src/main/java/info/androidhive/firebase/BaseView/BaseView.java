@@ -1,4 +1,4 @@
-package info.androidhive.firebase;
+package info.androidhive.firebase.BaseView;
 
 import android.view.View;
 

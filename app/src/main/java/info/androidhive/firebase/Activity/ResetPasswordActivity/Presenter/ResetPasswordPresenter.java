@@ -1,6 +1,6 @@
 package info.androidhive.firebase.Activity.ResetPasswordActivity.Presenter;
 
-import info.androidhive.firebase.Activity.ResetPasswordActivity.View.CallbackResetPassword;
+import info.androidhive.firebase.Activity.ResetPasswordActivity.Callback.CallbackResetPassword;
 import info.androidhive.firebase.Activity.ResetPasswordActivity.View.ResetPasswordView;
 import info.androidhive.firebase.Classes.Managers.UserManager;
 

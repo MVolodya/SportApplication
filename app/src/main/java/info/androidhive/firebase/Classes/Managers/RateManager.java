@@ -10,6 +10,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+import info.androidhive.firebase.Activity.SplashScreenActivity.Callback.CheckRateCallback;
+import info.androidhive.firebase.Activity.SplashScreenActivity.View.SplashScreenView;
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Models.RatedMatchesToDB;
 import info.androidhive.firebase.Classes.Models.RatedUser;
@@ -85,13 +87,13 @@ public class RateManager {
     }
 
     public void getUsersRates(final String username,
-                              final UserRateManager userRateManager) {
+                              final SplashScreenView splashScreenView) {
         mDatabase.child(username)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                                         RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
-                                                        userRateManager.setUserRateList(ratedUser.getRatedMatches());
+                                                        splashScreenView.setUserRateList(ratedUser.getRatedMatches());
                                                     }
 
                                                     @Override
@@ -102,7 +104,8 @@ public class RateManager {
 
     }
 
-    public void checkRate(final List<RatedMatchesToDB> rateList, final String name) {
+    public void checkRate(final List<RatedMatchesToDB> rateList, final String name,
+                          final CheckRateCallback checkRateCallback) {
 
         mDatabase.child(name).addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -123,13 +126,12 @@ public class RateManager {
                             checkWithApi(rateList, ratedUser, i, name, WIN_SECOND);
                         }
                     }
+                    checkRateCallback.onSuccess();
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 
@@ -156,7 +158,7 @@ public class RateManager {
                         if(type!=null && type.equalsIgnoreCase(userType)) {
                             double currentPoints = Double.parseDouble(ratedUser.getCurrentPoints());
                             double ratePoints = Double.parseDouble(rateList.get(i).getPoints());
-                            ratedUser.setCurrentPoints("" + (currentPoints + ratePoints));
+                            ratedUser.setCurrentPoints(String.format("%.1f",(currentPoints + ratePoints)));
                             mDatabase.child(name).child("currentPoints")
                                     .setValue(ratedUser.getCurrentPoints());
                         }

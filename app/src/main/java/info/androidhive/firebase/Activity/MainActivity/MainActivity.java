@@ -1,5 +1,6 @@
-package info.androidhive.firebase.Activities;
+package info.androidhive.firebase.Activity.MainActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,21 +15,22 @@ import android.widget.TextView;
 import com.facebook.AccessToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
+import info.androidhive.firebase.Activity.NavigationDrawerActivity.NavigationDrawerActivity;
 import info.androidhive.firebase.Activity.LoginActivity.LoginActivity;
-import info.androidhive.firebase.Classes.Models.DataHelper;
-import info.androidhive.firebase.Classes.Utils.ConnectivityReceiver;
+import info.androidhive.firebase.Activity.MainActivity.Presenter.MainActivityPresenter;
+import info.androidhive.firebase.Activity.MainActivity.View.MainActivityView;
 import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.Models.User;
 import info.androidhive.firebase.Fragments.MainFragment;
 import info.androidhive.firebase.R;
 
-public class MainActivity extends NavigationDrawerActivity {
+public class MainActivity extends NavigationDrawerActivity implements MainActivityView {
 
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private MainActivityPresenter mainActivityPresenter;
 
     private Toolbar toolbar;
 
@@ -37,13 +39,13 @@ public class MainActivity extends NavigationDrawerActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        boolean isConnected = ConnectivityReceiver.isOnline(this);
-        showSnack(isConnected);
+        mainActivityPresenter = new MainActivityPresenter();
+        mainActivityPresenter.setView(this);
+        mainActivityPresenter.checkConnection();
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(this);
         User userCustom = LocalDatabaseManager.getUser();
 
         authListener = new FirebaseAuth.AuthStateListener() {
@@ -77,9 +79,6 @@ public class MainActivity extends NavigationDrawerActivity {
     public void onStart() {
         super.onStart();
         auth.addAuthStateListener(authListener);
-        SecondaryDrawerItem rate = (SecondaryDrawerItem)result.getDrawerItem(4);
-        int count = DataHelper.getInstance().getCount();
-        if(count>0) rate.withBadge("+"+count);
     }
 
     @Override
@@ -116,36 +115,6 @@ public class MainActivity extends NavigationDrawerActivity {
         return getSupportActionBar();
     }
 
-    // Showing the status in Snackbar
-    private void showSnack(boolean isConnected) {
-
-        View view = findViewById(R.id.container);
-        String message;
-        int color;
-        if (isConnected) {
-            message = "Connected to Internet";
-            color = Color.WHITE;
-        } else {
-            message = "Not connected to internet";
-            color = Color.WHITE;
-        }
-
-        Snackbar snackbar = Snackbar
-                .make(view, message, Snackbar.LENGTH_LONG);
-
-        View sbView = snackbar.getView();
-
-        if (isConnected) {
-            sbView.setBackgroundColor(getResources().getColor(R.color.snackbar_ok));
-        } else {
-            sbView.setBackgroundColor(getResources().getColor(R.color.snackbar));
-        }
-
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(color);
-        snackbar.show();
-    }
-
     // close ND on button back
     @Override
     public void onBackPressed() {
@@ -157,7 +126,24 @@ public class MainActivity extends NavigationDrawerActivity {
             } else super.onBackPressed();
         }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 
+    @Override
+    public void setConnectionState(String msg, int color) {
+        View view = findViewById(R.id.container);
 
+        Snackbar snackbar = Snackbar
+                .make(view, msg, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(color);
+
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+        snackbar.show();
+    }
 }
 

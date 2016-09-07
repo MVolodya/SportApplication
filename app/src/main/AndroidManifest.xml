@@ -37,7 +37,7 @@
             android:screenOrientation="portrait"
             tools:replace="android:theme"/>
         <activity
-            android:name=".Activities.SplashActivity"
+            android:name=".Activity.SplashScreenActivity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,7 +51,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activity.MainActivity.MainActivity"
             android:label="@string/title_activity_profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -65,7 +65,7 @@
             android:label="@string/title_activity_reset_password"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.NavigationDrawerActivity"/>
+        <activity android:name=".Activity.NavigationDrawerActivity.NavigationDrawerActivity"/>
     </application>
 
 </manifest>

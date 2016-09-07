@@ -1,5 +1,6 @@
-package info.androidhive.firebase.Activities;
+package info.androidhive.firebase.Activity.NavigationDrawerActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import info.androidhive.firebase.Activity.LoginActivity.LoginActivity;
+import info.androidhive.firebase.Activity.MainActivity.MainActivity;
+import info.androidhive.firebase.Activity.NavigationDrawerActivity.Presenter.NDPresenter;
+import info.androidhive.firebase.Activity.NavigationDrawerActivity.View.NDView;
 import info.androidhive.firebase.Classes.Managers.LocalDatabaseManager;
 import info.androidhive.firebase.Classes.Managers.SignInManager;
 import info.androidhive.firebase.Classes.Models.DataHelper;
@@ -32,19 +36,21 @@ import info.androidhive.firebase.Fragments.MainFragment;
 import info.androidhive.firebase.Fragments.SettingsFragment;
 import info.androidhive.firebase.R;
 
-public class NavigationDrawerActivity extends AppCompatActivity {
+public class NavigationDrawerActivity extends AppCompatActivity implements NDView {
 
-    Drawer result;
+   public Drawer result;
+   private NDPresenter ndPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
+        ndPresenter = new NDPresenter();
+        ndPresenter.setView(this);
     }
 
-    void initializeNavigationDrawer(Toolbar toolbar, User user, final MainActivity mainActivity) {
-
-        AccountHeader headerResult = createAccount(user);
+   public void initializeNavigationDrawer(Toolbar toolbar, User user, final MainActivity mainActivity) {
+        AccountHeader headerResult = ndPresenter.createAccount(user);
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -131,26 +137,10 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                     }
                 })
                 .build();
-
     }
 
-    private AccountHeader createAccount(User user) {
-
-        IProfile profile = new ProfileDrawerItem();
-
-        if (user.getName() != null) profile.withName(user.getName());
-        else profile.withName("Anonymous");
-
-        if (user.getEmail() != null) profile.withEmail(user.getEmail());
-        else profile.withEmail("Anonymous@Anonymous.com");
-
-        if (user.getPhotoURL() != null) profile.withIcon(user.getPhotoURL());
-        else profile.withIcon(R.drawable.prof);
-
-        return new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.w)
-                .addProfiles(profile)
-                .build();
+    @Override
+    public Activity getActivity() {
+        return this;
     }
 }

@@ -27,7 +27,7 @@ import com.caverock.androidsvg.SVG;
 import java.io.IOException;
 import java.io.InputStream;
 
-import info.androidhive.firebase.Activities.MainActivity;
+import info.androidhive.firebase.Activity.MainActivity.MainActivity;
 import info.androidhive.firebase.Classes.Utils.CustomViewPager;
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Managers.MaterialDialogManager;

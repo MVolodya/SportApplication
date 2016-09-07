@@ -25,8 +25,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import info.androidhive.firebase.Activity.LoginActivity.LoginActivity;
 import info.androidhive.firebase.Activity.SingupActivity.SignupActivity;
-import info.androidhive.firebase.Activity.LoginActivity.View.CallbackLogin;
-import info.androidhive.firebase.Activity.SingupActivity.View.CallbackSignUp;
+import info.androidhive.firebase.Activity.LoginActivity.Callback.CallbackLogin;
+import info.androidhive.firebase.Activity.SingupActivity.Callback.CallbackSignUp;
 import info.androidhive.firebase.R;
 
 
@@ -177,12 +177,9 @@ public class SignInManager {
                 });
     }
 
-
-
     public static void signOut(){
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
-        LocalDatabaseManager.delete();
     }
 
 

@@ -73,9 +73,8 @@ public class LocalDatabaseManager {
 
     public static void delete(){
         userRealm.beginTransaction();
-        userRealm.deleteAll();
+        userRealm.delete(User.class);
         userRealm.commitTransaction();
-        userRealm.close();
     }
 
 

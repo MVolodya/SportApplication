@@ -1,6 +1,5 @@
 package info.androidhive.firebase.Classes.Managers;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -12,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-import info.androidhive.firebase.Activity.ResetPasswordActivity.View.CallbackResetPassword;
+import info.androidhive.firebase.Activity.ResetPasswordActivity.Callback.CallbackResetPassword;
 
 public class UserManager {
 

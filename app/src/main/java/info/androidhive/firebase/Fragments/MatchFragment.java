@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import info.androidhive.firebase.Activities.MainActivity;
+import info.androidhive.firebase.Activity.MainActivity.MainActivity;
 import info.androidhive.firebase.Classes.Managers.DataGetter;
 import info.androidhive.firebase.Classes.Models.DataHelper;
 import info.androidhive.firebase.Classes.Managers.ProgressDialogManager;
@@ -40,8 +40,6 @@ import info.androidhive.firebase.Classes.Retrofit.ApiFactory;
 import info.androidhive.firebase.Classes.Retrofit.Match.Fixture;
 import info.androidhive.firebase.Classes.Retrofit.Match.MatchResponse;
 import info.androidhive.firebase.Classes.Retrofit.Match.MatchService;
-import info.androidhive.firebase.Classes.Retrofit.Team.TeamResponse;
-import info.androidhive.firebase.Classes.Retrofit.Team.TeamService;
 import info.androidhive.firebase.R;
 import retrofit.Call;
 import retrofit.Callback;

@@ -1,6 +1,6 @@
 package info.androidhive.firebase.Activity.SingupActivity.Presenter;
 
-import info.androidhive.firebase.Activity.SingupActivity.View.CallbackSignUp;
+import info.androidhive.firebase.Activity.SingupActivity.Callback.CallbackSignUp;
 import info.androidhive.firebase.Activity.SingupActivity.View.SignUpView;
 import info.androidhive.firebase.Classes.Managers.SignInManager;
 

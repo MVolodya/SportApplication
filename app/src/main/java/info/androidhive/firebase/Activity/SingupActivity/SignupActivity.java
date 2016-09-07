@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import info.androidhive.firebase.Activities.MainActivity;
+import info.androidhive.firebase.Activity.MainActivity.MainActivity;
 import info.androidhive.firebase.Activity.ResetPasswordActivity.ResetPasswordActivity;
 import info.androidhive.firebase.Activity.LoginActivity.LoginActivity;
 import info.androidhive.firebase.Activity.SingupActivity.Presenter.SignUpPresenter;

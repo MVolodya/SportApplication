@@ -3,7 +3,7 @@ package info.androidhive.firebase.Activity.LoginActivity.Presenter;
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
 
-import info.androidhive.firebase.Activity.LoginActivity.View.CallbackLogin;
+import info.androidhive.firebase.Activity.LoginActivity.Callback.CallbackLogin;
 import info.androidhive.firebase.Activity.LoginActivity.View.LoginView;
 import info.androidhive.firebase.Classes.Managers.SignInManager;
 
@@ -24,7 +24,6 @@ public class LoginPresenter implements CallbackLogin {
     }
 
     public void login(String email, String password){
-
         signInManager.loginWithEmailAndPassword(email, password, this);
     }
 

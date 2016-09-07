@@ -3,7 +3,7 @@ package info.androidhive.firebase.Activity.LoginActivity.View;
 import android.content.Context;
 import com.google.firebase.auth.FirebaseAuth;
 
-import info.androidhive.firebase.BaseView;
+import info.androidhive.firebase.BaseView.BaseView;
 
 public interface LoginView extends BaseView {
     void loginOk();

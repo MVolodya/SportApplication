@@ -19,7 +19,7 @@ import com.facebook.AccessToken;
 import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.FirebaseAuth;
 
-import info.androidhive.firebase.Activities.MainActivity;
+import info.androidhive.firebase.Activity.MainActivity.MainActivity;
 import info.androidhive.firebase.Activity.ResetPasswordActivity.ResetPasswordActivity;
 import info.androidhive.firebase.Activity.SingupActivity.SignupActivity;
 import info.androidhive.firebase.Activity.LoginActivity.Presenter.LoginPresenter;
