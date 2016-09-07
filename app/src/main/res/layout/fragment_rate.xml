@@ -168,7 +168,7 @@
             app:tabGravity="fill"
             app:tabMode="fixed" />
 
-        <info.androidhive.firebase.Classes.Utils.CustomViewPager
+        <info.androidhive.firebase.classes.utils.CustomViewPager
             android:id="@+id/viewpager_rate"
             android:layout_below="@+id/tabs_match_rate"
             android:layout_width="match_parent"

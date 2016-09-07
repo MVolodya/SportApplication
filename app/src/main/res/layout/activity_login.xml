@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     android:clickable="true"
     android:focusableInTouchMode="true"
-    tools:context=".Activity.LoginActivity.LoginActivity">
+    tools:context=".activity.loginActivity.LoginActivity">
 
 
     <LinearLayout

@@ -18,9 +18,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".Classes.MyApplication"
+        android:name=".classes.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/soccer_football_icon"
+        android:icon="@drawable/icon_final"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
@@ -37,7 +37,7 @@
             android:screenOrientation="portrait"
             tools:replace="android:theme"/>
         <activity
-            android:name=".Activity.SplashScreenActivity.SplashActivity"
+            android:name=".activity.splashScreenActivity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,26 +46,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.LoginActivity.LoginActivity"
+            android:name=".activity.loginActivity.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.MainActivity.MainActivity"
+            android:name=".activity.mainActivity.MainActivity"
             android:label="@string/title_activity_profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.SingupActivity.SignupActivity"
+            android:name=".activity.singupActivity.SignupActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.ResetPasswordActivity.ResetPasswordActivity"
+            android:name=".activity.resetPasswordActivity.ResetPasswordActivity"
             android:label="@string/title_activity_reset_password"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.NavigationDrawerActivity.NavigationDrawerActivity"/>
+        <activity android:name=".activity.navigationDrawerActivity.NavigationDrawerActivity"/>
     </application>
 
 </manifest>

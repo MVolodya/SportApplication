@@ -1,0 +1,47 @@
+package info.androidhive.firebase.classes.models;
+
+import java.util.List;
+
+/**
+ * Created by andrii on 17.08.16.
+ */
+public class RatedUser {
+
+    private String name;
+    private String currentPoints;
+    private String photoUrl;
+    private List<RatedMatchesToDB> ratedMatches;
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCurrentPoints(String currentPoints) {
+        this.currentPoints = currentPoints;
+    }
+
+    public void setRatedMatches(List<RatedMatchesToDB> ratedMatches) {
+        this.ratedMatches = ratedMatches;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<RatedMatchesToDB> getRatedMatches() {
+        return ratedMatches;
+    }
+
+    public String getCurrentPoints() {
+        return currentPoints;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+}
