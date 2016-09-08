@@ -1,4 +1,4 @@
-package info.androidhive.firebase.fragments;
+package info.androidhive.firebase.fragments.rateFragment;
 
 
 import android.app.AlertDialog;
@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import info.androidhive.firebase.activity.mainActivity.MainActivity;
+import info.androidhive.firebase.classes.managers.DataGetter;
 import info.androidhive.firebase.classes.utils.CustomViewPager;
 import info.androidhive.firebase.classes.models.DataHelper;
 import info.androidhive.firebase.classes.managers.MaterialDialogManager;
@@ -45,13 +47,14 @@ import info.androidhive.firebase.classes.utils.SvgSoftwareLayerSetter;
 import info.androidhive.firebase.R;
 import info.androidhive.firebase.fragments.awayTeamFragment.AwayTeamFragment;
 import info.androidhive.firebase.fragments.homeTeamFragment.HomeTeamFragment;
+import info.androidhive.firebase.fragments.rateFragment.presenter.RatePresenter;
+import info.androidhive.firebase.fragments.rateFragment.view.RateView;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 
 
-public class RateFragment extends Fragment implements Callback<RateMatchResponse>,
-        View.OnClickListener {
+public class RateFragment extends Fragment implements View.OnClickListener, RateView {
 
     private View view;
     private TextView homeTeam;
@@ -73,6 +76,7 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
     private GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder;
     private RateMatchResponse rateMatchResponse;
     private MaterialDialogManager materialDialogManager;
+    private RatePresenter ratePresenter;
 
 
     public RateFragment() {
@@ -85,6 +89,8 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_rate, container, false);
+        ratePresenter = new RatePresenter();
+        ratePresenter.setRateView(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar));
@@ -127,26 +133,9 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
                 .animate(android.R.anim.fade_in)
                 .listener(new SvgSoftwareLayerSetter<Uri>());
 
-        RateMatchService service = ApiFactory.getRateMatchService();
-        Call<RateMatchResponse> call = service.match(dataHelper.getMatchId());
-        call.enqueue(this);
+        ratePresenter.showRateMatch();
 
         return view;
-    }
-
-    @Override
-    public void onResponse(Response<RateMatchResponse> response) {
-        if (response.isSuccess()) {
-            ProgressDialogManager.hideProgressDialog(progressDialog);
-            rateMatchResponse = response.body();
-            setView();
-        }
-    }
-
-    @Override
-    public void onFailure(Throwable t) {
-        Log.d("Retrofit", "" + t);
-        ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 
     @Override
@@ -160,150 +149,60 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
 
+
+
+
+    private void setView() {
+
+        if(rateMatchResponse!= null ) {
+            int homeTeamId = new DataGetter().getTeamId(
+                    rateMatchResponse.getFixture().getLinks().getHomeTeam().getHref());
+
+            int awayTeamId = new DataGetter().getTeamId(
+                    rateMatchResponse.getFixture().getLinks().getAwayTeam().getHref());
+
+            ratePresenter.getHomeTeamPhotoUrl(homeTeamId);
+            ratePresenter.getAwayTeamPhotoUrl(awayTeamId);
+
+            homeTeam.setText(rateMatchResponse.getFixture().getHomeTeamName());
+            awayTeam.setText(rateMatchResponse.getFixture().getAwayTeamName());
+            round.setText("Round of " + rateMatchResponse.getFixture().getMatchday().toString());
+            status.setText(rateMatchResponse.getFixture().getStatus());
+
+            if (rateMatchResponse.getFixture().getResult().getGoalsHomeTeam() != null
+                    && rateMatchResponse.getFixture().getResult().getGoalsAwayTeam() != null) {
+                String r = String.valueOf(rateMatchResponse.getFixture().getResult().getGoalsHomeTeam().toString()) + " - " +
+                        rateMatchResponse.getFixture().getResult().getGoalsAwayTeam().toString();
+                result.setText(r);
+            }
+
+            if (!rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
+                if (rateMatchResponse.getFixture().getOdds() != null) {
+                    wins.setText(rateMatchResponse.getFixture().getOdds().getHomeWin().toString());
+                    draw.setText(rateMatchResponse.getFixture().getOdds().getDraw().toString());
+                    lose.setText(rateMatchResponse.getFixture().getOdds().getAwayWin().toString());
+                } else {
+                    wins.setText("2");
+                    draw.setText("4");
+                    lose.setText("2");
+                }
+            } else {
+                wins.setVisibility(View.GONE);
+                draw.setVisibility(View.GONE);
+                lose.setVisibility(View.GONE);
+            }
+            setupViewPager(customViewPagerRate);
+            tabLayout.setupWithViewPager(customViewPagerRate);
+        }else{
+            Toast.makeText(getContext(), "Please, wait 30s...", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void setupViewPager(CustomViewPager viewPager) {
         RateViewPagerAdapter adapter = new RateViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new HomeTeamFragment(), rateMatchResponse.getFixture().getHomeTeamName());
         adapter.addFragment(new AwayTeamFragment(), rateMatchResponse.getFixture().getAwayTeamName());
         viewPager.setAdapter(adapter);
-    }
-
-
-    private void setView() {
-
-        setHomeTeamImage();
-        setAwayTeamImage();
-
-        homeTeam.setText(rateMatchResponse.getFixture().getHomeTeamName());
-        awayTeam.setText(rateMatchResponse.getFixture().getAwayTeamName());
-        round.setText("Round of " + rateMatchResponse.getFixture().getMatchday().toString());
-        status.setText(rateMatchResponse.getFixture().getStatus());
-
-        if (rateMatchResponse.getFixture().getResult().getGoalsHomeTeam() != null
-                && rateMatchResponse.getFixture().getResult().getGoalsAwayTeam() != null) {
-            String r = String.valueOf(rateMatchResponse.getFixture().getResult().getGoalsHomeTeam().toString())+ " - " +
-                    rateMatchResponse.getFixture().getResult().getGoalsAwayTeam().toString();
-            result.setText(r);
-        }
-
-        if(!rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
-            if (rateMatchResponse.getFixture().getOdds() != null) {
-                wins.setText(rateMatchResponse.getFixture().getOdds().getHomeWin().toString());
-                draw.setText(rateMatchResponse.getFixture().getOdds().getDraw().toString());
-                lose.setText(rateMatchResponse.getFixture().getOdds().getAwayWin().toString());
-            } else {
-                wins.setText("2");
-                draw.setText("4");
-                lose.setText("2");
-            }
-        }else{
-            wins.setVisibility(View.GONE);
-            draw.setVisibility(View.GONE);
-            lose.setVisibility(View.GONE);
-        }
-        setupViewPager(customViewPagerRate);
-        tabLayout.setupWithViewPager(customViewPagerRate);
-    }
-
-    private int getTeamId(String link) {
-        Log.d("teamId", link);
-        return Integer.parseInt(link.replaceAll("http://api.football-data.org/v1/teams/", ""));
-    }
-
-    private void setHomeTeamImage() {
-
-        int homeTeamId = getTeamId(
-                rateMatchResponse.getFixture().getLinks().getHomeTeam().getHref()
-        );
-
-        dataHelper.setHomeTeamId(homeTeamId);
-
-        TeamService serviceTeam = ApiFactory.getTeamService();
-        Call<TeamResponse> callTeam = serviceTeam.teams(homeTeamId);
-        callTeam.enqueue(new Callback<TeamResponse>() {
-            @Override
-            public void onResponse(Response<TeamResponse> response) {
-
-                if(response.errorBody()!=null)
-                    try {
-                        String er = response.errorBody().string();
-                        System.out.print(er);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                TeamResponse teamResponse = response.body();
-                String linkHomeTeamImage = teamResponse.getCrestUrl();
-
-                if (linkHomeTeamImage != null) {
-                    if (linkHomeTeamImage.contains("svg")) {
-                        requestBuilder
-                                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                                // SVG cannot be serialized so it's not worth to cache it
-                                .load(Uri.parse(teamResponse.getCrestUrl()))
-                                .into(imageHomeTeam);
-                    } else {
-                        Glide.with(view.getContext())
-                                .load(linkHomeTeamImage)
-                                .into(imageHomeTeam);
-                    }
-                } else {
-                    imageHomeTeam.setImageDrawable(getResources().getDrawable(R.drawable.pockemon));
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
-    }
-
-    private void setAwayTeamImage() {
-
-        int awayTeamId = getTeamId(
-                rateMatchResponse.getFixture().getLinks().getAwayTeam().getHref()
-        );
-
-        dataHelper.setAwayTeamId(awayTeamId);
-
-        TeamService serviceTeam = ApiFactory.getTeamService();
-        Call<TeamResponse> callTeam = serviceTeam.teams(awayTeamId);
-        callTeam.enqueue(new Callback<TeamResponse>() {
-            @Override
-            public void onResponse(Response<TeamResponse> response) {
-
-                if(response.errorBody()!=null)
-                    try {
-                        String er = response.errorBody().string();
-                        System.out.print(er);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                TeamResponse teamResponse = response.body();
-                String linkAwayTeamImage = teamResponse.getCrestUrl();
-
-                if (linkAwayTeamImage != null) {
-                    if (linkAwayTeamImage.contains("svg")) {
-                        requestBuilder
-                                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                                // SVG cannot be serialized so it's not worth to cache it
-                                .load(Uri.parse(teamResponse.getCrestUrl()))
-                                .into(imageAwayTeam);
-                    } else {
-                        Glide.with(view.getContext())
-                                .load(linkAwayTeamImage)
-                                .into(imageAwayTeam);
-                    }
-                } else {
-                    imageAwayTeam.setImageDrawable(getResources().getDrawable(R.drawable.pockemon));
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-            }
-        });
     }
 
     @Override
@@ -330,5 +229,56 @@ public class RateFragment extends Fragment implements Callback<RateMatchResponse
         AlertDialog alertDialog = materialDialogManager.openDialogBox
                 (coff, dataHelper.getMatchId(), typeOfRate);
         alertDialog.show();
+    }
+
+
+    @Override
+    public void onSuccess(RateMatchResponse rateMatchResponse) {
+        ProgressDialogManager.hideProgressDialog(progressDialog);
+        this.rateMatchResponse = rateMatchResponse;
+        setView();
+    }
+
+    @Override
+    public void onSuccessHomeImageUrl(String url) {
+        if (url != null) {
+            if (url.contains("svg")) {
+                requestBuilder
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        // SVG cannot be serialized so it's not worth to cache it
+                        .load(Uri.parse(url))
+                        .into(imageHomeTeam);
+            } else {
+                Glide.with(view.getContext())
+                        .load(url)
+                        .into(imageHomeTeam);
+            }
+        } else {
+            imageAwayTeam.setImageDrawable(getResources().getDrawable(R.drawable.pockemon));
+        }
+    }
+
+    @Override
+    public void onSuccessAwayImageUrl(String url) {
+        if (url != null) {
+            if (url.contains("svg")) {
+                requestBuilder
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        // SVG cannot be serialized so it's not worth to cache it
+                        .load(Uri.parse(url))
+                        .into(imageAwayTeam);
+            } else {
+                Glide.with(view.getContext())
+                        .load(url)
+                        .into(imageAwayTeam);
+            }
+        } else {
+            imageAwayTeam.setImageDrawable(getResources().getDrawable(R.drawable.pockemon));
+        }
+    }
+
+    @Override
+    public void onFail() {
+        ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 }

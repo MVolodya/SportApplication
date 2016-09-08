@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import info.androidhive.firebase.fragments.SettingsFragment;
+import info.androidhive.firebase.fragments.settingsFragment.SettingsFragment;
 import info.androidhive.firebase.R;
 
 

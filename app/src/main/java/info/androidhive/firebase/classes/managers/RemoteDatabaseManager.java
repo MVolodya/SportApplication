@@ -24,6 +24,7 @@ import java.util.List;
 
 import info.androidhive.firebase.classes.models.RatedMatchesToDB;
 import info.androidhive.firebase.classes.models.RatedUser;
+import info.androidhive.firebase.fragments.settingsFragment.callback.UpdateCallback;
 
 public class RemoteDatabaseManager {
 
@@ -84,7 +85,7 @@ public class RemoteDatabaseManager {
     }
 
 
-    public void uploadImage(Bitmap bitmap, String uId, final ResponseUrl responseUrl) {
+    public void uploadImage(Bitmap bitmap, String uId, final UpdateCallback updateCallback) {
 
         StorageReference storageRef = storage.getReferenceFromUrl("gs://sportapp-28cf4.appspot.com");
         StorageReference mountainsRef = storageRef.child("images" + uId);
@@ -102,7 +103,7 @@ public class RemoteDatabaseManager {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 downloadUrl = taskSnapshot.getDownloadUrl();
-                responseUrl.setUrl(downloadUrl != null ? downloadUrl.toString() : null);
+                updateCallback.updatePhotoSuccess(downloadUrl.toString());
             }
         });
 
@@ -145,7 +146,7 @@ public class RemoteDatabaseManager {
         });
     }
 
-    public void updateUsername(final String displayName, final String newName) {
+    public void updateUsername(final String displayName, final String newName, final UpdateCallback updateCallback) {
         mDatabase.child(displayName).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -161,6 +162,8 @@ public class RemoteDatabaseManager {
 
                     mDatabase.child(newName).setValue(newRatedUser);
                     mDatabase.child(displayName).removeValue();
+
+                    updateCallback.updateUsernameSuccess();
                 }
             }
 

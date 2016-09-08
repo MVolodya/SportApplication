@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import info.androidhive.firebase.activity.resetPasswordActivity.callback.CallbackResetPassword;
+import info.androidhive.firebase.fragments.settingsFragment.callback.UpdateCallback;
 
 public class UserManager {
 
@@ -74,7 +75,7 @@ public class UserManager {
 
     }
 
-    public static void updateEmail(String email) {
+    public static void updateEmail(String email, final UpdateCallback updateCallback) {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -86,13 +87,14 @@ public class UserManager {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
+                                updateCallback.updateEmailSuccess();
                             }
                         }
                     });
         }
     }
 
-    public static void updatePassword(String password) {
+    public static void updatePassword(String password, final UpdateCallback updateCallback) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (firebaseUser != null) {
@@ -103,6 +105,7 @@ public class UserManager {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
+                                updateCallback.updatePasswordSuccess();
                             }
                         }
                     });
