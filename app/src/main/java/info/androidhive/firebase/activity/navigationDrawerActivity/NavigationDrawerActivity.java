@@ -30,7 +30,7 @@ import info.androidhive.firebase.classes.models.User;
 import info.androidhive.firebase.fragments.allUsersFragment.AllUsersFragment;
 import info.androidhive.firebase.fragments.currentUserRateFragment.CurrentUserRateFragment;
 import info.androidhive.firebase.fragments.mainFragment.MainFragment;
-import info.androidhive.firebase.fragments.SettingsFragment;
+import info.androidhive.firebase.fragments.settingsFragment.SettingsFragment;
 import info.androidhive.firebase.R;
 
 public class NavigationDrawerActivity extends AppCompatActivity implements NDView {

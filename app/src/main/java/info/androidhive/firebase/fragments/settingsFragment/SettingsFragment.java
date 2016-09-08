@@ -1,6 +1,5 @@
-package info.androidhive.firebase.fragments;
+package info.androidhive.firebase.fragments.settingsFragment;
 
-import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +10,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -27,6 +27,7 @@ import com.google.firebase.auth.UserInfo;
 
 import java.io.IOException;
 
+import info.androidhive.firebase.R;
 import info.androidhive.firebase.classes.managers.AlertDialogManager;
 import info.androidhive.firebase.classes.managers.LocalDatabaseManager;
 import info.androidhive.firebase.classes.managers.ProgressDialogManager;
@@ -34,10 +35,11 @@ import info.androidhive.firebase.classes.managers.RemoteDatabaseManager;
 import info.androidhive.firebase.classes.managers.ResponseUrl;
 import info.androidhive.firebase.classes.managers.UserManager;
 import info.androidhive.firebase.classes.models.User;
-import info.androidhive.firebase.R;
 import info.androidhive.firebase.fragments.bottomSheetFragment.BottomSheetFaqFragment;
+import info.androidhive.firebase.fragments.settingsFragment.presenter.SettingsPresenter;
+import info.androidhive.firebase.fragments.settingsFragment.view.SettingsView;
 
-public class SettingsFragment extends Fragment implements View.OnClickListener, ResponseUrl {
+public class SettingsFragment extends Fragment implements View.OnClickListener, SettingsView {
 
     public static final int PICK_IMAGE_REQUEST = 1;
     public static final int CAMERA_REQUEST = 2;
@@ -52,6 +54,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     private FirebaseUser firebaseUser;
     private ProgressDialog mProgressDialog;
     private RemoteDatabaseManager remoteDatabaseManager;
+    private SettingsPresenter settingsPresenter;
 
     @Nullable
     @Override
@@ -59,6 +62,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
         view = inflater.inflate(R.layout.fragment_settings, container, false);
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.toolbarSettings);
         toolbar.showOverflowMenu();
+
+        settingsPresenter = new SettingsPresenter();
+        settingsPresenter.setSettingsView(this);
 
         etUsername = (TextView)view.findViewById(R.id.username_setting);
         etEmail = (TextView)view.findViewById(R.id.email_setting);
@@ -157,12 +163,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 alertDialogUsername.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                UserManager.updateUsername(AlertDialogManager.getInput().getText().toString());
-                                LocalDatabaseManager.updateName(AlertDialogManager.getInput().getText().toString());
-                                remoteDatabaseManager.updateUsername(firebaseUser.getDisplayName(),
-                                        AlertDialogManager.getInput().getText().toString());
-                                etUsername.setText(user.getName());
-                                collapsingToolbarLayout.setTitle(user.getName());
+                                settingsPresenter.updateUsername(remoteDatabaseManager);
                                 dialog.cancel();
                             }
                         });
@@ -181,9 +182,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 alertDialogEmail.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                UserManager.updateEmail(AlertDialogManager.getInput().getText().toString());
-                                LocalDatabaseManager.updateEmail(AlertDialogManager.getInput().getText().toString());
-                                etEmail.setText(user.getEmail());
+                                settingsPresenter.updateEmail();
                                 dialog.cancel();
                             }
                         });
@@ -202,7 +201,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 alertDialogPassword.setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                UserManager.updatePassword(AlertDialogManager.getInput().getText().toString());
+                                settingsPresenter.updatePassword();
                                 dialog.cancel();
                             }
                         });
@@ -226,7 +225,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
             try {
                 ProgressDialogManager.showProgressDialog(mProgressDialog, "Wait, while loading photo!");
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-                new RemoteDatabaseManager(getActivity()).uploadImage(bitmap, firebaseUser.getUid(), this);
+                settingsPresenter.updatePhoto(bitmap, firebaseUser.getUid());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -235,20 +234,38 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
         if (requestCode == CAMERA_REQUEST && resultCode == getActivity().RESULT_OK) {
             ProgressDialogManager.showProgressDialog(mProgressDialog, "Wait, while loading photo!");
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            new RemoteDatabaseManager(getActivity()).uploadImage(photo, firebaseUser.getUid(), this);
+            settingsPresenter.updatePhoto(photo, firebaseUser.getUid());
         }
     }
 
+
+
     @Override
-    public void setUrl(String url) {
-        UserManager.updateUrl(url);
-        LocalDatabaseManager.updateUrl(url);
-        remoteDatabaseManager.updatePhotoUrl(firebaseUser.getDisplayName(), url);
+    public RemoteDatabaseManager getRemoteDatabaseManager() {
+        return remoteDatabaseManager;
+    }
+
+    @Override
+    public void updatePhotoSuccess(String url) {
         Glide.with(this)
-                .load(user.getPhotoURL())
+                .load(url)
                 .into(userPhoto);
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             ProgressDialogManager.hideProgressDialog(mProgressDialog);
         }
     }
+
+    @Override
+    public void updateUsernameSuccess() {
+        etUsername.setText(user.getName());
+        collapsingToolbarLayout.setTitle(user.getName());
+    }
+
+    @Override
+    public void updateEmailSuccess() {
+        etEmail.setText(user.getEmail());
+    }
+
+    @Override
+    public void updatePasswordSuccess() {}
 }

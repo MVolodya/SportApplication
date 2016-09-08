@@ -14,11 +14,6 @@ import android.view.animation.Animation;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -27,21 +22,15 @@ import info.androidhive.firebase.classes.managers.SwipeManager;
 import info.androidhive.firebase.classes.models.DataHelper;
 import info.androidhive.firebase.classes.models.Rate;
 import info.androidhive.firebase.classes.models.RatedMatchesToDB;
-import info.androidhive.firebase.classes.models.RatedUser;
 import info.androidhive.firebase.classes.recycleViewAdapters.ClickListener;
 import info.androidhive.firebase.classes.recycleViewAdapters.DividerItemDecoration;
 import info.androidhive.firebase.classes.recycleViewAdapters.RecyclerTouchListener;
 import info.androidhive.firebase.classes.recycleViewAdapters.UsersRateAdapter;
-import info.androidhive.firebase.classes.retrofit.ApiFactory;
 import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchResponse;
-import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchService;
 import info.androidhive.firebase.R;
-import info.androidhive.firebase.fragments.RateFragment;
+import info.androidhive.firebase.fragments.rateFragment.RateFragment;
 import info.androidhive.firebase.fragments.currentUserRateFragment.presenter.UserRateFragmentPresenter;
 import info.androidhive.firebase.fragments.currentUserRateFragment.view.UserRateView;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
 
 public class CurrentUserRateFragment extends Fragment implements UserRateView {
     private View view;

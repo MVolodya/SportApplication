@@ -18,7 +18,7 @@ import java.util.List;
 
 import info.androidhive.firebase.classes.utils.ConnectivityReceiver;
 import info.androidhive.firebase.classes.utils.CustomViewPager;
-import info.androidhive.firebase.fragments.MatchFragment;
+import info.androidhive.firebase.fragments.matchFragment.MatchFragment;
 import info.androidhive.firebase.fragments.leagueFragment.LeagueFragment;
 import info.androidhive.firebase.R;
 
