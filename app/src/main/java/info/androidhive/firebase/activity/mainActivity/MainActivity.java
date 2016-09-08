@@ -22,7 +22,7 @@ import info.androidhive.firebase.activity.mainActivity.presenter.MainActivityPre
 import info.androidhive.firebase.activity.mainActivity.view.MainActivityView;
 import info.androidhive.firebase.classes.managers.LocalDatabaseManager;
 import info.androidhive.firebase.classes.models.User;
-import info.androidhive.firebase.fragments.MainFragment;
+import info.androidhive.firebase.fragments.mainFragment.MainFragment;
 import info.androidhive.firebase.R;
 
 public class MainActivity extends NavigationDrawerActivity implements MainActivityView {
@@ -55,7 +55,7 @@ public class MainActivity extends NavigationDrawerActivity implements MainActivi
                 if (user == null && AccessToken.getCurrentAccessToken() == null) {
                     // user auth state is changed - user is null
                     // launch login activity
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    LoginActivity.start(getApplicationContext());
                     finish();
                 }
             }
@@ -72,8 +72,6 @@ public class MainActivity extends NavigationDrawerActivity implements MainActivi
                 .commit();
 
     }
-
-
 
     @Override
     public void onStart() {

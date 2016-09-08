@@ -1,4 +1,4 @@
-package info.androidhive.firebase.fragments;
+package info.androidhive.firebase.fragments.bottomSheetFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

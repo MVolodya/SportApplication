@@ -21,7 +21,7 @@ import info.androidhive.firebase.classes.recycleViewAdapters.DividerItemDecorati
 import info.androidhive.firebase.classes.recycleViewAdapters.LeagueAdapter;
 import info.androidhive.firebase.classes.recycleViewAdapters.RecyclerTouchListener;
 import info.androidhive.firebase.classes.retrofit.league.LeagueModel;
-import info.androidhive.firebase.fragments.LeagueTableFragment;
+import info.androidhive.firebase.fragments.leagueTableFragment.LeagueTableFragment;
 import info.androidhive.firebase.R;
 import info.androidhive.firebase.fragments.leagueFragment.presenter.LeagueFragmentPresenter;
 import info.androidhive.firebase.fragments.leagueFragment.view.LeagueView;

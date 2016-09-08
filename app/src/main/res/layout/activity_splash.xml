@@ -24,22 +24,27 @@
             android:text="SOCCER EVENTS"
             android:id="@+id/textView5"
             android:textColor="@color/colorPrimaryDark"
+            android:layout_marginTop="45dp"
+            android:textSize="40dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="70dp" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:textStyle="bold|italic"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
     <com.github.glomadrian.loadingballs.BallView
         android:layout_margin="30dp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        lib:balls="8"
+        android:layout_width="93dp"
+        android:layout_height="97dp"
+        lib:balls="10"
         lib:movement_cycle_time="2000"
-        lib:enable_size_animation="true"
-        lib:size_cycle_time="500"
-        lib:min_ball_size="5dp"
-        lib:max_ball_size="12dp"
+        lib:size_cycle_time="200"
         lib:ball_colors="@array/colors"
         lib:path="square"
         android:layout_gravity="center_horizontal|bottom"

@@ -35,6 +35,7 @@ import info.androidhive.firebase.classes.managers.ResponseUrl;
 import info.androidhive.firebase.classes.managers.UserManager;
 import info.androidhive.firebase.classes.models.User;
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.fragments.bottomSheetFragment.BottomSheetFaqFragment;
 
 public class SettingsFragment extends Fragment implements View.OnClickListener, ResponseUrl {
 

@@ -1,5 +1,4 @@
-package info.androidhive.firebase.fragments;
-
+package info.androidhive.firebase.fragments.mainFragment;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -19,12 +18,10 @@ import java.util.List;
 
 import info.androidhive.firebase.classes.utils.ConnectivityReceiver;
 import info.androidhive.firebase.classes.utils.CustomViewPager;
+import info.androidhive.firebase.fragments.MatchFragment;
 import info.androidhive.firebase.fragments.leagueFragment.LeagueFragment;
 import info.androidhive.firebase.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MainFragment extends Fragment implements View.OnClickListener {
 
     private CustomViewPager viewPager;
@@ -44,10 +41,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-
-//        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-//        String date = df.format(Calendar.getInstance().getTime());
-//        Log.d("data", date);
 
         viewPager = (CustomViewPager) view.findViewById(R.id.viewpager);
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
@@ -103,7 +96,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (ConnectivityReceiver.isOnline(view.getContext())) {
-
             imageViewInfo.setVisibility(View.GONE);
             textViewInfo.setVisibility(View.GONE);
             buttonTryAgain.setVisibility(View.GONE);
@@ -123,7 +115,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public CustomViewPager getViewPager() {
         return viewPager;
     }
-
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

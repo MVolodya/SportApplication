@@ -1,5 +1,4 @@
-package info.androidhive.firebase.fragments;
-
+package info.androidhive.firebase.fragments.leagueTableFragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -26,32 +25,32 @@ import info.androidhive.firebase.classes.retrofit.leagueTable.LeagueTableRespons
 import info.androidhive.firebase.classes.retrofit.leagueTable.LeagueTableService;
 import info.androidhive.firebase.classes.retrofit.leagueTable.Standing;
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.fragments.leagueTableFragment.presenter.LeagueTablePresenter;
+import info.androidhive.firebase.fragments.leagueTableFragment.view.LeagueTableView;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class LeagueTableFragment extends Fragment implements Callback<LeagueTableResponse>, View.OnClickListener{
+public class LeagueTableFragment extends Fragment implements View.OnClickListener,
+        LeagueTableView {
 
     private View view;
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
     private RecyclerView.LayoutManager mLayoutManager;
-
+    private LeagueTablePresenter leagueTablePresenter;
 
     public LeagueTableFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_league_table_test, container, false);
-
+        leagueTablePresenter = new LeagueTablePresenter();
+        leagueTablePresenter.setLeagueTableView(this);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.anim_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -68,44 +67,15 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
         mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setNestedScrollingEnabled(false);
 
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle(DataHelper.getInstance().getLeagueName());
+
         ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
 
-        DataHelper dataHelper = DataHelper.getInstance();
-        int id = dataHelper.getId();
+        leagueTablePresenter.showLeagueTeam();
 
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(dataHelper.getLeagueName());
-
-        LeagueTableService service = ApiFactory.getTableService();
-        Call<LeagueTableResponse> call = service.tables(id);
-        call.enqueue(this);
-
-        //recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         return view;
-    }
-
-    @Override
-    public void onResponse(Response<LeagueTableResponse> response) {
-
-        List<Standing> tables;
-
-        if (response.isSuccess()) {
-            ProgressDialogManager.hideProgressDialog(progressDialog);
-            LeagueTableResponse tableResponse = response.body();
-            tables = tableResponse.getStanding();
-            LeagueTableAdapter mAdapter = new LeagueTableAdapter(tables);
-
-            recyclerView.setLayoutManager(mLayoutManager);
-            recyclerView.setAdapter(mAdapter);
-
-        }
-
-    }
-
-    @Override
-    public void onFailure(Throwable t) {
-        ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 
     @Override
@@ -127,5 +97,14 @@ public class LeagueTableFragment extends Fragment implements Callback<LeagueTabl
     }
 
 
+    @Override
+    public void onSuccess(List<Standing> tables) {
+        ProgressDialogManager.hideProgressDialog(progressDialog);
+        LeagueTableAdapter mAdapter = new LeagueTableAdapter(tables);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(mAdapter);
+    }
 
+    @Override
+    public void onFail() {}
 }

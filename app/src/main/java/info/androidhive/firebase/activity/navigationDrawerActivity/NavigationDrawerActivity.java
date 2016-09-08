@@ -27,9 +27,9 @@ import info.androidhive.firebase.classes.managers.LocalDatabaseManager;
 import info.androidhive.firebase.classes.managers.SignInManager;
 import info.androidhive.firebase.classes.models.DataHelper;
 import info.androidhive.firebase.classes.models.User;
-import info.androidhive.firebase.fragments.AllUsersFragment;
-import info.androidhive.firebase.fragments.CurrentUserRateFragment;
-import info.androidhive.firebase.fragments.MainFragment;
+import info.androidhive.firebase.fragments.allUsersFragment.AllUsersFragment;
+import info.androidhive.firebase.fragments.currentUserRateFragment.CurrentUserRateFragment;
+import info.androidhive.firebase.fragments.mainFragment.MainFragment;
 import info.androidhive.firebase.fragments.SettingsFragment;
 import info.androidhive.firebase.R;
 
@@ -110,7 +110,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements NDVie
                                     DataHelper.getInstance().setCount(0);
                                     fragmentManager
                                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
-                                            .replace(R.id.container, CurrentUserRateFragment.newInstance())
+                                            .replace(R.id.container, new CurrentUserRateFragment())
                                             .commit();
                                 }
                                 break;

@@ -16,7 +16,7 @@ import info.androidhive.firebase.R;
 
 public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.ViewHolderUsersRates> {
 
-    private final List<Rate> ratesList;
+    private List<Rate> ratesList;
 
     public UsersRateAdapter() {
         this.ratesList = new ArrayList<>();
@@ -25,21 +25,17 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
     public void addRates(Rate rates) {
         ratesList.add(rates);
         notifyDataSetChanged();
-        //notifyItemInserted(ratesList.size());
     }
 
     public void addDeletedRate(Rate rates){
         ratesList.add(DataHelper.getInstance().getDeletedPosition(),rates);
         notifyDataSetChanged();
-       // notifyItemInserted(ratesList.size());
     }
 
     public void remove(int position) {
         DataHelper.getInstance().setRate(ratesList.get(position));
         ratesList.remove(position);
         notifyDataSetChanged();
-//        notifyItemRemoved(position);
-//        notifyItemRangeChanged(position, ratesList.size());
     }
 
     @Override

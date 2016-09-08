@@ -1,4 +1,4 @@
-package info.androidhive.firebase.fragments;
+package info.androidhive.firebase.fragments.allUsersFragment;
 
 
 import android.os.Bundle;
@@ -27,16 +27,16 @@ import info.androidhive.firebase.classes.models.RatedUser;
 import info.androidhive.firebase.classes.recycleViewAdapters.AllUsersAdapter;
 import info.androidhive.firebase.classes.recycleViewAdapters.DividerItemDecoration;
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.fragments.allUsersFragment.presenter.AllUsersPresenter;
+import info.androidhive.firebase.fragments.allUsersFragment.view.AllUsersView;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class AllUsersFragment extends Fragment {
+public class AllUsersFragment extends Fragment implements AllUsersView{
 
     private AllUsersAdapter usersAdapter;
     private RecyclerView recyclerView;
     private CircleRefreshLayout refreshLayout;
     private CircularProgressView progressView;
+    private AllUsersPresenter allUsersPresenter;
 
     public AllUsersFragment() {
         // Required empty public constructor
@@ -54,6 +54,9 @@ public class AllUsersFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_users);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
 
+        allUsersPresenter = new AllUsersPresenter();
+        allUsersPresenter.setAllUsersView(this);
+
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -61,7 +64,7 @@ public class AllUsersFragment extends Fragment {
                 new CircleRefreshLayout.OnCircleRefreshListener() {
                     @Override
                     public void refreshing() {
-                        getUsers();
+                        allUsersPresenter.showUsers();
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
@@ -69,40 +72,15 @@ public class AllUsersFragment extends Fragment {
                             }
                         }, 2 * 1000);
                     }
-
                     @Override
                     public void completeRefresh() {
                     }
                 });
-
-        getUsers();
+        progressView.startAnimation();
+        allUsersPresenter.showUsers();
 
         return view;
     }
-
-    private void getUsers() {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        final List<RatedUser> ratedUserList = new ArrayList<>();
-        progressView.startAnimation();
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot d : dataSnapshot.getChildren()) {
-                    ratedUserList.add(d.getValue(RatedUser.class));
-                }
-                progressView.stopAnimation();
-                progressView.setVisibility(View.GONE);
-                usersAdapter = new AllUsersAdapter(ratedUserList);
-                recyclerView.setAdapter(usersAdapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         if (!enter) {
@@ -113,4 +91,14 @@ public class AllUsersFragment extends Fragment {
     }
 
 
+    @Override
+    public void onSuccess(List<RatedUser> ratedUserList) {
+        progressView.stopAnimation();
+        progressView.setVisibility(View.GONE);
+        usersAdapter = new AllUsersAdapter(ratedUserList);
+        recyclerView.setAdapter(usersAdapter);
+    }
+
+    @Override
+    public void onFail() {}
 }

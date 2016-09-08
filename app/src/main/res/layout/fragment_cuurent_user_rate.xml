@@ -3,7 +3,7 @@
     android:id="@+id/Table"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CurrentUserRateFragment">
+    tools:context=".fragments.currentUserRateFragment.CurrentUserRateFragment">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_user_rate"
             android:layout_width="match_parent"

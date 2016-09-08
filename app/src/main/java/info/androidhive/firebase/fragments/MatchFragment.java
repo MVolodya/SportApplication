@@ -2,6 +2,7 @@ package info.androidhive.firebase.fragments;
 
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -41,6 +42,7 @@ import info.androidhive.firebase.classes.retrofit.match.Fixture;
 import info.androidhive.firebase.classes.retrofit.match.MatchResponse;
 import info.androidhive.firebase.classes.retrofit.match.MatchService;
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.fragments.mainFragment.MainFragment;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -144,8 +146,10 @@ public class MatchFragment extends Fragment implements Callback<MatchResponse>, 
         calendarView.setFirstDayOfWeek(Calendar.MONDAY);
         calendarView.setIsOverflowDateVisible(true);
         calendarView.setCurrentDay(new Date(System.currentTimeMillis()));
-        calendarView.setBackButtonColor(R.color.colorAccent);
-        calendarView.setNextButtonColor(R.color.colorAccent);
+        calendarView.setBackButtonColor(R.color.white);
+        calendarView.setNextButtonColor(R.color.white);
+        calendarView.setCalendarTitleTextColor(Color.parseColor("#ffffff"));
+        calendarView.setSelectedDayBackground(Color.parseColor("#26ae90"));
         calendarView.refreshCalendar(Calendar.getInstance(Locale.getDefault()));
         calendarView.setOnDateSelectedListener(this);
 

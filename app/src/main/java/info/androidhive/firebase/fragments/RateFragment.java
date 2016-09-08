@@ -43,6 +43,8 @@ import info.androidhive.firebase.classes.utils.SvgDecoder;
 import info.androidhive.firebase.classes.utils.SvgDrawableTranscoder;
 import info.androidhive.firebase.classes.utils.SvgSoftwareLayerSetter;
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.fragments.awayTeamFragment.AwayTeamFragment;
+import info.androidhive.firebase.fragments.homeTeamFragment.HomeTeamFragment;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;

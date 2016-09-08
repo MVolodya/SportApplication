@@ -1,4 +1,4 @@
-package info.androidhive.firebase.fragments;
+package info.androidhive.firebase.fragments.homeTeamFragment;
 
 
 import android.os.Bundle;
@@ -18,18 +18,24 @@ import info.androidhive.firebase.classes.retrofit.ApiFactory;
 import info.androidhive.firebase.classes.retrofit.players.PlayersResponse;
 import info.androidhive.firebase.classes.retrofit.players.PlayersService;
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.fragments.homeTeamFragment.presenter.HomeTeamPresenter;
+import info.androidhive.firebase.fragments.homeTeamFragment.view.HomeTeamView;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 
-public class AwayTeamFragment extends Fragment implements Callback<PlayersResponse> {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class HomeTeamFragment extends Fragment implements Callback<PlayersResponse>,
+        HomeTeamView{
 
     private RecyclerView recyclerView;
     private TextView msg;
     private RecyclerView.LayoutManager mLayoutManager;
+    private HomeTeamPresenter homeTeamPresenter;
 
-
-    public AwayTeamFragment() {
+    public HomeTeamFragment() {
         // Required empty public constructor
     }
 
@@ -37,20 +43,19 @@ public class AwayTeamFragment extends Fragment implements Callback<PlayersRespon
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_away_team, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_away_team_players);
-        msg = (TextView)view.findViewById(R.id.textViewAwayMsg);
+        View view = inflater.inflate(R.layout.fragment_home_team, container, false);
+        homeTeamPresenter = new HomeTeamPresenter();
+        homeTeamPresenter.setHomeTeamView(this);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_home_team_players);
+        msg = (TextView)view.findViewById(R.id.textViewHomeMsg);
         mLayoutManager = new LinearLayoutManager(view.getContext());
+
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         msg.setVisibility(View.GONE);
 
-        PlayersService service = ApiFactory.getPlayerService();
-        Call<PlayersResponse> call = service.players(DataHelper.getInstance().getAwayTeamId());
-        call.enqueue(this);
-
-
-        // Inflate the layout for this fragment
+        homeTeamPresenter.showHomeTeam();
         return view;
     }
 
@@ -58,6 +63,7 @@ public class AwayTeamFragment extends Fragment implements Callback<PlayersRespon
     public void onResponse(Response<PlayersResponse> response) {
         if (response.isSuccess()) {
             PlayersResponse playersResponse = response.body();
+
             if (playersResponse.getPlayers().size() == 0) {
                 msg.setVisibility(View.VISIBLE);
             } else {
@@ -72,4 +78,18 @@ public class AwayTeamFragment extends Fragment implements Callback<PlayersRespon
     public void onFailure(Throwable t) {
 
     }
+
+    @Override
+    public void onSuccess(PlayersResponse playersResponse) {
+        if (playersResponse.getPlayers().size() == 0) {
+            msg.setVisibility(View.VISIBLE);
+        } else {
+            recyclerView.setLayoutManager(mLayoutManager);
+            HomeTeamPlayerAdapter homeTeamPlayerAdapter = new HomeTeamPlayerAdapter(playersResponse.getPlayers());
+            recyclerView.setAdapter(homeTeamPlayerAdapter);
+        }
+    }
+
+    @Override
+    public void onFail() {}
 }
