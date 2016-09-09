@@ -45,6 +45,7 @@ View.OnFocusChangeListener{
         progressDialog = new ProgressDialog(this);
         resetPasswordPresenter = new ResetPasswordPresenter(this);
 
+        inputEmail.setOnFocusChangeListener(this);
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
         btnBack.setOnClickListener(new View.OnClickListener() {

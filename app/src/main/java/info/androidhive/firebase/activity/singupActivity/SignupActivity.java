@@ -51,6 +51,9 @@ View.OnFocusChangeListener{
         inputPassword = (EditText) findViewById(R.id.password);
         Button btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
 
+        inputEmail.setOnFocusChangeListener(this);
+        inputPassword.setOnFocusChangeListener(this);
+
         progressDialog = new ProgressDialog(this);
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
