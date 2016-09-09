@@ -35,6 +35,7 @@ import info.androidhive.firebase.fragments.mainFragment.MainFragment;
 import info.androidhive.firebase.fragments.settingsFragment.SettingsFragment;
 import info.androidhive.firebase.R;
 
+//TODO:change toolbar settings
 public class NavigationDrawerActivity extends AppCompatActivity implements NDView {
 
     public Drawer result;
