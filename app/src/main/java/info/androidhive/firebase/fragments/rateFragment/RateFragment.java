@@ -142,10 +142,7 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
         }
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
-
-
-
-
+    
     private void setView() {
 
         if(rateMatchResponse!= null ) {
