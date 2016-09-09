@@ -26,15 +26,15 @@ public class HomeTeamPresenter {
         call.enqueue(new Callback<PlayersResponse>() {
             @Override
             public void onResponse(Response<PlayersResponse> response) {
-                if (response.isSuccess()) {
+                if(response.body() != null){
                     PlayersResponse playersResponse = response.body();
                     homeTeamView.onSuccess(playersResponse);
-                }
+                } else homeTeamView.onFail();
             }
 
             @Override
             public void onFailure(Throwable t) {
-
+                homeTeamView.onFail();
             }
         });
     }

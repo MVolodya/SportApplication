@@ -2,6 +2,7 @@ package info.androidhive.firebase.classes.recycleViewAdapters;
 
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import info.androidhive.firebase.classes.retrofit.ApiFactory;
 import info.androidhive.firebase.classes.retrofit.match.Fixture;
 import info.androidhive.firebase.classes.retrofit.team.TeamResponse;
 import info.androidhive.firebase.classes.retrofit.team.TeamService;
+import info.androidhive.firebase.classes.utils.ConvertDate;
 import info.androidhive.firebase.classes.utils.SvgDecoder;
 import info.androidhive.firebase.classes.utils.SvgDrawableTranscoder;
 import info.androidhive.firebase.classes.utils.SvgSoftwareLayerSetter;
@@ -68,8 +70,8 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
             setAwayTeamImage(holder, position);
             holder.tvHomeTeam.setText(fixturesList.get(position).getHomeTeamName());
             holder.tvAwayTeam.setText(fixturesList.get(position).getAwayTeamName());
-            holder.tvTime.setText(fixturesList.get(position).getDate());
-
+            holder.tvTime.setText(ConvertDate.getTime(fixturesList.get(position).getDate()));
+            holder.tvDate.setText(ConvertDate.getDate(fixturesList.get(position).getDate()));
             if (fixturesList.get(position).getResult().getGoalsHomeTeam() != null
                     && fixturesList.get(position).getResult().getGoalsAwayTeam() != null) {
                 holder.tvScore.setText(fixturesList.get(position).getResult().getGoalsHomeTeam().toString()
@@ -83,10 +85,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
     @Override
     public int getItemCount() {
         return fixturesList.size();
-    }
-
-    public static String getMatchId(String link) {
-        return link.substring(41);
     }
 
     private void setHomeTeamImage(final MyViewHolder holder, int position) {
@@ -176,6 +174,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
         public final TextView tvTime;
         public final TextView tvStatus;
         public final TextView tvScore;
+        public final TextView tvDate;
         public final ImageView circleImageHomeTeam;
         public final ImageView circleImageAwayTeam;
 
@@ -185,6 +184,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
             tvHomeTeam = (TextView) v.findViewById(R.id.homeTeam);
             tvAwayTeam = (TextView) v.findViewById(R.id.awayTeam);
             tvTime = (TextView) v.findViewById(R.id.goalsAwayTeam);
+            tvDate = (TextView) v.findViewById(R.id.textViewDate);
             tvStatus = (TextView) v.findViewById(R.id.textViewStatus);
             tvScore = (TextView) v.findViewById(R.id.textViewScore);
             circleImageAwayTeam = (ImageView) v.findViewById(R.id.secondteam);

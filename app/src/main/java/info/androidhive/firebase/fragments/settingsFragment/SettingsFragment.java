@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -16,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,6 +31,7 @@ import com.google.firebase.auth.UserInfo;
 import java.io.IOException;
 
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.activity.navigationDrawerActivity.NavigationDrawerActivity;
 import info.androidhive.firebase.classes.managers.AlertDialogManager;
 import info.androidhive.firebase.classes.managers.LocalDatabaseManager;
 import info.androidhive.firebase.classes.managers.ProgressDialogManager;
@@ -247,23 +251,24 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void updatePhotoSuccess(String url) {
+        ProgressDialogManager.hideProgressDialog(mProgressDialog);
         Glide.with(this)
                 .load(url)
                 .into(userPhoto);
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            ProgressDialogManager.hideProgressDialog(mProgressDialog);
-        }
+        ((NavigationDrawerActivity)getContext()).updateProfilePhoto(url);
     }
 
     @Override
     public void updateUsernameSuccess() {
         etUsername.setText(user.getName());
         collapsingToolbarLayout.setTitle(user.getName());
+        ((NavigationDrawerActivity)getContext()).updateProfileUsername(user.getName());
     }
 
     @Override
     public void updateEmailSuccess() {
         etEmail.setText(user.getEmail());
+        ((NavigationDrawerActivity)getContext()).updateProfileEmail(user.getEmail());
     }
 
     @Override

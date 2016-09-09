@@ -43,11 +43,11 @@
                 android:id="@+id/imageAwayTeam"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_marginRight="42dp"
-                android:layout_above="@+id/textViewStatus"
+                android:layout_marginRight="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_below="@+id/tv_round"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="42dp" />
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:id="@+id/tv_round"
@@ -62,7 +62,7 @@
                 android:layout_alignParentStart="true" />
 
             <TextView
-                android:id="@+id/textViewStatus"
+                android:id="@+id/textViewTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -71,6 +71,17 @@
                 android:gravity="center_horizontal"
                 android:textColor="#fff"
                 android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:layout_below="@+id/textViewTime"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="match_parent"

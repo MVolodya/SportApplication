@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,22 +24,18 @@ import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import info.androidhive.firebase.activity.mainActivity.MainActivity;
 import info.androidhive.firebase.classes.managers.DataGetter;
+import info.androidhive.firebase.classes.utils.ConvertDate;
 import info.androidhive.firebase.classes.utils.CustomViewPager;
 import info.androidhive.firebase.classes.models.DataHelper;
 import info.androidhive.firebase.classes.managers.MaterialDialogManager;
 import info.androidhive.firebase.classes.managers.ProgressDialogManager;
 import info.androidhive.firebase.classes.managers.RateManager;
 import info.androidhive.firebase.classes.recycleViewAdapters.RateViewPagerAdapter;
-import info.androidhive.firebase.classes.retrofit.ApiFactory;
 import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchResponse;
-import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchService;
-import info.androidhive.firebase.classes.retrofit.team.TeamResponse;
-import info.androidhive.firebase.classes.retrofit.team.TeamService;
 import info.androidhive.firebase.classes.utils.SvgDecoder;
 import info.androidhive.firebase.classes.utils.SvgDrawableTranscoder;
 import info.androidhive.firebase.classes.utils.SvgSoftwareLayerSetter;
@@ -49,9 +44,6 @@ import info.androidhive.firebase.fragments.awayTeamFragment.AwayTeamFragment;
 import info.androidhive.firebase.fragments.homeTeamFragment.HomeTeamFragment;
 import info.androidhive.firebase.fragments.rateFragment.presenter.RatePresenter;
 import info.androidhive.firebase.fragments.rateFragment.view.RateView;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
 
 
 public class RateFragment extends Fragment implements View.OnClickListener, RateView {
@@ -63,7 +55,8 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
     private TextView draw;
     private TextView lose;
     private TextView round;
-    private TextView status;
+    private TextView date;
+    private TextView time;
     private TextView result;
     private ImageView imageHomeTeam;
     private ImageView imageAwayTeam;
@@ -98,7 +91,8 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
         homeTeam = (TextView) view.findViewById(R.id.textViewTeamHome);
         awayTeam = (TextView) view.findViewById(R.id.textViewTeamAway);
         round = (TextView) view.findViewById(R.id.tv_round);
-        status = (TextView) view.findViewById(R.id.textViewStatus);
+        date = (TextView) view.findViewById(R.id.textViewDate);
+        time = (TextView) view.findViewById(R.id.textViewTime);
         wins = (TextView) view.findViewById(R.id.textViewWin);
         draw = (TextView) view.findViewById(R.id.textViewDraw);
         lose = (TextView) view.findViewById(R.id.textViewLose);
@@ -167,7 +161,8 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
             homeTeam.setText(rateMatchResponse.getFixture().getHomeTeamName());
             awayTeam.setText(rateMatchResponse.getFixture().getAwayTeamName());
             round.setText("Round of " + rateMatchResponse.getFixture().getMatchday().toString());
-            status.setText(rateMatchResponse.getFixture().getStatus());
+            date.setText(ConvertDate.getDate(rateMatchResponse.getFixture().getDate()));
+            time.setText(ConvertDate.getTime(rateMatchResponse.getFixture().getDate()));
 
             if (rateMatchResponse.getFixture().getResult().getGoalsHomeTeam() != null
                     && rateMatchResponse.getFixture().getResult().getGoalsAwayTeam() != null) {
@@ -259,6 +254,11 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
     }
 
     @Override
+    public void onFailHomeImageUrl() {
+        Toast.makeText(getContext(), "Wait 30s, and refresh...", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onSuccessAwayImageUrl(String url) {
         if (url != null) {
             if (url.contains("svg")) {
@@ -275,6 +275,11 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
         } else {
             imageAwayTeam.setImageDrawable(getResources().getDrawable(R.drawable.pockemon));
         }
+    }
+
+    @Override
+    public void onFailAwayImageUrl() {
+        Toast.makeText(getContext(), "Wait 30s, and refresh...", Toast.LENGTH_SHORT).show();
     }
 
     @Override

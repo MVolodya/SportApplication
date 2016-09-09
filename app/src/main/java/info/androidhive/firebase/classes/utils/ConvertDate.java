@@ -13,4 +13,8 @@ public class ConvertDate {
         }
         return builder.toString();
     }
+
+    public static String getTime(String date) {
+        return date.substring(date.indexOf('T')+1, date.indexOf('Z'));
+    }
 }

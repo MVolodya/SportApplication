@@ -48,15 +48,15 @@ public class RatePresenter {
         callTeam.enqueue(new Callback<TeamResponse>() {
             @Override
             public void onResponse(Response<TeamResponse> response) {
-
                 TeamResponse teamResponse = response.body();
-                String linkTeamImage = teamResponse.getCrestUrl();
-
-                rateView.onSuccessHomeImageUrl(linkTeamImage);
+                if(teamResponse!=null) {
+                    String linkTeamImage = teamResponse.getCrestUrl();
+                    rateView.onSuccessHomeImageUrl(linkTeamImage);
+                } else rateView.onFail();
             }
 
             @Override
-            public void onFailure(Throwable t) {}
+            public void onFailure(Throwable t) {rateView.onFail();}
         });
     }
 
@@ -67,15 +67,15 @@ public class RatePresenter {
         callTeam.enqueue(new Callback<TeamResponse>() {
             @Override
             public void onResponse(Response<TeamResponse> response) {
-
                 TeamResponse teamResponse = response.body();
-                String linkTeamImage = teamResponse.getCrestUrl();
-
-                rateView.onSuccessAwayImageUrl(linkTeamImage);
+                if(teamResponse!=null) {
+                    String linkTeamImage = teamResponse.getCrestUrl();
+                    rateView.onSuccessAwayImageUrl(linkTeamImage);
+                }else rateView.onFail();
             }
 
             @Override
-            public void onFailure(Throwable t) {}
+            public void onFailure(Throwable t) {rateView.onFail();}
         });
     }
 }

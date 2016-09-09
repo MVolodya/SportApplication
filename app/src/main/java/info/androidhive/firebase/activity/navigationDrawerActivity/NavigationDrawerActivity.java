@@ -15,9 +15,11 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import info.androidhive.firebase.activity.loginActivity.LoginActivity;
 import info.androidhive.firebase.activity.mainActivity.MainActivity;
@@ -35,8 +37,9 @@ import info.androidhive.firebase.R;
 
 public class NavigationDrawerActivity extends AppCompatActivity implements NDView {
 
-   public Drawer result;
-   private NDPresenter ndPresenter;
+    public Drawer result;
+    private NDPresenter ndPresenter;
+    private AccountHeader accountHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +49,15 @@ public class NavigationDrawerActivity extends AppCompatActivity implements NDVie
         ndPresenter.setView(this);
     }
 
-   public void initializeNavigationDrawer(Toolbar toolbar, User user, final MainActivity mainActivity) {
-        AccountHeader headerResult = ndPresenter.createAccount(user);
+    public void initializeNavigationDrawer(Toolbar toolbar, User user, final MainActivity mainActivity) {
+        accountHeader = ndPresenter.createAccount(user);
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withAccountHeader(headerResult)
+                .withAccountHeader(accountHeader)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
-                        new PrimaryDrawerItem()
+                        new SecondaryDrawerItem()
                                 .withIdentifier(1)
                                 .withName("Home")
                                 .withIcon(GoogleMaterial.Icon.gmd_home),
@@ -134,6 +137,24 @@ public class NavigationDrawerActivity extends AppCompatActivity implements NDVie
                     }
                 })
                 .build();
+    }
+
+    public void updateProfilePhoto(String url) {
+        IProfile profile = accountHeader.getActiveProfile();
+        profile.withIcon(url);
+        accountHeader.updateProfile(profile);
+    }
+
+    public void updateProfileUsername(String username) {
+        IProfile profile = accountHeader.getActiveProfile();
+        profile.withName(username);
+        accountHeader.updateProfile(profile);
+    }
+
+    public void updateProfileEmail(String email) {
+        IProfile profile = accountHeader.getActiveProfile();
+        profile.withEmail(email);
+        accountHeader.updateProfile(profile);
     }
 
     @Override

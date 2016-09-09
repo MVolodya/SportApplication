@@ -24,7 +24,9 @@ public class AwayTeamPresenter {
         call.enqueue(new Callback<PlayersResponse>() {
             @Override
             public void onResponse(Response<PlayersResponse> response) {
+                if(response.body() != null)
                 awayTeamView.onSuccess(response.body());
+                else awayTeamView.onFail();
             }
 
             @Override

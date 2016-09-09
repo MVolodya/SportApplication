@@ -38,8 +38,8 @@ public class MatchFragmentPresenter {
 
     public void saveMatchData(List<Fixture> matches, int position){
         DataHelper dataHelper = DataHelper.getInstance();
-        dataHelper.setMatchId(Integer.parseInt(MatchAdapter.getMatchId(matches.get(position)
-                .getLinks().getSelf().getHref())));
+        dataHelper.setMatchId(new DataGetter().getMatchId(matches.get(position)
+                .getLinks().getSelf().getHref()));
         dataHelper.setHomeTeamId(new DataGetter().getTeamId(matches.get(position)
                 .getLinks().getHomeTeam().getHref()));
         dataHelper.setAwayTeamId(new DataGetter().getTeamId(matches.get(position)

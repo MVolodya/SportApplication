@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import info.androidhive.firebase.classes.models.DataHelper;
 import info.androidhive.firebase.classes.recycleViewAdapters.DividerItemDecoration;
@@ -91,5 +92,6 @@ public class HomeTeamFragment extends Fragment implements Callback<PlayersRespon
     }
 
     @Override
-    public void onFail() {}
+    public void onFail() {
+        Toast.makeText(getContext(), "Wait 30s and refresh", Toast.LENGTH_LONG).show();}
 }
