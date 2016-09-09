@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Toast;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -88,7 +89,8 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView {
             }
 
             @Override
-            public void onLongClick(int position) {}
+            public void onLongClick(int position) {
+            }
         }));
 
         userRateFragmentPresenter.getUserRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
@@ -119,5 +121,7 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView {
     }
 
     @Override
-    public void onFail() {}
+    public void onFail() {
+        Toast.makeText(getContext(), "Wait, 30s., then refresh", Toast.LENGTH_LONG).show();
+    }
 }

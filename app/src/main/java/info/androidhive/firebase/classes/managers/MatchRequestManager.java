@@ -22,13 +22,15 @@ public class MatchRequestManager {
             @Override
             public void onResponse(Response<RateMatchResponse> response) {
                 RateMatchResponse rateMatchResponse = response.body();
-                Rate rate = new Rate();
-                rate.setHomeTeamName(rateMatchResponse.getFixture().getHomeTeamName());
-                rate.setAwayTeamName(rateMatchResponse.getFixture().getAwayTeamName());
-                rate.setPoints(ratedMatchesList.get(i).getPoints());
-                rate.setType(ratedMatchesList.get(i).getTypeOfRate());
-                rate.setStatus(ratedMatchesList.get(i).getStatus());
-                callbackRate.addRateToList(rate);
+                if(rateMatchResponse!=null) {
+                    Rate rate = new Rate();
+                    rate.setHomeTeamName(rateMatchResponse.getFixture().getHomeTeamName());
+                    rate.setAwayTeamName(rateMatchResponse.getFixture().getAwayTeamName());
+                    rate.setPoints(ratedMatchesList.get(i).getPoints());
+                    rate.setType(ratedMatchesList.get(i).getTypeOfRate());
+                    rate.setStatus(ratedMatchesList.get(i).getStatus());
+                    callbackRate.addRateToList(rate);
+                } else callbackRate.onError();
             }
             @Override
             public void onFailure(Throwable t) {}

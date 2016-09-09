@@ -60,4 +60,9 @@ public class UserRateFragmentPresenter implements CallbackRate {
     public void addRateToList(Rate rate) {
         userRateView.addItemToList(rate);
     }
+
+    @Override
+    public void onError() {
+        userRateView.onFail();
+    }
 }
