@@ -1,5 +1,6 @@
 package info.androidhive.firebase.activity.singupActivity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,7 +23,8 @@ import info.androidhive.firebase.activity.singupActivity.view.SignUpView;
 import info.androidhive.firebase.classes.managers.ProgressDialogManager;
 import info.androidhive.firebase.R;
 
-public class SignupActivity extends AppCompatActivity implements SignUpView {
+public class SignupActivity extends AppCompatActivity implements SignUpView,
+View.OnFocusChangeListener{
 
     private EditText inputEmail, inputPassword;
     private ProgressDialog progressDialog;
@@ -108,5 +111,18 @@ public class SignupActivity extends AppCompatActivity implements SignUpView {
     @Override
     public FirebaseAuth getAuth() {
         return auth;
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (!hasFocus) {
+            hideKeyboard(view);
+        }
+    }
+
+    @Override
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
