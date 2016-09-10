@@ -10,6 +10,7 @@ public class DataHelper {
     private int awayTeamId;
     private int deletedPosition;
     private int count = 0;
+    private String language;
 
     private RatedMatchesToDB ratedMatchesToDB;
     private Rate rate;
@@ -98,5 +99,13 @@ public class DataHelper {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

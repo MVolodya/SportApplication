@@ -1,9 +1,13 @@
 package info.androidhive.firebase.fragments.settingsFragment;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -11,14 +15,16 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,12 +33,16 @@ import com.google.firebase.auth.UserInfo;
 
 import java.io.IOException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.activity.mainActivity.MainActivity;
 import info.androidhive.firebase.activity.navigationDrawerActivity.NavigationDrawerActivity;
+import info.androidhive.firebase.activity.splashScreenActivity.SplashActivity;
 import info.androidhive.firebase.classes.managers.AlertDialogManager;
 import info.androidhive.firebase.classes.managers.LocalDatabaseManager;
 import info.androidhive.firebase.classes.managers.ProgressDialogManager;
 import info.androidhive.firebase.classes.managers.RemoteDatabaseManager;
+import info.androidhive.firebase.classes.models.DataHelper;
 import info.androidhive.firebase.classes.models.User;
 import info.androidhive.firebase.fragments.bottomSheetFragment.BottomSheetFaqFragment;
 import info.androidhive.firebase.fragments.settingsFragment.presenter.SettingsPresenter;
@@ -46,6 +56,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     private View view;
     private TextView etUsername;
     private TextView etEmail;
+    private TextView language;
     private ImageView userPhoto;
     private RelativeLayout relativeLayoutChangeLan;
     private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -68,9 +79,16 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
         etUsername = (TextView)view.findViewById(R.id.username_setting);
         etEmail = (TextView)view.findViewById(R.id.email_setting);
+        language = (TextView)view.findViewById(R.id.language_change);
         userPhoto = (ImageView)view.findViewById(R.id.imageViewPhoto);
         relativeLayoutChangeLan = (RelativeLayout) view.findViewById(R.id.change_lan_rl);
         relativeLayoutChangeLan.setOnClickListener(this);
+
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("settings", Context.MODE_PRIVATE);
+        if(sharedPref.getString("language","en").equalsIgnoreCase("en")) language.setText(
+                R.string.english);
+        else if(sharedPref.getString("language","en").equalsIgnoreCase("uk"))language.setText(
+                R.string.ukrainian);
 
         mProgressDialog = new ProgressDialog(getActivity());
         remoteDatabaseManager = new RemoteDatabaseManager(getActivity());
@@ -217,7 +235,26 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 break;
 
             case R.id.change_lan_rl:
-                AlertDialog.Builder alertDialogLan = AlertDialogManager.getLanguageAlertDialog(getContext());
+                final AlertDialog alertDialogLan = AlertDialogManager.getLanguageAlertDialog(getContext());
+                LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+                View promptView = layoutInflater.inflate(R.layout.dialog_language, null);
+
+
+                alertDialogLan.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialogInterface) {
+                        Button b = alertDialogLan.getButton(android.app.AlertDialog.BUTTON_POSITIVE);
+                        b.setOnClickListener(new View.OnClickListener() {
+
+                            @Override
+                            public void onClick(View view) {
+                                settingsPresenter.changeLanguage(DataHelper.getInstance().getLanguage(),
+                                        getContext());
+                                alertDialogLan.hide();
+                            }
+                        });
+                    }
+                });
                 alertDialogLan.show();
                 break;
         }
@@ -276,4 +313,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void updatePasswordSuccess() {}
+
+    @Override
+    public void changeLanguageSuccess(String lan) {
+        Intent intent = new Intent(getContext(), SplashActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getContext().startActivity(intent);
+    }
 }

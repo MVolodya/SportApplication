@@ -55,6 +55,7 @@ dependencies {
     compile 'com.github.tuesda:CircleRefreshLayout:92a27db47d'
     compile 'com.github.glomadrian:loadingballs:1.1@aar'
     compile 'br.com.liveo:navigationdrawer-material:2.5.1'
+    compile 'net.soulwolf.widget:materialRadio:1.0.1'
    }
 
 apply plugin: 'com.google.gms.google-services'

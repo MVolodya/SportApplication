@@ -2,6 +2,7 @@ package info.androidhive.firebase.activity.splashScreenActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +27,13 @@ public class SplashActivity extends Activity implements SplashScreenView {
         setContentView(R.layout.activity_splash);
         splashScreenPresenter = new SplashScreenPresenter();
         splashScreenPresenter.setSplashScreenView(this);
+
+        SharedPreferences sharedPref = getSharedPreferences("settings",Context.MODE_PRIVATE);
+        if(sharedPref.getString("language","en").equalsIgnoreCase("en")) splashScreenPresenter.
+                setLanguage("en");
+        else if(sharedPref.getString("language","en").equalsIgnoreCase("uk")) splashScreenPresenter.
+                setLanguage("uk");
+
 
         if(FirebaseAuth.getInstance().getCurrentUser() != null){
             splashScreenPresenter.getUserRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());

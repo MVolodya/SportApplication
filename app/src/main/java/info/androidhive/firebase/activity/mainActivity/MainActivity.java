@@ -2,6 +2,7 @@ package info.androidhive.firebase.activity.mainActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,6 +35,11 @@ public class MainActivity extends NavigationDrawerActivity implements MainActivi
 
     private Toolbar toolbar;
 
+    public static void start(Context context) {
+        Intent starter = new Intent(context, MainActivity.class);
+        context.startActivity(starter);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +53,7 @@ public class MainActivity extends NavigationDrawerActivity implements MainActivi
         auth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         User userCustom = LocalDatabaseManager.getUser();
+
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override

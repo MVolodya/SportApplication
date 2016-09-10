@@ -1,8 +1,11 @@
 package info.androidhive.firebase.activity.splashScreenActivity.presenter;
 
+import android.content.res.Configuration;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
+import java.util.Locale;
 
 import info.androidhive.firebase.activity.splashScreenActivity.callback.CheckRateCallback;
 import info.androidhive.firebase.activity.splashScreenActivity.view.SplashScreenView;
@@ -26,6 +29,16 @@ public class SplashScreenPresenter implements CheckRateCallback {
 
     public void checkRate(List<RatedMatchesToDB> userRateList){
         rateManager.checkRate(userRateList, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),this);
+    }
+
+
+    public void setLanguage(String language){
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        splashScreenView.getContext().getResources().updateConfiguration(config,
+                splashScreenView.getContext().getResources().getDisplayMetrics());
     }
 
     @Override

@@ -1,9 +1,16 @@
 package info.androidhive.firebase.fragments.settingsFragment.presenter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Locale;
+
+import info.androidhive.firebase.activity.mainActivity.MainActivity;
 import info.androidhive.firebase.classes.managers.AlertDialogManager;
 import info.androidhive.firebase.classes.managers.LocalDatabaseManager;
 import info.androidhive.firebase.classes.managers.RemoteDatabaseManager;
@@ -37,6 +44,15 @@ public class SettingsPresenter implements UpdateCallback {
 
     public void updatePassword() {
         UserManager.updatePassword(AlertDialogManager.getInput().getText().toString(), this);
+    }
+
+    public void changeLanguage(String language, Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences("settings",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("language", language);
+        editor.apply();
+
+        settingsView.changeLanguageSuccess(language);
     }
 
     @Override

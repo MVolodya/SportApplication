@@ -1,7 +1,5 @@
 package info.androidhive.firebase.fragments.settingsFragment.view;
 
-import android.app.Activity;
-
 import info.androidhive.firebase.classes.managers.RemoteDatabaseManager;
 
 public interface SettingsView {
@@ -10,4 +8,5 @@ public interface SettingsView {
     void updateUsernameSuccess();
     void updateEmailSuccess();
     void updatePasswordSuccess();
+    void changeLanguageSuccess(String lan);
 }

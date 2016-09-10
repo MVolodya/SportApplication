@@ -1,30 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/select_language"
         android:id="@+id/textViewSL"
-        android:padding="16dp" />
-
-    <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/english"
-        android:id="@+id/radioButtonEnglish"
-        android:checked="false"
-        android:padding="8dp" />
+        android:padding="16dp"
+        android:text="@string/select_language"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ukrainian"
-        android:id="@+id/radioButtonUK"
-        android:checked="false"
-        android:padding="8dp" />
+        android:gravity="center"
+        android:paddingBottom="16dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgEnglish"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:clickable="true"
+            android:paddingRight="5dp"
+            android:src="@drawable/cropped_united_kingdom"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="3dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgUkrainian"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/imgEnglish"
+            android:layout_toRightOf="@+id/imgEnglish"
+            android:clickable="true"
+            android:paddingLeft="5dp"
+            android:src="@drawable/ukraine_icon"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="3dp" />
+    </RelativeLayout>
 
 </LinearLayout>

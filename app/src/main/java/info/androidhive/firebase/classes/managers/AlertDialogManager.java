@@ -1,20 +1,21 @@
 package info.androidhive.firebase.classes.managers;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.support.v7.app.AlertDialog;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
+import android.widget.Toast;
 
-import java.util.Locale;
-
-import info.androidhive.firebase.fragments.settingsFragment.SettingsFragment;
+import de.hdodenhof.circleimageview.CircleImageView;
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.classes.models.DataHelper;
+import info.androidhive.firebase.fragments.settingsFragment.SettingsFragment;
 
 
 public class AlertDialogManager {
@@ -74,48 +75,36 @@ public class AlertDialogManager {
         return alertDialogBuilderPhoto;
     }
 
-    public static AlertDialog.Builder getLanguageAlertDialog(final Context context) {
+    public static AlertDialog getLanguageAlertDialog(final Context context) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.dialog_language, null);
+        View promptView = layoutInflater.inflate(R.layout.dialog_language, null);
+        final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(context);
+        alert.setView(promptView);
+        alert.setPositiveButton(R.string.save, null);
+        alert.setNegativeButton(R.string.cancel, null);
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-        alertDialogBuilder.setView(view);
+        final AlertDialog dialog = alert.create();
+        final CircleImageView en = (CircleImageView)promptView.findViewById(R.id.imgEnglish);
+        final CircleImageView uk = (CircleImageView)promptView.findViewById(R.id.imgUkrainian);
 
-        final AlertDialog alertDialog = alertDialogBuilder.create();
-
-        RadioButton rbEnglish = (RadioButton) view.findViewById(R.id.radioButtonEnglish);
-        RadioButton rbUkrainian = (RadioButton) view.findViewById(R.id.radioButtonUK);
-
-        rbEnglish.setOnClickListener(new View.OnClickListener() {
+        en.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Locale locale = new Locale("en");
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
-                Intent i = context.getPackageManager()
-                        .getLaunchIntentForPackage( context.getPackageName() );
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(i);
+                en.setBorderColor(Color.parseColor("#ff6861"));
+                uk.setBorderColor(Color.parseColor("#ffffff"));
+                DataHelper.getInstance().setLanguage("en");
             }
         });
 
-        rbUkrainian.setOnClickListener(new View.OnClickListener() {
+        uk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Locale locale = new Locale("uk");
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                Intent i = context.getPackageManager()
-                        .getLaunchIntentForPackage( context.getPackageName() );
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(i);
+                uk.setBorderColor(Color.parseColor("#ff6861"));
+                en.setBorderColor(Color.parseColor("#ffffff"));
+                DataHelper.getInstance().setLanguage("uk");
             }
         });
-
-        return alertDialogBuilder;
+        return dialog;
     }
 
     public static EditText getInput() {
