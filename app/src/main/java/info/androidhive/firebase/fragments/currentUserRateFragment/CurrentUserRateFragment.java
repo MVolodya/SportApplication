@@ -122,6 +122,6 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView {
 
     @Override
     public void onFail() {
-        Toast.makeText(getContext(), "Wait, 30s., then refresh", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), R.string.wait_sec, Toast.LENGTH_LONG).show();
     }
 }

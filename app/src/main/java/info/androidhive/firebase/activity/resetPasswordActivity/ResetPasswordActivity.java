@@ -62,11 +62,11 @@ View.OnFocusChangeListener{
                 String email = inputEmail.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), R.string.enter_reg_email, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                ProgressDialogManager.showProgressDialog(progressDialog, "Sign in");
+                ProgressDialogManager.showProgressDialog(progressDialog, getString(R.string.sign_in));
                 resetPasswordPresenter.resetPassword(email);
             }
         });

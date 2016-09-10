@@ -93,5 +93,5 @@ public class HomeTeamFragment extends Fragment implements Callback<PlayersRespon
 
     @Override
     public void onFail() {
-        Toast.makeText(getContext(), "Wait 30s and refresh", Toast.LENGTH_LONG).show();}
+        Toast.makeText(getContext(), R.string.wait_sec, Toast.LENGTH_LONG).show();}
 }

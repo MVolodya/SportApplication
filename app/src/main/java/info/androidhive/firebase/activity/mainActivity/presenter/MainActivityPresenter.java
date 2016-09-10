@@ -15,13 +15,10 @@ public class MainActivityPresenter {
     public void checkConnection() {
         String message;
         int color;
-        if (ConnectivityReceiver.isOnline(mainActivityView.getContext())) {
-            message = "Connected to Internet";
-            color = mainActivityView.getContext().getResources().getColor(R.color.snackbar_ok);
-        } else {
-            message = "Not connected to internet";
+        if (!ConnectivityReceiver.isOnline(mainActivityView.getContext())) {
             color = mainActivityView.getContext().getResources().getColor(R.color.snackbar);
+            message = mainActivityView.getContext().getString(R.string.no_connection);
+            mainActivityView.setConnectionState(message, color);
         }
-        mainActivityView.setConnectionState(message, color);
     }
 }

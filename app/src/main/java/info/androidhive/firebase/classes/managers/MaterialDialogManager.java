@@ -32,10 +32,10 @@ public class MaterialDialogManager {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View promptView = layoutInflater.inflate(R.layout.dialog_rate, null);
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        alert.setTitle("Enter points...");
+        alert.setTitle(R.string.enter_points);
         alert.setView(promptView);
-        alert.setPositiveButton("Set rate", null);
-        alert.setNegativeButton("Cancel", null);
+        alert.setPositiveButton(R.string.set_rate, null);
+        alert.setNegativeButton(R.string.cancel, null);
 
         final EditText input = (EditText) promptView
                 .findViewById(R.id.etCategory);
@@ -47,7 +47,7 @@ public class MaterialDialogManager {
         type.setText(typeOfRate);
 
         input.requestFocus();
-        input.setHint("Points...");
+        input.setHint(R.string.points);
         input.setTextColor(Color.BLACK);
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
 
@@ -82,7 +82,7 @@ public class MaterialDialogManager {
                     @Override
                     public void onClick(View view) {
                         if (input.getText().toString().isEmpty()) {
-                            input.setError("Enter rate!");
+                            input.setError(context.getString(R.string.enter_rate));
                         } else {
                             new RateManager(context).setRate(user != null ? user.getDisplayName() : null,
                                     String.valueOf(matchId) ,sum.getText().toString(),
@@ -95,10 +95,9 @@ public class MaterialDialogManager {
             }
         });
 
-        alert.setNegativeButton("CANCEL",
+        alert.setNegativeButton(context.getString(R.string.cancel),
                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    }
+                    public void onClick(DialogInterface dialog, int whichButton) {}
                 });
 
         return dialog;

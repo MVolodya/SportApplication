@@ -111,13 +111,13 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
 
         backArrow.setOnClickListener(this);
 
-        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
+        ProgressDialogManager.showProgressDialog(progressDialog, getContext().getString(R.string.loading));
 
         dataHelper = DataHelper.getInstance();
-        materialDialogManager = new MaterialDialogManager(view.getContext(), view);
+        materialDialogManager = new MaterialDialogManager(getContext(), view);
 
         requestBuilder = Glide.with(view.getContext())
-                .using(Glide.buildStreamModelLoader(Uri.class, view.getContext()), InputStream.class)
+                .using(Glide.buildStreamModelLoader(Uri.class, getContext()), InputStream.class)
                 .from(Uri.class)
                 .as(SVG.class)
                 .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
@@ -157,7 +157,7 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
 
             homeTeam.setText(rateMatchResponse.getFixture().getHomeTeamName());
             awayTeam.setText(rateMatchResponse.getFixture().getAwayTeamName());
-            round.setText("Round of " + rateMatchResponse.getFixture().getMatchday().toString());
+            round.setText(getContext().getString(R.string.round_of) + rateMatchResponse.getFixture().getMatchday().toString());
             date.setText(ConvertDate.getDate(rateMatchResponse.getFixture().getDate()));
             time.setText(ConvertDate.getTime(rateMatchResponse.getFixture().getDate()));
 
@@ -186,7 +186,7 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
             setupViewPager(customViewPagerRate);
             tabLayout.setupWithViewPager(customViewPagerRate);
         }else{
-            Toast.makeText(getContext(), "Please, wait 30s...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getContext().getString(R.string.wait_sec), Toast.LENGTH_SHORT).show();
         }
     }
 

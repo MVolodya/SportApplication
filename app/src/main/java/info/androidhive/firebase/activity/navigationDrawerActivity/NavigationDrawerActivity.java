@@ -60,28 +60,28 @@ public class NavigationDrawerActivity extends AppCompatActivity implements NDVie
                 .addDrawerItems(
                         new SecondaryDrawerItem()
                                 .withIdentifier(1)
-                                .withName("Home")
+                                .withName(R.string.nd_home)
                                 .withIcon(GoogleMaterial.Icon.gmd_home),
                         new SectionDrawerItem()
-                                .withName("Rates"),
+                                .withName(R.string.nd_sub_rates),
                         new SecondaryDrawerItem()
                                 .withIdentifier(3)
-                                .withName("All users")
+                                .withName(R.string.nd_all_users)
                                 .withIcon(GoogleMaterial.Icon.gmd_account),
                         new SecondaryDrawerItem()
                                 .withIdentifier(4)
-                                .withName("My rate")
+                                .withName(R.string.nd_my_rates)
                                 .withIcon(GoogleMaterial.Icon.gmd_plus),
                         new SectionDrawerItem()
                                 .withIdentifier(5)
-                                .withName("Options"),
+                                .withName(R.string.nd_sub_option),
                         new SecondaryDrawerItem()
                                 .withIdentifier(7)
-                                .withName("Settings")
+                                .withName(R.string.nd_settings)
                                 .withIcon(FontAwesome.Icon.faw_cog),
                         new SecondaryDrawerItem()
                                 .withIdentifier(8)
-                                .withName("Exit")
+                                .withName(R.string.nd_exit)
                                 .withIcon(GoogleMaterial.Icon.gmd_fullscreen_exit)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {

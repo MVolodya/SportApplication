@@ -117,7 +117,7 @@ public class SignInManager {
 
                                 callbackLogin.okLogin();
                             }else
-                                Toast.makeText(context, "Wrong with fbUser", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, R.string.error_login, Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -147,14 +147,11 @@ public class SignInManager {
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(context, "Authentication failed.",
+                            Toast.makeText(context, R.string.error_login,
                                     Toast.LENGTH_SHORT).show();
                         }else {
                             Profile profile = Profile.getCurrentProfile();

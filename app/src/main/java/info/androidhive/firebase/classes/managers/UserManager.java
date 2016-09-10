@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import info.androidhive.firebase.R;
 import info.androidhive.firebase.activity.resetPasswordActivity.callback.CallbackResetPassword;
 import info.androidhive.firebase.fragments.settingsFragment.callback.UpdateCallback;
 
@@ -28,9 +29,9 @@ public class UserManager {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(context, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.reset_instruction, Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(context, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.failed_send_instruction, Toast.LENGTH_SHORT).show();
                         }
                         callbackResetPassword.ok();
                         //ProgressDialogManager.hideProgressDialog(new ProgressDialog(context));

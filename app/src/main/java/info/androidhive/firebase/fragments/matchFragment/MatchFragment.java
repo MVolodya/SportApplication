@@ -59,6 +59,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
     private FloatingActionButton fabCalendar;
     private ImageView backImageView;
     private CalendarView calendarView;
+    private View view;
 
     private MatchFragmentPresenter matchFragmentPresenter;
     private MatchFragment matchFragment = this;
@@ -72,7 +73,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_match, container, false);
+        view = inflater.inflate(R.layout.fragment_match, container, false);
 
         matchFragmentPresenter = new MatchFragmentPresenter();
         matchFragmentPresenter.setMatchFragmentView(this);
@@ -93,7 +94,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
 
         msg.setVisibility(View.GONE);
 
-        ProgressDialogManager.showProgressDialog(progressDialog, "Loading");
+        ProgressDialogManager.showProgressDialog(progressDialog, view.getContext().getString(R.string.loading));
         matchFragmentPresenter.getMatchList();
         initCalendar();
 
@@ -167,7 +168,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onDateSelected(@NonNull Date date) {
 
-        ProgressDialogManager.showProgressDialog(progressDialog, "Loading");
+        ProgressDialogManager.showProgressDialog(progressDialog,view.getContext().getString(R.string.loading));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         currentDate = df.format(date);

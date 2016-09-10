@@ -18,7 +18,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Name league"
         android:textColor="#000"
         android:textSize="16sp" />
 
@@ -29,14 +28,13 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="Teams of league: "
+        android:text="@string/teams_of_league"
         android:textSize="14sp" />
 
     <TextView
         android:id="@+id/numberOfTeams"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="number"
         android:textSize="14sp"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/teamsofleague"
@@ -45,7 +43,6 @@
         android:id="@+id/league"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="short league"
         android:layout_alignBottom="@+id/caption"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -53,10 +50,7 @@
         android:id="@+id/year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="year"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-
 </RelativeLayout>

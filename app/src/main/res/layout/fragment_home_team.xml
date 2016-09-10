@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Sorry, the API developer is fool"
+        android:text="@string/sorry_the_api_developer_is_fool"
         android:textColor="#628f3e"
         android:textSize="15sp"
         android:id="@+id/textViewHomeMsg"

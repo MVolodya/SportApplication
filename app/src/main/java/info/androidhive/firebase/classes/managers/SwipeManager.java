@@ -48,14 +48,14 @@ public class SwipeManager {
                 //  removeView(view);
 
                 Snackbar snackbar = Snackbar
-                        .make(view, "Rate is deleted", Snackbar.LENGTH_LONG)
-                        .setAction("UNDO", new View.OnClickListener() {
+                        .make(view, R.string.rate_deleted, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.undo, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 rateManager.setDeletedRate(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                                         DataHelper.getInstance().getRatedMatchesToDB());
                                 usersRateAdapter.addDeletedRate(DataHelper.getInstance().getRate());
-                                Snackbar snackbar1 = Snackbar.make(view, "Rate is restored!", Snackbar.LENGTH_SHORT);
+                                Snackbar snackbar1 = Snackbar.make(view, R.string.rate_restored, Snackbar.LENGTH_SHORT);
                                 snackbar1.show();
                             }
                         });

@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
             @Override
             public void onClick(View view) {
                 loginPresenter.loginWithFacebook(loginButton);
-                ProgressDialogManager.showProgressDialog(mProgressDialog, "Sign in");
+                ProgressDialogManager.showProgressDialog(mProgressDialog, getString(R.string.sign_in));
             }
         });
         //[END FACEBOOK SIGNIN]
@@ -108,16 +108,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                 final String password = inputPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.enter_email, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.enter_pass, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                ProgressDialogManager.showProgressDialog(mProgressDialog, "Sign in");
+                ProgressDialogManager.showProgressDialog(mProgressDialog, getString(R.string.sign_in));
                 loginPresenter.login(email, password);
             }
         });

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:clickable="true"
+    android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
     tools:context=".activity.loginActivity.LoginActivity">
 
@@ -94,7 +94,7 @@
             android:id="@+id/parentLinear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
@@ -102,10 +102,10 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="@string/fbloginText"
                 android:layout_marginTop="30dp"
+                android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp" />
+                android:text="@string/fbloginText" />
 
         </LinearLayout>
 
@@ -117,8 +117,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
             android:visibility="gone" />
-
-
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

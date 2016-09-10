@@ -13,7 +13,7 @@ import info.androidhive.firebase.classes.managers.MatchRequestManager;
 import info.androidhive.firebase.classes.models.Rate;
 import info.androidhive.firebase.classes.models.RatedMatchesToDB;
 import info.androidhive.firebase.classes.models.RatedUser;
-import info.androidhive.firebase.fragments.currentUserRateFragment.CallbackRate;
+import info.androidhive.firebase.fragments.currentUserRateFragment.callback.CallbackRate;
 import info.androidhive.firebase.fragments.currentUserRateFragment.view.UserRateView;
 
 public class UserRateFragmentPresenter implements CallbackRate {

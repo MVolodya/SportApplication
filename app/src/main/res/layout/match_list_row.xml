@@ -53,7 +53,6 @@
             android:layout_toEndOf="@+id/firstteam"
             android:layout_toRightOf="@+id/firstteam"
             android:maxLength="10"
-            android:text="ht"
             android:textColor="@color/title"
             android:paddingLeft="10dp" />
 
@@ -66,7 +65,6 @@
             android:layout_toLeftOf="@+id/secondteam"
             android:layout_toStartOf="@+id/secondteam"
             android:maxLength="10"
-            android:text="at"
             android:textColor="@color/title"
             android:paddingRight="10dp" />
 
@@ -74,7 +72,6 @@
             android:id="@+id/goalsAwayTeam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="time"
             android:textColor="@color/title"
             android:layout_below="@+id/textViewDate"
             android:layout_centerHorizontal="true" />
@@ -96,14 +93,12 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:maxLength="10"
-            android:text="status"
             android:textColor="@color/title" />
 
         <TextView
             android:id="@+id/textViewDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="date"
             android:textColor="@color/title"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />

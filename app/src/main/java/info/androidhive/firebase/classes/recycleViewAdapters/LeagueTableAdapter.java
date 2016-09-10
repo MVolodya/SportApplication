@@ -115,8 +115,6 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
             tvGoalsWin = (TextView)view.findViewById(R.id.textViewGoalWinRow);
             tvGoalsLose = (TextView)view.findViewById(R.id.textViewGoalLoseRow);
             tvPoints = (TextView)view.findViewById(R.id.textViewPointsRow);
-
-
         }
     }
 }

@@ -11,9 +11,6 @@ import java.util.List;
 import info.androidhive.firebase.classes.retrofit.league.LeagueModel;
 import info.androidhive.firebase.R;
 
-/**
- * Created by andri on 29.07.2016.
- */
 public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.MyViewHolder> {
 
     private final List<LeagueModel> leagueList;

@@ -4,9 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -18,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,8 +33,6 @@ import info.androidhive.firebase.classes.managers.AlertDialogManager;
 import info.androidhive.firebase.classes.managers.LocalDatabaseManager;
 import info.androidhive.firebase.classes.managers.ProgressDialogManager;
 import info.androidhive.firebase.classes.managers.RemoteDatabaseManager;
-import info.androidhive.firebase.classes.managers.ResponseUrl;
-import info.androidhive.firebase.classes.managers.UserManager;
 import info.androidhive.firebase.classes.models.User;
 import info.androidhive.firebase.fragments.bottomSheetFragment.BottomSheetFaqFragment;
 import info.androidhive.firebase.fragments.settingsFragment.presenter.SettingsPresenter;
@@ -52,6 +47,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     private TextView etUsername;
     private TextView etEmail;
     private ImageView userPhoto;
+    private RelativeLayout relativeLayoutChangeLan;
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
     private User user;
@@ -73,6 +69,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
         etUsername = (TextView)view.findViewById(R.id.username_setting);
         etEmail = (TextView)view.findViewById(R.id.email_setting);
         userPhoto = (ImageView)view.findViewById(R.id.imageViewPhoto);
+        relativeLayoutChangeLan = (RelativeLayout) view.findViewById(R.id.change_lan_rl);
+        relativeLayoutChangeLan.setOnClickListener(this);
 
         mProgressDialog = new ProgressDialog(getActivity());
         remoteDatabaseManager = new RemoteDatabaseManager(getActivity());
@@ -163,15 +161,15 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
             case R.id.usernameDialog:
                 AlertDialog.Builder alertDialogUsername = AlertDialogManager.getAlertDialog(getActivity(),
-                        "Enter new name");
-                alertDialogUsername.setPositiveButton("Save",
+                        getContext().getString(R.string.enter_new_name));
+                alertDialogUsername.setPositiveButton(getContext().getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 settingsPresenter.updateUsername(remoteDatabaseManager);
                                 dialog.cancel();
                             }
                         });
-                alertDialogUsername.setNegativeButton("Cancel",
+                alertDialogUsername.setNegativeButton(getContext().getString(R.string.cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
@@ -182,15 +180,15 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
             case R.id.emailDialog:
                 AlertDialog.Builder alertDialogEmail = AlertDialogManager.getAlertDialog(getActivity(),
-                        "Enter new email");
-                alertDialogEmail.setPositiveButton("Save",
+                        getContext().getString(R.string.enter_new_email));
+                alertDialogEmail.setPositiveButton(getContext().getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 settingsPresenter.updateEmail();
                                 dialog.cancel();
                             }
                         });
-                alertDialogEmail.setNegativeButton("Cancel",
+                alertDialogEmail.setNegativeButton(getContext().getString(R.string.cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
@@ -200,22 +198,27 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 break;
 
             case R.id.passDialog:
-                AlertDialog.Builder alertDialogPassword =AlertDialogManager.getAlertDialog(getActivity(),
-                        "Enter new password");
-                alertDialogPassword.setPositiveButton("Save",
+                AlertDialog.Builder alertDialogPassword = AlertDialogManager.getAlertDialog(getActivity(),
+                        getContext().getString(R.string.enter_new_password));
+                alertDialogPassword.setPositiveButton(getContext().getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 settingsPresenter.updatePassword();
                                 dialog.cancel();
                             }
                         });
-                alertDialogPassword.setNegativeButton("Cancel",
+                alertDialogPassword.setNegativeButton(getContext().getString(R.string.cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
                         });
                 alertDialogPassword.show();
+                break;
+
+            case R.id.change_lan_rl:
+                AlertDialog.Builder alertDialogLan = AlertDialogManager.getLanguageAlertDialog(getContext());
+                alertDialogLan.show();
                 break;
         }
     }
@@ -227,7 +230,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
             try {
-                ProgressDialogManager.showProgressDialog(mProgressDialog, "Wait, while loading photo!");
+                ProgressDialogManager.showProgressDialog(mProgressDialog, getContext().getString(R.string.wait_loading_photo));
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
                 settingsPresenter.updatePhoto(bitmap, firebaseUser.getUid());
             } catch (IOException e) {
@@ -236,7 +239,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
         }
 
         if (requestCode == CAMERA_REQUEST && resultCode == getActivity().RESULT_OK) {
-            ProgressDialogManager.showProgressDialog(mProgressDialog, "Wait, while loading photo!");
+            ProgressDialogManager.showProgressDialog(mProgressDialog, getContext().getString(R.string.wait_loading_photo));
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             settingsPresenter.updatePhoto(photo, firebaseUser.getUid());
         }

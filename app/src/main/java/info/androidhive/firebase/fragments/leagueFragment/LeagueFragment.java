@@ -54,7 +54,7 @@ public class LeagueFragment extends Fragment implements LeagueView{
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
+        ProgressDialogManager.showProgressDialog(progressDialog,view.getContext().getString(R.string.loading));
         leagueFragmentPresenter.sendRequest();
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {

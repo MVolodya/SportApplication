@@ -10,19 +10,19 @@
         android:id="@+id/dialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Photo"
+        android:text="@string/photo"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Load from gallery"
+        android:text="@string/load_from_gallery"
         android:id="@+id/buttonGallery" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Take photo"
+        android:text="@string/take_photo"
         android:id="@+id/buttonCamera"
         android:layout_gravity="center_horizontal" />
 

@@ -1,4 +1,4 @@
-package info.androidhive.firebase.fragments.currentUserRateFragment;
+package info.androidhive.firebase.fragments.currentUserRateFragment.callback;
 
 import info.androidhive.firebase.classes.models.Rate;
 

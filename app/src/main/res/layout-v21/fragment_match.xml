@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="No matches today..."
+        android:text="@string/no_matches_today"
         android:id="@+id/textViewMsg"
         android:layout_gravity="center" />
 

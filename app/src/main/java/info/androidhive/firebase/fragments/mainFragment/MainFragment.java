@@ -29,6 +29,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private ImageView imageViewInfo;
     private TextView textViewInfo;
     private Button buttonTryAgain;
+    private View view;
 
 
     public MainFragment() {
@@ -40,7 +41,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.fragment_main, container, false);
 
         viewPager = (CustomViewPager) view.findViewById(R.id.viewpager);
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
@@ -80,8 +81,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new LeagueFragment(), "League");
-        adapter.addFragment(new MatchFragment(), "Match");
+        adapter.addFragment(new LeagueFragment(), view.getContext().getString(R.string.tab_league));
+        adapter.addFragment(new MatchFragment(), view.getContext().getString(R.string.tab_match));
         viewPager.setAdapter(adapter);
     }
 

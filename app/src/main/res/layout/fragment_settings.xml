@@ -187,6 +187,7 @@
                         android:textSize="@dimen/material_text_subhead" />
 
                     <RelativeLayout
+                        android:id="@+id/change_lan_rl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
@@ -306,7 +307,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Soccer Event v0.3"
+                            android:text="@string/soccer_event_v0_9"
                             android:textColor="#727272"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true" />

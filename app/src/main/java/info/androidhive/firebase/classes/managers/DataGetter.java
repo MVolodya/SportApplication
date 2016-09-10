@@ -31,7 +31,6 @@ public class DataGetter {
     }
 
     public int getTeamId(String link) {
-        Log.d("teamId", link);
         return Integer.parseInt(link.replaceAll("http://api.football-data.org/v1/teams/", ""));
     }
 

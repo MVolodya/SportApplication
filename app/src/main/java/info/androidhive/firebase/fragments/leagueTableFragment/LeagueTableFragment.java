@@ -70,7 +70,7 @@ public class LeagueTableFragment extends Fragment implements View.OnClickListene
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(DataHelper.getInstance().getLeagueName());
 
-        ProgressDialogManager.showProgressDialog(progressDialog,"Loading");
+        ProgressDialogManager.showProgressDialog(progressDialog,view.getContext().getString(R.string.loading));
 
         leagueTablePresenter.showLeagueTeam();
 
