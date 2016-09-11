@@ -5,6 +5,7 @@ import android.content.Context;
 import info.androidhive.firebase.baseView.BaseView;
 
 public interface ResetPasswordView extends BaseView {
-    void resetOk();
+    void onSuccess();
+    void onFail();
     Context getContext();
 }

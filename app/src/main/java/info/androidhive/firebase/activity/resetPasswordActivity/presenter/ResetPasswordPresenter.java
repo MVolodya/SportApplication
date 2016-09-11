@@ -2,6 +2,7 @@ package info.androidhive.firebase.activity.resetPasswordActivity.presenter;
 
 import info.androidhive.firebase.activity.resetPasswordActivity.callback.CallbackResetPassword;
 import info.androidhive.firebase.activity.resetPasswordActivity.view.ResetPasswordView;
+import info.androidhive.firebase.classes.managers.DataGetter;
 import info.androidhive.firebase.classes.managers.UserManager;
 
 public class ResetPasswordPresenter implements CallbackResetPassword {
@@ -15,11 +16,13 @@ public class ResetPasswordPresenter implements CallbackResetPassword {
     }
 
     public void resetPassword(String email){
+        if(new DataGetter().isEmailValid(email))
         userManager.resetPassword(email, this);
+        else resetPasswordView.onFail();
     }
 
     @Override
     public void ok() {
-        resetPasswordView.resetOk();
+        resetPasswordView.onSuccess();
     }
 }

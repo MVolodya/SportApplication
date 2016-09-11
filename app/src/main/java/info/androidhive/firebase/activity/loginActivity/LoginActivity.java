@@ -128,15 +128,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         loginPresenter.getCallbackManager().onActivityResult(requestCode, resultCode, data);
+        ProgressDialogManager.hideProgressDialog(mProgressDialog);
     }
 
     @Override
-    public void loginOk() {
+    public void onSuccess() {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         ProgressDialogManager.hideProgressDialog(mProgressDialog);
         finish();
     }
 
+    @Override
+    public void onFail() {
+        ProgressDialogManager.hideProgressDialog(mProgressDialog);
+        inputEmail.setError(getString(R.string.enter_correct_email));
+    }
 
 
     @Override

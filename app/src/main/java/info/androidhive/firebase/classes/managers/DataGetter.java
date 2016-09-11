@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import info.androidhive.firebase.classes.retrofit.match.Fixture;
 import info.androidhive.firebase.classes.utils.ConvertDate;
@@ -36,5 +38,10 @@ public class DataGetter {
 
     public static int getMatchId(String link) {
         return Integer.parseInt(link.substring(41));
+    }
+
+   public boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email)
+                .matches();
     }
 }

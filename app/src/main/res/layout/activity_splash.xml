@@ -1,53 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:lib="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
 
     <ImageView
-        android:src="@drawable/icon_converted"
+        android:src="@drawable/icon_final"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/imageView3"
+        android:layout_gravity="center"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/textView5"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
-        android:layout_gravity="center" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/soccer_events"
+        android:id="@+id/textView5"
+        android:textColor="@color/app_name"
+        android:layout_marginTop="76dp"
+        android:textSize="40dp"
+        android:gravity="center"
+        android:textStyle="bold|italic"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="407dp"
-        android:paddingBottom="15dp">
+    <com.github.rahatarmanahmed.cpv.CircularProgressView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progress_view_splash"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:cpv_animAutostart="true"
+        app:cpv_color="@color/app_name"
+        app:cpv_indeterminate="true"
+        android:layout_above="@+id/textView6"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/soccer_events"
-            android:id="@+id/textView5"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_marginTop="45dp"
-            android:textSize="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="center"
-            android:textStyle="bold|italic"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/cheking_your_rates"
+        android:id="@+id/textView6"
+        android:textColor="@color/app_name"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp" />
 
-    </RelativeLayout>
-
-    <com.github.glomadrian.loadingballs.BallView
-        android:layout_margin="30dp"
-        android:layout_width="93dp"
-        android:layout_height="97dp"
-        lib:balls="10"
-        lib:movement_cycle_time="2000"
-        lib:size_cycle_time="200"
-        lib:ball_colors="@array/colors"
-        lib:path="square"
-        android:layout_gravity="center_horizontal|bottom"
-        />
-
-</FrameLayout>
+</RelativeLayout>

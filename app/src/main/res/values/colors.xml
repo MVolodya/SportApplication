@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryDark">#2196F3</color>
+    <color name="colorPrimaryDark">#2196f3</color>
     <color name="colorAccent">#c1c1c1</color>
 
     <color name="bg_login">#26ae90</color>
@@ -13,7 +13,7 @@
     <color name="input_register">#888888</color>
     <color name="input_register_bg">#3b4148</color>
     <color name="input_register_hint">#5e6266</color>
-    <color name="btn_login">#26ae90</color>
+    <color name="btn_login">#009ca9</color>
     <color name="snackbar_ok">#26ae90</color>
     <color name="btn_login_bg">#eceef1</color>
     <color name="lbl_name">#333333</color>
@@ -34,6 +34,7 @@
 
     <color name="disableback">#DFDFDF</color>
     <color name="disabletext">#A5A5A5</color>
+    <color name="app_name">#009ca9</color>
 
 
 </resources>

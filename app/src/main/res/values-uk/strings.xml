@@ -100,7 +100,7 @@
     <string name="sign_up">Реєстрація</string>
     <string name="soccer_event_v0_9">Soccer Event v0.9</string>
     <string name="soccer_events">SOCCER EVENTS</string>
-    <string name="sorry_the_api_developer_is_fool">Видачте, проблеми з API</string>
+    <string name="sorry_the_api_developer_is_fool">Вибачте, проблеми з API</string>
     <string name="tab_league">Ліги</string>
     <string name="tab_match">Матчі</string>
     <string name="take_photo">Зробити фотографію</string>
@@ -116,4 +116,6 @@
     <string name="ukrainian">Українська</string>
     <string name="select_language">Виберіть мову</string>
     <string name="english">Англійська</string>
+    <string name="enter_correct_email">Неправильний адрес!</string>
+    <string name="cheking_your_rates">Оновлення даних...</string>
 </resources>

@@ -5,6 +5,7 @@ import com.facebook.login.widget.LoginButton;
 
 import info.androidhive.firebase.activity.loginActivity.callback.CallbackLogin;
 import info.androidhive.firebase.activity.loginActivity.view.LoginView;
+import info.androidhive.firebase.classes.managers.DataGetter;
 import info.androidhive.firebase.classes.managers.SignInManager;
 
 public class LoginPresenter implements CallbackLogin {
@@ -24,12 +25,19 @@ public class LoginPresenter implements CallbackLogin {
     }
 
     public void login(String email, String password){
+        if(new DataGetter().isEmailValid(email))
         signInManager.loginWithEmailAndPassword(email, password, this);
+        else loginView.onFail();
     }
 
     @Override
     public void okLogin() {
-        loginView.loginOk();
+        loginView.onSuccess();
+    }
+
+    @Override
+    public void onFailCallback() {
+        loginView.onFail();
     }
 
     public CallbackManager getCallbackManager() {

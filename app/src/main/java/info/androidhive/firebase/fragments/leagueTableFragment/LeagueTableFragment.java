@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -106,5 +107,8 @@ public class LeagueTableFragment extends Fragment implements View.OnClickListene
     }
 
     @Override
-    public void onFail() {}
+    public void onFail() {
+        ProgressDialogManager.hideProgressDialog(progressDialog);
+        Toast.makeText(getContext(), getString(R.string.wait_sec), Toast.LENGTH_SHORT).show();          
+    }
 }

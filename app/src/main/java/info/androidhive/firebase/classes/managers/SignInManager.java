@@ -104,9 +104,12 @@ public class SignInManager {
                             // there was an error
                             if (password.length() < 6) {
                                 ((LoginActivity)context).getInputPassword().setError(context.getString(R.string.minimum_password));
+                                callbackLogin.onFailCallback();
                             } else {
                                 Toast.makeText(context, context.getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                callbackLogin.onFailCallback();
                             }
+
                         } else {
                             FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
 

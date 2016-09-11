@@ -30,11 +30,13 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         LeagueModel model = leagueList.get(position);
-        //Log.d("caption",model.getCaption());
-        holder.caption.setText(model.getCaption());
-        holder.league.setText(model.getLeague());
-        holder.year.setText(model.getYear());
-        holder.numberOfTeams.setText(model.getNumberOfTeams());
+        if(!model.getCaption().equalsIgnoreCase("DFB-Pokal 2016/17") ||
+                !model.getCaption().equalsIgnoreCase("European Championships France 2016")) {
+            holder.caption.setText(model.getCaption());
+            holder.league.setText(model.getLeague());
+            holder.year.setText(model.getYear());
+            holder.numberOfTeams.setText(model.getNumberOfTeams());
+        }
 
     }
 

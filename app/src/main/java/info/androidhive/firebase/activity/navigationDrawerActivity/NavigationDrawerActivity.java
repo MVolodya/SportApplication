@@ -34,8 +34,6 @@ import info.androidhive.firebase.fragments.currentUserRateFragment.CurrentUserRa
 import info.androidhive.firebase.fragments.mainFragment.MainFragment;
 import info.androidhive.firebase.fragments.settingsFragment.SettingsFragment;
 import info.androidhive.firebase.R;
-
-//TODO:change toolbar settings
 public class NavigationDrawerActivity extends AppCompatActivity implements NDView {
 
     public Drawer result;
@@ -92,22 +90,25 @@ public class NavigationDrawerActivity extends AppCompatActivity implements NDVie
                         Fragment fr = getSupportFragmentManager()
                                 .findFragmentById(R.id.container);
                         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
-                        mainActivity.showToolbar();
 
                         switch (itemSelected) {
                             case 1:
-                                if (!(fr instanceof MainFragment))
+                                if (!(fr instanceof MainFragment)) {
                                     fragmentManager
                                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                                             .replace(R.id.container, new MainFragment(), "main")
                                             .commit();
+                                    mainActivity.showToolbar();
+                                }
                                 break;
                             case 3:
-                                if (!(fr instanceof AllUsersFragment))
+                                if (!(fr instanceof AllUsersFragment)) {
                                     fragmentManager
                                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                                             .replace(R.id.container, new AllUsersFragment())
                                             .commit();
+                                    mainActivity.showToolbar();
+                                }
                                 break;
                             case 4:
                                 if (!(fr instanceof CurrentUserRateFragment)) {
@@ -116,6 +117,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements NDVie
                                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                                             .replace(R.id.container, new CurrentUserRateFragment())
                                             .commit();
+                                    mainActivity.showToolbar();
                                 }
                                 break;
                             case 7:

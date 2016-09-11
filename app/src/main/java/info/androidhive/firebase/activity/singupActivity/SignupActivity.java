@@ -100,10 +100,17 @@ View.OnFocusChangeListener{
     }
 
     @Override
-    public void okSignUp() {
-        startActivity(new Intent(SignupActivity.this, MainActivity.class));
+    public void onSuccess() {
+        ProgressDialogManager.hideProgressDialog(progressDialog);
+        MainActivity.start(this);
         finish();
         LoginActivity.loginActivity.finish();
+    }
+
+    @Override
+    public void onFail() {
+        ProgressDialogManager.hideProgressDialog(progressDialog);
+        inputEmail.setError(getString(R.string.enter_correct_email));
     }
 
     @Override

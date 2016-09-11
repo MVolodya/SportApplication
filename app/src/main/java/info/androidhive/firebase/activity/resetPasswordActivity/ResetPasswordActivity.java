@@ -73,8 +73,14 @@ View.OnFocusChangeListener{
     }
 
     @Override
-    public void resetOk() {
+    public void onSuccess() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
+    }
+
+    @Override
+    public void onFail() {
+        ProgressDialogManager.hideProgressDialog(progressDialog);
+        inputEmail.setError(getString(R.string.enter_correct_email));
     }
 
     @Override

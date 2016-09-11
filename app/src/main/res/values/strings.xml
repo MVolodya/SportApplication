@@ -146,6 +146,8 @@
     <string name="select_language">Select language</string>
     <string name="english">English</string>
     <string name="ukrainian">Ukrainian</string>
+    <string name="enter_correct_email">Enter correct email</string>
+    <string name="cheking_your_rates">Cheking your rates...</string>
 
 
 </resources>

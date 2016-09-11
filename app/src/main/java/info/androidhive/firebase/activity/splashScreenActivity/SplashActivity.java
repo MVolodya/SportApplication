@@ -24,7 +24,7 @@ public class SplashActivity extends Activity implements SplashScreenView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+
         splashScreenPresenter = new SplashScreenPresenter();
         splashScreenPresenter.setSplashScreenView(this);
 
@@ -34,7 +34,7 @@ public class SplashActivity extends Activity implements SplashScreenView {
         else if(sharedPref.getString("language","en").equalsIgnoreCase("uk")) splashScreenPresenter.
                 setLanguage("uk");
 
-
+        setContentView(R.layout.activity_splash);
         if(FirebaseAuth.getInstance().getCurrentUser() != null){
             splashScreenPresenter.getUserRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         }else{

@@ -25,12 +25,14 @@ public class LeagueTablePresenter {
         call.enqueue(new Callback<LeagueTableResponse>() {
             @Override
             public void onResponse(Response<LeagueTableResponse> response) {
+                if(response.body()!=null)
                 leagueTableView.onSuccess(response.body().getStanding());
+                else leagueTableView.onFail();
             }
 
             @Override
             public void onFailure(Throwable t) {
-
+                leagueTableView.onFail();
             }
         });
     }
