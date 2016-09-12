@@ -14,5 +14,12 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="0dp" />
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/wait_sec"
+        android:id="@+id/textViewLeague"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

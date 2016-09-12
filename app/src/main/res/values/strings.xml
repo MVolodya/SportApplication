@@ -112,7 +112,7 @@
     <string name="rate_restored">Rate is restored!</string>
     <string name="reset_instruction">We have sent you instructions to reset your password!</string>
     <string name="failed_send_instruction">Failed to send reset email!</string>
-    <string name="wait_sec">Wait 30s and refresh</string>
+    <string name="wait_sec">Wait 30sec, and refresh</string>
     <string name="loading">Loading</string>
     <string name="tab_league">League</string>
     <string name="tab_match">Match</string>

@@ -193,6 +193,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
         mAdapter = new MatchAdapter(matches);
 
         if (matches.size() == 0) {
+            msg.setText(getContext().getString(R.string.no_matches_today));
             msg.setVisibility(View.VISIBLE);
         }
 
@@ -206,5 +207,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
+        msg.setText(getContext().getString(R.string.wait_sec));
+        msg.setVisibility(View.VISIBLE);
     }
 }

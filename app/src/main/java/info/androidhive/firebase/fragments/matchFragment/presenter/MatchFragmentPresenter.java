@@ -28,7 +28,9 @@ public class MatchFragmentPresenter {
         call.enqueue(new Callback<MatchResponse>() {
             @Override
             public void onResponse(Response<MatchResponse> response) {
+                if(response.body()!=null)
                 matchFragmentView.onSuccess(response.body());
+                else matchFragmentView.onFail();
             }
 
             @Override

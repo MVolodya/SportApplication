@@ -25,7 +25,9 @@ public class LeagueFragmentPresenter {
         call.enqueue(new Callback<List<LeagueModel>>() {
             @Override
             public void onResponse(Response<List<LeagueModel>> response) {
+                if(response.body()!=null)
                 leagueView.onSuccess(response.body());
+                else leagueView.onFail();
             }
 
             @Override

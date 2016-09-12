@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class LeagueFragment extends Fragment implements LeagueView{
     private List<LeagueModel> leagueList = new ArrayList<>();
     private ProgressDialog progressDialog;
     private RecyclerView recyclerView;
+    private TextView textView;
     private LeagueFragmentPresenter leagueFragmentPresenter;
 
     public LeagueFragment() {
@@ -47,6 +49,7 @@ public class LeagueFragment extends Fragment implements LeagueView{
         leagueFragmentPresenter.setLeagueView(this);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_league);
+        textView = (TextView)view.findViewById(R.id.textViewLeague);
         progressDialog = new ProgressDialog(view.getContext());
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
@@ -84,6 +87,8 @@ public class LeagueFragment extends Fragment implements LeagueView{
     @Override
     public void onSuccess(List<LeagueModel> leagueList) {
         this.leagueList = leagueList;
+        textView.setVisibility(View.GONE);
+
         ProgressDialogManager.hideProgressDialog(progressDialog);
         LeagueAdapter mAdapter = new LeagueAdapter(leagueList);
         recyclerView.setAdapter(mAdapter);
@@ -91,6 +96,7 @@ public class LeagueFragment extends Fragment implements LeagueView{
 
     @Override
     public void onFail() {
+        textView.setVisibility(View.VISIBLE);
         ProgressDialogManager.hideProgressDialog(progressDialog);
     }
 }
