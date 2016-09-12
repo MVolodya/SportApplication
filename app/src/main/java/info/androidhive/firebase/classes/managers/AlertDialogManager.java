@@ -2,7 +2,6 @@ package info.androidhive.firebase.classes.managers;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import info.androidhive.firebase.R;

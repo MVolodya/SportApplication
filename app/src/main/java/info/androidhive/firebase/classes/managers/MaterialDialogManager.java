@@ -16,6 +16,10 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 import info.androidhive.firebase.R;
 
 
@@ -36,6 +40,9 @@ public class MaterialDialogManager {
         alert.setView(promptView);
         alert.setPositiveButton(R.string.set_rate, null);
         alert.setNegativeButton(R.string.cancel, null);
+
+        final DecimalFormat format = new DecimalFormat("#0.0", new DecimalFormatSymbols(Locale.US));
+        format.setDecimalSeparatorAlwaysShown(false);
 
         final EditText input = (EditText) promptView
                 .findViewById(R.id.etCategory);
@@ -61,6 +68,7 @@ public class MaterialDialogManager {
                 if (!input.getText().toString().isEmpty()) {
                     double currentSum = (coff * Integer.parseInt(input.getText().toString()));
                     sum.setText(String.format("%.1f", currentSum));
+                    sum.setText(String.valueOf(format.format(currentSum)));
                 } else {
                     sum.setText("0");
                 }
