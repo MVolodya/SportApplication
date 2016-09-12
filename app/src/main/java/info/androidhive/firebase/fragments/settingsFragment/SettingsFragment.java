@@ -31,6 +31,7 @@ import com.google.firebase.auth.UserInfo;
 import java.io.IOException;
 
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.activity.mainActivity.MainActivity;
 import info.androidhive.firebase.activity.navigationDrawerActivity.NavigationDrawerActivity;
 import info.androidhive.firebase.activity.splashScreenActivity.SplashActivity;
 import info.androidhive.firebase.classes.managers.AlertDialogManager;
@@ -67,6 +68,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_settings, container, false);
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.toolbarSettings);
+        ((MainActivity)getContext()).setSupportActionBar(toolbar);
+        ((MainActivity)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((MainActivity)getContext()).getSupportActionBar().setHomeButtonEnabled(true);
         toolbar.showOverflowMenu();
 
         settingsPresenter = new SettingsPresenter();
@@ -243,7 +247,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
                             @Override
                             public void onClick(View view) {
-                                settingsPresenter.changeLanguage(DataHelper.getInstance().getLanguage(),
+                                settingsPresenter.changeLanguage(DataHelper.    getInstance().getLanguage(),
                                         getContext());
                                 alertDialogLan.hide();
                             }

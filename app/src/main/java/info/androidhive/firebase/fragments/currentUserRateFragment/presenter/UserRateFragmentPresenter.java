@@ -37,7 +37,7 @@ public class UserRateFragmentPresenter implements CallbackRate {
                                                         final List<RatedMatchesToDB> ratedMatchesList = ratedUser.getRatedMatches();
                                                         final List<Rate> rateList = new ArrayList<>();
                                                         userRateView.setRatedMathList(ratedMatchesList);
-                                                        if (ratedMatchesList != null) {
+                                                        if (ratedMatchesList != null && ratedMatchesList.size()>0) {
                                                             for (int i = 0; i < ratedMatchesList.size(); i++) {
                                                                matchRequestManager.getRate(
                                                                        Integer.parseInt(ratedMatchesList.get(i).getMatchId()),
@@ -46,7 +46,7 @@ public class UserRateFragmentPresenter implements CallbackRate {
                                                                        UserRateFragmentPresenter.this
                                                                );
                                                             }
-                                                        }
+                                                        }else userRateView.onRateListSize();
                                                     }
 
                                                     @Override

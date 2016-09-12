@@ -56,6 +56,12 @@ public class SplashActivity extends Activity implements SplashScreenView {
     }
 
     @Override
+    public void onFail() {
+        LoginActivity.start(this);
+        finish();
+    }
+
+    @Override
     public void setUserRateList(List<RatedMatchesToDB> userRateList) {
         splashScreenPresenter.checkRate(userRateList);
     }

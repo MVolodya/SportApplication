@@ -92,7 +92,6 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView {
             public void onLongClick(int position) {
             }
         }));
-
         userRateFragmentPresenter.getUserRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         return view;
     }
@@ -123,5 +122,11 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView {
     @Override
     public void onFail() {
         Toast.makeText(getContext(), R.string.wait_sec, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRateListSize() {
+        progressView.stopAnimation();
+        progressView.setVisibility(View.GONE);
     }
 }

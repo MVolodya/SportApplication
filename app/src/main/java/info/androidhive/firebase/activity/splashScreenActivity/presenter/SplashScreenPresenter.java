@@ -47,5 +47,5 @@ public class SplashScreenPresenter implements CheckRateCallback {
     }
 
     @Override
-    public void onFail() {}
+    public void onFail() {splashScreenView.onFail();}
 }

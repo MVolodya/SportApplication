@@ -9,4 +9,5 @@ public interface UserRateView {
     void setRatedMathList(List<RatedMatchesToDB> ratedMatchesList);
     void addItemToList(Rate rate);
     void onFail();
+    void onRateListSize();
 }

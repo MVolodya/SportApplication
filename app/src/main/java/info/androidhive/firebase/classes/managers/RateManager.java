@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.firebase.activity.splashScreenActivity.callback.CheckRateCallback;
@@ -48,7 +49,9 @@ public class RateManager {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
-                                List<RatedMatchesToDB> matchesToDBs = ratedUser.getRatedMatches();
+                                List<RatedMatchesToDB> matchesToDBs;
+                                if(ratedUser.getRatedMatches()!=null) matchesToDBs = ratedUser.getRatedMatches();
+                                else matchesToDBs = new ArrayList<>();
                                 matchesToDBs.add(DataHelper.getInstance().getDeletedPosition(),
                                         deletedRate);
                                 ratedUser.setRatedMatches(matchesToDBs);
@@ -112,7 +115,7 @@ public class RateManager {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 final RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
-                if (rateList != null) {
+                if (rateList != null && rateList.size()>0) {
                     for (int i = 0; i < rateList.size(); i++) {
                         if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_FIRST)) {
                            checkWithApi(rateList, ratedUser, i, name, WIN_FIRST);
@@ -127,7 +130,7 @@ public class RateManager {
                         }
                     }
                     checkRateCallback.onSuccess();
-                }
+                } else checkRateCallback.onFail();
             }
 
             @Override
