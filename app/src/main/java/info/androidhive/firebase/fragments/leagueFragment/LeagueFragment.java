@@ -2,8 +2,10 @@ package info.androidhive.firebase.fragments.leagueFragment;
 
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,12 +29,13 @@ import info.androidhive.firebase.R;
 import info.androidhive.firebase.fragments.leagueFragment.presenter.LeagueFragmentPresenter;
 import info.androidhive.firebase.fragments.leagueFragment.view.LeagueView;
 
-public class LeagueFragment extends Fragment implements LeagueView{
+public class LeagueFragment extends Fragment implements LeagueView, SwipeRefreshLayout.OnRefreshListener {
 
     private List<LeagueModel> leagueList = new ArrayList<>();
     private ProgressDialog progressDialog;
     private RecyclerView recyclerView;
-    private TextView textView;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView textViewMsg;
     private LeagueFragmentPresenter leagueFragmentPresenter;
 
     public LeagueFragment() {
@@ -49,8 +52,14 @@ public class LeagueFragment extends Fragment implements LeagueView{
         leagueFragmentPresenter.setLeagueView(this);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_league);
-        textView = (TextView)view.findViewById(R.id.textViewLeague);
+        textViewMsg = (TextView)view.findViewById(R.id.textViewLimitMsg);
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.refreshLeagueFragment);
         progressDialog = new ProgressDialog(view.getContext());
+
+        textViewMsg.setVisibility(View.GONE);
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#1976d2"),Color.parseColor("#628f3e"));
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -87,8 +96,8 @@ public class LeagueFragment extends Fragment implements LeagueView{
     @Override
     public void onSuccess(List<LeagueModel> leagueList) {
         this.leagueList = leagueList;
-        textView.setVisibility(View.GONE);
-
+        textViewMsg.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
         ProgressDialogManager.hideProgressDialog(progressDialog);
         LeagueAdapter mAdapter = new LeagueAdapter(leagueList);
         recyclerView.setAdapter(mAdapter);
@@ -96,7 +105,14 @@ public class LeagueFragment extends Fragment implements LeagueView{
 
     @Override
     public void onFail() {
-        textView.setVisibility(View.VISIBLE);
+        textViewMsg.setVisibility(View.VISIBLE);
         ProgressDialogManager.hideProgressDialog(progressDialog);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(true);
+        leagueFragmentPresenter.sendRequest();
     }
 }

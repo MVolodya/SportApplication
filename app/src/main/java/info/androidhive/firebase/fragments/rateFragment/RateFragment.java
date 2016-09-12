@@ -3,12 +3,14 @@ package info.androidhive.firebase.fragments.rateFragment;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +48,7 @@ import info.androidhive.firebase.fragments.rateFragment.presenter.RatePresenter;
 import info.androidhive.firebase.fragments.rateFragment.view.RateView;
 
 
-public class RateFragment extends Fragment implements View.OnClickListener, RateView {
+public class RateFragment extends Fragment implements View.OnClickListener, RateView, SwipeRefreshLayout.OnRefreshListener {
 
     private View view;
     private TextView homeTeam;
@@ -58,6 +60,7 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
     private TextView date;
     private TextView time;
     private TextView result;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private ImageView imageHomeTeam;
     private ImageView imageAwayTeam;
     private CustomViewPager customViewPagerRate;
@@ -97,12 +100,16 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
         draw = (TextView) view.findViewById(R.id.textViewDraw);
         lose = (TextView) view.findViewById(R.id.textViewLose);
         result = (TextView) view.findViewById(R.id.textView2);
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.refreshRateFragment);
         customViewPagerRate = (CustomViewPager) view.findViewById(R.id.viewpager_rate);
         tabLayout = (TabLayout) view.findViewById(R.id.tabs_match_rate);
 
         wins.setOnClickListener(this);
         draw.setOnClickListener(this);
         lose.setOnClickListener(this);
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#1976d2"),Color.parseColor("#628f3e"));
 
         imageHomeTeam = (ImageView) view.findViewById(R.id.imageHomeTeam);
         imageAwayTeam = (ImageView) view.findViewById(R.id.imageAwayTeam);
@@ -229,6 +236,7 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
         ProgressDialogManager.hideProgressDialog(progressDialog);
         this.rateMatchResponse = rateMatchResponse;
         setView();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -250,11 +258,13 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
         } else {
             imageAwayTeam.setImageDrawable(getResources().getDrawable(R.drawable.pockemon));
         }
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onFailHomeImageUrl() {
-        Toast.makeText(getContext(), "Wait 30s, and refresh...", Toast.LENGTH_SHORT).show();
+        swipeRefreshLayout.setRefreshing(false);
+        Toast.makeText(getContext(), R.string.wait_sec, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -274,15 +284,24 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
         } else {
             imageAwayTeam.setImageDrawable(getResources().getDrawable(R.drawable.pockemon));
         }
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onFailAwayImageUrl() {
-        Toast.makeText(getContext(), "Wait 30s, and refresh...", Toast.LENGTH_SHORT).show();
+        swipeRefreshLayout.setRefreshing(false);
+        Toast.makeText(getContext(),R.string.wait_sec, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
+    }
+
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(true);
+        ProgressDialogManager.showProgressDialog(progressDialog, getContext().getString(R.string.loading));
+        ratePresenter.showRateMatch();
     }
 }

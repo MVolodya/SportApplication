@@ -1,173 +1,180 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/containerRate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:clickable="false"
-    android:id="@+id/containerRate">
+    android:clickable="false">
 
-    <RelativeLayout
-        android:id="@+id/relLy"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshRateFragment"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/football_stadium">
+        android:layout_height="200dp">
 
         <RelativeLayout
+            android:id="@+id/relLy"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_height="200dp"
+            android:background="@drawable/football_stadium">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageViewBackArrow"
-                android:src="@drawable/ic_arrow_back_white_24dp"
-                android:paddingTop="16dp"
-                android:paddingLeft="16dp" />
-
-            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/imageHomeTeam"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginLeft="40dp"
-                android:scaleType="fitCenter"
-                android:layout_marginStart="40dp"
-                android:layout_alignTop="@+id/textView2"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <ImageView
-                android:id="@+id/imageAwayTeam"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginRight="35dp"
-                android:layout_marginEnd="35dp"
-                android:layout_below="@+id/tv_round"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <TextView
-                android:id="@+id/tv_round"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal"
-                android:textColor="#fff"
-                android:textSize="16sp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:id="@+id/textViewTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/imageHomeTeam"
-                android:gravity="center_horizontal"
-                android:textColor="#fff"
-                android:textSize="16sp" />
+                android:layout_alignParentTop="true">
 
-            <TextView
-                android:id="@+id/textViewDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textColor="#fff"
-                android:textSize="16sp"
-                android:layout_below="@+id/textViewTime"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                <ImageView
+                    android:id="@+id/imageViewBackArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="16dp"
+                    android:src="@drawable/ic_arrow_back_white_24dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/imageHomeTeam"
-                android:layout_below="@+id/imageAwayTeam"
-                android:layout_marginLeft="40dp"
-                android:gravity="center"
-                android:id="@+id/textViewTeamHome"
-                android:textColor="#fff"
-                android:textSize="14sp"
-                android:ellipsize="end"
-                android:maxLength="20" />
+                <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/imageHomeTeam"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/textView2"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginStart="40dp"
+                    android:scaleType="fitCenter" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/imageAwayTeam"
-                android:layout_below="@+id/imageAwayTeam"
-                android:layout_marginRight="40dp"
-                android:gravity="center"
-                android:id="@+id/textViewTeamAway"
-                android:textColor="#fff"
-                android:textSize="14sp"
-                android:maxLength="20"
-                android:ellipsize="end" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="16dp"
-                android:gravity="center">
-
+                <ImageView
+                    android:id="@+id/imageAwayTeam"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/tv_round"
+                    android:layout_marginEnd="35dp"
+                    android:layout_marginRight="35dp" />
 
                 <TextView
+                    android:id="@+id/tv_round"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:textColor="#fff"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textViewTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/imageHomeTeam"
+                    android:gravity="center_horizontal"
+                    android:textColor="#fff"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textViewTime"
+                    android:gravity="center_horizontal"
+                    android:textColor="#fff"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textViewTeamHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/imageHomeTeam"
+                    android:layout_below="@+id/imageAwayTeam"
+                    android:layout_marginLeft="40dp"
+                    android:ellipsize="end"
                     android:gravity="center"
-                    android:layout_weight="1"
-                    android:id="@+id/textViewWin"
+                    android:maxLength="20"
                     android:textColor="#fff"
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/textViewTeamAway"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/imageAwayTeam"
+                    android:layout_below="@+id/imageAwayTeam"
+                    android:layout_marginRight="40dp"
+                    android:ellipsize="end"
                     android:gravity="center"
-                    android:id="@+id/textViewDraw"
+                    android:maxLength="20"
                     android:textColor="#fff"
-                    android:layout_weight="1"
                     android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/textViewWin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="#fff"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textViewDraw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="#fff"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textViewLose"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="#fff"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
                 <TextView
+                    android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:id="@+id/textViewLose"
-                    android:layout_weight="1"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/tv_round"
+                    android:gravity="center_horizontal"
+                    android:text=" - "
                     android:textColor="#fff"
-                    android:textSize="14sp" />
-            </LinearLayout>
+                    android:textSize="45sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text=" - "
-                android:textColor="#fff"
-                android:textSize="45sp"
-                android:layout_below="@+id/tv_round"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/textView2" />
+            </RelativeLayout>
 
         </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/con"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relLy">
+        android:layout_below="@+id/refreshRateFragment">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs_match_rate"
@@ -180,10 +187,11 @@
 
         <info.androidhive.firebase.classes.utils.CustomViewPager
             android:id="@+id/viewpager_rate"
-            android:layout_below="@+id/tabs_match_rate"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tabs_match_rate" />
 
     </RelativeLayout>
+
 
 </RelativeLayout>

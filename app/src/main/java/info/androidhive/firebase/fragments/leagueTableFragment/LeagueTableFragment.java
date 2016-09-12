@@ -1,14 +1,17 @@
 package info.androidhive.firebase.fragments.leagueTableFragment;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +36,7 @@ import retrofit.Callback;
 import retrofit.Response;
 
 public class LeagueTableFragment extends Fragment implements View.OnClickListener,
-        LeagueTableView {
+        LeagueTableView, SwipeRefreshLayout.OnRefreshListener {
 
     private View view;
     private RecyclerView recyclerView;
@@ -64,9 +67,15 @@ public class LeagueTableFragment extends Fragment implements View.OnClickListene
         toolbar.setNavigationOnClickListener(this);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.scrollableview);
+       // swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshLeagueTable);
         progressDialog = new ProgressDialog(view.getContext());
         mLayoutManager = new LinearLayoutManager(view.getContext());
+
+//        swipeRefreshLayout.setOnRefreshListener(this);
+//        swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#1976d2"),Color.parseColor("#628f3e"));
+
         recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(DataHelper.getInstance().getLeagueName());
@@ -75,7 +84,6 @@ public class LeagueTableFragment extends Fragment implements View.OnClickListene
 
         leagueTablePresenter.showLeagueTeam();
 
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
         return view;
     }
 
@@ -100,6 +108,7 @@ public class LeagueTableFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onSuccess(List<Standing> tables) {
+       // swipeRefreshLayout.setRefreshing(false);
         ProgressDialogManager.hideProgressDialog(progressDialog);
         LeagueTableAdapter mAdapter = new LeagueTableAdapter(tables);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -109,6 +118,14 @@ public class LeagueTableFragment extends Fragment implements View.OnClickListene
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
+       // swipeRefreshLayout.setRefreshing(false);
         Toast.makeText(getContext(), getString(R.string.wait_sec), Toast.LENGTH_SHORT).show();          
+    }
+
+    @Override
+    public void onRefresh() {
+       // swipeRefreshLayout.setRefreshing(true);
+        Log.d("ddd","sss");
+        leagueTablePresenter.showLeagueTeam();
     }
 }
