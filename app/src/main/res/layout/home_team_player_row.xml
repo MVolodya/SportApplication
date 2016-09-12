@@ -12,6 +12,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
+        android:tint="@color/status_bar"
         android:src="@drawable/ic_account_circle_black_36dp" />
 
     <TextView

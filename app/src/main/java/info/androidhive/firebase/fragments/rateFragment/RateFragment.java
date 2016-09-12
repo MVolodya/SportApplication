@@ -239,10 +239,12 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         // SVG cannot be serialized so it's not worth to cache it
                         .load(Uri.parse(url))
+                        .override(50, 50)
                         .into(imageHomeTeam);
             } else {
                 Glide.with(view.getContext())
                         .load(url)
+                        .override(50, 50)
                         .into(imageHomeTeam);
             }
         } else {
