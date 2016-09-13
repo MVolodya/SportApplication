@@ -126,4 +126,6 @@
     <string name="cheking_your_rates">Оновлення даних...</string>
     <string name="about_app">Про програму</string>
     <string name="status_rate"></string>
+    <string name="rate">Тип:</string>
+    <string name="you_can_win">Сума виграшу:</string>
 </resources>

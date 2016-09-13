@@ -67,7 +67,6 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
         holder.awayTeam.setText(ratesList.get(position).getAwayTeamName());
         holder.type.setText(ratesList.get(position).getType());
         holder.points.setText(ratesList.get(position).getPoints());
-        holder.checkStatus.setText(ratesList.get(position).getStatus());
     }
 
     private void setViewColor(int color, ViewHolderUsersRates holder){
@@ -75,7 +74,6 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
         holder.homeTeam.setTextColor(color);
         holder.type.setTextColor(color);
         holder.points.setTextColor(color);
-        holder.checkStatus.setTextColor(color);
     }
 
     @Override
@@ -90,7 +88,6 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
         public final TextView awayTeam;
         public final TextView type;
         public final TextView points;
-        public final TextView checkStatus;
 
         public ViewHolderUsersRates(View v) {
             super(v);
@@ -98,7 +95,6 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
             awayTeam = (TextView)v.findViewById(R.id.rated_away_team);
             type = (TextView)v.findViewById(R.id.ratedType);
             points = (TextView)v.findViewById(R.id.ratedPoints);
-            checkStatus = (TextView)v.findViewById(R.id.textViewStatusRate);
         }
     }
 }

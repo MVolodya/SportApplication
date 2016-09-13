@@ -128,4 +128,6 @@
     <string name="enter_correct_email">Enter correct email</string>
     <string name="cheking_your_rates">Checking your bets...</string>
     <string name="about_app">About app</string>
+    <string name="rate">Rate:</string>
+    <string name="you_can_win">You can win:</string>
 </resources>
