@@ -106,11 +106,13 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
                             requestBuilder
                                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                     // SVG cannot be serialized so it's not worth to cache it
+                                    .override(50, 50)
                                     .load(Uri.parse(teamResponse.getCrestUrl()))
                                     .into(holder.circleImageHomeTeam);
                         } else {
                             Glide.with(view.getContext())
                                     .load(linkHomeTeamImage)
+                                    .override(50, 50)
                                     .into(holder.circleImageHomeTeam);
                         }
                     } else {

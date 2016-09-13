@@ -1,9 +1,15 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Table"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refreshUserRate"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.currentUserRateFragment.CurrentUserRateFragment">
+    android:layout_height="wrap_content">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/Table"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.currentUserRateFragment.CurrentUserRateFragment">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_user_rate"
             android:layout_width="match_parent"
@@ -23,4 +29,5 @@
             app:cpv_animAutostart="true"
             app:cpv_color="@color/colorPrimaryDark"
             app:cpv_indeterminate="true" />
-</FrameLayout>
+    </FrameLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

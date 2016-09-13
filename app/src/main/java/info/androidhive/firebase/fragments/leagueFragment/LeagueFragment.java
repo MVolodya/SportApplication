@@ -96,6 +96,7 @@ public class LeagueFragment extends Fragment implements LeagueView, SwipeRefresh
     @Override
     public void onSuccess(List<LeagueModel> leagueList) {
         this.leagueList = leagueList;
+        recyclerView.setVisibility(View.VISIBLE);
         textViewMsg.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
         ProgressDialogManager.hideProgressDialog(progressDialog);
@@ -108,6 +109,7 @@ public class LeagueFragment extends Fragment implements LeagueView, SwipeRefresh
         textViewMsg.setVisibility(View.VISIBLE);
         ProgressDialogManager.hideProgressDialog(progressDialog);
         swipeRefreshLayout.setRefreshing(false);
+        recyclerView.setVisibility(View.GONE);
     }
 
     @Override

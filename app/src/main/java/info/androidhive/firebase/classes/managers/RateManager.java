@@ -156,12 +156,13 @@ public class RateManager {
 
                     if (ratedUser.getRatedMatches().get(i).getStatus()
                             .equalsIgnoreCase("unchecked")) {
-                        ratedUser.getRatedMatches().get(i).setStatus("checked");
+                        ratedUser.getRatedMatches().get(i).setStatus("lose");
 
                         if(type!=null && type.equalsIgnoreCase(userType)) {
                             double currentPoints = Double.parseDouble(ratedUser.getCurrentPoints());
                             double ratePoints = Double.parseDouble(rateList.get(i).getPoints());
                             ratedUser.setCurrentPoints(String.format("%.1f",(currentPoints + ratePoints)));
+                            ratedUser.getRatedMatches().get(i).setStatus("win");
                             mDatabase.child(name).child("currentPoints")
                                     .setValue(ratedUser.getCurrentPoints());
                         }

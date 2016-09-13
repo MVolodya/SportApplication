@@ -1,9 +1,11 @@
 package info.androidhive.firebase.fragments.currentUserRateFragment;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,8 +35,9 @@ import info.androidhive.firebase.fragments.rateFragment.RateFragment;
 import info.androidhive.firebase.fragments.currentUserRateFragment.presenter.UserRateFragmentPresenter;
 import info.androidhive.firebase.fragments.currentUserRateFragment.view.UserRateView;
 
-public class CurrentUserRateFragment extends Fragment implements UserRateView {
+public class CurrentUserRateFragment extends Fragment implements UserRateView, SwipeRefreshLayout.OnRefreshListener {
     private View view;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private CircularProgressView progressView;
     private RateMatchResponse rateMatchResponse;
     private List<RatedMatchesToDB> ratedMatchesList;
@@ -58,6 +61,10 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView {
 
         progressView = (CircularProgressView) view.findViewById(R.id.progress_view_user_rate);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_user_rate);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshUserRate);
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#1976d2"),Color.parseColor("#628f3e"));
 
         swipeManager = new SwipeManager(getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
@@ -117,10 +124,12 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView {
         usersRateAdapter.addRates(rate);
         recyclerView.setAdapter(usersRateAdapter);
         swipeManager.initSwipe(usersRateAdapter, recyclerView, view);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onFail() {
+        swipeRefreshLayout.setRefreshing(false);
         Toast.makeText(getContext(), R.string.wait_sec, Toast.LENGTH_LONG).show();
     }
 
@@ -128,5 +137,13 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView {
     public void onRateListSize() {
         progressView.stopAnimation();
         progressView.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(true);
+        usersRateAdapter.clear();
+        userRateFragmentPresenter.getUserRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
     }
 }
