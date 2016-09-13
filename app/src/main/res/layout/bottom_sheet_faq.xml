@@ -34,7 +34,8 @@
             android:paddingRight="16dp"
             android:text="@string/lorem_ipsum"
             android:textAppearance="@android:style/TextAppearance.Large"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:gravity="top|fill" />
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </FrameLayout>

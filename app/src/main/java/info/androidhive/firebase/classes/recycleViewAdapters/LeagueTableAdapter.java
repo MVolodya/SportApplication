@@ -29,6 +29,7 @@ import info.androidhive.firebase.classes.utils.SvgDrawableTranscoder;
 public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.LeagueTableViewHolder> {
 
     private final List<Standing> standingsList;
+    private View itemView;
 
     public LeagueTableAdapter(List<Standing> standingsList) {
         this.standingsList = standingsList;
@@ -36,7 +37,7 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
 
     @Override
     public LeagueTableViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
+        itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.league_table_row, parent, false);
 
         return new LeagueTableViewHolder(itemView);
@@ -58,21 +59,23 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
                 .animate(android.R.anim.fade_in)
                 .listener(new SvgSoftwareLayerSetter<Uri>());
 
-        if(standingsList.get(position).getCrestURI() != null) {
+        if(!standingsList.get(position).getCrestURI().equalsIgnoreCase("null")) {
             if (standingsList.get(position).getCrestURI().contains("svg")) {
                 requestBuilder
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         // SVG cannot be serialized so it's not worth to cache it
-                        .override(50, 50)
+                        .override(70, 70)
                         .load(Uri.parse(standingsList.get(position).getCrestURI()))
                         .into(holder.logo);
             } else {
                 Glide.with(holder.view.getContext())
                         .load(standingsList.get(position).getCrestURI())
-                        .override(50, 50)
+                        .override(70, 70)
                         .into(holder.logo);
             }
-        }else holder.logo.setImageResource(R.drawable.soccer_football_icon);
+        }   else holder.logo.setImageDrawable(itemView.getResources().getDrawable(
+                R.drawable.soccer_football_icon, null
+        ));
 
         holder.tvTeamName.setText(standingsList.get(position).getTeam());
         holder.tvPosition.setText(Integer.toString(++count));

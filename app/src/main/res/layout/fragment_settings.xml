@@ -289,7 +289,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:fontFamily="@string/roboto_regular"
-                            android:text="@string/settings_faq"
+                            android:text="@string/about_app"
                             android:textColor="@color/dark"
                             android:textSize="@dimen/material_text_subhead" />
                     </RelativeLayout>
