@@ -303,6 +303,7 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
         this.user = user;
     }
 
+
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
