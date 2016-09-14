@@ -4,9 +4,17 @@ import android.net.Uri;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import info.androidhive.firebase.R;
 import info.androidhive.firebase.classes.models.DataHelper;
+import info.androidhive.firebase.classes.models.RatedUser;
+import info.androidhive.firebase.classes.models.User;
 import info.androidhive.firebase.classes.retrofit.ApiFactory;
 import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchResponse;
 import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchService;
@@ -39,6 +47,23 @@ public class RatePresenter {
 
             }
         });
+    }
+
+    public void getUserData(){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        RatedUser user = dataSnapshot.getValue(RatedUser.class);
+                        rateView.setUser(user);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     public void getHomeTeamPhotoUrl(int id){

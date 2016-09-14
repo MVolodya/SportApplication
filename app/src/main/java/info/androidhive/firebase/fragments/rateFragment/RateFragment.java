@@ -30,6 +30,8 @@ import java.io.InputStream;
 
 import info.androidhive.firebase.activity.mainActivity.MainActivity;
 import info.androidhive.firebase.classes.managers.DataGetter;
+import info.androidhive.firebase.classes.models.RatedUser;
+import info.androidhive.firebase.classes.models.User;
 import info.androidhive.firebase.classes.utils.ConvertDate;
 import info.androidhive.firebase.classes.utils.CustomViewPager;
 import info.androidhive.firebase.classes.models.DataHelper;
@@ -66,6 +68,8 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
     private CustomViewPager customViewPagerRate;
     private TabLayout tabLayout;
 
+
+    private RatedUser user;
     private DataHelper dataHelper;
 
     private ProgressDialog progressDialog;
@@ -134,6 +138,7 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
                 .animate(android.R.anim.fade_in)
                 .listener(new SvgSoftwareLayerSetter<Uri>());
 
+        ratePresenter.getUserData();
         ratePresenter.showRateMatch();
 
         return view;
@@ -225,8 +230,8 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
     }
 
     private void showDialog(double coff, String typeOfRate) {
-        AlertDialog alertDialog = materialDialogManager.openDialogBox
-                (coff, dataHelper.getMatchId(), typeOfRate);
+        AlertDialog alertDialog = materialDialogManager.openRateDialogBox
+                (coff, dataHelper.getMatchId(), typeOfRate, user);
         alertDialog.show();
     }
 
@@ -291,6 +296,11 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
     public void onFailAwayImageUrl() {
         swipeRefreshLayout.setRefreshing(false);
         Toast.makeText(getContext(),R.string.wait_sec, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setUser(RatedUser user) {
+        this.user = user;
     }
 
     @Override

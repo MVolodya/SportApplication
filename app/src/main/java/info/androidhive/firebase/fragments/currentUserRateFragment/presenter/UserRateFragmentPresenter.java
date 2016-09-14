@@ -21,12 +21,13 @@ public class UserRateFragmentPresenter implements CallbackRate {
     private UserRateView userRateView;
     private MatchRequestManager matchRequestManager;
     private List<Rate> rates = new ArrayList<>();
+    private int listSize;
 
     public void setUserRateView(UserRateView userRateView) {
         this.userRateView = userRateView;
     }
 
-    public void getUserRates(String username){
+    public void getUserRates(String username) {
         matchRequestManager = new MatchRequestManager();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child(username)
@@ -37,20 +38,23 @@ public class UserRateFragmentPresenter implements CallbackRate {
                                                         final List<RatedMatchesToDB> ratedMatchesList = ratedUser.getRatedMatches();
                                                         final List<Rate> rateList = new ArrayList<>();
                                                         userRateView.setRatedMathList(ratedMatchesList);
-                                                        if (ratedMatchesList != null && ratedMatchesList.size()>0) {
+                                                        listSize = ratedMatchesList.size();
+                                                        if (ratedMatchesList != null && ratedMatchesList.size() > 0) {
                                                             for (int i = 0; i < ratedMatchesList.size(); i++) {
-                                                               matchRequestManager.getRate(
-                                                                       Integer.parseInt(ratedMatchesList.get(i).getMatchId()),
-                                                                       i,
-                                                                       ratedMatchesList,
-                                                                       UserRateFragmentPresenter.this
-                                                               );
+                                                                matchRequestManager.getRate(
+                                                                        Integer.parseInt(ratedMatchesList.get(i).getMatchId()),
+                                                                        i,
+                                                                        ratedMatchesList,
+                                                                        UserRateFragmentPresenter.this
+                                                                );
                                                             }
-                                                        }else userRateView.onRateListSize();
+                                                        } else userRateView.onRateListSize();
                                                     }
 
                                                     @Override
-                                                    public void onCancelled(DatabaseError databaseError) {userRateView.onFail();}
+                                                    public void onCancelled(DatabaseError databaseError) {
+                                                        userRateView.onFail();
+                                                    }
                                                 }
 
                 );
@@ -58,7 +62,10 @@ public class UserRateFragmentPresenter implements CallbackRate {
 
     @Override
     public void addRateToList(Rate rate) {
-        userRateView.addItemToList(rate);
+        rates.add(rate);
+        if (listSize == rates.size()) {
+            userRateView.addList(rates);
+        }
     }
 
     @Override

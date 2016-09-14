@@ -20,17 +20,12 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
 
     private List<Rate> ratesList;
 
-    public UsersRateAdapter() {
-        this.ratesList = new ArrayList<>();
+    public UsersRateAdapter(List<Rate> ratesList) {
+        this.ratesList = ratesList;
     }
 
     public void clear(){
         ratesList.clear();
-    }
-
-    public void addRates(Rate rates) {
-        ratesList.add(rates);
-        notifyDataSetChanged();
     }
 
     public void addDeletedRate(Rate rates){

@@ -130,4 +130,9 @@
     <string name="about_app">About app</string>
     <string name="rate">Rate:</string>
     <string name="you_can_win">You can win:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="how_to_create_bets">How to create bets?</string>
+    <string name="your_points">Your points:</string>
 </resources>

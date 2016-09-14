@@ -21,6 +21,8 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.classes.models.RatedUser;
+import info.androidhive.firebase.classes.models.User;
 
 
 public class MaterialDialogManager {
@@ -31,7 +33,8 @@ public class MaterialDialogManager {
         this.context = context;
     }
 
-    public AlertDialog openDialogBox(final double coff, final int matchId, final String typeOfRate) {
+    public AlertDialog openRateDialogBox(final double coff, final int matchId, final String typeOfRate,
+                                         final RatedUser user) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View promptView = layoutInflater.inflate(R.layout.dialog_rate, null);
@@ -44,6 +47,8 @@ public class MaterialDialogManager {
         final DecimalFormat format = new DecimalFormat("#0.0", new DecimalFormatSymbols(Locale.US));
         format.setDecimalSeparatorAlwaysShown(false);
 
+        final TextView points = (TextView) promptView
+                .findViewById(R.id.textViewUserPoints);
         final EditText input = (EditText) promptView
                 .findViewById(R.id.etCategory);
         final TextView sum = (TextView) promptView
@@ -52,6 +57,7 @@ public class MaterialDialogManager {
                 .findViewById(R.id.textViewType);
 
         type.setText(typeOfRate);
+        points.setText(user.getCurrentPoints());
 
         input.requestFocus();
         input.setHint(R.string.points);

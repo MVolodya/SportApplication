@@ -3,6 +3,7 @@ package info.androidhive.firebase.fragments.currentUserRateFragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -31,6 +32,8 @@ import info.androidhive.firebase.classes.recycleViewAdapters.RecyclerTouchListen
 import info.androidhive.firebase.classes.recycleViewAdapters.UsersRateAdapter;
 import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchResponse;
 import info.androidhive.firebase.R;
+import info.androidhive.firebase.fragments.bottomSheetFragment.BottomSheetFaqFragment;
+import info.androidhive.firebase.fragments.bottomSheetHelp.HelpFragment;
 import info.androidhive.firebase.fragments.rateFragment.RateFragment;
 import info.androidhive.firebase.fragments.currentUserRateFragment.presenter.UserRateFragmentPresenter;
 import info.androidhive.firebase.fragments.currentUserRateFragment.view.UserRateView;
@@ -41,9 +44,10 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView, S
     private CircularProgressView progressView;
     private RateMatchResponse rateMatchResponse;
     private List<RatedMatchesToDB> ratedMatchesList;
-    private UsersRateAdapter usersRateAdapter = new UsersRateAdapter();
+    private UsersRateAdapter usersRateAdapter;
     private SwipeManager swipeManager;
     private RecyclerView recyclerView;
+    private FloatingActionButton floatingActionButton;
     private CurrentUserRateFragment currentUserRateFragment = this;
     private UserRateFragmentPresenter userRateFragmentPresenter;
 
@@ -61,6 +65,7 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView, S
 
         progressView = (CircularProgressView) view.findViewById(R.id.progress_view_user_rate);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_user_rate);
+        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fabHelp);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshUserRate);
 
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -98,6 +103,14 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView, S
             @Override
             public void onLongClick(int position) {}
         }));
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new HelpFragment().show(getFragmentManager(),
+                        null);
+            }
+        });
         userRateFragmentPresenter.getUserRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         return view;
     }
@@ -117,10 +130,10 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView, S
     }
 
     @Override
-    public void addItemToList(Rate rate) {
+    public void addList(List<Rate> rates) {
+        usersRateAdapter = new UsersRateAdapter(rates);
         progressView.stopAnimation();
         progressView.setVisibility(View.GONE);
-        usersRateAdapter.addRates(rate);
         recyclerView.setAdapter(usersRateAdapter);
         swipeManager.initSwipe(usersRateAdapter, recyclerView, view);
         swipeRefreshLayout.setRefreshing(false);
