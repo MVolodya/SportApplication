@@ -130,9 +130,11 @@
     <string name="about_app">About app</string>
     <string name="rate">Rate:</string>
     <string name="you_can_win">You can win:</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="how_to_create_bets">How to create bets?</string>
     <string name="your_points">Your points:</string>
+    <string name="help_text">The rate can be made on the main window in the tab "Matches", you
+        select the required match. Clicking on the rate will appear to create ponds. After
+        successfully implementing the above actions, your rates will be displayed in the "My bets"
+        (green - a winning bid, red - losing rate; gray - rate has not tested).</string>
 </resources>

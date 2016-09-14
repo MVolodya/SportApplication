@@ -44,8 +44,9 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
         if(ratedUser.getName().equalsIgnoreCase(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())){
             holder.position.setTextColor(Color.parseColor("#ff6861"));
             holder.name.setTextColor(Color.parseColor("#ff6861"));
-            holder.points.setTextColor(Color.parseColor("#ff6861"));
-            holder.tvHint.setTextColor(Color.parseColor("#ff6861"));
+        }else {
+            holder.position.setTextColor(Color.parseColor("#999999"));
+            holder.name.setTextColor(Color.parseColor("#000000"));
         }
 
         String positionUser = String.valueOf(position+1);

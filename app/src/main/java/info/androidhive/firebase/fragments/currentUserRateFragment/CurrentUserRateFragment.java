@@ -38,13 +38,13 @@ import info.androidhive.firebase.fragments.rateFragment.RateFragment;
 import info.androidhive.firebase.fragments.currentUserRateFragment.presenter.UserRateFragmentPresenter;
 import info.androidhive.firebase.fragments.currentUserRateFragment.view.UserRateView;
 
-public class CurrentUserRateFragment extends Fragment implements UserRateView, SwipeRefreshLayout.OnRefreshListener {
+public class    CurrentUserRateFragment extends Fragment implements UserRateView, SwipeRefreshLayout.OnRefreshListener {
     private View view;
     private SwipeRefreshLayout swipeRefreshLayout;
     private CircularProgressView progressView;
     private RateMatchResponse rateMatchResponse;
     private List<RatedMatchesToDB> ratedMatchesList;
-    private UsersRateAdapter usersRateAdapter;
+    private UsersRateAdapter usersRateAdapter = new UsersRateAdapter();
     private SwipeManager swipeManager;
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
@@ -131,9 +131,9 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView, S
 
     @Override
     public void addList(List<Rate> rates) {
-        usersRateAdapter = new UsersRateAdapter(rates);
         progressView.stopAnimation();
         progressView.setVisibility(View.GONE);
+        usersRateAdapter.setList(rates);
         recyclerView.setAdapter(usersRateAdapter);
         swipeManager.initSwipe(usersRateAdapter, recyclerView, view);
         swipeRefreshLayout.setRefreshing(false);
