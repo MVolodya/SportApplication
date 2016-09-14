@@ -96,8 +96,7 @@ public class CurrentUserRateFragment extends Fragment implements UserRateView, S
             }
 
             @Override
-            public void onLongClick(int position) {
-            }
+            public void onLongClick(int position) {}
         }));
         userRateFragmentPresenter.getUserRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         return view;

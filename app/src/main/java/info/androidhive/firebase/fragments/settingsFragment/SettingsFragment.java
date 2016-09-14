@@ -268,7 +268,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
             try {
                 ProgressDialogManager.showProgressDialog(mProgressDialog, getContext().getString(R.string.wait_loading_photo));
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-                settingsPresenter.updatePhoto(bitmap, firebaseUser.getUid());
+                Bitmap bMapScaled = Bitmap.createScaledBitmap(bitmap, 900, 800, true);
+                settingsPresenter.updatePhoto(bMapScaled, firebaseUser.getUid());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -277,7 +278,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
         if (requestCode == CAMERA_REQUEST && resultCode == getActivity().RESULT_OK) {
             ProgressDialogManager.showProgressDialog(mProgressDialog, getContext().getString(R.string.wait_loading_photo));
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            settingsPresenter.updatePhoto(photo, firebaseUser.getUid());
+            Bitmap bMapScaled = Bitmap.createScaledBitmap(photo, 900, 800, true);
+            settingsPresenter.updatePhoto(bMapScaled, firebaseUser.getUid());
         }
     }
 

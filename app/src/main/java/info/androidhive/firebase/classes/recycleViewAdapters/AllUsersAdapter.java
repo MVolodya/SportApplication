@@ -54,6 +54,7 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
         holder.points.setText(ratedUser.getCurrentPoints());
         Glide.with(view.getContext())
                 .load(ratedUser.getPhotoUrl())
+                .override(100, 100)
                 .into(holder.userPhoto);
     }
 

@@ -55,7 +55,6 @@ public class AlertDialogManager {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 settingsFragment.startActivityForResult(Intent.createChooser(intent, context.getString(R.string.select_picture)), SettingsFragment.PICK_IMAGE_REQUEST);
-                alertDialogFAB.dismiss();
                 alertDialogFAB.hide();
             }
         });
@@ -65,7 +64,6 @@ public class AlertDialogManager {
             public void onClick(View view) {
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 settingsFragment.startActivityForResult(cameraIntent, SettingsFragment.CAMERA_REQUEST);
-                alertDialogFAB.dismiss();
                 alertDialogFAB.hide();
             }
         });

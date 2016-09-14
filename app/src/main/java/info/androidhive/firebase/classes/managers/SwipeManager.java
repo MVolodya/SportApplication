@@ -7,9 +7,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,7 +34,7 @@ public class SwipeManager {
 
     public void initSwipe(final UsersRateAdapter usersRateAdapter, RecyclerView recyclerView,
                           final View view) {
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -42,20 +44,21 @@ public class SwipeManager {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
+                final CoordinatorLayout coordinatorLayout = (CoordinatorLayout)view.findViewById(R.id.fabLayout);
                 rateManager.deleteRate(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                         position);
                 usersRateAdapter.remove(position);
                 //  removeView(view);
 
                 Snackbar snackbar = Snackbar
-                        .make(view, R.string.rate_deleted, Snackbar.LENGTH_LONG)
+                        .make(coordinatorLayout, R.string.rate_deleted, Snackbar.LENGTH_LONG)
                         .setAction(R.string.undo, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 rateManager.setDeletedRate(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                                         DataHelper.getInstance().getRatedMatchesToDB());
                                 usersRateAdapter.addDeletedRate(DataHelper.getInstance().getRate());
-                                Snackbar snackbar1 = Snackbar.make(view, R.string.rate_restored, Snackbar.LENGTH_SHORT);
+                                Snackbar snackbar1 = Snackbar.make(coordinatorLayout, R.string.rate_restored, Snackbar.LENGTH_SHORT);
                                 snackbar1.show();
                             }
                         });
