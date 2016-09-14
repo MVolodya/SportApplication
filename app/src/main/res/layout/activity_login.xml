@@ -8,27 +8,26 @@
     android:focusableInTouchMode="true"
     tools:context=".activity.loginActivity.LoginActivity">
 
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/colorPrimary"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/margin_16dp"
         android:weightSum="1">
-
 
         <ImageView
             android:layout_width="141dp"
             android:layout_height="@dimen/logo_w_h"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
-            android:src="@drawable/soccer_football_icon" />
+            android:src="@drawable/icon_final" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:theme="@style/TextLabel">
 
             <EditText
                 android:id="@+id/email"
@@ -37,13 +36,13 @@
                 android:layout_marginBottom="10dp"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColor="@color/colorPrimaryDark" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:theme="@style/TextLabel">
 
             <EditText
                 android:id="@+id/password"
@@ -52,8 +51,7 @@
                 android:layout_marginBottom="10dp"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColor="@color/colorPrimaryDark" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Login Button -->
@@ -64,45 +62,30 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:text="@string/btn_login"
+            android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:theme="@style/MaterialButton" />
-
-        <Button
-            android:id="@+id/btn_reset_password"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@null"
-            android:text="@string/btn_forgot_password"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-        <!-- Link to Login Screen -->
-
-        <Button
-            android:id="@+id/btn_signup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@null"
-            android:text="@string/btn_link_to_register"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
 
         <LinearLayout
             android:id="@+id/parentLinear"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/colorPrimary"
+    android:text="OR"
+    android:layout_gravity="center_horizontal" />
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="30dp"
+
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="@string/fbloginText" />
@@ -117,6 +100,36 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
             android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/btn_reset_password"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dip"
+                    android:text="@string/btn_forgot_password"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:theme="@style/MaterialButton" />
+
+                <!-- Link to Login Screen -->
+
+                <Button
+                    android:id="@+id/btn_signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_link_to_register"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:theme="@style/MaterialButton"
+                    android:layout_alignTop="@+id/btn_reset_password"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/btn_reset_password"
+                    android:layout_toEndOf="@+id/btn_reset_password" />
+        </RelativeLayout>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
