@@ -40,6 +40,24 @@ public class RateManager {
         this.context = context;
     }
 
+    public void addPoints(final String username) {
+        mDatabase.child(username)
+                .addListenerForSingleValueEvent(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
+                                mDatabase.child(username).child("currentPoints")
+                                        .setValue(String.valueOf(
+                                                Double.parseDouble(ratedUser.getCurrentPoints())+10));
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {}
+                        }
+                );
+    }
+
     public void setRate(String name, String matchId, String pointsRate, String points, String typeOfRate) {
         RemoteDatabaseManager remoteDatabaseManager = new RemoteDatabaseManager(context);
         remoteDatabaseManager.setRateToDatabase(name, matchId, pointsRate, points, typeOfRate);
@@ -53,7 +71,8 @@ public class RateManager {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
                                 List<RatedMatchesToDB> matchesToDBs;
-                                if(ratedUser.getRatedMatches()!=null) matchesToDBs = ratedUser.getRatedMatches();
+                                if (ratedUser.getRatedMatches() != null)
+                                    matchesToDBs = ratedUser.getRatedMatches();
                                 else matchesToDBs = new ArrayList<>();
                                 matchesToDBs.add(deletedRate);
                                 ratedUser.setRatedMatches(matchesToDBs);
@@ -78,20 +97,23 @@ public class RateManager {
                         RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
                         List<RatedMatchesToDB> ratedMatchesToDBs = ratedUser.getRatedMatches();
 
-                        for(int i = 0; i<ratedMatchesToDBs.size();i++){
-                            if(ratedMatchesToDBs.get(i).getMatchId().equals(rate.getId())){
-                                initDeletedRate.initRate(ratedMatchesToDBs.get(i));
-                                ratedMatchesToDBs.remove(i);
-                                ratedUser.setRatedMatches(ratedMatchesToDBs);
-                                mDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())
-                                        .setValue(ratedUser);
-                                break;
+                        if (ratedMatchesToDBs != null) {
+                            for (RatedMatchesToDB ratedMatchesToDB : ratedMatchesToDBs) {
+                                if (ratedMatchesToDB.getMatchId().equals(rate.getId())) {
+                                    initDeletedRate.initRate(ratedMatchesToDB);
+                                    ratedMatchesToDBs.remove(ratedMatchesToDBs.indexOf(ratedMatchesToDB));
+                                    ratedUser.setRatedMatches(ratedMatchesToDBs);
+                                    mDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())
+                                            .setValue(ratedUser);
+                                    break;
+                                }
                             }
                         }
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {}
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
                 });
     }
 
@@ -106,7 +128,8 @@ public class RateManager {
                                                     }
 
                                                     @Override
-                                                    public void onCancelled(DatabaseError databaseError) {}
+                                                    public void onCancelled(DatabaseError databaseError) {
+                                                    }
                                                 }
 
                 );
@@ -121,10 +144,10 @@ public class RateManager {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 final RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
-                if (rateList != null && rateList.size()>0) {
+                if (rateList != null && rateList.size() > 0) {
                     for (int i = 0; i < rateList.size(); i++) {
                         if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_FIRST)) {
-                           checkWithApi(rateList, ratedUser, i, name, WIN_FIRST);
+                            checkWithApi(rateList, ratedUser, i, name, WIN_FIRST);
                         }
 
                         if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(DRAW)) {
@@ -140,12 +163,13 @@ public class RateManager {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(DatabaseError databaseError) {
+            }
         });
     }
 
     private void checkWithApi(final List<RatedMatchesToDB> rateList, final RatedUser ratedUser,
-                             final int i, final String name, final String userType){
+                              final int i, final String name, final String userType) {
         RateMatchService service = ApiFactory.getRateMatchService();
         Call<RateMatchResponse> call = service.match(Integer.parseInt(rateList.get(i).getMatchId()));
         call.enqueue(new Callback<RateMatchResponse>() {
@@ -156,31 +180,32 @@ public class RateManager {
                     final int homeTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsHomeTeam();
                     final int awayTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsAwayTeam();
                     String type = null;
-                    if(homeTeamGoal>awayTeamGoal) type = WIN_FIRST;
-                    if(homeTeamGoal==awayTeamGoal) type = DRAW;
-                    if(homeTeamGoal<awayTeamGoal) type = WIN_SECOND;
+                    if (homeTeamGoal > awayTeamGoal) type = WIN_FIRST;
+                    if (homeTeamGoal == awayTeamGoal) type = DRAW;
+                    if (homeTeamGoal < awayTeamGoal) type = WIN_SECOND;
 
                     if (ratedUser.getRatedMatches().get(i).getStatus()
                             .equalsIgnoreCase("unchecked")) {
                         ratedUser.getRatedMatches().get(i).setStatus("lose");
 
-                        if(type!=null && type.equalsIgnoreCase(userType)) {
+                        if (type != null && type.equalsIgnoreCase(userType)) {
                             double currentPoints = Double.parseDouble(ratedUser.getCurrentPoints());
                             double ratePoints = Double.parseDouble(rateList.get(i).getPoints());
-                            ratedUser.setCurrentPoints(String.format("%.1f",(currentPoints + ratePoints)));
+                            ratedUser.setCurrentPoints(String.format("%.1f", (currentPoints + ratePoints)));
                             ratedUser.getRatedMatches().get(i).setStatus("win");
                             mDatabase.child(name).child("currentPoints")
                                     .setValue(ratedUser.getCurrentPoints());
                         }
                         mDatabase.child(name).child("ratedMatches")
-                                .child(""+i).child("status")
+                                .child("" + i).child("status")
                                 .setValue(ratedUser.getRatedMatches().get(i).getStatus());
                     }
                 }
             }
 
             @Override
-            public void onFailure(Throwable t) {}
+            public void onFailure(Throwable t) {
+            }
         });
     }
 

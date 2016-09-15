@@ -211,6 +211,7 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
 
     @Override
     public void onClick(View v) {
+        ratePresenter.getUserData();
         switch (v.getId()) {
             case R.id.textViewWin:
                 showDialog(Double.parseDouble(wins.getText().toString()), RateManager.WIN_FIRST);

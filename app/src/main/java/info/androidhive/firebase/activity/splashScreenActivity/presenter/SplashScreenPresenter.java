@@ -29,6 +29,7 @@ public class SplashScreenPresenter implements CheckRateCallback {
 
     public void checkRate(List<RatedMatchesToDB> userRateList){
         rateManager.checkRate(userRateList, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),this);
+        rateManager.addPoints(FirebaseAuth.getInstance().getCurrentUser().getDisplayName()  );
     }
 
 

@@ -88,7 +88,7 @@ public class MaterialDialogManager {
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                final FirebaseUser userFB = FirebaseAuth.getInstance().getCurrentUser();
 
                 Button b = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 b.setOnClickListener(new View.OnClickListener() {
@@ -98,11 +98,17 @@ public class MaterialDialogManager {
                         if (input.getText().toString().isEmpty()) {
                             input.setError(context.getString(R.string.enter_rate));
                         } else {
-                            new RateManager(context).setRate(user != null ? user.getDisplayName() : null,
-                                    String.valueOf(matchId) ,sum.getText().toString(),
-                                    input.getText().toString(),
-                                    typeOfRate);
-                            dialog.hide();
+                            double enterPoints = Double.parseDouble(input.getText().toString());
+                            double userPoints = Double.parseDouble(user.getCurrentPoints());
+                            if (userPoints - enterPoints >= 0) {
+                                new RateManager(context).setRate(userFB != null ? userFB.getDisplayName() : null,
+                                        String.valueOf(matchId), sum.getText().toString(),
+                                        input.getText().toString(),
+                                        typeOfRate);
+                                dialog.hide();
+                            }else {
+                                input.setError(context.getString(R.string.enough_points));
+                            }
                         }
                     }
                 });
