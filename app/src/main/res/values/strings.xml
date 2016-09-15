@@ -14,7 +14,7 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_name">Full name</string>
-    <string name="btn_login">Sign inLoLololo</string>
+    <string name="btn_login">Sign in</string>
     <string name="btn_link_to_register">Sing up</string>
     <string name="btn_link_to_login">Already registered. Login Me!</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
@@ -138,4 +138,5 @@
         successfully implementing the above actions, your rates will be displayed in the "My bets"
         (green - a winning bid, red - losing rate; gray - rate has not tested).</string>
     <string name="enough_points">You have enough points</string>
+    <string name="or">OR</string>
 </resources>

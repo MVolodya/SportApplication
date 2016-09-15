@@ -1,8 +1,12 @@
 package info.androidhive.firebase.activity.loginActivity.presenter;
 
+import android.text.TextUtils;
+import android.widget.Toast;
+
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
 
+import info.androidhive.firebase.R;
 import info.androidhive.firebase.activity.loginActivity.callback.CallbackLogin;
 import info.androidhive.firebase.activity.loginActivity.view.LoginView;
 import info.androidhive.firebase.classes.managers.DataGetter;
@@ -25,6 +29,16 @@ public class LoginPresenter implements CallbackLogin {
     }
 
     public void login(String email, String password){
+        if (TextUtils.isEmpty(email)) {
+            loginView.onEmptyEmail();
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            loginView.onEmptyPassword();
+            return;
+        }
+
         if(new DataGetter().isEmailValid(email))
         signInManager.loginWithEmailAndPassword(email, password, this);
         else loginView.onFail();

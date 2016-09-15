@@ -8,6 +8,8 @@ import info.androidhive.firebase.baseView.BaseView;
 public interface LoginView extends BaseView {
     void onSuccess();
     void onFail();
+    void onEmptyEmail();
+    void onEmptyPassword();
 
     Context getContext();
     FirebaseAuth getAuth();
