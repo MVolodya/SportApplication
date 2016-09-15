@@ -107,7 +107,7 @@ public class MaterialDialogManager {
                                         typeOfRate);
                                 dialog.hide();
                             }else {
-                                input.setError(context.getString(R.string.enough_points));
+                                    input.setError(context.getString(R.string.enough_points));
                             }
                         }
                     }

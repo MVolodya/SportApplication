@@ -15,11 +15,7 @@
         android:digits="5"
         android:ems="5"
         android:inputType="textCapSentences"
-        android:maxLength="5"
-        android:textCursorDrawable="@null"
-        android:textColor="@color/colorPrimary"
-        android:theme="@style/TextLabel">
-
+        android:maxLength="5">
         <requestFocus />
     </EditText>
 

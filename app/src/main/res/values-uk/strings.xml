@@ -11,7 +11,7 @@
     <string name="btn_change">Змінити</string>
     <string name="btn_forgot_password">Забули пароль?</string>
     <string name="btn_link_to_login">Вже зареєстрований! Увійти!</string>
-    <string name="btn_link_to_register">Не пам\'ятаю! Зараєструватися зараз!</string>
+    <string name="btn_link_to_register">Зараєструватися зараз!</string>
     <string name="btn_login">Увійти</string>
     <string name="btn_remove">Видалити</string>
     <string name="btn_reset_password">Відновити пароль</string>

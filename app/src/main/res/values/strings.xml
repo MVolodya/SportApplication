@@ -14,8 +14,8 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_name">Full name</string>
-    <string name="btn_login">Login</string>
-    <string name="btn_link_to_register">Registration</string>
+    <string name="btn_login">Sign inLoLololo</string>
+    <string name="btn_link_to_register">Sing up</string>
     <string name="btn_link_to_login">Already registered. Login Me!</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
     <string name="btn_forgot_password">Forgot password ?</string>
