@@ -45,31 +45,19 @@ View.OnFocusChangeListener{
         auth = FirebaseAuth.getInstance();
         signUpPresenter = new SignUpPresenter(this);
 
-        Button btnSignIn = (Button) findViewById(R.id.sign_in_button);
+
         Button btnSignUp = (Button) findViewById(R.id.sign_up_button);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
-        Button btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
+
 
         inputEmail.setOnFocusChangeListener(this);
         inputPassword.setOnFocusChangeListener(this);
 
         progressDialog = new ProgressDialog(this);
 
-        btnResetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               ResetPasswordActivity.start(getApplicationContext());
-            }
-        });
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginActivity.start(getApplicationContext());
-                finish();
-            }
-        });
+
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override

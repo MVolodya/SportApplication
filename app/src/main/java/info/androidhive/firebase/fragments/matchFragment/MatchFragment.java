@@ -89,7 +89,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
         circularProgressView = (CircularProgressView) view.findViewById(R.id.progress_view_match);
 
         mLayoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+        //recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         msg.setVisibility(View.GONE);

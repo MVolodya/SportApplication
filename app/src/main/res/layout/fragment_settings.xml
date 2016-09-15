@@ -322,8 +322,9 @@
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
         android:src="@drawable/ic_photo_camera_black_24dp"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/colorPrimaryDark"
         app:layout_anchor="@+id/appbar"
+        android:tint="@color/white"
         app:layout_anchorGravity="bottom|right|end"
         android:id="@+id/change_photo"/>
 </android.support.design.widget.CoordinatorLayout>

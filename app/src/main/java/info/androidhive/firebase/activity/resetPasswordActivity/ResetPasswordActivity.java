@@ -21,7 +21,7 @@ import info.androidhive.firebase.classes.managers.ProgressDialogManager;
 import info.androidhive.firebase.R;
 
 public class ResetPasswordActivity extends AppCompatActivity implements ResetPasswordView,
-View.OnFocusChangeListener{
+        View.OnFocusChangeListener {
 
     private EditText inputEmail;
     private ProgressDialog progressDialog;
@@ -40,20 +40,14 @@ View.OnFocusChangeListener{
         setContentView(R.layout.activity_reset_password);
 
         inputEmail = (EditText) findViewById(R.id.email);
-        Button btnReset = (Button) findViewById(R.id.btn_reset_password);
-        Button btnBack = (Button) findViewById(R.id.btn_back);
+        Button btnReset = (Button) findViewById(R.id.btn_reset);
+
         progressDialog = new ProgressDialog(this);
         resetPasswordPresenter = new ResetPasswordPresenter(this);
 
         inputEmail.setOnFocusChangeListener(this);
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
