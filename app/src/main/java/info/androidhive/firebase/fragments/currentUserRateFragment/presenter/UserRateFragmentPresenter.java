@@ -13,8 +13,14 @@ import info.androidhive.firebase.classes.managers.MatchRequestManager;
 import info.androidhive.firebase.classes.models.Rate;
 import info.androidhive.firebase.classes.models.RatedMatchesToDB;
 import info.androidhive.firebase.classes.models.RatedUser;
+import info.androidhive.firebase.classes.retrofit.ApiFactory;
+import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchResponse;
+import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchService;
 import info.androidhive.firebase.fragments.currentUserRateFragment.callback.CallbackRate;
 import info.androidhive.firebase.fragments.currentUserRateFragment.view.UserRateView;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
 
 public class UserRateFragmentPresenter implements CallbackRate {
 
@@ -30,21 +36,19 @@ public class UserRateFragmentPresenter implements CallbackRate {
     public void getUserRates(String username) {
         matchRequestManager = new MatchRequestManager();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
         mDatabase.child(username)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                                         RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
                                                         final List<RatedMatchesToDB> ratedMatchesList = ratedUser.getRatedMatches();
-                                                        final List<Rate> rateList = new ArrayList<>();
-                                                        userRateView.setRatedMathList(ratedMatchesList);
-                                                        listSize = ratedMatchesList.size();
                                                         if (ratedMatchesList != null && ratedMatchesList.size() > 0) {
-                                                            for (int i = 0; i < ratedMatchesList.size(); i++) {
+                                                            listSize = ratedMatchesList.size();
+                                                            for (RatedMatchesToDB ratedMatches : ratedMatchesList) {
                                                                 matchRequestManager.getRate(
-                                                                        Integer.parseInt(ratedMatchesList.get(i).getMatchId()),
-                                                                        i,
-                                                                        ratedMatchesList,
+                                                                        Integer.parseInt(ratedMatches.getMatchId()),
+                                                                        ratedMatches,
                                                                         UserRateFragmentPresenter.this
                                                                 );
                                                             }

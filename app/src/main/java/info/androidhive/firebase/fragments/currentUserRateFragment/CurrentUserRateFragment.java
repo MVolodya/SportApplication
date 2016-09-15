@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,17 +23,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.List;
 
 import info.androidhive.firebase.activity.mainActivity.MainActivity;
-import info.androidhive.firebase.classes.managers.SwipeManager;
+import info.androidhive.firebase.classes.managers.swipeManager.SwipeManager;
 import info.androidhive.firebase.classes.models.DataHelper;
 import info.androidhive.firebase.classes.models.Rate;
-import info.androidhive.firebase.classes.models.RatedMatchesToDB;
 import info.androidhive.firebase.classes.recycleViewAdapters.ClickListener;
 import info.androidhive.firebase.classes.recycleViewAdapters.DividerItemDecoration;
 import info.androidhive.firebase.classes.recycleViewAdapters.RecyclerTouchListener;
 import info.androidhive.firebase.classes.recycleViewAdapters.UsersRateAdapter;
 import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchResponse;
 import info.androidhive.firebase.R;
-import info.androidhive.firebase.fragments.bottomSheetFragment.BottomSheetFaqFragment;
 import info.androidhive.firebase.fragments.bottomSheetHelp.HelpFragment;
 import info.androidhive.firebase.fragments.rateFragment.RateFragment;
 import info.androidhive.firebase.fragments.currentUserRateFragment.presenter.UserRateFragmentPresenter;
@@ -43,9 +42,8 @@ public class    CurrentUserRateFragment extends Fragment implements UserRateView
     private SwipeRefreshLayout swipeRefreshLayout;
     private CircularProgressView progressView;
     private RateMatchResponse rateMatchResponse;
-    private List<RatedMatchesToDB> ratedMatchesList;
+    private List<Rate> ratedMatchesList;
     private UsersRateAdapter usersRateAdapter = new UsersRateAdapter();
-    private SwipeManager swipeManager;
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
     private CurrentUserRateFragment currentUserRateFragment = this;
@@ -70,8 +68,6 @@ public class    CurrentUserRateFragment extends Fragment implements UserRateView
 
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#1976d2"),Color.parseColor("#628f3e"));
-
-        swipeManager = new SwipeManager(getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
 
         recyclerView.setLayoutManager(mLayoutManager);
@@ -83,7 +79,7 @@ public class    CurrentUserRateFragment extends Fragment implements UserRateView
 
                 DataHelper dataHelper = DataHelper.getInstance();
                 dataHelper.setMatchId(Integer.parseInt(ratedMatchesList
-                        .get(position).getMatchId()));
+                        .get(position).getId()));
 
                 Fragment fr = getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
 
@@ -124,18 +120,19 @@ public class    CurrentUserRateFragment extends Fragment implements UserRateView
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
 
-    @Override
-    public void setRatedMathList(List<RatedMatchesToDB> ratedMatchesList) {
-        this.ratedMatchesList = ratedMatchesList;
-    }
+
 
     @Override
     public void addList(List<Rate> rates) {
+        ItemTouchHelper.Callback callback = new SwipeManager(usersRateAdapter,
+                view, getContext(), rates);
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        this.ratedMatchesList = rates;
         progressView.stopAnimation();
         progressView.setVisibility(View.GONE);
         usersRateAdapter.setList(rates);
         recyclerView.setAdapter(usersRateAdapter);
-        swipeManager.initSwipe(usersRateAdapter, recyclerView, view);
+        helper.attachToRecyclerView(recyclerView);
         swipeRefreshLayout.setRefreshing(false);
     }
 

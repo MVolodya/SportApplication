@@ -1,15 +1,21 @@
 package info.androidhive.firebase.classes.managers;
 
-import android.util.Log;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import info.androidhive.firebase.classes.models.Rate;
+import info.androidhive.firebase.classes.models.RatedMatchesToDB;
+import info.androidhive.firebase.classes.models.RatedUser;
 import info.androidhive.firebase.classes.retrofit.match.Fixture;
 import info.androidhive.firebase.classes.utils.ConvertDate;
 
