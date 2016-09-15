@@ -31,7 +31,7 @@ public class SwipeManager extends ItemTouchHelper.SimpleCallback implements Init
     private RatedMatchesToDB matchesToDB;
 
     public SwipeManager(UsersRateAdapter usersRateAdapter, View view, Context context,
-                        List<Rate> rates){
+                        List<Rate> rates) {
         super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.usersRateAdapter = usersRateAdapter;
         this.view = view;
@@ -47,30 +47,19 @@ public class SwipeManager extends ItemTouchHelper.SimpleCallback implements Init
 
     @Override
     public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
-        final CoordinatorLayout coordinatorLayout = (CoordinatorLayout)view.findViewById(R.id.fabLayout);
+        final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.fabLayout);
         final Rate rate = rates.get(viewHolder.getAdapterPosition());
         usersRateAdapter.remove(viewHolder.getAdapterPosition());
+        rateManager.deleteRate(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                rate, SwipeManager.this);
         Snackbar snackbar = Snackbar
                 .make(coordinatorLayout, R.string.rate_deleted, Snackbar.LENGTH_LONG)
-                .setCallback(new Snackbar.Callback() {
-                    @Override
-                    public void onDismissed(Snackbar snackbar, int event) {
-                        super.onDismissed(snackbar, event);
-                        if(event!=Snackbar.Callback.DISMISS_EVENT_ACTION){
-                            rateManager.deleteRate(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                                    rate, SwipeManager.this);
-                        }
-                    }
-
-                    @Override
-                    public void onShown(Snackbar snackbar) {
-                        super.onShown(snackbar);
-                    }
-                })
                 .setAction(R.string.undo, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         usersRateAdapter.addDeletedRate(rate);
+                        rateManager.setDeletedRate(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                                matchesToDB);
                         Snackbar snackbarMsg = Snackbar.make(coordinatorLayout, R.string.rate_restored, Snackbar.LENGTH_SHORT);
                         snackbarMsg.show();
                     }

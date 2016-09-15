@@ -69,34 +69,6 @@ public class DataHelper {
         this.awayTeamId = awayTeamId;
     }
 
-    public RatedMatchesToDB getRatedMatchesToDB() {
-        return ratedMatchesToDB;
-    }
-
-    public void setRatedMatchesToDB(RatedMatchesToDB ratedMatchesToDB) {
-        this.ratedMatchesToDB = ratedMatchesToDB;
-    }
-
-    public Rate getRate() {
-        return rate;
-    }
-
-    public void setRate(Rate rate) {
-        this.rate = rate;
-    }
-
-    public int getDeletedPosition() {
-        return deletedPosition;
-    }
-
-    public void setDeletedPosition(int deletedPosition) {
-        this.deletedPosition = deletedPosition;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
     public void setCount(int count) {
         this.count = count;
     }
