@@ -1,8 +1,5 @@
 package info.androidhive.firebase.classes.models;
 
-/**
- * Created by andrii on 23.08.16.
- */
 public class Rate {
 
     private String homeTeamName;
@@ -10,6 +7,7 @@ public class Rate {
     private String type;
     private String points;
     private String status;
+    private String id;
 
     public String getHomeTeamName() {
         return homeTeamName;
@@ -49,5 +47,13 @@ public class Rate {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

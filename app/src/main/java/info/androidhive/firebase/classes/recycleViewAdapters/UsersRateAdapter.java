@@ -1,13 +1,16 @@
 package info.androidhive.firebase.classes.recycleViewAdapters;
 
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import info.androidhive.firebase.classes.managers.RateManager;
@@ -20,9 +23,7 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
 
     private List<Rate> ratesList;
 
-    public UsersRateAdapter() {
-        this.ratesList = new ArrayList<>();
-    }
+    public UsersRateAdapter() {}
 
     public void setList(List<Rate> ratesList){
         this.ratesList = ratesList;
@@ -35,12 +36,11 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
     }
 
     public void addDeletedRate(Rate rates){
-        ratesList.add(DataHelper.getInstance().getDeletedPosition(),rates);
+        ratesList.add(rates);
         notifyDataSetChanged();
     }
 
     public void remove(int position) {
-        DataHelper.getInstance().setRate(ratesList.get(position));
         ratesList.remove(position);
         notifyDataSetChanged();
     }
@@ -57,6 +57,7 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
     public void onBindViewHolder(ViewHolderUsersRates holder, int position) {
         int color = Color.parseColor("#2196f3");
         String status = (ratesList.get(position).getStatus());
+        Rate rate = ratesList.get(position);
 
         if(status.equalsIgnoreCase("win")) color = Color.parseColor("#26ae90");
         else if(status.equalsIgnoreCase("lose")) color = Color.parseColor("#ff6861");
@@ -81,6 +82,7 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
     public int getItemCount() {
         return ratesList.size();
     }
+
 
 
     public class ViewHolderUsersRates extends RecyclerView.ViewHolder {

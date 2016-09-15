@@ -14,7 +14,7 @@ import retrofit.Response;
 
 public class MatchRequestManager {
 
-    public void getRate(final int id, final int i, final List<RatedMatchesToDB> ratedMatchesList, final CallbackRate callbackRate){
+    public void getRate(final int id, final RatedMatchesToDB ratedMatches, final CallbackRate callbackRate){
         RateMatchService service = ApiFactory.getRateMatchService();
         Call<RateMatchResponse> call = service.match(id);
 
@@ -26,9 +26,10 @@ public class MatchRequestManager {
                     Rate rate = new Rate();
                     rate.setHomeTeamName(rateMatchResponse.getFixture().getHomeTeamName());
                     rate.setAwayTeamName(rateMatchResponse.getFixture().getAwayTeamName());
-                    rate.setPoints(ratedMatchesList.get(i).getPoints());
-                    rate.setType(ratedMatchesList.get(i).getTypeOfRate());
-                    rate.setStatus(ratedMatchesList.get(i).getStatus());
+                    rate.setPoints(ratedMatches.getPoints());
+                    rate.setType(ratedMatches.getTypeOfRate());
+                    rate.setStatus(ratedMatches.getStatus());
+                    rate.setId(ratedMatches.getMatchId());
                     callbackRate.addRateToList(rate);
                 } else callbackRate.onError();
             }

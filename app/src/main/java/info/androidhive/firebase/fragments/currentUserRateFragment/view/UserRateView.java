@@ -7,7 +7,6 @@ import info.androidhive.firebase.classes.models.Rate;
 import info.androidhive.firebase.classes.models.RatedMatchesToDB;
 
 public interface UserRateView {
-    void setRatedMathList(List<RatedMatchesToDB> ratedMatchesList);
     void addList(List<Rate> rates);
     void onFail();
     void onRateListSize();

@@ -1,8 +1,5 @@
 package info.androidhive.firebase.classes.models;
 
-/**
- * Created by andrii on 17.08.16.
- */
 public class RatedMatchesToDB {
 
     private String matchId;

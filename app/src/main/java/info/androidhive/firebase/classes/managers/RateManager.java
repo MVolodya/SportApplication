@@ -2,6 +2,7 @@ package info.androidhive.firebase.classes.managers;
 
 import android.content.Context;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,7 +14,9 @@ import java.util.List;
 
 import info.androidhive.firebase.activity.splashScreenActivity.callback.CheckRateCallback;
 import info.androidhive.firebase.activity.splashScreenActivity.view.SplashScreenView;
+import info.androidhive.firebase.classes.managers.swipeManager.InitDeletedRate;
 import info.androidhive.firebase.classes.models.DataHelper;
+import info.androidhive.firebase.classes.models.Rate;
 import info.androidhive.firebase.classes.models.RatedMatchesToDB;
 import info.androidhive.firebase.classes.models.RatedUser;
 import info.androidhive.firebase.classes.retrofit.ApiFactory;
@@ -52,8 +55,7 @@ public class RateManager {
                                 List<RatedMatchesToDB> matchesToDBs;
                                 if(ratedUser.getRatedMatches()!=null) matchesToDBs = ratedUser.getRatedMatches();
                                 else matchesToDBs = new ArrayList<>();
-                                matchesToDBs.add(DataHelper.getInstance().getDeletedPosition(),
-                                        deletedRate);
+                                matchesToDBs.add(deletedRate);
                                 ratedUser.setRatedMatches(matchesToDBs);
                                 mDatabase.child(username).setValue(ratedUser);
                             }
@@ -66,27 +68,31 @@ public class RateManager {
                 );
     }
 
-    public void deleteRate(final String username, final int position) {
-        mDatabase.child(username)
-                .addListenerForSingleValueEvent(
-                        new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
-                                List<RatedMatchesToDB> matchesToDBs = ratedUser.getRatedMatches();
-                                DataHelper.getInstance().setRatedMatchesToDB(matchesToDBs.get(position));
-                                DataHelper.getInstance().setDeletedPosition(position);
-                                matchesToDBs.remove(position);
-                                ratedUser.setRatedMatches(matchesToDBs);
-                                mDatabase.child(username).setValue(ratedUser);
-                            }
+    public void deleteRate(final String username, final Rate rate, final InitDeletedRate initDeletedRate) {
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+        mDatabase.child(username)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
+                        List<RatedMatchesToDB> ratedMatchesToDBs = ratedUser.getRatedMatches();
+
+                        for(int i = 0; i<ratedMatchesToDBs.size();i++){
+                            if(ratedMatchesToDBs.get(i).getMatchId().equals(rate.getId())){
+                                initDeletedRate.initRate(ratedMatchesToDBs.get(i));
+                                ratedMatchesToDBs.remove(i);
+                                ratedUser.setRatedMatches(ratedMatchesToDBs);
+                                mDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())
+                                        .setValue(ratedUser);
+                                break;
                             }
                         }
+                    }
 
-                );
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
     }
 
     public void getUsersRates(final String username,
