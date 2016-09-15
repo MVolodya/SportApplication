@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="Translucent" parent="Translucent.Base"/>
+    <style name="Translucent" parent="Translucent.Base" />
 
     <style name="Translucent.Base" parent="android:Theme.Translucent.NoTitleBar">
         <item name="android:progressBarStyle">@style/InvisibleProgress</item>
@@ -28,16 +28,13 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-
     <style name="MaterialButton" parent="Theme.AppCompat.Light">
         <item name="colorControlHighlight">@color/mat_press</item>
         <item name="colorButtonNormal">@color/colorPrimary</item>
     </style>
 
 
-    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
-
-    </style>
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base" />
 
     <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
@@ -70,17 +67,21 @@
         </item>
     </style>
 
-
-
     <style name="TextLabel" parent="TextAppearance.AppCompat">
         <!-- Hint color and label color in FALSE state -->
         <item name="android:textColorHint">@color/colorPrimary</item>
         <item name="android:textSize">16sp</item>
-        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State  -->
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
 
+    </style>
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/black</item>
     </style>
 
 </resources>
