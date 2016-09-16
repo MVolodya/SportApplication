@@ -12,9 +12,6 @@ public class LeagueModel {
 
     private String numberOfTeams;
 
-    public LeagueModel() {
-    }
-
     public String getId() {
         return id;
     }

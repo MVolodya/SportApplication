@@ -5,173 +5,67 @@ import com.google.gson.annotations.SerializedName;
 
 public class Fixture {
 
-        @SerializedName("_links")
-        @Expose
-        private Links links;
-        @SerializedName("date")
-        @Expose
-        private String date;
-        @SerializedName("status")
-        @Expose
-        private String status;
-        @SerializedName("matchday")
-        @Expose
-        private Integer matchday;
-        @SerializedName("homeTeamName")
-        @Expose
-        private String homeTeamName;
-        @SerializedName("awayTeamName")
-        @Expose
-        private String awayTeamName;
-        @SerializedName("result")
-        @Expose
-        private Result result;
-        @SerializedName("odds")
-        @Expose
-        private Odds odds;
+    @SerializedName("_links")
+    @Expose
+    private Links links;
 
-        /**
-         *
-         * @return
-         * The links
-         */
-        public Links getLinks() {
-            return links;
-        }
+    @SerializedName("date")
+    @Expose
+    private String date;
 
-        /**
-         *
-         * @param links
-         * The _links
-         */
-        public void setLinks(Links links) {
-            this.links = links;
-        }
+    @SerializedName("status")
+    @Expose
+    private String status;
 
-        /**
-         *
-         * @return
-         * The date
-         */
-        public String getDate() {
-            return date;
-        }
+    @SerializedName("matchday")
+    @Expose
+    private Integer matchday;
 
-        /**
-         *
-         * @param date
-         * The date
-         */
-        public void setDate(String date) {
-            this.date = date;
-        }
+    @SerializedName("homeTeamName")
+    @Expose
+    private String homeTeamName;
 
-        /**
-         *
-         * @return
-         * The status
-         */
-        public String getStatus() {
-            return status;
-        }
+    @SerializedName("awayTeamName")
+    @Expose
+    private String awayTeamName;
 
-        /**
-         *
-         * @param status
-         * The status
-         */
-        public void setStatus(String status) {
-            this.status = status;
-        }
+    @SerializedName("result")
+    @Expose
+    private Result result;
 
-        /**
-         *
-         * @return
-         * The matchday
-         */
-        public Integer getMatchday() {
-            return matchday;
-        }
+    @SerializedName("odds")
+    @Expose
+    private Odds odds;
 
-        /**
-         *
-         * @param matchday
-         * The matchday
-         */
-        public void setMatchday(Integer matchday) {
-            this.matchday = matchday;
-        }
+    public Links getLinks() {
+        return links;
+    }
 
-        /**
-         *
-         * @return
-         * The homeTeamName
-         */
-        public String getHomeTeamName() {
-            return homeTeamName;
-        }
+    public String getDate() {
+        return date;
+    }
 
-        /**
-         *
-         * @param homeTeamName
-         * The homeTeamName
-         */
-        public void setHomeTeamName(String homeTeamName) {
-            this.homeTeamName = homeTeamName;
-        }
+    public String getStatus() {
+        return status;
+    }
 
-        /**
-         *
-         * @return
-         * The awayTeamName
-         */
-        public String getAwayTeamName() {
-            return awayTeamName;
-        }
+    public Integer getMatchday() {
+        return matchday;
+    }
 
-        /**
-         *
-         * @param awayTeamName
-         * The awayTeamName
-         */
-        public void setAwayTeamName(String awayTeamName) {
-            this.awayTeamName = awayTeamName;
-        }
+    public String getHomeTeamName() {
+        return homeTeamName;
+    }
 
-        /**
-         *
-         * @return
-         * The result
-         */
-        public Result getResult() {
-            return result;
-        }
+    public String getAwayTeamName() {
+        return awayTeamName;
+    }
 
-        /**
-         *
-         * @param result
-         * The result
-         */
-        public void setResult(Result result) {
-            this.result = result;
-        }
+    public Result getResult() {
+        return result;
+    }
 
-        /**
-         *
-         * @return
-         * The odds
-         */
-        public Odds getOdds() {
-            return odds;
-        }
-
-        /**
-         *
-         * @param odds
-         * The odds
-         */
-        public void setOdds(Odds odds) {
-            this.odds = odds;
-        }
-
+    public Odds getOdds() {
+        return odds;
+    }
 }

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -23,9 +22,9 @@ import info.androidhive.firebase.R;
 public class ResetPasswordActivity extends AppCompatActivity implements ResetPasswordView,
         View.OnFocusChangeListener {
 
-    private EditText etInputEmail;
+    private EditText inputEmailEt;
     private ProgressDialog progressDialog;
-    private ProgressDialogManager dialogManager;
+    private ProgressDialogManager mDialogManager;
     private ResetPasswordPresenter resetPasswordPresenter;
 
     public static void start(Context context) {
@@ -38,19 +37,19 @@ public class ResetPasswordActivity extends AppCompatActivity implements ResetPas
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
-        etInputEmail = (EditText) findViewById(R.id.et_email);
+        inputEmailEt = (EditText) findViewById(R.id.email_et);
         Button btnReset = (Button) findViewById(R.id.btn_reset);
 
         progressDialog = new ProgressDialog(this);
         resetPasswordPresenter = new ResetPasswordPresenter(this);
 
-        etInputEmail.setOnFocusChangeListener(this);
+        inputEmailEt.setOnFocusChangeListener(this);
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = etInputEmail.getText().toString().trim();
+                String email = inputEmailEt.getText().toString().trim();
                 ProgressDialogManager.showProgressDialog(progressDialog, getString(R.string.sign_in));
                 resetPasswordPresenter.resetPassword(email);
             }
@@ -65,7 +64,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements ResetPas
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
-        etInputEmail.setError(getString(R.string.enter_correct_email));
+        inputEmailEt.setError(getString(R.string.enter_correct_email));
     }
 
     @Override

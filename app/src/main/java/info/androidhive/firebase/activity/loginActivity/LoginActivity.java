@@ -30,16 +30,16 @@ import info.androidhive.firebase.classes.managers.SignInManager;
 public class LoginActivity extends AppCompatActivity implements View.OnFocusChangeListener,
         LoginView{
 
-    private EditText etInputEmail;
-    private EditText etInputPassword;
-    private SignInManager signInManager;
+    private EditText inputEmailEt;
+    private EditText inputPasswordEt;
+    private SignInManager mSignInManager;
     private ProgressDialog mProgressDialog;
-    private ProgressDialogManager dialogManager;
+    private ProgressDialogManager mDialogManager;
     private LoginPresenter loginPresenter;
-    private LoginButton btnFacebookLogin;
-    private Button btnSignUp;
-    private Button btnLogin;
-    private Button btnReset;
+    private LoginButton facebookLoginBtn;
+    private Button signUpBtn;
+    private Button loginBtn;
+    private Button resetBtn;
 
     public static Activity sLoginActivity;
 
@@ -68,48 +68,48 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
 
         mProgressDialog = new ProgressDialog(this);
         loginPresenter = new LoginPresenter(this);
-        etInputEmail = (EditText) findViewById(R.id.et_email);
-        etInputPassword = (EditText) findViewById(R.id.et_password);
+        inputEmailEt = (EditText) findViewById(R.id.email_et);
+        inputPasswordEt = (EditText) findViewById(R.id.password_et);
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.login_progress_bar);
-        btnSignUp = (Button) findViewById(R.id.btn_sign_up);
-        btnLogin = (Button) findViewById(R.id.btn_login);
-        btnReset = (Button) findViewById(R.id.btn_reset_password);
+        signUpBtn = (Button) findViewById(R.id.sign_up_btn);
+        loginBtn = (Button) findViewById(R.id.login_btn);
+        resetBtn = (Button) findViewById(R.id.reset_password_btn);
 
-        etInputEmail.setOnFocusChangeListener(this);
-        etInputPassword.setOnFocusChangeListener(this);
+        inputEmailEt.setOnFocusChangeListener(this);
+        inputPasswordEt.setOnFocusChangeListener(this);
 
         //[START FACEBOOK SIGN IN]
-        btnFacebookLogin = (LoginButton) findViewById(R.id.btn_facebook_login);
-        btnFacebookLogin.setReadPermissions("email", "public_profile");
-        btnFacebookLogin.setOnClickListener(new View.OnClickListener() {
+        facebookLoginBtn = (LoginButton) findViewById(R.id.facebook_login_btn);
+        facebookLoginBtn.setReadPermissions("email", "public_profile");
+        facebookLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginPresenter.loginWithFacebook(btnFacebookLogin);
+                loginPresenter.loginWithFacebook(facebookLoginBtn);
                 ProgressDialogManager.showProgressDialog(mProgressDialog, getString(R.string.sign_in));
             }
         });
         //[END FACEBOOK SIGN IN]
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                SignupActivity.start(getContext());
             }
         });
 
-        btnReset.setOnClickListener(new View.OnClickListener() {
+        resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ResetPasswordActivity.start(getContext());
             }
         });
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String email = etInputEmail.getText().toString();
-                final String password = etInputPassword.getText().toString();
+                final String email = inputEmailEt.getText().toString();
+                final String password = inputPasswordEt.getText().toString();
                 ProgressDialogManager.showProgressDialog(mProgressDialog, getString(R.string.sign_in));
                 loginPresenter.login(email, password);
             }
@@ -126,10 +126,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     @Override
     public void onSuccess() {
         ProgressDialogManager.hideProgressDialog(mProgressDialog);
-        btnFacebookLogin.setEnabled(false);
-        btnLogin.setEnabled(false);
-        btnSignUp.setEnabled(false);
-        btnReset.setEnabled(false);
+        facebookLoginBtn.setEnabled(false);
+        loginBtn.setEnabled(false);
+        signUpBtn.setEnabled(false);
+        resetBtn.setEnabled(false);
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
@@ -175,8 +175,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public EditText getEtInputPassword() {
-        return etInputPassword;
+    public EditText getInputPasswordEt() {
+        return inputPasswordEt;
     }
 
 }

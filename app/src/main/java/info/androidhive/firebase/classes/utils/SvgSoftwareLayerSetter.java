@@ -8,7 +8,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 
-
 public class SvgSoftwareLayerSetter<T> implements RequestListener<T, PictureDrawable> {
 
     @Override

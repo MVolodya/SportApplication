@@ -4,7 +4,7 @@
     android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image_view_profile"
+        android:id="@+id/profile_iv"
         android:layout_width="@dimen/profile_image_w"
         android:layout_height="@dimen/profile_image_h"
         android:layout_centerVertical="true"
@@ -12,19 +12,18 @@
         android:src="@drawable/prof" />
 
     <TextView
-        android:id="@+id/tv_user_position"
+        android:id="@+id/user_position_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="@dimen/tv_user_position_margin_r"
-        android:layout_marginTop="@dimen/tv_user_position_margin_top"
         android:fontFamily="sans-serif"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_above="@+id/user_points_tv"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingRight="16dp" />
 
     <TextView
-        android:id="@+id/tv_user_rate_name"
+        android:id="@+id/user_rate_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/rate_name_margin_left"
@@ -34,23 +33,23 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tv_user_points"
+        android:id="@+id/user_points_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:paddingTop="@dimen/tv_user_points_pad_top"
         android:textSize="14sp"
-        android:layout_alignTop="@+id/tv_hint_points"
-        android:layout_toRightOf="@+id/tv_hint_points"
-        android:layout_toEndOf="@+id/tv_hint_points" />
+        android:layout_alignTop="@+id/hint_points_tv"
+        android:layout_toRightOf="@+id/hint_points_tv"
+        android:layout_toEndOf="@+id/hint_points_tv" />
 
     <TextView
-        android:id="@+id/tv_hint_points"
+        android:id="@+id/hint_points_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tv_user_rate_name"
-        android:layout_alignStart="@+id/tv_user_rate_name"
-        android:layout_below="@+id/tv_user_rate_name"
+        android:layout_alignLeft="@+id/user_rate_name_tv"
+        android:layout_alignStart="@+id/user_rate_name_tv"
+        android:layout_below="@+id/user_rate_name_tv"
         android:fontFamily="sans-serif"
         android:paddingTop="@dimen/tv_hint_padding_top"
         android:text="@string/points_user"

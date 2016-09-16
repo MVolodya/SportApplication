@@ -5,19 +5,18 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-
 public class CustomViewPager extends ViewPager {
 
-    private boolean enabled;
+    private boolean mEnabled;
 
     public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.enabled = true;
+        this.mEnabled = true;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (this.enabled) {
+        if (this.mEnabled) {
             return super.onTouchEvent(event);
         }
 
@@ -26,7 +25,7 @@ public class CustomViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if (this.enabled) {
+        if (this.mEnabled) {
             return super.onInterceptTouchEvent(event);
         }
 
@@ -34,6 +33,6 @@ public class CustomViewPager extends ViewPager {
     }
 
     public void setPagingEnabled(boolean enabled) {
-        this.enabled = enabled;
+        this.mEnabled = enabled;
     }
 }

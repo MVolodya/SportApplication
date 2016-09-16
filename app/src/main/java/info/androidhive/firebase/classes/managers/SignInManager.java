@@ -92,7 +92,7 @@ public class SignInManager {
                         if (!task.isSuccessful()) {
                             // there was an error
                             if (password.length() < 6) {
-                                ((LoginActivity)context).getEtInputPassword().setError(context.getString(R.string.minimum_password));
+                                ((LoginActivity)context).getInputPasswordEt().setError(context.getString(R.string.minimum_password));
                                 callbackLogin.onFailCallback();
                             } else {
                                 Toast.makeText(context, context.getString(R.string.auth_failed), Toast.LENGTH_LONG).show();

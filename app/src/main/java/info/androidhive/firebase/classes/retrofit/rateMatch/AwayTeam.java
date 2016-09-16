@@ -9,9 +9,6 @@ public class AwayTeam {
     @Expose
     private String href;
 
-    /**
-     * @return The href
-     */
     public String getHref() {
         return href;
     }

@@ -21,27 +21,27 @@ public class LocalDatabaseManager {
         User user = sUserRealm.createObject(User.class);
         user.setName(name);
         user.setEmail(email);
-        if(photoUrl != null)
-        user.setPhotoURL(photoUrl.toString());
+        if (photoUrl != null)
+            user.setPhotoURL(photoUrl.toString());
         else user.setPhotoURL(null);
         sUserRealm.commitTransaction();
     }
 
-    public static void updateName(String name){
+    public static void updateName(String name) {
         sUserRealm.beginTransaction();
         User user = getUser();
         user.setName(name);
         sUserRealm.commitTransaction();
     }
 
-    public static void updateEmail(String email){
+    public static void updateEmail(String email) {
         sUserRealm.beginTransaction();
         User user = getUser();
         user.setEmail(email);
         sUserRealm.commitTransaction();
     }
 
-    public static void updateUrl(String url){
+    public static void updateUrl(String url) {
         sUserRealm.beginTransaction();
         User user = getUser();
         user.setPhotoURL(url);
@@ -49,17 +49,22 @@ public class LocalDatabaseManager {
     }
 
     public static User getUser() {
-        return sUserRealm.where(User.class)
-                .findFirst();
+        User user;
+        do {
+            user = sUserRealm.where(User.class)
+                    .findFirst();
+        } while (user == null);
+        return user;
     }
 
     public static void close() {
         sUserRealm.close();
     }
 
-    public static void delete(){
+    public static void delete() {
         sUserRealm.beginTransaction();
-        sUserRealm.delete(getUser().getClass());
+        sUserRealm.close();
+        Realm.deleteRealm(sUserRealm.getConfiguration());
         sUserRealm.commitTransaction();
     }
 

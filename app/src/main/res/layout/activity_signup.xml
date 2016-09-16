@@ -10,7 +10,7 @@
     tools:context=".activity.loginActivity.LoginActivity">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_margin_top"
         android:gravity="center"
@@ -30,7 +30,7 @@
             android:theme="@style/TextLabel">
 
             <EditText
-                android:id="@+id/et_email"
+                android:id="@+id/email_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
@@ -47,7 +47,7 @@
             android:theme="@style/TextLabel">
 
             <EditText
-                android:id="@+id/et_password"
+                android:id="@+id/password_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
@@ -62,7 +62,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_sign_up"
+            android:id="@+id/sign_up_btn"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

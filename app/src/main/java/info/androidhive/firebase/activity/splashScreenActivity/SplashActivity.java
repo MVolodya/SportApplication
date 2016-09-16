@@ -18,7 +18,7 @@ import info.androidhive.firebase.R;
 
 public class SplashActivity extends Activity implements SplashScreenView {
 
-    private RateManager rateManager = new RateManager(this);
+    private RateManager mRateManager = new RateManager(this);
     private SplashScreenPresenter splashScreenPresenter;
 
     @Override

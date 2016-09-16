@@ -8,7 +8,7 @@
     android:paddingTop="10dp">
 
     <ImageView
-        android:id="@+id/iv_player_image"
+        android:id="@+id/player_image_iv"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
@@ -16,7 +16,7 @@
         android:src="@drawable/ic_account_circle_black_36dp" />
 
     <TextView
-        android:id="@+id/tv_player_name"
+        android:id="@+id/player_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="72dp"
@@ -26,10 +26,10 @@
         android:textSize="16sp" />
 
     <LinearLayout
-        android:id="@+id/linear_layout_player_data"
+        android:id="@+id/player_data_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_player_name">
+        android:layout_below="@+id/player_name_tv">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
         android:id="@+id/nationality_lan_lay"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@id/linear_layout_player_data"
+        android:layout_below="@id/player_data_linear_layout"
         android:layout_marginLeft="72dp">
 
         <RelativeLayout

@@ -8,15 +8,15 @@
     android:paddingTop="@dimen/away_team_ly_padding_t">
 
     <ImageView
-        android:id="@+id/iv_player_image"
+        android:id="@+id/player_image_iv"
         android:layout_width="@dimen/player_image_w"
         android:layout_height="@dimen/player_image_h"
         android:layout_centerVertical="true"
-        android:tint="@color/status_bar"
-        android:src="@drawable/ic_account_circle_black_36dp" />
+        android:src="@drawable/ic_account_circle_black_36dp"
+        android:tint="@color/status_bar" />
 
     <TextView
-        android:id="@+id/tv_player_name"
+        android:id="@+id/player_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/tv_player_name_margin_l"
@@ -26,10 +26,10 @@
         android:textSize="16sp" />
 
     <LinearLayout
-        android:id="@+id/linear_layout_player_data"
+        android:id="@+id/player_data_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_player_name">
+        android:layout_below="@+id/player_name_tv">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
         android:id="@+id/nationality_lan_lay"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@id/linear_layout_player_data"
+        android:layout_below="@id/player_data_linear_layout"
         android:layout_marginLeft="@dimen/lin_margin_l">
 
         <RelativeLayout
@@ -101,5 +101,4 @@
 
         </RelativeLayout>
     </LinearLayout>
-
 </RelativeLayout>

@@ -9,11 +9,6 @@ public class Self {
     @Expose
     private String href;
 
-    /**
-     *
-     * @return
-     * The href
-     */
     public String getHref() {
         return href;
     }

@@ -40,21 +40,21 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
         RatedUser ratedUser = mUsersList.get(position);
 
         if(ratedUser.getName().equalsIgnoreCase(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())){
-            holder.etPosition.setTextColor(Color.parseColor("#ff6861"));
-            holder.etName.setTextColor(Color.parseColor("#ff6861"));
+            holder.positionEt.setTextColor(Color.parseColor("#ff6861"));
+            holder.nameEt.setTextColor(Color.parseColor("#ff6861"));
         }else {
-            holder.etPosition.setTextColor(Color.parseColor("#999999"));
-            holder.etName.setTextColor(Color.parseColor("#000000"));
+            holder.positionEt.setTextColor(Color.parseColor("#999999"));
+            holder.nameEt.setTextColor(Color.parseColor("#000000"));
         }
 
         String positionUser = String.valueOf(position+1);
-        holder.etPosition.setText(positionUser);
-        holder.etName.setText(ratedUser.getName());
-        holder.etPoints.setText(ratedUser.getCurrentPoints());
+        holder.positionEt.setText(positionUser);
+        holder.nameEt.setText(ratedUser.getName());
+        holder.pointsEt.setText(ratedUser.getCurrentPoints());
         Glide.with(view.getContext())
                 .load(ratedUser.getPhotoUrl())
                 .override(100, 100)
-                .into(holder.ivUserPhoto);
+                .into(holder.userPhotoIv);
     }
 
     private void getSortedUsers(){
@@ -73,19 +73,19 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
 
     public class ViewHolderUsers extends RecyclerView.ViewHolder {
 
-        public final TextView etPosition;
-        public final TextView etName;
-        public final TextView etPoints;
-        public final TextView tvHint;
-        public final CircleImageView ivUserPhoto;
+        public final TextView positionEt;
+        public final TextView nameEt;
+        public final TextView pointsEt;
+        public final TextView hintTv;
+        public final CircleImageView userPhotoIv;
 
         public ViewHolderUsers(View v) {
             super(v);
-            etPosition = (TextView)v.findViewById(R.id.tv_user_position);
-            etName = (TextView)v.findViewById(R.id.tv_user_rate_name);
-            etPoints = (TextView)v.findViewById(R.id.tv_user_points);
-            ivUserPhoto = (CircleImageView)v.findViewById(R.id.image_view_profile);
-            tvHint = (TextView)v.findViewById(R.id.tv_hint_points);
+            positionEt = (TextView)v.findViewById(R.id.user_position_tv);
+            nameEt = (TextView)v.findViewById(R.id.user_rate_name_tv);
+            pointsEt = (TextView)v.findViewById(R.id.user_points_tv);
+            userPhotoIv = (CircleImageView)v.findViewById(R.id.profile_iv);
+            hintTv = (TextView)v.findViewById(R.id.hint_points_tv);
         }
     }
 }

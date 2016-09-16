@@ -67,7 +67,7 @@ public class HomeTeamPlayerAdapter extends RecyclerView.Adapter<HomeTeamPlayerAd
             super(v);
             numberTv = (TextView) v.findViewById(R.id.player_number_tv);
             nationalityTv = (TextView) v.findViewById(R.id.player_nationality_tv);
-            nameTv = (TextView) v.findViewById(R.id.tv_player_name);
+            nameTv = (TextView) v.findViewById(R.id.player_name_tv);
             yearTv = (TextView) v.findViewById(R.id.player_year_tv);
             positionTv = (TextView) v.findViewById(R.id.player_position_tv);
         }

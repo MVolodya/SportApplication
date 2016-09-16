@@ -8,11 +8,6 @@ public class RateMatchResponse {
     @Expose
     private Fixture fixture;
 
-    /**
-     *
-     * @return
-     * The fixture
-     */
     public Fixture getFixture() {
         return fixture;
     }

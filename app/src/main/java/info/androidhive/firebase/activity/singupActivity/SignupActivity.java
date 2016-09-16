@@ -24,8 +24,8 @@ import info.androidhive.firebase.R;
 public class SignupActivity extends AppCompatActivity implements SignUpView,
         View.OnFocusChangeListener {
 
-    private EditText etInputEmail;
-    private EditText etInputPassword;
+    private EditText inputEmailEt;
+    private EditText inputPasswordEt;
     private ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
     private SignUpPresenter signUpPresenter;
@@ -44,20 +44,20 @@ public class SignupActivity extends AppCompatActivity implements SignUpView,
         mAuth = FirebaseAuth.getInstance();
         signUpPresenter = new SignUpPresenter(this);
 
-        Button btnSignUp = (Button) findViewById(R.id.btn_sign_up);
-        etInputEmail = (EditText) findViewById(R.id.et_email);
-        etInputPassword = (EditText) findViewById(R.id.et_password);
+        Button btnSignUp = (Button) findViewById(R.id.sign_up_btn);
+        inputEmailEt = (EditText) findViewById(R.id.email_et);
+        inputPasswordEt = (EditText) findViewById(R.id.password_et);
 
-        etInputEmail.setOnFocusChangeListener(this);
-        etInputPassword.setOnFocusChangeListener(this);
+        inputEmailEt.setOnFocusChangeListener(this);
+        inputPasswordEt.setOnFocusChangeListener(this);
 
         progressDialog = new ProgressDialog(this);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String email = etInputEmail.getText().toString().trim();
-                final String password = etInputPassword.getText().toString().trim();
+                final String email = inputEmailEt.getText().toString().trim();
+                final String password = inputPasswordEt.getText().toString().trim();
                 ProgressDialogManager.showProgressDialog(progressDialog, getString(R.string.sign_up));
                 signUpPresenter.signUp(email, password);
             }
@@ -75,7 +75,7 @@ public class SignupActivity extends AppCompatActivity implements SignUpView,
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
-        etInputEmail.setError(getString(R.string.enter_correct_email));
+        inputEmailEt.setError(getString(R.string.enter_correct_email));
     }
 
     @Override
