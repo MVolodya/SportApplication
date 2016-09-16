@@ -24,7 +24,6 @@ import info.androidhive.firebase.R;
 import info.androidhive.firebase.classes.models.RatedUser;
 import info.androidhive.firebase.classes.models.User;
 
-
 public class MaterialDialogManager {
 
     private final Context context;
@@ -35,7 +34,6 @@ public class MaterialDialogManager {
 
     public AlertDialog openRateDialogBox(final double coff, final int matchId, final String typeOfRate,
                                          final RatedUser user) {
-
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View promptView = layoutInflater.inflate(R.layout.dialog_rate, null);
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -63,8 +61,8 @@ public class MaterialDialogManager {
         input.setHint(R.string.points);
         input.setTextColor(Color.BLACK);
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
-
         input.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -122,5 +120,4 @@ public class MaterialDialogManager {
 
         return dialog;
     }
-
 }

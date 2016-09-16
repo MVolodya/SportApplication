@@ -4,7 +4,6 @@ import java.util.List;
 
 import info.androidhive.firebase.classes.managers.DataGetter;
 import info.androidhive.firebase.classes.models.DataHelper;
-import info.androidhive.firebase.classes.recycleViewAdapters.MatchAdapter;
 import info.androidhive.firebase.classes.retrofit.ApiFactory;
 import info.androidhive.firebase.classes.retrofit.match.Fixture;
 import info.androidhive.firebase.classes.retrofit.match.MatchResponse;

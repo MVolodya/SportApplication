@@ -1,9 +1,6 @@
 package info.androidhive.firebase.fragments.homeTeamFragment.presenter;
 
-import android.view.View;
-
 import info.androidhive.firebase.classes.models.DataHelper;
-import info.androidhive.firebase.classes.recycleViewAdapters.HomeTeamPlayerAdapter;
 import info.androidhive.firebase.classes.retrofit.ApiFactory;
 import info.androidhive.firebase.classes.retrofit.players.PlayersResponse;
 import info.androidhive.firebase.classes.retrofit.players.PlayersService;

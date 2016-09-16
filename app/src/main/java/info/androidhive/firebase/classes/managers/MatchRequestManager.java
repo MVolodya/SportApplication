@@ -1,7 +1,5 @@
 package info.androidhive.firebase.classes.managers;
 
-import java.util.List;
-
 import info.androidhive.firebase.classes.models.Rate;
 import info.androidhive.firebase.classes.models.RatedMatchesToDB;
 import info.androidhive.firebase.classes.retrofit.ApiFactory;
@@ -17,7 +15,6 @@ public class MatchRequestManager {
     public void getRate(final int id, final RatedMatchesToDB ratedMatches, final CallbackRate callbackRate){
         RateMatchService service = ApiFactory.getRateMatchService();
         Call<RateMatchResponse> call = service.match(id);
-
         call.enqueue(new Callback<RateMatchResponse>() {
             @Override
             public void onResponse(Response<RateMatchResponse> response) {

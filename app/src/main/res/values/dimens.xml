@@ -28,6 +28,7 @@
     <dimen name="logo_image_h">140dp</dimen>
     <dimen name="margin_bottom_image_login">30dp</dimen>
     <dimen name="et_margin_bottom">10dp</dimen>
+    <dimen name="et_margin_top">20dp</dimen>
     <dimen name="btn_margin_top">20dp</dimen>
 
     <dimen name="facebook_linear_padding_top">15dp</dimen>
@@ -38,4 +39,9 @@
     <dimen name="facebook_button_pt">10dp</dimen>
 
     <dimen name="pb_margin_b">20dp</dimen>
+    <dimen name="layout_margin_top">30dp</dimen>
+    <dimen name="layout_margin_bottom">30dp</dimen>
+    <dimen name="tv_pudding">10dp</dimen>
+    <dimen name="pb_width">30dp</dimen>
+    <dimen name="pb_height">30dp</dimen>
 </resources>

@@ -2,38 +2,30 @@ package info.androidhive.firebase.classes.models;
 
 public class DataHelper {
 
-
-    private static DataHelper ourInstance;
-    private int id;
-    private int matchId;
-    private int homeTeamId;
-    private int awayTeamId;
-    private int deletedPosition;
-    private int count = 0;
-    private String language;
-
+    private static DataHelper mOurInstance;
+    private int mId;
+    private int mMatchId;
+    private int mHomeTeamId;
+    private int mAwayTeamId;
+    private int mDeletedPosition;
+    private String mLanguage;
     private RatedMatchesToDB ratedMatchesToDB;
     private Rate rate;
-
-
     private String leagueName;
 
-
     public static DataHelper getInstance() {
-
-        if (ourInstance == null) ourInstance = new DataHelper();
-        return ourInstance;
+        if (mOurInstance == null) mOurInstance = new DataHelper();
+        return mOurInstance;
     }
 
-    private DataHelper() {
-    }
+    private DataHelper() {}
 
     public int getId() {
-        return id;
+        return mId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int mId) {
+        this.mId = mId;
     }
 
     public void setLeagueName(String leagueName) {
@@ -41,43 +33,38 @@ public class DataHelper {
     }
 
     public String getLeagueName() {
-
         return leagueName;
     }
 
     public int getMatchId() {
-        return matchId;
+        return mMatchId;
     }
 
-    public void setMatchId(int matchId) {
-        this.matchId = matchId;
+    public void setMatchId(int mMatchId) {
+        this.mMatchId = mMatchId;
     }
 
     public int getHomeTeamId() {
-        return homeTeamId;
+        return mHomeTeamId;
     }
 
-    public void setHomeTeamId(int homeTeamId) {
-        this.homeTeamId = homeTeamId;
+    public void setHomeTeamId(int mHomeTeamId) {
+        this.mHomeTeamId = mHomeTeamId;
     }
 
     public int getAwayTeamId() {
-        return awayTeamId;
+        return mAwayTeamId;
     }
 
-    public void setAwayTeamId(int awayTeamId) {
-        this.awayTeamId = awayTeamId;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
+    public void setAwayTeamId(int mAwayTeamId) {
+        this.mAwayTeamId = mAwayTeamId;
     }
 
     public String getLanguage() {
-        return language;
+        return mLanguage;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setLanguage(String mLanguage) {
+        this.mLanguage = mLanguage;
     }
 }

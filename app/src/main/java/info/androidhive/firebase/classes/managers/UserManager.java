@@ -33,20 +33,16 @@ public class UserManager {
                         } else {
                             Toast.makeText(context, R.string.failed_send_instruction, Toast.LENGTH_SHORT).show();
                         }
-                        callbackResetPassword.ok();
-                        //ProgressDialogManager.hideProgressDialog(new ProgressDialog(context));
+                        callbackResetPassword.onSuccess();
                     }
                 });
-
     }
 
     public static void updateUrl(final String photoUri) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(Uri.parse(photoUri))
                 .build();
-
         firebaseUser.updateProfile(profileUpdates)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -59,11 +55,9 @@ public class UserManager {
 
     public static void updateUsername(String username) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(username)
                 .build();
-
        firebaseUser.updateProfile(profileUpdates)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -72,16 +66,11 @@ public class UserManager {
                         }
                     }
                 });
-
-
     }
 
     public static void updateEmail(String email, final UpdateCallback updateCallback) {
-
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         if (firebaseUser != null) {
-
             //change email
             firebaseUser.updateEmail(email)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -97,9 +86,7 @@ public class UserManager {
 
     public static void updatePassword(String password, final UpdateCallback updateCallback) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         if (firebaseUser != null) {
-
             //change email
             firebaseUser.updatePassword(password)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -112,5 +99,4 @@ public class UserManager {
                     });
         }
     }
-
 }

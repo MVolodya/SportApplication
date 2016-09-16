@@ -12,13 +12,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
-import info.androidhive.firebase.classes.managers.DataGetter;
+import info.androidhive.firebase.R;
 import info.androidhive.firebase.classes.managers.RateManager;
-import info.androidhive.firebase.classes.models.DataHelper;
 import info.androidhive.firebase.classes.models.Rate;
 import info.androidhive.firebase.classes.models.RatedMatchesToDB;
 import info.androidhive.firebase.classes.recycleViewAdapters.UsersRateAdapter;
-import info.androidhive.firebase.R;
 
 public class SwipeManager extends ItemTouchHelper.SimpleCallback implements InitDeletedRate {
 
@@ -66,7 +64,6 @@ public class SwipeManager extends ItemTouchHelper.SimpleCallback implements Init
                 });
         snackbar.show();
     }
-
 
     @Override
     public void initRate(RatedMatchesToDB ratedMatchesToDB) {

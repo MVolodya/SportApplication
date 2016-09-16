@@ -80,16 +80,12 @@ public class RateManager {
                             }
 
                             @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                            }
+                            public void onCancelled(DatabaseError databaseError) {}
                         }
-
                 );
     }
 
     public void deleteRate(final String username, final Rate rate, final InitDeletedRate initDeletedRate) {
-        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
         mDatabase.child(username)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -112,8 +108,7 @@ public class RateManager {
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
+                    public void onCancelled(DatabaseError databaseError) {}
                 });
     }
 
@@ -128,10 +123,8 @@ public class RateManager {
                                                     }
 
                                                     @Override
-                                                    public void onCancelled(DatabaseError databaseError) {
-                                                    }
+                                                    public void onCancelled(DatabaseError databaseError) {}
                                                 }
-
                 );
 
     }
@@ -163,8 +156,7 @@ public class RateManager {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 
@@ -204,9 +196,7 @@ public class RateManager {
             }
 
             @Override
-            public void onFailure(Throwable t) {
-            }
+            public void onFailure(Throwable t) {}
         });
     }
-
 }

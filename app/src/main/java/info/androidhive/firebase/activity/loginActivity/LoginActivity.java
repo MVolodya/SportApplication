@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(mProgressDialog);
-        etInputEmail.setError(getString(R.string.enter_correct_email));
+        Toast.makeText(LoginActivity.this, R.string.enter_correct_email, Toast.LENGTH_SHORT).show();
     }
 
     @Override

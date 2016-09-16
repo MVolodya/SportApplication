@@ -23,7 +23,7 @@ import info.androidhive.firebase.R;
 public class ResetPasswordActivity extends AppCompatActivity implements ResetPasswordView,
         View.OnFocusChangeListener {
 
-    private EditText inputEmail;
+    private EditText etInputEmail;
     private ProgressDialog progressDialog;
     private ProgressDialogManager dialogManager;
     private ResetPasswordPresenter resetPasswordPresenter;
@@ -33,33 +33,24 @@ public class ResetPasswordActivity extends AppCompatActivity implements ResetPas
         context.startActivity(starter);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
-        inputEmail = (EditText) findViewById(R.id.et_email);
+        etInputEmail = (EditText) findViewById(R.id.et_email);
         Button btnReset = (Button) findViewById(R.id.btn_reset);
 
         progressDialog = new ProgressDialog(this);
         resetPasswordPresenter = new ResetPasswordPresenter(this);
 
-        inputEmail.setOnFocusChangeListener(this);
+        etInputEmail.setOnFocusChangeListener(this);
         FirebaseAuth auth = FirebaseAuth.getInstance();
-
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String email = inputEmail.getText().toString().trim();
-
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplication(), R.string.enter_reg_email, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
+                String email = etInputEmail.getText().toString().trim();
                 ProgressDialogManager.showProgressDialog(progressDialog, getString(R.string.sign_in));
                 resetPasswordPresenter.resetPassword(email);
             }
@@ -74,7 +65,13 @@ public class ResetPasswordActivity extends AppCompatActivity implements ResetPas
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
-        inputEmail.setError(getString(R.string.enter_correct_email));
+        etInputEmail.setError(getString(R.string.enter_correct_email));
+    }
+
+    @Override
+    public void onErrorValidEmail() {
+        ProgressDialogManager.hideProgressDialog(progressDialog);
+        Toast.makeText(this, R.string.enter_reg_email, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -31,7 +31,6 @@ import java.io.InputStream;
 import info.androidhive.firebase.activity.mainActivity.MainActivity;
 import info.androidhive.firebase.classes.managers.DataGetter;
 import info.androidhive.firebase.classes.models.RatedUser;
-import info.androidhive.firebase.classes.models.User;
 import info.androidhive.firebase.classes.utils.ConvertDate;
 import info.androidhive.firebase.classes.utils.CustomViewPager;
 import info.androidhive.firebase.classes.models.DataHelper;

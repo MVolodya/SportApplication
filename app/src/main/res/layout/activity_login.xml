@@ -54,8 +54,6 @@
                 android:textColor="@color/colorPrimaryDark" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Login Button -->
-
         <Button
             android:id="@+id/btn_login"
             android:layout_width="fill_parent"
@@ -119,7 +117,6 @@
                 android:text="@string/fbloginText" />
 
         </LinearLayout>
-
 
         <ProgressBar
             android:id="@+id/login_progress_bar"

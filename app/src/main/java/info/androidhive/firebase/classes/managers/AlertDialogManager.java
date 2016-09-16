@@ -18,21 +18,21 @@ import info.androidhive.firebase.fragments.settingsFragment.SettingsFragment;
 
 public class AlertDialogManager {
 
-    private static EditText input;
+    private static EditText sEtInput;
 
     public static AlertDialog.Builder getAlertDialog(Context context, String msg) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setTitle(R.string.edit);
 
-        input = new EditText(context);
+        sEtInput = new EditText(context);
         LinearLayout.LayoutParams lpEmail = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        input.setSelection(input.getText().length());
-        input.setPadding(20, 30, 20, 30);
-        input.setHint(msg);
-        input.setLayoutParams(lpEmail);
-        alertDialog.setView(input);
+        sEtInput.setSelection(sEtInput.getText().length());
+        sEtInput.setPadding(20, 30, 20, 30);
+        sEtInput.setHint(msg);
+        sEtInput.setLayoutParams(lpEmail);
+        alertDialog.setView(sEtInput);
 
         return alertDialog;
     }
@@ -103,7 +103,7 @@ public class AlertDialogManager {
         return dialog;
     }
 
-    public static EditText getInput() {
-        return input;
+    public static EditText getsEtInput() {
+        return sEtInput;
     }
 }

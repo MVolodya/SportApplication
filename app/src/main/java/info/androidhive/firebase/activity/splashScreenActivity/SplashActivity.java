@@ -18,7 +18,7 @@ import info.androidhive.firebase.R;
 
 public class SplashActivity extends Activity implements SplashScreenView {
 
-    private final RateManager rateManager = new RateManager(this);
+    private RateManager rateManager = new RateManager(this);
     private SplashScreenPresenter splashScreenPresenter;
 
     @Override
@@ -35,18 +35,13 @@ public class SplashActivity extends Activity implements SplashScreenView {
                 setLanguage("uk");
 
         setContentView(R.layout.activity_splash);
+
         if(FirebaseAuth.getInstance().getCurrentUser() != null){
             splashScreenPresenter.getUserRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         }else{
             LoginActivity.start(this);
             finish();
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        finish();
     }
 
     @Override

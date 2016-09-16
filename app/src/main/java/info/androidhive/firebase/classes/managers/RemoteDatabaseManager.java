@@ -1,6 +1,5 @@
 package info.androidhive.firebase.classes.managers;
 
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -28,19 +27,17 @@ import info.androidhive.firebase.fragments.settingsFragment.callback.UpdateCallb
 
 public class RemoteDatabaseManager {
 
-    private final FirebaseStorage storage;
+    private final FirebaseStorage mStorage;
     private final DatabaseReference mDatabase;
-    private Uri downloadUrl;
+    private Uri mDownloadUrl;
     private ProgressDialogManager progressDialogManager;
     private final Context context;
 
-
     public RemoteDatabaseManager(Context context) {
         this.context = context;
-        storage = FirebaseStorage.getInstance();
+        mStorage = FirebaseStorage.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
-
 
     public void setRateToDatabase(final String name, String matchId, final String pointsRate,
                                   final String points,
@@ -84,10 +81,9 @@ public class RemoteDatabaseManager {
         });
     }
 
-
     public void uploadImage(Bitmap bitmap, String uId, final UpdateCallback updateCallback) {
 
-        StorageReference storageRef = storage.getReferenceFromUrl("gs://sportapp-28cf4.appspot.com");
+        StorageReference storageRef = mStorage.getReferenceFromUrl("gs://sportapp-28cf4.appspot.com");
         StorageReference mountainsRef = storageRef.child("images" + uId);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -102,13 +98,11 @@ public class RemoteDatabaseManager {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                downloadUrl = taskSnapshot.getDownloadUrl();
-                updateCallback.updatePhotoSuccess(downloadUrl.toString());
+                mDownloadUrl = taskSnapshot.getDownloadUrl();
+                updateCallback.updatePhotoSuccess(mDownloadUrl.toString());
             }
         });
-
     }
-
 
     public void setUserData(final String displayName, final String photoUri) {
         mDatabase.child(displayName).addListenerForSingleValueEvent(new ValueEventListener() {

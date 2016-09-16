@@ -28,25 +28,23 @@ import info.androidhive.firebase.activity.loginActivity.callback.CallbackLogin;
 import info.androidhive.firebase.activity.singupActivity.callback.CallbackSignUp;
 import info.androidhive.firebase.R;
 
-
 public class SignInManager {
 
     private static final String TAG = "facebookLogin";
 
-    private final Context context;
-    private final FirebaseAuth auth;
-    //private final ProgressDialog mProgressDialog;
+    private Context context;
+    private FirebaseAuth mAuth;
     private CallbackLogin callbackLogin;
 
-    public SignInManager(Context context, FirebaseAuth auth) {
+    public SignInManager(Context context, FirebaseAuth mAuth) {
         this.context = context;
-        this.auth = auth;
+        this.mAuth = mAuth;
         //mProgressDialog = new ProgressDialog(context);
         LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(context);
     }
 
     public void signUpWithEmailAndPassword(String email, final String password, final CallbackSignUp callbackSignUp){
-        auth.createUserWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((SignupActivity) context, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -59,40 +57,32 @@ public class SignInManager {
                             Toast.makeText(context, "Authentication failed." + task.getException(),
                                     Toast.LENGTH_SHORT).show();
                         } else {
-
                             long currentTime = System.currentTimeMillis();
-
-                            if(auth.getCurrentUser().getDisplayName() != null) {
-
-                                LocalDatabaseManager.setUser(auth.getCurrentUser().getDisplayName(),
-                                        auth.getCurrentUser().getEmail(),
+                            if(mAuth.getCurrentUser().getDisplayName() != null) {
+                                LocalDatabaseManager.setUser(mAuth.getCurrentUser().getDisplayName(),
+                                        mAuth.getCurrentUser().getEmail(),
                                         Uri.parse(context.getString(R.string.user_photo_url)));
-
                                 new RemoteDatabaseManager(context)
-                                        .setUserData(auth.getCurrentUser().getDisplayName(),
+                                        .setUserData(mAuth.getCurrentUser().getDisplayName(),
                                                 context.getString(R.string.user_photo_url));
                             } else {
-
                                 LocalDatabaseManager.setUser("Anonymous"+currentTime,
-                                        auth.getCurrentUser().getEmail(),
+                                        mAuth.getCurrentUser().getEmail(),
                                         Uri.parse(context.getString(R.string.user_photo_url)));
-
                                 UserManager.updateUsername("Anonymous"+currentTime);
                                 UserManager.updateUrl(context.getString(R.string.user_photo_url));
-
                                 new RemoteDatabaseManager(context)
                                         .setUserData("Anonymous"+currentTime,
                                                 context.getString(R.string.user_photo_url));
                             }
-                            callbackSignUp.okSignUp();
+                            callbackSignUp.onSuccess();
                         }
                     }
                 });
     }
 
     public void loginWithEmailAndPassword(String email,final String password, final CallbackLogin callbackLogin){
-        //authenticate user
-        auth.signInWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(((LoginActivity)context), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -108,15 +98,12 @@ public class SignInManager {
                                 Toast.makeText(context, context.getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                 callbackLogin.onFailCallback();
                             }
-
                         } else {
                             FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
-
                             if(fbUser != null){
                                 LocalDatabaseManager.setUser(fbUser.getDisplayName(),
                                         fbUser.getEmail(),
                                         fbUser.getPhotoUrl());
-
                                 callbackLogin.okLogin();
                             }else
                                 Toast.makeText(context, R.string.error_login, Toast.LENGTH_SHORT).show();
@@ -129,6 +116,7 @@ public class SignInManager {
     public void loginWithFacebook(LoginButton loginButton, final CallbackManager callbackManager,
                                   final CallbackLogin callbackLogin) {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken(), callbackLogin);
@@ -142,10 +130,9 @@ public class SignInManager {
         });
     }
 
-
     private void handleFacebookAccessToken(AccessToken token, final CallbackLogin callbackLogin) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        auth.signInWithCredential(credential)
+        mAuth.signInWithCredential(credential)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -158,7 +145,6 @@ public class SignInManager {
                         }else {
                             Profile profile = Profile.getCurrentProfile();
                             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
                             if((firebaseUser != null ? firebaseUser.getDisplayName() : null) != null)
                             new RemoteDatabaseManager(context)
                                     .setUserData(firebaseUser.getDisplayName(),
@@ -166,7 +152,6 @@ public class SignInManager {
                             else new RemoteDatabaseManager(context)
                                     .setUserData("Anonymous"+System.currentTimeMillis(),
                                             context.getString(R.string.user_photo_url));
-
                             LocalDatabaseManager.setUser(firebaseUser.getDisplayName(),
                                     firebaseUser.getEmail(),
                                     firebaseUser.getPhotoUrl());
@@ -180,8 +165,4 @@ public class SignInManager {
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
     }
-
-
-
-
 }
