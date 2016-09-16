@@ -30,7 +30,6 @@ import info.androidhive.firebase.activity.mainActivity.MainActivity;
 import info.androidhive.firebase.classes.managers.DataGetter;
 import info.androidhive.firebase.classes.managers.ProgressDialogManager;
 import info.androidhive.firebase.classes.recycleViewAdapters.ClickListener;
-import info.androidhive.firebase.classes.recycleViewAdapters.DividerItemDecoration;
 import info.androidhive.firebase.classes.recycleViewAdapters.MatchAdapter;
 import info.androidhive.firebase.classes.recycleViewAdapters.RecyclerTouchListener;
 import info.androidhive.firebase.classes.retrofit.match.Fixture;
@@ -105,13 +104,13 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
 
                 matchFragmentPresenter.saveMatchData(matches, position);
 
-                Fragment fr = getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
+                Fragment fr = getActivity().getSupportFragmentManager().findFragmentById(R.id.nd_fragment_container);
 
                 if (!(fr instanceof RateFragment)) {
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                             .hide(matchFragment)
-                            .add(R.id.container, new RateFragment())
+                            .add(R.id.nd_fragment_container, new RateFragment())
                             .addToBackStack(null)
                             .commit();
                 }

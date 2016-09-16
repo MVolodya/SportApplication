@@ -1,7 +1,6 @@
 package info.androidhive.firebase.activity.navigationDrawerActivity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,31 +13,29 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import info.androidhive.firebase.R;
 import info.androidhive.firebase.activity.loginActivity.LoginActivity;
 import info.androidhive.firebase.activity.mainActivity.MainActivity;
 import info.androidhive.firebase.activity.navigationDrawerActivity.presenter.NDPresenter;
 import info.androidhive.firebase.activity.navigationDrawerActivity.view.NDView;
 import info.androidhive.firebase.classes.managers.LocalDatabaseManager;
 import info.androidhive.firebase.classes.managers.SignInManager;
-import info.androidhive.firebase.classes.models.DataHelper;
 import info.androidhive.firebase.classes.models.User;
 import info.androidhive.firebase.fragments.allUsersFragment.AllUsersFragment;
 import info.androidhive.firebase.fragments.currentUserRateFragment.CurrentUserRateFragment;
 import info.androidhive.firebase.fragments.mainFragment.MainFragment;
 import info.androidhive.firebase.fragments.settingsFragment.SettingsFragment;
-import info.androidhive.firebase.R;
+
 public class NavigationDrawerActivity extends AppCompatActivity implements NDView {
 
-    public Drawer result;
+    public Drawer resultDrawer;
     private NDPresenter ndPresenter;
-    private AccountHeader accountHeader;
+    private AccountHeader mAccountHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +46,11 @@ public class NavigationDrawerActivity extends AppCompatActivity implements NDVie
     }
 
     public void initializeNavigationDrawer(Toolbar toolbar, User user, final MainActivity mainActivity) {
-        accountHeader = ndPresenter.createAccount(user);
-        result = new DrawerBuilder()
+        mAccountHeader = ndPresenter.createAccount(user);
+        resultDrawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withAccountHeader(accountHeader)
+                .withAccountHeader(mAccountHeader)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
                         new SecondaryDrawerItem()
@@ -87,52 +84,28 @@ public class NavigationDrawerActivity extends AppCompatActivity implements NDVie
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
                         int itemSelected = (int) drawerItem.getIdentifier();
-                        Fragment fr = getSupportFragmentManager()
-                                .findFragmentById(R.id.container);
-                        FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
 
                         switch (itemSelected) {
                             case 1:
-                                if (!(fr instanceof MainFragment)) {
-                                    fragmentManager
-                                            .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
-                                            .replace(R.id.container, new MainFragment(), "main")
-                                            .commit();
-                                    mainActivity.showToolbar();
-                                }
+                                replace(new MainFragment());
+                                mainActivity.showToolbar();
                                 break;
                             case 3:
-                                if (!(fr instanceof AllUsersFragment)) {
-                                    fragmentManager
-                                            .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
-                                            .replace(R.id.container, new AllUsersFragment())
-                                            .commit();
-                                    mainActivity.showToolbar();
-                                }
+                                replace(new AllUsersFragment());
+                                mainActivity.showToolbar();
                                 break;
                             case 4:
-                                if (!(fr instanceof CurrentUserRateFragment)) {
-                                    DataHelper.getInstance().setCount(0);
-                                    fragmentManager
-                                            .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
-                                            .replace(R.id.container, new CurrentUserRateFragment())
-                                            .commit();
-                                    mainActivity.showToolbar();
-                                }
+                                replace(new CurrentUserRateFragment());
+                                mainActivity.showToolbar();
                                 break;
                             case 7:
-                                if (!(fr instanceof SettingsFragment)) {
-                                    fragmentManager
-                                            .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
-                                            .replace(R.id.container, new SettingsFragment())
-                                            .commit();
-                                    mainActivity.hideToolbar();
-                                }
+                                replace(new SettingsFragment());
+                                mainActivity.hideToolbar();
                                 break;
                             case 8:
                                 SignInManager.signOut();
                                 LocalDatabaseManager.delete();
-                                startActivity(new Intent(NavigationDrawerActivity.this, LoginActivity.class));
+                                LoginActivity.start(NavigationDrawerActivity.this);
                                 finish();
                                 break;
                         }
@@ -142,22 +115,32 @@ public class NavigationDrawerActivity extends AppCompatActivity implements NDVie
                 .build();
     }
 
+    private void replace(Fragment fragment) {
+        Fragment fr = getSupportFragmentManager()
+                .findFragmentById(R.id.nd_fragment_container);
+        FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
+        fragmentManager
+                .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
+                .replace(R.id.nd_fragment_container, fragment, "main")
+                .commit();
+    }
+
     public void updateProfilePhoto(String url) {
-        IProfile profile = accountHeader.getActiveProfile();
+        IProfile profile = mAccountHeader.getActiveProfile();
         profile.withIcon(url);
-        accountHeader.updateProfile(profile);
+        mAccountHeader.updateProfile(profile);
     }
 
     public void updateProfileUsername(String username) {
-        IProfile profile = accountHeader.getActiveProfile();
+        IProfile profile = mAccountHeader.getActiveProfile();
         profile.withName(username);
-        accountHeader.updateProfile(profile);
+        mAccountHeader.updateProfile(profile);
     }
 
     public void updateProfileEmail(String email) {
-        IProfile profile = accountHeader.getActiveProfile();
+        IProfile profile = mAccountHeader.getActiveProfile();
         profile.withEmail(email);
-        accountHeader.updateProfile(profile);
+        mAccountHeader.updateProfile(profile);
     }
 
     @Override

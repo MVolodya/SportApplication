@@ -18,8 +18,8 @@
         android:padding="@dimen/margin_16dp">
 
         <ImageView
-            android:layout_width="140dp"
-            android:layout_height="@dimen/logo_w_h"
+            android:layout_width="@dimen/logo_image_w"
+            android:layout_height="@dimen/logo_image_h"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
             android:src="@drawable/icon_final" />
@@ -30,7 +30,7 @@
             android:theme="@style/TextLabel">
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
@@ -47,7 +47,7 @@
             android:theme="@style/TextLabel">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
@@ -76,7 +76,7 @@
     </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/login_progress_bar"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center|bottom"

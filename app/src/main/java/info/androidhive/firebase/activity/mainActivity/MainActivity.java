@@ -2,7 +2,6 @@ package info.androidhive.firebase.activity.mainActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,10 +27,9 @@ import info.androidhive.firebase.R;
 
 public class MainActivity extends NavigationDrawerActivity implements MainActivityView {
 
-    private FirebaseAuth.AuthStateListener authListener;
-    private FirebaseAuth auth;
-    private FirebaseUser user;
-    private MainActivityPresenter mainActivityPresenter;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
 
     private Toolbar toolbar;
 
@@ -45,22 +43,21 @@ public class MainActivity extends NavigationDrawerActivity implements MainActivi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mainActivityPresenter = new MainActivityPresenter();
+        MainActivityPresenter mainActivityPresenter = new MainActivityPresenter();
         mainActivityPresenter.setView(this);
         mainActivityPresenter.checkConnection();
 
-        //get firebase auth instance
-        auth = FirebaseAuth.getInstance();
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        //get firebase mAuth instance
+        mAuth = FirebaseAuth.getInstance();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         User userCustom = LocalDatabaseManager.getUser();
 
-
-        authListener = new FirebaseAuth.AuthStateListener() {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                if (user == null && AccessToken.getCurrentAccessToken() == null) {
-                    // user auth state is changed - user is null
+                if (mUser == null && AccessToken.getCurrentAccessToken() == null) {
+                    // mUser mAuth state is changed - mUser is null
                     // launch login activity
                     LoginActivity.start(getApplicationContext());
                     finish();
@@ -68,29 +65,26 @@ public class MainActivity extends NavigationDrawerActivity implements MainActivi
             }
         };
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         initializeNavigationDrawer(toolbar, userCustom, this);
-
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new MainFragment(), "main")
+                .replace(R.id.nd_fragment_container, new MainFragment(), "main")
                 .commit();
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        auth.addAuthStateListener(authListener);
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (authListener != null) {
-            auth.removeAuthStateListener(authListener);
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
         }
     }
 
@@ -100,36 +94,35 @@ public class MainActivity extends NavigationDrawerActivity implements MainActivi
         LocalDatabaseManager.close();
     }
 
-    public void showToolbar(){
+    public void showToolbar() {
         toolbar.setVisibility(View.VISIBLE);
     }
 
-    public void hideToolbar(){
+    public void hideToolbar() {
         toolbar.setVisibility(View.GONE);
     }
 
-    public void lockSwipe(){
-        result.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    public void lockSwipe() {
+        resultDrawer.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
-    public void unlockSwipe(){
-        result.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    public void unlockSwipe() {
+        resultDrawer.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
-    public ActionBar getToolbar(){
+    public ActionBar getToolbar() {
         return getSupportActionBar();
     }
-
     // close ND on button back
     @Override
     public void onBackPressed() {
-        if (result != null && result.isDrawerOpen())
-            result.closeDrawer();
-            else if (getFragmentManager().getBackStackEntryCount() > 0) {
-                getFragmentManager().popBackStack();
-                toolbar.setVisibility(View.VISIBLE);
-            } else super.onBackPressed();
-        }
+        if (resultDrawer != null && resultDrawer.isDrawerOpen())
+            resultDrawer.closeDrawer();
+        else if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+            toolbar.setVisibility(View.VISIBLE);
+        } else super.onBackPressed();
+    }
 
     @Override
     public Context getContext() {
@@ -138,14 +131,11 @@ public class MainActivity extends NavigationDrawerActivity implements MainActivi
 
     @Override
     public void setConnectionState(String msg, int color) {
-        View view = findViewById(R.id.container);
-
+        View view = findViewById(R.id.nd_fragment_container);
         Snackbar snackbar = Snackbar
                 .make(view, msg, Snackbar.LENGTH_LONG);
-
         View sbView = snackbar.getView();
         sbView.setBackgroundColor(color);
-
         TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setTextColor(Color.WHITE);
         snackbar.show();

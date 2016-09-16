@@ -79,7 +79,7 @@ public class LeagueFragment extends Fragment implements LeagueView, SwipeRefresh
 
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
-                        .add(R.id.container, new LeagueTableFragment())
+                        .add(R.id.nd_fragment_container, new LeagueTableFragment())
                         .addToBackStack(null)
                         .commit();
 

@@ -1,12 +1,8 @@
 package info.androidhive.firebase.activity.mainActivity.presenter;
 
-import android.content.res.Configuration;
-
-import java.util.Locale;
-
+import info.androidhive.firebase.R;
 import info.androidhive.firebase.activity.mainActivity.view.MainActivityView;
 import info.androidhive.firebase.classes.utils.ConnectivityReceiver;
-import info.androidhive.firebase.R;
 
 public class MainActivityPresenter {
 

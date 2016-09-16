@@ -30,13 +30,10 @@ public class NDPresenter {
         if (user.getPhotoURL() != null) profile.withIcon(user.getPhotoURL());
         else profile.withIcon(R.drawable.prof);
 
-        AccountHeader accountHeader =
-                new AccountHeaderBuilder()
-                        .withActivity(ndView.getActivity())
-                        .withHeaderBackground(R.drawable.w)
-                        .addProfiles(profile)
-                        .build();
-
-        return accountHeader;
+        return new AccountHeaderBuilder()
+                .withActivity(ndView.getActivity())
+                .withHeaderBackground(R.drawable.w)
+                .addProfiles(profile)
+                .build();
     }
 }

@@ -81,13 +81,13 @@ public class    CurrentUserRateFragment extends Fragment implements UserRateView
                 dataHelper.setMatchId(Integer.parseInt(ratedMatchesList
                         .get(position).getId()));
 
-                Fragment fr = getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
+                Fragment fr = getActivity().getSupportFragmentManager().findFragmentById(R.id.nd_fragment_container);
 
                 if (!(fr instanceof RateFragment)) {
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
                             .hide(currentUserRateFragment)
-                            .add(R.id.container, new RateFragment())
+                            .add(R.id.nd_fragment_container, new RateFragment())
                             .addToBackStack(null)
                             .commit();
                 }

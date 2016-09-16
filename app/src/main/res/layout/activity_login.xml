@@ -18,10 +18,10 @@
         android:weightSum="1">
 
         <ImageView
-            android:layout_width="140dp"
-            android:layout_height="@dimen/logo_w_h"
+            android:layout_width="@dimen/logo_image_w"
+            android:layout_height="@dimen/logo_image_h"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="@dimen/margin_bottom_image_login"
             android:src="@drawable/icon_final" />
 
         <android.support.design.widget.TextInputLayout
@@ -30,10 +30,10 @@
             android:theme="@style/TextLabel">
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/et_margin_bottom"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/colorPrimaryDark" />
@@ -45,10 +45,10 @@
             android:theme="@style/TextLabel">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/et_password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/et_margin_bottom"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
                 android:textColor="@color/colorPrimaryDark" />
@@ -60,7 +60,7 @@
             android:id="@+id/btn_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
+            android:layout_marginTop="@dimen/btn_margin_top"
             android:text="@string/btn_login"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
@@ -83,7 +83,7 @@
             <!-- Link to Login Screen -->
 
             <Button
-                android:id="@+id/btn_signup"
+                android:id="@+id/btn_sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -94,11 +94,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/parentLinear"
+            android:id="@+id/facebook_parent_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-        android:paddingTop="15dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/facebook_linear_padding_top">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -108,25 +108,25 @@
                 android:textColor="@color/colorPrimary" />
 
             <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
+                android:id="@+id/btn_facebook_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dip"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
+                android:layout_marginLeft="@dimen/facebook_button_ml"
+                android:layout_marginRight="@dimen/facebook_button_mr"
+                android:layout_marginTop="@dimen/facebook_button_mt"
+                android:paddingBottom="@dimen/facebook_button_pb"
+                android:paddingTop="@dimen/facebook_button_pt"
                 android:text="@string/fbloginText" />
 
         </LinearLayout>
 
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/login_progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="@dimen/pb_margin_b"
             android:visibility="gone" />
 
     </LinearLayout>

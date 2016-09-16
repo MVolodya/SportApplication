@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import info.androidhive.firebase.activity.mainActivity.MainActivity;
-import info.androidhive.firebase.activity.resetPasswordActivity.ResetPasswordActivity;
 import info.androidhive.firebase.activity.loginActivity.LoginActivity;
 import info.androidhive.firebase.activity.singupActivity.presenter.SignUpPresenter;
 import info.androidhive.firebase.activity.singupActivity.view.SignUpView;
@@ -47,8 +46,8 @@ View.OnFocusChangeListener{
 
 
         Button btnSignUp = (Button) findViewById(R.id.sign_up_button);
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputPassword = (EditText) findViewById(R.id.password);
+        inputEmail = (EditText) findViewById(R.id.et_email);
+        inputPassword = (EditText) findViewById(R.id.et_password);
 
 
         inputEmail.setOnFocusChangeListener(this);
@@ -92,7 +91,7 @@ View.OnFocusChangeListener{
         ProgressDialogManager.hideProgressDialog(progressDialog);
         MainActivity.start(this);
         finish();
-        LoginActivity.loginActivity.finish();
+        LoginActivity.sLoginActivity.finish();
     }
 
     @Override

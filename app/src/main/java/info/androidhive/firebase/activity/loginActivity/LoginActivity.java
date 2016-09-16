@@ -27,31 +27,32 @@ import info.androidhive.firebase.activity.singupActivity.SignupActivity;
 import info.androidhive.firebase.classes.managers.ProgressDialogManager;
 import info.androidhive.firebase.classes.managers.SignInManager;
 
-
 public class LoginActivity extends AppCompatActivity implements View.OnFocusChangeListener,
         LoginView{
 
-    private EditText inputEmail, inputPassword;
+    private EditText etInputEmail;
+    private EditText etInputPassword;
     private SignInManager signInManager;
     private ProgressDialog mProgressDialog;
     private ProgressDialogManager dialogManager;
     private LoginPresenter loginPresenter;
-    private LoginButton loginButton;
-    private Button btnSignup;
+    private LoginButton btnFacebookLogin;
+    private Button btnSignUp;
     private Button btnLogin;
     private Button btnReset;
 
-    public static Activity loginActivity;
+    public static Activity sLoginActivity;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, LoginActivity.class);
         context.startActivity(starter);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loginActivity = this;
+        sLoginActivity = this;
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null || AccessToken.getCurrentAccessToken() != null) {
             // user auth state is changed - user is null
@@ -62,35 +63,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
 
         // set the view now
         setContentView(R.layout.activity_login);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
         mProgressDialog = new ProgressDialog(this);
         loginPresenter = new LoginPresenter(this);
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputPassword = (EditText) findViewById(R.id.password);
+        etInputEmail = (EditText) findViewById(R.id.et_email);
+        etInputPassword = (EditText) findViewById(R.id.et_password);
 
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btnSignup = (Button) findViewById(R.id.btn_signup);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.login_progress_bar);
+        btnSignUp = (Button) findViewById(R.id.btn_sign_up);
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnReset = (Button) findViewById(R.id.btn_reset_password);
 
-        inputEmail.setOnFocusChangeListener(this);
-        inputPassword.setOnFocusChangeListener(this);
+        etInputEmail.setOnFocusChangeListener(this);
+        etInputPassword.setOnFocusChangeListener(this);
 
-        //[START FACEBOOK SIGNIN]
-        loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        //[START FACEBOOK SIGN IN]
+        btnFacebookLogin = (LoginButton) findViewById(R.id.btn_facebook_login);
+        btnFacebookLogin.setReadPermissions("email", "public_profile");
+        btnFacebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginPresenter.loginWithFacebook(loginButton);
+                loginPresenter.loginWithFacebook(btnFacebookLogin);
                 ProgressDialogManager.showProgressDialog(mProgressDialog, getString(R.string.sign_in));
             }
         });
-        //[END FACEBOOK SIGNIN]
+        //[END FACEBOOK SIGN IN]
 
-        btnSignup.setOnClickListener(new View.OnClickListener() {
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                SignupActivity.start(getContext());
@@ -107,9 +108,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String email = inputEmail.getText().toString();
-                final String password = inputPassword.getText().toString();
-
+                final String email = etInputEmail.getText().toString();
+                final String password = etInputPassword.getText().toString();
                 ProgressDialogManager.showProgressDialog(mProgressDialog, getString(R.string.sign_in));
                 loginPresenter.login(email, password);
             }
@@ -126,9 +126,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     @Override
     public void onSuccess() {
         ProgressDialogManager.hideProgressDialog(mProgressDialog);
-        loginButton.setEnabled(false);
+        btnFacebookLogin.setEnabled(false);
         btnLogin.setEnabled(false);
-        btnSignup.setEnabled(false);
+        btnSignUp.setEnabled(false);
         btnReset.setEnabled(false);
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
@@ -137,19 +137,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(mProgressDialog);
-        inputEmail.setError(getString(R.string.enter_correct_email));
+        etInputEmail.setError(getString(R.string.enter_correct_email));
     }
 
     @Override
     public void onEmptyEmail() {
+        ProgressDialogManager.hideProgressDialog(mProgressDialog);
         Toast.makeText(LoginActivity.this, R.string.enter_email, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onEmptyPassword() {
+        ProgressDialogManager.hideProgressDialog(mProgressDialog);
         Toast.makeText(LoginActivity.this, R.string.enter_pass, Toast.LENGTH_SHORT).show();
     }
-
 
     @Override
     public Context getContext() {
@@ -174,8 +175,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public EditText getInputPassword() {
-        return inputPassword;
+    public EditText getEtInputPassword() {
+        return etInputPassword;
     }
 
 }
