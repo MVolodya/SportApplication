@@ -8,29 +8,30 @@
         android:id="@+id/cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginLeft="@dimen/cv_margin_l"
+        android:layout_marginTop="@dimen/cv_margin_t"
+        android:layout_marginRight="@dimen/cv_margin_r"
+        android:layout_marginBottom="@dimen/cv_margin_b">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="100dip"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp" />
+                    android:id="@+id/league_team_logo_iv"
+                    android:layout_width="@dimen/player_image_w"
+                    android:layout_height="@dimen/player_image_h" />
 
                 <TextView
-                    android:id="@+id/textViewTeamRow"
+                    android:id="@+id/team_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -39,7 +40,6 @@
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:ellipsize="end" />
-
             </LinearLayout>
 
 
@@ -51,7 +51,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textViewP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -60,7 +59,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
-                    android:id="@+id/textViewPositionRow"
+                    android:id="@+id/team_position_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -76,7 +75,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textViewGames"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -91,7 +89,7 @@
                     android:orientation="horizontal"
                     android:gravity="center">
                     <TextView
-                        android:id="@+id/textViewGamesWinRow"
+                        android:id="@+id/games_win_row_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -100,7 +98,6 @@
                         android:textColor="@color/bg_login" />
 
                     <TextView
-                        android:id="@+id/textViewDivider2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -110,7 +107,7 @@
                         android:text="-" />
 
                     <TextView
-                        android:id="@+id/textViewGamesDrawsRow"
+                        android:id="@+id/games_draw_row_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -119,7 +116,6 @@
                         android:textColor="@color/md_amber_300" />
 
                     <TextView
-                        android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -129,14 +125,13 @@
                         android:text="-" />
 
                     <TextView
-                        android:id="@+id/textViewGamesLoseRow"
+                        android:id="@+id/games_lose_row_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/btn_logut_bg" />
-
+                        android:textColor="@color/btn_log_out_bg" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -149,7 +144,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textViewGD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -166,7 +160,7 @@
                     android:orientation="horizontal"
                     android:gravity="center">
                     <TextView
-                        android:id="@+id/textViewGoalWinRow"
+                        android:id="@+id/goals_win_row_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -175,7 +169,6 @@
                         android:textColor="@color/bg_login" />
 
                     <TextView
-                        android:id="@+id/textViewDivider"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -185,17 +178,16 @@
                         android:text="-" />
 
                     <TextView
-                        android:id="@+id/textViewGoalLoseRow"
+                        android:id="@+id/goals_lose_row_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/btn_logut_bg" />
+                        android:textColor="@color/btn_log_out_bg" />
 
                 </LinearLayout>
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -205,7 +197,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textViewPts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -213,9 +204,8 @@
                     android:text="@string/pts"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
-
                 <TextView
-                    android:id="@+id/textViewPointsRow"
+                    android:id="@+id/team_points_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -226,7 +216,6 @@
                     android:textColor="@color/mat_normal" />
 
             </LinearLayout>
-
 
         </LinearLayout>
 

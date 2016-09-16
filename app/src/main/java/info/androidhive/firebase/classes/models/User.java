@@ -1,39 +1,34 @@
 package info.androidhive.firebase.classes.models;
 
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 public class User extends RealmObject {
 
-
-    private String name;
-
-    @PrimaryKey
-    private String email;
-
-    private String photoURL;
+    private String mName;
+    private String mEmail;
+    private String mPhotoURL;
 
     public String getName() {
-        return name;
+        return mName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String mName) {
+        this.mName = mName;
     }
 
     public String getEmail() {
-        return email;
+        return mEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String mEmail) {
+        this.mEmail = mEmail;
     }
 
     public String getPhotoURL() {
-        return photoURL;
+        return mPhotoURL;
     }
 
-    public void setPhotoURL(String photoURL) {
-        this.photoURL = photoURL;
+    public void setPhotoURL(String mPhotoURL) {
+        this.mPhotoURL = mPhotoURL;
     }
 }

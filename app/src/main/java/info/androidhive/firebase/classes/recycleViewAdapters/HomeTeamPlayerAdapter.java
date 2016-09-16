@@ -13,67 +13,63 @@ import info.androidhive.firebase.R;
 
 public class HomeTeamPlayerAdapter extends RecyclerView.Adapter<HomeTeamPlayerAdapter.ViewHolderPlayer> {
 
-    private final List<Player> playerList;
+    private final List<Player> mPlayerList;
 
-    public HomeTeamPlayerAdapter(List<Player> playerList) {
-        this.playerList = playerList;
+    public HomeTeamPlayerAdapter(List<Player> mPlayerList) {
+        this.mPlayerList = mPlayerList;
     }
 
     @Override
     public ViewHolderPlayer onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.home_team_player_row, parent, false);
-
         return new ViewHolderPlayer(itemView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolderPlayer holder, int position) {
 
-        if (playerList.get(position).getJerseyNumber() != null)
-            holder.number.setText(playerList.get(position).getJerseyNumber().toString());
-        else holder.number.setText("..!.");
+        if (mPlayerList.get(position).getJerseyNumber() != null)
+            holder.numberTv.setText(mPlayerList.get(position).getJerseyNumber().toString());
+        else holder.numberTv.setText(".!.");
 
-        if (playerList.get(position).getNationality() != null)
-            holder.nationality.setText(playerList.get(position).getNationality());
-        else holder.number.setText("..!.");
+        if (mPlayerList.get(position).getNationality() != null)
+            holder.nationalityTv.setText(mPlayerList.get(position).getNationality());
+        else holder.numberTv.setText(".!.");
 
-        if (playerList.get(position).getName() != null)
-            holder.name.setText(playerList.get(position).getName());
-        else holder.name.setText("..!.");
+        if (mPlayerList.get(position).getName() != null)
+            holder.nameTv.setText(mPlayerList.get(position).getName());
+        else holder.nameTv.setText(".!.");
 
-        if (playerList.get(position).getDateOfBirth() != null)
-            holder.year.setText(playerList.get(position).getDateOfBirth());
-        else holder.year.setText("..!.");
+        if (mPlayerList.get(position).getDateOfBirth() != null)
+            holder.yearTv.setText(mPlayerList.get(position).getDateOfBirth());
+        else holder.yearTv.setText(".!.");
 
-        if (playerList.get(position).getPosition() != null)
-            holder.position.setText(playerList.get(position).getPosition());
-        else holder.position.setText("..!.");
-
+        if (mPlayerList.get(position).getPosition() != null)
+            holder.positionTv.setText(mPlayerList.get(position).getPosition());
+        else holder.positionTv.setText(".!.");
     }
 
     @Override
     public int getItemCount() {
-
-        return playerList.size();
+        return mPlayerList.size();
     }
 
     public class ViewHolderPlayer extends RecyclerView.ViewHolder {
 
-        private final TextView number;
-        private final TextView nationality;
-        private final TextView name;
-        private final TextView year;
-        private final TextView position;
+        private final TextView numberTv;
+        private final TextView nationalityTv;
+        private final TextView nameTv;
+        private final TextView yearTv;
+        private final TextView positionTv;
 
         public ViewHolderPlayer(View v) {
             super(v);
-            number = (TextView) v.findViewById(R.id.textViewNumber);
-            nationality = (TextView) v.findViewById(R.id.textViewNationality);
-            name = (TextView) v.findViewById(R.id.textView7Name);
-            year = (TextView) v.findViewById(R.id.textViewYear);
-            position = (TextView) v.findViewById(R.id.textViewPosition);
+            numberTv = (TextView) v.findViewById(R.id.player_number_tv);
+            nationalityTv = (TextView) v.findViewById(R.id.player_nationality_tv);
+            nameTv = (TextView) v.findViewById(R.id.tv_player_name);
+            yearTv = (TextView) v.findViewById(R.id.player_year_tv);
+            positionTv = (TextView) v.findViewById(R.id.player_position_tv);
         }
     }
-
 }

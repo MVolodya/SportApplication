@@ -97,7 +97,7 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
         homeTeam = (TextView) view.findViewById(R.id.textViewTeamHome);
         awayTeam = (TextView) view.findViewById(R.id.textViewTeamAway);
         round = (TextView) view.findViewById(R.id.tv_round);
-        date = (TextView) view.findViewById(R.id.textViewDate);
+        date = (TextView) view.findViewById(R.id.match_date_tv);
         time = (TextView) view.findViewById(R.id.textViewTime);
         wins = (TextView) view.findViewById(R.id.textViewWin);
         draw = (TextView) view.findViewById(R.id.textViewDraw);

@@ -8,7 +8,7 @@
     android:paddingTop="10dp">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iv_player_image"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
@@ -16,7 +16,7 @@
         android:src="@drawable/ic_account_circle_black_36dp" />
 
     <TextView
-        android:id="@+id/textView7Name"
+        android:id="@+id/tv_player_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="72dp"
@@ -26,17 +26,17 @@
         android:textSize="16sp" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linear_layout_player_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView7Name">
+        android:layout_below="@+id/tv_player_name">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textYear"
+                android:id="@+id/player_hint_year_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="72dp"
@@ -44,7 +44,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/textViewNumber"
+                android:id="@+id/player_number_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -53,21 +53,21 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/textViewYear"
+                android:id="@+id/player_year_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/textYear"
-                android:layout_toRightOf="@+id/textYear"
+                android:layout_toEndOf="@+id/player_hint_year_tv"
+                android:layout_toRightOf="@+id/player_hint_year_tv"
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/nationality_lan_lay"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@id/linearLayout"
+        android:layout_below="@id/linear_layout_player_data"
         android:layout_marginLeft="72dp">
 
         <RelativeLayout
@@ -75,23 +75,23 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textNationality"
+                android:id="@+id/player_nationality_hint_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nationality"
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/textViewNationality"
+                android:id="@+id/player_nationality_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/textNationality"
-                android:layout_toRightOf="@+id/textNationality"
+                android:layout_toEndOf="@+id/player_nationality_hint_tv"
+                android:layout_toRightOf="@+id/player_nationality_hint_tv"
                 android:maxLength="11"
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/textViewPosition"
+                android:id="@+id/player_position_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

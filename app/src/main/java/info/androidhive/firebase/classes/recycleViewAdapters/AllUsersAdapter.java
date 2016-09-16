@@ -18,14 +18,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import info.androidhive.firebase.classes.models.RatedUser;
 import info.androidhive.firebase.R;
 
-
 public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHolderUsers> {
 
-    private final List<RatedUser> usersList;
+    private final List<RatedUser> mUsersList;
     private View view;
 
-    public AllUsersAdapter(List<RatedUser> usersList) {
-        this.usersList = usersList;
+    public AllUsersAdapter(List<RatedUser> mUsersList) {
+        this.mUsersList = mUsersList;
         getSortedUsers();
     }
 
@@ -33,34 +32,33 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
     public ViewHolderUsers onCreateViewHolder(ViewGroup parent, int viewType) {
         view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.users_list_row, parent, false);
-
         return new ViewHolderUsers(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolderUsers holder, int position) {
-        RatedUser ratedUser = usersList.get(position);
+        RatedUser ratedUser = mUsersList.get(position);
 
         if(ratedUser.getName().equalsIgnoreCase(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())){
-            holder.position.setTextColor(Color.parseColor("#ff6861"));
-            holder.name.setTextColor(Color.parseColor("#ff6861"));
+            holder.etPosition.setTextColor(Color.parseColor("#ff6861"));
+            holder.etName.setTextColor(Color.parseColor("#ff6861"));
         }else {
-            holder.position.setTextColor(Color.parseColor("#999999"));
-            holder.name.setTextColor(Color.parseColor("#000000"));
+            holder.etPosition.setTextColor(Color.parseColor("#999999"));
+            holder.etName.setTextColor(Color.parseColor("#000000"));
         }
 
         String positionUser = String.valueOf(position+1);
-        holder.position.setText(positionUser);
-        holder.name.setText(ratedUser.getName());
-        holder.points.setText(ratedUser.getCurrentPoints());
+        holder.etPosition.setText(positionUser);
+        holder.etName.setText(ratedUser.getName());
+        holder.etPoints.setText(ratedUser.getCurrentPoints());
         Glide.with(view.getContext())
                 .load(ratedUser.getPhotoUrl())
                 .override(100, 100)
-                .into(holder.userPhoto);
+                .into(holder.ivUserPhoto);
     }
 
     private void getSortedUsers(){
-        Collections.sort(usersList, new Comparator<RatedUser>() {
+        Collections.sort(mUsersList, new Comparator<RatedUser>() {
             public int compare(RatedUser o1, RatedUser o2) {
                 return Double.compare(Double.parseDouble(o2.getCurrentPoints()),
                         Double.parseDouble(o1.getCurrentPoints()));
@@ -70,24 +68,24 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return usersList.size();
+        return mUsersList.size();
     }
 
     public class ViewHolderUsers extends RecyclerView.ViewHolder {
 
-        public final TextView position;
-        public final TextView name;
-        public final TextView points;
+        public final TextView etPosition;
+        public final TextView etName;
+        public final TextView etPoints;
         public final TextView tvHint;
-        public final CircleImageView userPhoto;
+        public final CircleImageView ivUserPhoto;
 
         public ViewHolderUsers(View v) {
             super(v);
-            position = (TextView)v.findViewById(R.id.textViewUserPosition);
-            name = (TextView)v.findViewById(R.id.textViewUserRateName);
-            points = (TextView)v.findViewById(R.id.textView7UserPoints);
-            userPhoto = (CircleImageView)v.findViewById(R.id.profile_image);
-            tvHint = (TextView)v.findViewById(R.id.textView3);
+            etPosition = (TextView)v.findViewById(R.id.tv_user_position);
+            etName = (TextView)v.findViewById(R.id.tv_user_rate_name);
+            etPoints = (TextView)v.findViewById(R.id.tv_user_points);
+            ivUserPhoto = (CircleImageView)v.findViewById(R.id.image_view_profile);
+            tvHint = (TextView)v.findViewById(R.id.tv_hint_points);
         }
     }
 }

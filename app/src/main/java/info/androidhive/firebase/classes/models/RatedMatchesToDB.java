@@ -2,50 +2,49 @@ package info.androidhive.firebase.classes.models;
 
 public class RatedMatchesToDB {
 
-    private String matchId;
-    private String points;
-    private String typeOfRate;
-    private String status;
-
-    private static RatedMatchesToDB ratedMatches;
+    private String mMatchId;
+    private String mPoints;
+    private String mTypeOfRate;
+    private String mStatus;
+    private static RatedMatchesToDB sRatedMatches;
 
     public static RatedMatchesToDB getInstance() {
 
-        if(ratedMatches == null) ratedMatches = new RatedMatchesToDB();
-        return ratedMatches;
+        if(sRatedMatches == null) sRatedMatches = new RatedMatchesToDB();
+        return sRatedMatches;
     }
 
     private RatedMatchesToDB(){}
 
-    public void setMatchId(String matchId) {
-        this.matchId = matchId;
+    public void setMatchId(String mMatchId) {
+        this.mMatchId = mMatchId;
     }
 
-    public void setPoints(String points) {
-        this.points = points;
+    public void setPoints(String mPoints) {
+        this.mPoints = mPoints;
     }
 
     public String getPoints() {
-        return points;
+        return mPoints;
     }
 
     public String getMatchId() {
-        return matchId;
+        return mMatchId;
     }
 
     public String getTypeOfRate() {
-        return typeOfRate;
+        return mTypeOfRate;
     }
 
-    public void setTypeOfRate(String typeOfRate) {
-        this.typeOfRate = typeOfRate;
+    public void setTypeOfRate(String mTypeOfRate) {
+        this.mTypeOfRate = mTypeOfRate;
     }
 
     public String getStatus() {
-        return status;
+        return mStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(String mStatus) {
+        this.mStatus = mStatus;
     }
 }

@@ -12,7 +12,6 @@ public class RateViewPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-
     public RateViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }

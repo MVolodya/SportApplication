@@ -2,46 +2,42 @@ package info.androidhive.firebase.classes.models;
 
 import java.util.List;
 
-/**
- * Created by andrii on 17.08.16.
- */
 public class RatedUser {
 
-    private String name;
-    private String currentPoints;
-    private String photoUrl;
-    private List<RatedMatchesToDB> ratedMatches;
+    private String mName;
+    private String mCurrentPoints;
+    private String mPhotoUrl;
+    private List<RatedMatchesToDB> mRatedMatches;
 
-
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String mName) {
+        this.mName = mName;
     }
 
-    public void setCurrentPoints(String currentPoints) {
-        this.currentPoints = currentPoints;
+    public void setCurrentPoints(String mCurrentPoints) {
+        this.mCurrentPoints = mCurrentPoints;
     }
 
-    public void setRatedMatches(List<RatedMatchesToDB> ratedMatches) {
-        this.ratedMatches = ratedMatches;
+    public void setRatedMatches(List<RatedMatchesToDB> mRatedMatches) {
+        this.mRatedMatches = mRatedMatches;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public List<RatedMatchesToDB> getRatedMatches() {
-        return ratedMatches;
+        return mRatedMatches;
     }
 
     public String getCurrentPoints() {
-        return currentPoints;
+        return mCurrentPoints;
     }
 
     public String getPhotoUrl() {
-        return photoUrl;
+        return mPhotoUrl;
     }
 
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+    public void setPhotoUrl(String mPhotoUrl) {
+        this.mPhotoUrl = mPhotoUrl;
     }
 }

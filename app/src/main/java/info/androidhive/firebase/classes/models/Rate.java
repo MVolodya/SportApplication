@@ -2,58 +2,58 @@ package info.androidhive.firebase.classes.models;
 
 public class Rate {
 
-    private String homeTeamName;
-    private String awayTeamName;
-    private String type;
-    private String points;
-    private String status;
-    private String id;
+    private String mHomeTeamName;
+    private String mAwayTeamName;
+    private String mType;
+    private String mPoints;
+    private String mStatus;
+    private String mId;
 
     public String getHomeTeamName() {
-        return homeTeamName;
+        return mHomeTeamName;
     }
 
-    public void setHomeTeamName(String homeTeamName) {
-        this.homeTeamName = homeTeamName;
+    public void setHomeTeamName(String mHomeTeamName) {
+        this.mHomeTeamName = mHomeTeamName;
     }
 
     public String getPoints() {
-        return points;
+        return mPoints;
     }
 
-    public void setPoints(String points) {
-        this.points = points;
+    public void setPoints(String mPoints) {
+        this.mPoints = mPoints;
     }
 
     public String getType() {
-        return type;
+        return mType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(String mType) {
+        this.mType = mType;
     }
 
     public String getAwayTeamName() {
-        return awayTeamName;
+        return mAwayTeamName;
     }
 
-    public void setAwayTeamName(String awayTeamName) {
-        this.awayTeamName = awayTeamName;
+    public void setAwayTeamName(String mAwayTeamName) {
+        this.mAwayTeamName = mAwayTeamName;
     }
 
     public String getStatus() {
-        return status;
+        return mStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(String mStatus) {
+        this.mStatus = mStatus;
     }
 
     public String getId() {
-        return id;
+        return mId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String mId) {
+        this.mId = mId;
     }
 }

@@ -6,13 +6,13 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:paddingBottom="15dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="15dp">
+    android:paddingBottom="@dimen/league_list_ly_padding_b"
+    android:paddingLeft="@dimen/league_list_ly_padding_l"
+    android:paddingRight="@dimen/league_list_ly_padding_r"
+    android:paddingTop="@dimen/league_list_ly_padding_t">
 
     <TextView
-        android:id="@+id/caption"
+        android:id="@+id/caption_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,7 +22,7 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/teamsofleague"
+        android:id="@+id/teams_of_league_hint_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -32,22 +32,22 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/numberOfTeams"
+        android:id="@+id/number_of_teams_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/teamsofleague"
-        android:layout_toEndOf="@+id/teamsofleague" />
+        android:layout_toRightOf="@+id/teams_of_league_hint_tv"
+        android:layout_toEndOf="@+id/teams_of_league_hint_tv" />
     <TextView
-        android:id="@+id/league"
+        android:id="@+id/league_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/caption"
+        android:layout_alignBottom="@+id/caption_tv"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
     <TextView
-        android:id="@+id/year"
+        android:id="@+id/year_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
