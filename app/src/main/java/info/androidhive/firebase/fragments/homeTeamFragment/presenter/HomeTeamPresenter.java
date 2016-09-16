@@ -11,27 +11,28 @@ import retrofit.Response;
 
 public class HomeTeamPresenter {
 
-    private HomeTeamView homeTeamView;
+    private HomeTeamView mHomeTeamView;
 
     public void setHomeTeamView(HomeTeamView homeTeamView) {
-        this.homeTeamView = homeTeamView;
+        this.mHomeTeamView = homeTeamView;
     }
 
     public void showHomeTeam(){
         PlayersService service = ApiFactory.getPlayerService();
         Call<PlayersResponse> call = service.players(DataHelper.getInstance().getHomeTeamId());
         call.enqueue(new Callback<PlayersResponse>() {
+
             @Override
             public void onResponse(Response<PlayersResponse> response) {
                 if(response.body() != null){
                     PlayersResponse playersResponse = response.body();
-                    homeTeamView.onSuccess(playersResponse);
-                } else homeTeamView.onFail();
+                    mHomeTeamView.onSuccess(playersResponse);
+                } else mHomeTeamView.onFail();
             }
 
             @Override
             public void onFailure(Throwable t) {
-                homeTeamView.onFail();
+                mHomeTeamView.onFail();
             }
         });
     }

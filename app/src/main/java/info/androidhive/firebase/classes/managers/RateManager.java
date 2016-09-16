@@ -22,6 +22,7 @@ import info.androidhive.firebase.classes.models.RatedUser;
 import info.androidhive.firebase.classes.retrofit.ApiFactory;
 import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchResponse;
 import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchService;
+import info.androidhive.firebase.classes.utils.ConnectivityReceiver;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -131,33 +132,32 @@ public class RateManager {
 
     public void checkRate(final List<RatedMatchesToDB> rateList, final String name,
                           final CheckRateCallback checkRateCallback) {
+            mDatabase.child(name).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(final DataSnapshot dataSnapshot) {
+                    final RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
+                    if (rateList != null && rateList.size() > 0) {
+                        for (int i = 0; i < rateList.size(); i++) {
+                            if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_FIRST)) {
+                                checkWithApi(rateList, ratedUser, i, name, WIN_FIRST);
+                            }
 
-        mDatabase.child(name).addListenerForSingleValueEvent(new ValueEventListener() {
+                            if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(DRAW)) {
+                                checkWithApi(rateList, ratedUser, i, name, DRAW);
+                            }
 
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                final RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
-                if (rateList != null && rateList.size() > 0) {
-                    for (int i = 0; i < rateList.size(); i++) {
-                        if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_FIRST)) {
-                            checkWithApi(rateList, ratedUser, i, name, WIN_FIRST);
+                            if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_SECOND)) {
+                                checkWithApi(rateList, ratedUser, i, name, WIN_SECOND);
+                            }
                         }
+                        checkRateCallback.onSuccess();
+                    } else checkRateCallback.onFail();
+                }
 
-                        if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(DRAW)) {
-                            checkWithApi(rateList, ratedUser, i, name, DRAW);
-                        }
-
-                        if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_SECOND)) {
-                            checkWithApi(rateList, ratedUser, i, name, WIN_SECOND);
-                        }
-                    }
-                    checkRateCallback.onSuccess();
-                } else checkRateCallback.onFail();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
     }
 
     private void checkWithApi(final List<RatedMatchesToDB> rateList, final RatedUser ratedUser,

@@ -1,7 +1,6 @@
 package info.androidhive.firebase.fragments.leagueTableFragment;
 
 import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -24,35 +23,27 @@ import info.androidhive.firebase.activity.mainActivity.MainActivity;
 import info.androidhive.firebase.classes.models.DataHelper;
 import info.androidhive.firebase.classes.managers.ProgressDialogManager;
 import info.androidhive.firebase.classes.recycleViewAdapters.LeagueTableAdapter;
-import info.androidhive.firebase.classes.retrofit.ApiFactory;
-import info.androidhive.firebase.classes.retrofit.leagueTable.LeagueTableResponse;
-import info.androidhive.firebase.classes.retrofit.leagueTable.LeagueTableService;
 import info.androidhive.firebase.classes.retrofit.leagueTable.Standing;
 import info.androidhive.firebase.R;
 import info.androidhive.firebase.fragments.leagueTableFragment.presenter.LeagueTablePresenter;
 import info.androidhive.firebase.fragments.leagueTableFragment.view.LeagueTableView;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
 
 public class LeagueTableFragment extends Fragment implements View.OnClickListener,
         LeagueTableView, SwipeRefreshLayout.OnRefreshListener {
 
     private View view;
-    private RecyclerView recyclerView;
+    private RecyclerView mRecyclerView;
     private ProgressDialog progressDialog;
     private RecyclerView.LayoutManager mLayoutManager;
     private LeagueTablePresenter leagueTablePresenter;
 
-    public LeagueTableFragment() {
-        // Required empty public constructor
-    }
+    public LeagueTableFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_league_table_test, container, false);
+        view = inflater.inflate(R.layout.fragment_league_table, container, false);
         leagueTablePresenter = new LeagueTablePresenter();
         leagueTablePresenter.setLeagueTableView(this);
 
@@ -66,22 +57,17 @@ public class LeagueTableFragment extends Fragment implements View.OnClickListene
 
         toolbar.setNavigationOnClickListener(this);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.scrollableview);
-       // swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshLeagueTable);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.league_table_recycler_view);
         progressDialog = new ProgressDialog(view.getContext());
         mLayoutManager = new LinearLayoutManager(view.getContext());
 
-//        swipeRefreshLayout.setOnRefreshListener(this);
-//        swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#1976d2"),Color.parseColor("#628f3e"));
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) view.findViewById(R.id.league_table_collapsing_toolbar);
         collapsingToolbar.setTitle(DataHelper.getInstance().getLeagueName());
 
         ProgressDialogManager.showProgressDialog(progressDialog,view.getContext().getString(R.string.loading));
-
         leagueTablePresenter.showLeagueTeam();
 
         return view;
@@ -105,14 +91,13 @@ public class LeagueTableFragment extends Fragment implements View.OnClickListene
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
 
-
     @Override
     public void onSuccess(List<Standing> tables) {
        // swipeRefreshLayout.setRefreshing(false);
         ProgressDialogManager.hideProgressDialog(progressDialog);
         LeagueTableAdapter mAdapter = new LeagueTableAdapter(tables);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override

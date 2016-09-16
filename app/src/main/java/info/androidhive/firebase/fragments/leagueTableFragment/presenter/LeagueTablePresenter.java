@@ -11,10 +11,10 @@ import retrofit.Response;
 
 public class LeagueTablePresenter {
 
-    private LeagueTableView leagueTableView;
+    private LeagueTableView mLeagueTableView;
 
     public void setLeagueTableView(LeagueTableView leagueTableView) {
-        this.leagueTableView = leagueTableView;
+        this.mLeagueTableView = leagueTableView;
     }
 
     public void showLeagueTeam(){
@@ -26,13 +26,13 @@ public class LeagueTablePresenter {
             @Override
             public void onResponse(Response<LeagueTableResponse> response) {
                 if(response.body()!=null)
-                leagueTableView.onSuccess(response.body().getStanding());
-                else leagueTableView.onFail();
+                mLeagueTableView.onSuccess(response.body().getStanding());
+                else mLeagueTableView.onFail();
             }
 
             @Override
             public void onFailure(Throwable t) {
-                leagueTableView.onFail();
+                mLeagueTableView.onFail();
             }
         });
     }

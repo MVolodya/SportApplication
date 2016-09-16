@@ -9,7 +9,4 @@ public class MainFragmentPresenter {
     public void setMainFragmentView(MainFragmentView mainFragmentView) {
         this.mainFragmentView = mainFragmentView;
     }
-
-
-
 }

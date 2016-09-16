@@ -15,14 +15,14 @@ import info.androidhive.firebase.fragments.settingsFragment.view.SettingsView;
 
 public class SettingsPresenter implements UpdateCallback {
 
-    private SettingsView settingsView;
+    private SettingsView mSettingsView;
 
     public void setSettingsView(SettingsView settingsView) {
-        this.settingsView = settingsView;
+        this.mSettingsView = settingsView;
     }
 
     public void updatePhoto(Bitmap bitmap, String uid) {
-        settingsView.getRemoteDatabaseManager().uploadImage(bitmap, uid, this);
+        mSettingsView.getRemoteDatabaseManager().uploadImage(bitmap, uid, this);
     }
 
     public void updateUsername(RemoteDatabaseManager remoteDatabaseManager) {
@@ -46,32 +46,31 @@ public class SettingsPresenter implements UpdateCallback {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("language", language);
         editor.apply();
-
-        settingsView.changeLanguageSuccess(language);
+        mSettingsView.changeLanguageSuccess(language);
     }
 
     @Override
     public void updatePhotoSuccess(String url) {
         UserManager.updateUrl(url);
         LocalDatabaseManager.updateUrl(url);
-        settingsView.getRemoteDatabaseManager().updatePhotoUrl(FirebaseAuth.getInstance()
+        mSettingsView.getRemoteDatabaseManager().updatePhotoUrl(FirebaseAuth.getInstance()
                         .getCurrentUser().getDisplayName()
                 , url);
-        settingsView.updatePhotoSuccess(url);
+        mSettingsView.updatePhotoSuccess(url);
     }
 
     @Override
     public void updateUsernameSuccess() {
-        settingsView.updateUsernameSuccess();
+        mSettingsView.updateUsernameSuccess();
     }
 
     @Override
     public void updateEmailSuccess() {
-        settingsView.updateEmailSuccess();
+        mSettingsView.updateEmailSuccess();
     }
 
     @Override
     public void updatePasswordSuccess() {
-        settingsView.updatePasswordSuccess();
+        mSettingsView.updatePasswordSuccess();
     }
 }

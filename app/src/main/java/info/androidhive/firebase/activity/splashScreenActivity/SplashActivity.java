@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -52,8 +53,8 @@ public class SplashActivity extends Activity implements SplashScreenView {
 
     @Override
     public void onFail() {
-        LoginActivity.start(this);
-        finish();
+        Toast.makeText(SplashActivity.this, getString(R.string.error_while_loading_data_please_check_your_network_connection),
+                Toast.LENGTH_LONG).show();
     }
 
     @Override

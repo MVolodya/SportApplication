@@ -3,9 +3,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <EditText
-        android:id="@+id/etCategory"
+        android:id="@+id/category_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -26,7 +25,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textViewSub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -34,7 +32,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/textViewSum"
+            android:id="@+id/sum_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
@@ -50,7 +48,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -58,7 +55,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/textViewType"
+            android:id="@+id/type_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -71,7 +68,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textViewPointsMsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -79,7 +75,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/textViewUserPoints"
+            android:id="@+id/user_points_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium" />

@@ -6,15 +6,15 @@
     tools:context=".fragments.matchFragment.MatchFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_match"
+        android:id="@+id/match_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabCalendar"
-        android:layout_width="64dp"
-        android:layout_height="68dp"
+        android:id="@+id/calendar_fab"
+        android:layout_width="@dimen/calendar_fab_w"
+        android:layout_height="@dimen/calendar_fab_h"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_menu_today"
@@ -54,35 +54,38 @@
                 app:titleLayoutBackgroundColor="@color/colorPrimary"
                 app:weekLayoutBackgroundColor="@color/colorPrimary" />
 
-            <ImageView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageViewBackButton"
-                android:src="@drawable/ic_keyboard_arrow_left_white" />
-
+                android:text="&lt;&lt;Back"
+                android:id="@+id/back_btn"
+                android:layout_alignBottom="@+id/calendar_view"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="162dp"
+                android:background="@null"
+                android:textColor="@color/abc_primary_text_material_dark" />
 
         </RelativeLayout>
     </com.github.fabtransitionactivity.SheetLayout>
 
-    <com.github.rahatarmanahmed.cpv.CircularProgressView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/progress_view_match"
-        android:visibility="invisible"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:cpv_animAutostart="true"
-        app:cpv_indeterminate="true"
-        app:cpv_color="@color/colorPrimaryDark"
-        android:layout_gravity="center"
+    <com.github.rahatarmanahmed.cpv.CircularProgressView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/match_progress_view"
+        android:layout_width="@dimen/progress_view_w"
+        android:layout_height="@dimen/progress_view_h"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        app:cpv_animAutostart="true"
+        app:cpv_color="@color/colorPrimaryDark"
+        app:cpv_indeterminate="true" />
 
     <TextView
+        android:id="@+id/textViewMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_gravity="center"
         android:text="@string/no_matches_today"
-        android:id="@+id/textViewMsg"
-        android:layout_gravity="center" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </FrameLayout>

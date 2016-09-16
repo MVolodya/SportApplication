@@ -18,21 +18,21 @@ import info.androidhive.firebase.fragments.settingsFragment.SettingsFragment;
 
 public class AlertDialogManager {
 
-    private static EditText sEtInput;
+    private static EditText sInputEt;
 
     public static AlertDialog.Builder getAlertDialog(Context context, String msg) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setTitle(R.string.edit);
 
-        sEtInput = new EditText(context);
+        sInputEt = new EditText(context);
         LinearLayout.LayoutParams lpEmail = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        sEtInput.setSelection(sEtInput.getText().length());
-        sEtInput.setPadding(20, 30, 20, 30);
-        sEtInput.setHint(msg);
-        sEtInput.setLayoutParams(lpEmail);
-        alertDialog.setView(sEtInput);
+        sInputEt.setSelection(sInputEt.getText().length());
+        sInputEt.setPadding(20, 30, 20, 30);
+        sInputEt.setHint(msg);
+        sInputEt.setLayoutParams(lpEmail);
+        alertDialog.setView(sInputEt);
 
         return alertDialog;
     }
@@ -47,8 +47,8 @@ public class AlertDialogManager {
 
         final AlertDialog alertDialogFAB = alertDialogBuilderPhoto.create();
 
-        Button buttonGallery = (Button) view.findViewById(R.id.buttonGallery);
-        buttonGallery.setOnClickListener(new View.OnClickListener() {
+        Button galleryBtn = (Button) view.findViewById(R.id.gallery_btn);
+        galleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -58,8 +58,8 @@ public class AlertDialogManager {
                 alertDialogFAB.hide();
             }
         });
-        Button buttonCamera = (Button) view.findViewById(R.id.buttonCamera);
-        buttonCamera.setOnClickListener(new View.OnClickListener() {
+        Button cameraBtn = (Button) view.findViewById(R.id.camera_btn);
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -80,23 +80,23 @@ public class AlertDialogManager {
         alert.setNegativeButton(R.string.cancel, null);
 
         final AlertDialog dialog = alert.create();
-        final CircleImageView en = (CircleImageView)promptView.findViewById(R.id.imgEnglish);
-        final CircleImageView uk = (CircleImageView)promptView.findViewById(R.id.imgUkrainian);
+        final CircleImageView enIv = (CircleImageView)promptView.findViewById(R.id.english_iv);
+        final CircleImageView ukIv = (CircleImageView)promptView.findViewById(R.id.ukrainian_iv);
 
-        en.setOnClickListener(new View.OnClickListener() {
+        enIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                en.setBorderColor(Color.parseColor("#ff6861"));
-                uk.setBorderColor(Color.parseColor("#ffffff"));
+                enIv.setBorderColor(Color.parseColor("#ff6861"));
+                ukIv.setBorderColor(Color.parseColor("#ffffff"));
                 DataHelper.getInstance().setLanguage("en");
             }
         });
 
-        uk.setOnClickListener(new View.OnClickListener() {
+        ukIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uk.setBorderColor(Color.parseColor("#ff6861"));
-                en.setBorderColor(Color.parseColor("#ffffff"));
+                ukIv.setBorderColor(Color.parseColor("#ff6861"));
+                enIv.setBorderColor(Color.parseColor("#ffffff"));
                 DataHelper.getInstance().setLanguage("uk");
             }
         });
@@ -104,6 +104,6 @@ public class AlertDialogManager {
     }
 
     public static EditText getsEtInput() {
-        return sEtInput;
+        return sInputEt;
     }
 }

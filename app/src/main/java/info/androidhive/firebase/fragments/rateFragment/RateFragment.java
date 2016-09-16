@@ -52,36 +52,31 @@ import info.androidhive.firebase.fragments.rateFragment.view.RateView;
 public class RateFragment extends Fragment implements View.OnClickListener, RateView, SwipeRefreshLayout.OnRefreshListener {
 
     private View view;
-    private TextView homeTeam;
-    private TextView awayTeam;
-    private TextView wins;
-    private TextView draw;
-    private TextView lose;
-    private TextView round;
-    private TextView date;
-    private TextView time;
-    private TextView result;
+    private TextView homeTeamTv;
+    private TextView awayTeamTv;
+    private TextView winsTv;
+    private TextView drawTv;
+    private TextView loseTv;
+    private TextView roundTv;
+    private TextView dateTv;
+    private TextView timeTv;
+    private TextView resultTv;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ImageView imageHomeTeam;
-    private ImageView imageAwayTeam;
+    private ImageView homeTeamIv;
+    private ImageView awayTeamIv;
     private CustomViewPager customViewPagerRate;
     private TabLayout tabLayout;
 
-
-    private RatedUser user;
-    private DataHelper dataHelper;
+    private RatedUser mUser;
+    private DataHelper mDataHelper;
 
     private ProgressDialog progressDialog;
-    private GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder;
-    private RateMatchResponse rateMatchResponse;
-    private MaterialDialogManager materialDialogManager;
+    private GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> mRequestBuilder;
+    private RateMatchResponse mRateMatchResponse;
+    private MaterialDialogManager mMaterialDialogManager;
     private RatePresenter ratePresenter;
 
-
-    public RateFragment() {
-        // Required empty public constructor
-    }
-
+    public RateFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,39 +89,39 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar));
 
-        homeTeam = (TextView) view.findViewById(R.id.textViewTeamHome);
-        awayTeam = (TextView) view.findViewById(R.id.textViewTeamAway);
-        round = (TextView) view.findViewById(R.id.tv_round);
-        date = (TextView) view.findViewById(R.id.match_date_tv);
-        time = (TextView) view.findViewById(R.id.textViewTime);
-        wins = (TextView) view.findViewById(R.id.textViewWin);
-        draw = (TextView) view.findViewById(R.id.textViewDraw);
-        lose = (TextView) view.findViewById(R.id.textViewLose);
-        result = (TextView) view.findViewById(R.id.textView2);
-        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.refreshRateFragment);
-        customViewPagerRate = (CustomViewPager) view.findViewById(R.id.viewpager_rate);
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs_match_rate);
+        homeTeamTv = (TextView) view.findViewById(R.id.home_team_name_tv);
+        awayTeamTv = (TextView) view.findViewById(R.id.away_team_name_tv);
+        roundTv = (TextView) view.findViewById(R.id.round_tv);
+        dateTv = (TextView) view.findViewById(R.id.match_date_tv);
+        timeTv = (TextView) view.findViewById(R.id.time_tv);
+        winsTv = (TextView) view.findViewById(R.id.coff_w1_tv);
+        drawTv = (TextView) view.findViewById(R.id.coff_d_tv);
+        loseTv = (TextView) view.findViewById(R.id.coff_w2_tv);
+        resultTv = (TextView) view.findViewById(R.id.score_tv);
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.rate_fragment_refresh);
+        customViewPagerRate = (CustomViewPager) view.findViewById(R.id.rate_viewpager);
+        tabLayout = (TabLayout) view.findViewById(R.id.match_rate_tabs);
 
-        wins.setOnClickListener(this);
-        draw.setOnClickListener(this);
-        lose.setOnClickListener(this);
+        winsTv.setOnClickListener(this);
+        drawTv.setOnClickListener(this);
+        loseTv.setOnClickListener(this);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#1976d2"),Color.parseColor("#628f3e"));
 
-        imageHomeTeam = (ImageView) view.findViewById(R.id.imageHomeTeam);
-        imageAwayTeam = (ImageView) view.findViewById(R.id.imageAwayTeam);
-        ImageView backArrow = (ImageView) view.findViewById(R.id.imageViewBackArrow);
+        homeTeamIv = (ImageView) view.findViewById(R.id.home_team_iv);
+        awayTeamIv = (ImageView) view.findViewById(R.id.away_team_iv);
+        ImageView backArrow = (ImageView) view.findViewById(R.id.back_arrow_iv);
         progressDialog = new ProgressDialog(view.getContext());
 
         backArrow.setOnClickListener(this);
 
         ProgressDialogManager.showProgressDialog(progressDialog, getContext().getString(R.string.loading));
 
-        dataHelper = DataHelper.getInstance();
-        materialDialogManager = new MaterialDialogManager(getContext(), view);
+        mDataHelper = DataHelper.getInstance();
+        mMaterialDialogManager = new MaterialDialogManager(getContext(), view);
 
-        requestBuilder = Glide.with(view.getContext())
+        mRequestBuilder = Glide.with(view.getContext())
                 .using(Glide.buildStreamModelLoader(Uri.class, getContext()), InputStream.class)
                 .from(Uri.class)
                 .as(SVG.class)
@@ -156,43 +151,43 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
     
     private void setView() {
 
-        if(rateMatchResponse!= null ) {
+        if(mRateMatchResponse != null ) {
             int homeTeamId = new DataGetter().getTeamId(
-                    rateMatchResponse.getFixture().getLinks().getHomeTeam().getHref());
+                    mRateMatchResponse.getFixture().getLinks().getHomeTeam().getHref());
 
             int awayTeamId = new DataGetter().getTeamId(
-                    rateMatchResponse.getFixture().getLinks().getAwayTeam().getHref());
+                    mRateMatchResponse.getFixture().getLinks().getAwayTeam().getHref());
 
             ratePresenter.getHomeTeamPhotoUrl(homeTeamId);
             ratePresenter.getAwayTeamPhotoUrl(awayTeamId);
 
-            homeTeam.setText(rateMatchResponse.getFixture().getHomeTeamName());
-            awayTeam.setText(rateMatchResponse.getFixture().getAwayTeamName());
-            round.setText(getContext().getString(R.string.round_of) + rateMatchResponse.getFixture().getMatchday().toString());
-            date.setText(ConvertDate.getDate(rateMatchResponse.getFixture().getDate()));
-            time.setText(ConvertDate.getTime(rateMatchResponse.getFixture().getDate()));
+            homeTeamTv.setText(mRateMatchResponse.getFixture().getHomeTeamName());
+            awayTeamTv.setText(mRateMatchResponse.getFixture().getAwayTeamName());
+            roundTv.setText(getContext().getString(R.string.round_of) + mRateMatchResponse.getFixture().getMatchday().toString());
+            dateTv.setText(ConvertDate.getDate(mRateMatchResponse.getFixture().getDate()));
+            timeTv.setText(ConvertDate.getTime(mRateMatchResponse.getFixture().getDate()));
 
-            if (rateMatchResponse.getFixture().getResult().getGoalsHomeTeam() != null
-                    && rateMatchResponse.getFixture().getResult().getGoalsAwayTeam() != null) {
-                String r = String.valueOf(rateMatchResponse.getFixture().getResult().getGoalsHomeTeam().toString()) + " - " +
-                        rateMatchResponse.getFixture().getResult().getGoalsAwayTeam().toString();
-                result.setText(r);
+            if (mRateMatchResponse.getFixture().getResult().getGoalsHomeTeam() != null
+                    && mRateMatchResponse.getFixture().getResult().getGoalsAwayTeam() != null) {
+                String r = String.valueOf(mRateMatchResponse.getFixture().getResult().getGoalsHomeTeam().toString()) + " - " +
+                        mRateMatchResponse.getFixture().getResult().getGoalsAwayTeam().toString();
+                resultTv.setText(r);
             }
 
-            if (!rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
-                if (rateMatchResponse.getFixture().getOdds() != null) {
-                    wins.setText(rateMatchResponse.getFixture().getOdds().getHomeWin().toString());
-                    draw.setText(rateMatchResponse.getFixture().getOdds().getDraw().toString());
-                    lose.setText(rateMatchResponse.getFixture().getOdds().getAwayWin().toString());
+            if (!mRateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
+                if (mRateMatchResponse.getFixture().getOdds() != null) {
+                    winsTv.setText(mRateMatchResponse.getFixture().getOdds().getHomeWin().toString());
+                    drawTv.setText(mRateMatchResponse.getFixture().getOdds().getDraw().toString());
+                    loseTv.setText(mRateMatchResponse.getFixture().getOdds().getAwayWin().toString());
                 } else {
-                    wins.setText("2");
-                    draw.setText("4");
-                    lose.setText("2");
+                    winsTv.setText("2");
+                    drawTv.setText("4");
+                    loseTv.setText("2");
                 }
             } else {
-                wins.setVisibility(View.GONE);
-                draw.setVisibility(View.GONE);
-                lose.setVisibility(View.GONE);
+                winsTv.setVisibility(View.GONE);
+                drawTv.setVisibility(View.GONE);
+                loseTv.setVisibility(View.GONE);
             }
             setupViewPager(customViewPagerRate);
             tabLayout.setupWithViewPager(customViewPagerRate);
@@ -203,8 +198,8 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
 
     private void setupViewPager(CustomViewPager viewPager) {
         RateViewPagerAdapter adapter = new RateViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new HomeTeamFragment(), rateMatchResponse.getFixture().getHomeTeamName());
-        adapter.addFragment(new AwayTeamFragment(), rateMatchResponse.getFixture().getAwayTeamName());
+        adapter.addFragment(new HomeTeamFragment(), mRateMatchResponse.getFixture().getHomeTeamName());
+        adapter.addFragment(new AwayTeamFragment(), mRateMatchResponse.getFixture().getAwayTeamName());
         viewPager.setAdapter(adapter);
     }
 
@@ -212,16 +207,16 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
     public void onClick(View v) {
         ratePresenter.getUserData();
         switch (v.getId()) {
-            case R.id.textViewWin:
-                showDialog(Double.parseDouble(wins.getText().toString()), RateManager.WIN_FIRST);
+            case R.id.coff_w1_tv:
+                showDialog(Double.parseDouble(winsTv.getText().toString()), RateManager.WIN_FIRST);
                 break;
-            case R.id.textViewDraw:
-                showDialog(Double.parseDouble(draw.getText().toString()), RateManager.DRAW);
+            case R.id.coff_d_tv:
+                showDialog(Double.parseDouble(drawTv.getText().toString()), RateManager.DRAW);
                 break;
-            case R.id.textViewLose:
-                showDialog(Double.parseDouble(lose.getText().toString()), RateManager.WIN_SECOND);
+            case R.id.coff_w2_tv:
+                showDialog(Double.parseDouble(loseTv.getText().toString()), RateManager.WIN_SECOND);
                 break;
-            case R.id.imageViewBackArrow:
+            case R.id.back_arrow_iv:
                 getFragmentManager().popBackStack();
                 ((MainActivity) this.view.getContext()).showToolbar();
                 ((MainActivity) this.view.getContext()).unlockSwipe();
@@ -230,8 +225,8 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
     }
 
     private void showDialog(double coff, String typeOfRate) {
-        AlertDialog alertDialog = materialDialogManager.openRateDialogBox
-                (coff, dataHelper.getMatchId(), typeOfRate, user);
+        AlertDialog alertDialog = mMaterialDialogManager.openRateDialogBox
+                (coff, mDataHelper.getMatchId(), typeOfRate, mUser);
         alertDialog.show();
     }
 
@@ -239,7 +234,7 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
     @Override
     public void onSuccess(RateMatchResponse rateMatchResponse) {
         ProgressDialogManager.hideProgressDialog(progressDialog);
-        this.rateMatchResponse = rateMatchResponse;
+        this.mRateMatchResponse = rateMatchResponse;
         setView();
         swipeRefreshLayout.setRefreshing(false);
     }
@@ -248,20 +243,20 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
     public void onSuccessHomeImageUrl(String url) {
         if (url != null) {
             if (url.contains("svg")) {
-                requestBuilder
+                mRequestBuilder
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         // SVG cannot be serialized so it's not worth to cache it
                         .load(Uri.parse(url))
                         .override(70, 70)
-                        .into(imageHomeTeam);
+                        .into(homeTeamIv);
             } else {
                 Glide.with(view.getContext())
                         .load(url)
                         .override(70, 70)
-                        .into(imageHomeTeam);
+                        .into(homeTeamIv);
             }
         } else {
-            imageAwayTeam.setImageDrawable(getResources().getDrawable(R.drawable.pockemon));
+            awayTeamIv.setImageDrawable(getResources().getDrawable(R.drawable.pockemon));
         }
         swipeRefreshLayout.setRefreshing(false);
     }
@@ -276,18 +271,18 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
     public void onSuccessAwayImageUrl(String url) {
         if (url != null) {
             if (url.contains("svg")) {
-                requestBuilder
+                mRequestBuilder
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         // SVG cannot be serialized so it's not worth to cache it
                         .load(Uri.parse(url))
-                        .into(imageAwayTeam);
+                        .into(awayTeamIv);
             } else {
                 Glide.with(view.getContext())
                         .load(url)
-                        .into(imageAwayTeam);
+                        .into(awayTeamIv);
             }
         } else {
-            imageAwayTeam.setImageDrawable(getResources().getDrawable(R.drawable.pockemon));
+            awayTeamIv.setImageDrawable(getResources().getDrawable(R.drawable.pockemon));
         }
         swipeRefreshLayout.setRefreshing(false);
     }
@@ -300,13 +295,14 @@ public class RateFragment extends Fragment implements View.OnClickListener, Rate
 
     @Override
     public void setUser(RatedUser user) {
-        this.user = user;
+        this.mUser = user;
     }
 
 
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
+        Toast.makeText(getContext(), R.string.wait_sec, Toast.LENGTH_SHORT).show();
     }
 
     @Override

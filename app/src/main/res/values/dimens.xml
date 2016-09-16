@@ -70,4 +70,15 @@
     <dimen name="cv_margin_b">5dp</dimen>
     <dimen name="progress_view_w">40dp</dimen>
     <dimen name="progress_view_h">40dp</dimen>
+    <dimen name="league_table_head_h">192dp</dimen>
+    <dimen name="league_table_margin_b">32dp</dimen>
+    <dimen name="league_table_margin_e">64dp</dimen>
+    <dimen name="league_table_margin_s">48dp</dimen>
+    <dimen name="calendar_fab_w">64dp</dimen>
+    <dimen name="calendar_fab_h">68dp</dimen>
+    <dimen name="rate_h">200dp</dimen>
+    <dimen name="arrow_padding_l">16dp</dimen>
+    <dimen name="arrow_padding_r">16dp</dimen>
+    <dimen name="team_logo_w">70dp</dimen>
+    <dimen name="team_logo_h">70dp</dimen>
 </resources>

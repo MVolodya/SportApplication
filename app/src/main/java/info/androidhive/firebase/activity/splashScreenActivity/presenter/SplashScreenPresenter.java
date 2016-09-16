@@ -11,6 +11,7 @@ import info.androidhive.firebase.activity.splashScreenActivity.callback.CheckRat
 import info.androidhive.firebase.activity.splashScreenActivity.view.SplashScreenView;
 import info.androidhive.firebase.classes.managers.RateManager;
 import info.androidhive.firebase.classes.models.RatedMatchesToDB;
+import info.androidhive.firebase.classes.utils.ConnectivityReceiver;
 
 public class SplashScreenPresenter implements CheckRateCallback {
 
@@ -28,8 +29,10 @@ public class SplashScreenPresenter implements CheckRateCallback {
     }
 
     public void checkRate(List<RatedMatchesToDB> userRateList){
-        rateManager.checkRate(userRateList, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),this);
-        rateManager.addPoints(FirebaseAuth.getInstance().getCurrentUser().getDisplayName()  );
+        if(ConnectivityReceiver.isOnline(splashScreenView.getContext())) {
+            rateManager.checkRate(userRateList, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), this);
+            rateManager.addPoints(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        }else splashScreenView.onFail();
     }
 
 

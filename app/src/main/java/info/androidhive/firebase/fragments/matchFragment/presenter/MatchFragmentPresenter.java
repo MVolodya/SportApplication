@@ -15,10 +15,10 @@ import retrofit.Response;
 
 public class MatchFragmentPresenter {
 
-    private MatchFragmentView matchFragmentView;
+    private MatchFragmentView mMatchFragmentView;
 
     public void setMatchFragmentView(MatchFragmentView matchFragmentView) {
-        this.matchFragmentView = matchFragmentView;
+        this.mMatchFragmentView = matchFragmentView;
     }
 
     public void getMatchList(){
@@ -28,12 +28,13 @@ public class MatchFragmentPresenter {
             @Override
             public void onResponse(Response<MatchResponse> response) {
                 if(response.body()!=null)
-                matchFragmentView.onSuccess(response.body());
-                else matchFragmentView.onFail();
+                mMatchFragmentView.onSuccess(response.body());
+                else mMatchFragmentView.onFail();
             }
 
             @Override
-            public void onFailure(Throwable t) {matchFragmentView.onFail();}
+            public void onFailure(Throwable t) {
+                mMatchFragmentView.onFail();}
         });
     }
 

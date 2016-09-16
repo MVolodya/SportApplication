@@ -1,6 +1,5 @@
 package info.androidhive.firebase.fragments.leagueFragment;
 
-
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -31,16 +30,14 @@ import info.androidhive.firebase.fragments.leagueFragment.view.LeagueView;
 
 public class LeagueFragment extends Fragment implements LeagueView, SwipeRefreshLayout.OnRefreshListener {
 
-    private List<LeagueModel> leagueList = new ArrayList<>();
+    private List<LeagueModel> mLeagueList = new ArrayList<>();
     private ProgressDialog progressDialog;
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private TextView textViewMsg;
+    private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private TextView msgTv;
     private LeagueFragmentPresenter leagueFragmentPresenter;
 
-    public LeagueFragment() {
-        // Required empty public constructor
-    }
+    public LeagueFragment() {}
 
 
     @Override
@@ -51,30 +48,26 @@ public class LeagueFragment extends Fragment implements LeagueView, SwipeRefresh
         leagueFragmentPresenter = new LeagueFragmentPresenter();
         leagueFragmentPresenter.setLeagueView(this);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_league);
-        textViewMsg = (TextView)view.findViewById(R.id.textViewLimitMsg);
-        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.refreshLeagueFragment);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.league_recycler_view);
+        msgTv = (TextView)view.findViewById(R.id.limit_msg_tv);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.refreshLeagueFragment);
         progressDialog = new ProgressDialog(view.getContext());
 
-        textViewMsg.setVisibility(View.GONE);
+        msgTv.setVisibility(View.GONE);
 
-        swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#1976d2"),Color.parseColor("#628f3e"));
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#1976d2"),Color.parseColor("#628f3e"));
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        ProgressDialogManager.showProgressDialog(progressDialog,view.getContext().getString(R.string.loading));
-        leagueFragmentPresenter.sendRequest();
-
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), mRecyclerView, new ClickListener() {
 
             @Override
             public void onClick(View view, int position) {
-                String name = leagueList.get(position).getCaption();
-                int leagueId = Integer.parseInt(leagueList.get(position).getId());
+                String name = mLeagueList.get(position).getCaption();
+                int leagueId = Integer.parseInt(mLeagueList.get(position).getId());
                 leagueFragmentPresenter.setLeagueData(leagueId, name);
 
                 getActivity().getSupportFragmentManager().beginTransaction()
@@ -90,31 +83,35 @@ public class LeagueFragment extends Fragment implements LeagueView, SwipeRefresh
             @Override
             public void onLongClick(int position) {}
         }));
+
+        ProgressDialogManager.showProgressDialog(progressDialog,view.getContext().getString(R.string.loading));
+        leagueFragmentPresenter.sendRequest();
+
         return view;
     }
 
     @Override
     public void onSuccess(List<LeagueModel> leagueList) {
-        this.leagueList = leagueList;
-        recyclerView.setVisibility(View.VISIBLE);
-        textViewMsg.setVisibility(View.GONE);
-        swipeRefreshLayout.setRefreshing(false);
+        this.mLeagueList = leagueList;
+        mRecyclerView.setVisibility(View.VISIBLE);
+        msgTv.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setRefreshing(false);
         ProgressDialogManager.hideProgressDialog(progressDialog);
         LeagueAdapter mAdapter = new LeagueAdapter(leagueList);
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     public void onFail() {
-        textViewMsg.setVisibility(View.VISIBLE);
+        msgTv.setVisibility(View.VISIBLE);
         ProgressDialogManager.hideProgressDialog(progressDialog);
-        swipeRefreshLayout.setRefreshing(false);
-        recyclerView.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setRefreshing(false);
+        mRecyclerView.setVisibility(View.GONE);
     }
 
     @Override
     public void onRefresh() {
-        swipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setRefreshing(true);
         leagueFragmentPresenter.sendRequest();
     }
 }

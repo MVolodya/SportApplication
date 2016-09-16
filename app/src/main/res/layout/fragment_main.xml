@@ -1,16 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tabsContainer"
+    android:id="@+id/tabs_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".activity.mainActivity.MainActivity"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:context=".activity.mainActivity.MainActivity">
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/tabs"
+        android:id="@+id/main_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -22,31 +22,5 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <ImageView
-        android:id="@+id/imageViewBadConnection"
-        android:layout_width="52dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@android:drawable/ic_menu_info_details"
-        android:layout_weight="0.05" />
-
-    <TextView
-        android:id="@+id/textViewInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/error_while_loading_data_please_check_your_network_connection"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/buttonTryAgain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/try_again"
-        android:textColor="@android:color/white"
-        android:theme="@style/MaterialButton" />
-
 
 </LinearLayout>

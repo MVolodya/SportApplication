@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,10 +45,11 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
         SheetLayout.OnFabAnimationEndListener,
         CalendarView.OnDateSelectedListener, MatchFragmentView {
 
-    private TextView msg;
-    private ImageView homeTeam;
-    private ImageView awayTeam;
-    private RecyclerView recyclerView;
+    private TextView msgTv;
+    private Button backBtn;
+    private ImageView homeTeamTv;
+    private ImageView awayTeamTv;
+    private RecyclerView mRecyclerView;
     private MatchAdapter mAdapter;
     private ProgressDialog progressDialog;
     private SheetLayout sheetLayout;
@@ -55,19 +57,15 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
     private MainFragment fragment;
     private List<Fixture> matches;
     private CircularProgressView circularProgressView;
-    private FloatingActionButton fabCalendar;
-    private ImageView backImageView;
+    private FloatingActionButton calendarFab;
     private CalendarView calendarView;
     private View view;
 
     private MatchFragmentPresenter matchFragmentPresenter;
     private MatchFragment matchFragment = this;
-    private String currentDate = new DataGetter().getCurrentDate();
+    private String mCurrentDate = new DataGetter().getCurrentDate();
 
-    public MatchFragment() {
-        // Required empty public constructor
-    }
-
+    public MatchFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,34 +76,27 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
         matchFragmentPresenter.setMatchFragmentView(this);
         fragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("main");
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_match);
-        fabCalendar = (FloatingActionButton) view.findViewById(R.id.fabCalendar);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.match_recycler_view);
+        calendarFab = (FloatingActionButton) view.findViewById(R.id.calendar_fab);
         sheetLayout = (SheetLayout) view.findViewById(R.id.bottom_sheet);
-        msg = (TextView) view.findViewById(R.id.textViewMsg);
-        backImageView = (ImageView) view.findViewById(R.id.imageViewBackButton);
+        msgTv = (TextView) view.findViewById(R.id.textViewMsg);
+        backBtn = (Button) view.findViewById(R.id.back_btn);
         calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
         progressDialog = new ProgressDialog(view.getContext());
-        circularProgressView = (CircularProgressView) view.findViewById(R.id.progress_view_match);
+        circularProgressView = (CircularProgressView) view.findViewById(R.id.match_progress_view);
 
         mLayoutManager = new LinearLayoutManager(view.getContext());
-        //recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        msg.setVisibility(View.GONE);
+        msgTv.setVisibility(View.GONE);
+        backBtn.setOnClickListener(this);
 
-        ProgressDialogManager.showProgressDialog(progressDialog, view.getContext().getString(R.string.loading));
-        matchFragmentPresenter.getMatchList();
-        initCalendar();
-
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), mRecyclerView, new ClickListener() {
 
             @Override
             public void onClick(View view, int position) {
-
                 matchFragmentPresenter.saveMatchData(matches, position);
-
                 Fragment fr = getActivity().getSupportFragmentManager().findFragmentById(R.id.nd_fragment_container);
-
                 if (!(fr instanceof RateFragment)) {
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
@@ -114,7 +105,6 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
                             .addToBackStack(null)
                             .commit();
                 }
-
                 ((MainActivity) view.getContext()).hideToolbar();
                 ((MainActivity) view.getContext()).lockSwipe();
             }
@@ -124,14 +114,17 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
             }
         }));
 
+        ProgressDialogManager.showProgressDialog(progressDialog, view.getContext().getString(R.string.loading));
+        matchFragmentPresenter.getMatchList();
+        initCalendar();
+
         return view;
     }
 
     private void initCalendar() {
-        sheetLayout.setFab(fabCalendar);
+        sheetLayout.setFab(calendarFab);
         sheetLayout.setFabAnimationEndListener(this);
-        fabCalendar.setOnClickListener(this);
-        backImageView.setOnClickListener(this);
+        calendarFab.setOnClickListener(this);
 
         calendarView.setFirstDayOfWeek(Calendar.MONDAY);
         calendarView.setIsOverflowDateVisible(true);
@@ -146,14 +139,15 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onClick(View view) {
-
         switch (view.getId()) {
-            case R.id.fabCalendar:
+            case R.id.calendar_fab:
+                backBtn.setVisibility(View.VISIBLE);
                 sheetLayout.expandFab();
                 fragment.hideTabs();
                 fragment.getViewPager().setPagingEnabled(false);
                 break;
-            case R.id.imageViewBackButton:
+            case R.id.back_btn:
+                backBtn.setVisibility(View.GONE);
                 sheetLayout.contractFab();
                 fragment.showTabs();
                 fragment.getViewPager().setPagingEnabled(true);
@@ -170,14 +164,14 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
         ProgressDialogManager.showProgressDialog(progressDialog,view.getContext().getString(R.string.loading));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-        currentDate = df.format(date);
+        mCurrentDate = df.format(date);
         matches = new ArrayList<>();
         mAdapter = new MatchAdapter(matches);
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         circularProgressView.setVisibility(View.VISIBLE);
         circularProgressView.startAnimation();
-        msg.setVisibility(View.GONE);
+        msgTv.setVisibility(View.GONE);
         matchFragmentPresenter.getMatchList();
         sheetLayout.contractFab();
         fragment.showTabs();
@@ -188,16 +182,16 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onSuccess(MatchResponse matchResponse) {
         ProgressDialogManager.hideProgressDialog(progressDialog);
-        matches = new DataGetter().getCorrectMatches(matchResponse.getFixtures(), currentDate);
+        matches = new DataGetter().getCorrectMatches(matchResponse.getFixtures(), mCurrentDate);
         mAdapter = new MatchAdapter(matches);
 
         if (matches.size() == 0) {
-            msg.setText(getContext().getString(R.string.no_matches_today));
-            msg.setVisibility(View.VISIBLE);
+            msgTv.setText(getContext().getString(R.string.no_matches_today));
+            msgTv.setVisibility(View.VISIBLE);
         }
 
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
 
         circularProgressView.stopAnimation();
         circularProgressView.setVisibility(View.INVISIBLE);
@@ -206,7 +200,9 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
-        msg.setText(getContext().getString(R.string.wait_sec));
-        msg.setVisibility(View.VISIBLE);
+        circularProgressView.stopAnimation();
+        circularProgressView.setVisibility(View.INVISIBLE);
+        msgTv.setText(getContext().getString(R.string.wait_sec));
+        msgTv.setVisibility(View.VISIBLE);
     }
 }

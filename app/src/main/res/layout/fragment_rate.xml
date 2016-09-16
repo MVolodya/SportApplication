@@ -1,20 +1,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/containerRate"
+    android:id="@+id/rate_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:clickable="false">
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refreshRateFragment"
+        android:id="@+id/rate_fragment_refresh"
         android:layout_width="match_parent"
         android:layout_height="200dp">
 
         <RelativeLayout
-            android:id="@+id/relLy"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/rate_h"
             android:background="@drawable/football_stadium">
 
             <RelativeLayout
@@ -25,36 +24,36 @@
                 android:layout_alignParentTop="true">
 
                 <ImageView
-                    android:id="@+id/imageViewBackArrow"
+                    android:id="@+id/back_arrow_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="16dp"
-                    android:paddingTop="16dp"
+                    android:paddingLeft="@dimen/arrow_padding_l"
+                    android:paddingTop="@dimen/arrow_padding_r"
                     android:src="@drawable/ic_arrow_back_white_24dp" />
 
                 <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/imageHomeTeam"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:id="@+id/home_team_iv"
+                    android:layout_width="@dimen/team_logo_w"
+                    android:layout_height="@dimen/team_logo_h"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_alignTop="@+id/textView2"
+                    android:layout_alignTop="@+id/score_tv"
                     android:layout_marginLeft="40dp"
                     android:layout_marginStart="40dp"
                     android:scaleType="fitCenter" />
 
                 <ImageView
-                    android:id="@+id/imageAwayTeam"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:id="@+id/away_team_iv"
+                    android:layout_width="@dimen/team_logo_w"
+                    android:layout_height="@dimen/team_logo_h"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_round"
+                    android:layout_below="@+id/round_tv"
                     android:layout_marginEnd="35dp"
                     android:layout_marginRight="35dp" />
 
                 <TextView
-                    android:id="@+id/tv_round"
+                    android:id="@+id/round_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -66,12 +65,12 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/textViewTime"
+                    android:id="@+id/time_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@+id/imageHomeTeam"
+                    android:layout_below="@+id/home_team_iv"
                     android:gravity="center_horizontal"
                     android:textColor="#fff"
                     android:textSize="16sp" />
@@ -82,17 +81,17 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@+id/textViewTime"
+                    android:layout_below="@+id/time_tv"
                     android:gravity="center_horizontal"
                     android:textColor="#fff"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/textViewTeamHome"
+                    android:id="@+id/home_team_name_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignRight="@+id/imageHomeTeam"
-                    android:layout_below="@+id/imageAwayTeam"
+                    android:layout_alignRight="@+id/home_team_iv"
+                    android:layout_below="@+id/away_team_iv"
                     android:layout_marginLeft="40dp"
                     android:ellipsize="end"
                     android:gravity="center"
@@ -101,11 +100,11 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/textViewTeamAway"
+                    android:id="@+id/away_team_name_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageAwayTeam"
-                    android:layout_below="@+id/imageAwayTeam"
+                    android:layout_alignLeft="@+id/away_team_iv"
+                    android:layout_below="@+id/away_team_iv"
                     android:layout_marginRight="40dp"
                     android:ellipsize="end"
                     android:gravity="center"
@@ -125,7 +124,7 @@
 
 
                     <TextView
-                        android:id="@+id/textViewWin"
+                        android:id="@+id/coff_w1_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -134,7 +133,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/textViewDraw"
+                        android:id="@+id/coff_d_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -143,7 +142,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/textViewLose"
+                        android:id="@+id/coff_w2_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -153,12 +152,12 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/score_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@+id/tv_round"
+                    android:layout_below="@+id/round_tv"
                     android:gravity="center_horizontal"
                     android:text=" - "
                     android:textColor="#fff"
@@ -169,15 +168,14 @@
         </RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-
     <RelativeLayout
-        android:id="@+id/con"
+        android:id="@+id/rate_tab_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/refreshRateFragment">
+        android:layout_below="@+id/rate_fragment_refresh">
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs_match_rate"
+            android:id="@+id/match_rate_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#628f3e"
@@ -186,12 +184,10 @@
             app:tabMode="fixed" />
 
         <info.androidhive.firebase.classes.utils.CustomViewPager
-            android:id="@+id/viewpager_rate"
+            android:id="@+id/rate_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tabs_match_rate" />
+            android:layout_below="@+id/match_rate_tabs" />
 
     </RelativeLayout>
-
-
 </RelativeLayout>

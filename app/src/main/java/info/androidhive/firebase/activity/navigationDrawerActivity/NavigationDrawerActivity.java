@@ -77,7 +77,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements NDVie
                         new SecondaryDrawerItem()
                                 .withIdentifier(8)
                                 .withName(R.string.nd_exit)
-                                .withIcon(GoogleMaterial.Icon.gmd_fullscreen_exit)
+                                .withIcon(FontAwesome.Icon.faw_long_arrow_left)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override

@@ -7,7 +7,6 @@
     android:weightSum="1">
 
     <TextView
-        android:id="@+id/textViewSL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
@@ -21,7 +20,7 @@
         android:paddingBottom="16dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgEnglish"
+            android:id="@+id/english_iv"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentLeft="true"
@@ -34,12 +33,12 @@
             app:civ_border_width="3dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgUkrainian"
+            android:id="@+id/ukrainian_iv"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/imgEnglish"
-            android:layout_toRightOf="@+id/imgEnglish"
+            android:layout_toEndOf="@+id/english_iv"
+            android:layout_toRightOf="@+id/english_iv"
             android:clickable="true"
             android:paddingLeft="5dp"
             android:src="@drawable/ukraine_icon"

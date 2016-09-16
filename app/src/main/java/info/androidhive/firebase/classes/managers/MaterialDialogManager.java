@@ -22,7 +22,6 @@ import java.util.Locale;
 
 import info.androidhive.firebase.R;
 import info.androidhive.firebase.classes.models.RatedUser;
-import info.androidhive.firebase.classes.models.User;
 
 public class MaterialDialogManager {
 
@@ -45,36 +44,35 @@ public class MaterialDialogManager {
         final DecimalFormat format = new DecimalFormat("#0.0", new DecimalFormatSymbols(Locale.US));
         format.setDecimalSeparatorAlwaysShown(false);
 
-        final TextView points = (TextView) promptView
-                .findViewById(R.id.textViewUserPoints);
-        final EditText input = (EditText) promptView
-                .findViewById(R.id.etCategory);
-        final TextView sum = (TextView) promptView
-                .findViewById(R.id.textViewSum);
-        final TextView type = (TextView) promptView
-                .findViewById(R.id.textViewType);
+        final TextView pointsTv = (TextView) promptView
+                .findViewById(R.id.user_points_tv);
+        final EditText inputTv = (EditText) promptView
+                .findViewById(R.id.category_et);
+        final TextView sumTv = (TextView) promptView
+                .findViewById(R.id.sum_tv);
+        final TextView typeTv = (TextView) promptView
+                .findViewById(R.id.type_tv);
 
-        type.setText(typeOfRate);
-        points.setText(user.getCurrentPoints());
+        typeTv.setText(typeOfRate);
+        pointsTv.setText(user.getCurrentPoints());
 
-        input.requestFocus();
-        input.setHint(R.string.points);
-        input.setTextColor(Color.BLACK);
-        input.setInputType(InputType.TYPE_CLASS_NUMBER);
-        input.addTextChangedListener(new TextWatcher() {
+        inputTv.requestFocus();
+        inputTv.setHint(R.string.points);
+        inputTv.setTextColor(Color.BLACK);
+        inputTv.setInputType(InputType.TYPE_CLASS_NUMBER);
+        inputTv.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!input.getText().toString().isEmpty()) {
-                    double currentSum = (coff * Integer.parseInt(input.getText().toString()));
-                    sum.setText(String.format("%.1f", currentSum));
-                    sum.setText(String.valueOf(format.format(currentSum)));
+                if (!inputTv.getText().toString().isEmpty()) {
+                    double currentSum = (coff * Integer.parseInt(inputTv.getText().toString()));
+                    sumTv.setText(String.format("%.1f", currentSum));
+                    sumTv.setText(String.valueOf(format.format(currentSum)));
                 } else {
-                    sum.setText("0");
+                    sumTv.setText("0");
                 }
             }
 
@@ -87,25 +85,24 @@ public class MaterialDialogManager {
             @Override
             public void onShow(DialogInterface dialogInterface) {
                 final FirebaseUser userFB = FirebaseAuth.getInstance().getCurrentUser();
-
                 Button b = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 b.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View view) {
-                        if (input.getText().toString().isEmpty()) {
-                            input.setError(context.getString(R.string.enter_rate));
+                        if (inputTv.getText().toString().isEmpty()) {
+                            inputTv.setError(context.getString(R.string.enter_rate));
                         } else {
-                            double enterPoints = Double.parseDouble(input.getText().toString());
+                            double enterPoints = Double.parseDouble(inputTv.getText().toString());
                             double userPoints = Double.parseDouble(user.getCurrentPoints());
                             if (userPoints - enterPoints >= 0) {
                                 new RateManager(context).setRate(userFB != null ? userFB.getDisplayName() : null,
-                                        String.valueOf(matchId), sum.getText().toString(),
-                                        input.getText().toString(),
+                                        String.valueOf(matchId), sumTv.getText().toString(),
+                                        inputTv.getText().toString(),
                                         typeOfRate);
                                 dialog.hide();
                             }else {
-                                    input.setError(context.getString(R.string.enough_points));
+                                    inputTv.setError(context.getString(R.string.enough_points));
                             }
                         }
                     }
@@ -117,7 +114,6 @@ public class MaterialDialogManager {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {}
                 });
-
         return dialog;
     }
 }

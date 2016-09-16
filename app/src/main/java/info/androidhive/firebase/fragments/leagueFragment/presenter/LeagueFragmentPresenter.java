@@ -13,26 +13,27 @@ import retrofit.Response;
 
 public class LeagueFragmentPresenter {
 
-    private LeagueView leagueView;
+    private LeagueView mLeagueView;
 
     public void setLeagueView(LeagueView leagueView) {
-        this.leagueView = leagueView;
+        this.mLeagueView = leagueView;
     }
 
     public void sendRequest(){
         LeagueService service = ApiFactory.getLeagueService();
         Call<List<LeagueModel>> call = service.leagues();
         call.enqueue(new Callback<List<LeagueModel>>() {
+
             @Override
             public void onResponse(Response<List<LeagueModel>> response) {
                 if(response.body()!=null)
-                leagueView.onSuccess(response.body());
-                else leagueView.onFail();
+                mLeagueView.onSuccess(response.body());
+                else mLeagueView.onFail();
             }
 
             @Override
             public void onFailure(Throwable t) {
-                leagueView.onFail();
+                mLeagueView.onFail();
             }
         });
     }

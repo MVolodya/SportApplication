@@ -21,10 +21,10 @@ import retrofit.Response;
 
 public class RatePresenter {
 
-    private RateView rateView;
+    private RateView mRateView;
 
     public void setRateView(RateView rateView) {
-        this.rateView = rateView;
+        this.mRateView = rateView;
     }
 
     public void showRateMatch(){
@@ -33,13 +33,13 @@ public class RatePresenter {
         call.enqueue(new Callback<RateMatchResponse>() {
             @Override
             public void onResponse(Response<RateMatchResponse> response) {
-                rateView.onSuccess(response.body());
+                if(response.body()!=null)
+                mRateView.onSuccess(response.body());
+                else mRateView.onFail();
             }
 
             @Override
-            public void onFailure(Throwable t) {
-
-            }
+            public void onFailure(Throwable t) {mRateView.onFail();}
         });
     }
 
@@ -50,7 +50,7 @@ public class RatePresenter {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         RatedUser user = dataSnapshot.getValue(RatedUser.class);
-                        rateView.setUser(user);
+                        mRateView.setUser(user);
                     }
 
                     @Override
@@ -68,12 +68,13 @@ public class RatePresenter {
                 TeamResponse teamResponse = response.body();
                 if(teamResponse!=null) {
                     String linkTeamImage = teamResponse.getCrestUrl();
-                    rateView.onSuccessHomeImageUrl(linkTeamImage);
-                } else rateView.onFail();
+                    mRateView.onSuccessHomeImageUrl(linkTeamImage);
+                } else mRateView.onFail();
             }
 
             @Override
-            public void onFailure(Throwable t) {rateView.onFail();}
+            public void onFailure(Throwable t) {
+                mRateView.onFail();}
         });
     }
 
@@ -87,12 +88,13 @@ public class RatePresenter {
                 TeamResponse teamResponse = response.body();
                 if(teamResponse!=null) {
                     String linkTeamImage = teamResponse.getCrestUrl();
-                    rateView.onSuccessAwayImageUrl(linkTeamImage);
-                }else rateView.onFail();
+                    mRateView.onSuccessAwayImageUrl(linkTeamImage);
+                }else mRateView.onFail();
             }
 
             @Override
-            public void onFailure(Throwable t) {rateView.onFail();}
+            public void onFailure(Throwable t) {
+                mRateView.onFail();}
         });
     }
 }

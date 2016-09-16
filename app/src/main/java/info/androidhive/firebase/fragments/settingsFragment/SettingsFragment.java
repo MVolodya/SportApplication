@@ -49,25 +49,22 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     public static final int PICK_IMAGE_REQUEST = 1;
     public static final int CAMERA_REQUEST = 2;
 
-    private View view;
-    private TextView etUsername;
-    private TextView etEmail;
-    private TextView language;
+    private TextView usernameTv;
+    private TextView emailTv;
     private ImageView userPhoto;
-    private RelativeLayout relativeLayoutChangeLan;
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
-    private User user;
-    private FirebaseUser firebaseUser;
+    private User mUser;
+    private FirebaseUser mFirebaseUser;
     private ProgressDialog mProgressDialog;
-    private RemoteDatabaseManager remoteDatabaseManager;
+    private RemoteDatabaseManager mRemoteDatabaseManager;
     private SettingsPresenter settingsPresenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_settings, container, false);
-        Toolbar toolbar = (Toolbar)view.findViewById(R.id.toolbarSettings);
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.settings_toolbar);
         ((MainActivity)getContext()).setSupportActionBar(toolbar);
         ((MainActivity)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((MainActivity)getContext()).getSupportActionBar().setHomeButtonEnabled(true);
@@ -76,52 +73,51 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
         settingsPresenter = new SettingsPresenter();
         settingsPresenter.setSettingsView(this);
 
-        etUsername = (TextView)view.findViewById(R.id.username_setting);
-        etEmail = (TextView)view.findViewById(R.id.email_setting);
-        language = (TextView)view.findViewById(R.id.language_change);
-        userPhoto = (ImageView)view.findViewById(R.id.imageViewPhoto);
-        relativeLayoutChangeLan = (RelativeLayout) view.findViewById(R.id.change_lan_rl);
+        usernameTv = (TextView) view.findViewById(R.id.username_setting_tv);
+        emailTv = (TextView) view.findViewById(R.id.email_setting_tv);
+        TextView languageTv = (TextView) view.findViewById(R.id.language_change_tv);
+        userPhoto = (ImageView) view.findViewById(R.id.photo_iv);
+        RelativeLayout relativeLayoutChangeLan = (RelativeLayout) view.findViewById(R.id.change_lan_rl);
         relativeLayoutChangeLan.setOnClickListener(this);
 
         SharedPreferences sharedPref = getActivity().getSharedPreferences("settings", Context.MODE_PRIVATE);
-        if(sharedPref.getString("language","en").equalsIgnoreCase("en")) language.setText(
+        if(sharedPref.getString("language","en").equalsIgnoreCase("en")) languageTv.setText(
                 R.string.english);
-        else if(sharedPref.getString("language","en").equalsIgnoreCase("uk"))language.setText(
+        else if(sharedPref.getString("language","en").equalsIgnoreCase("uk")) languageTv.setText(
                 R.string.ukrainian);
 
         mProgressDialog = new ProgressDialog(getActivity());
-        remoteDatabaseManager = new RemoteDatabaseManager(getActivity());
+        mRemoteDatabaseManager = new RemoteDatabaseManager(getActivity());
         LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(getActivity());
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        UserInfo userInfo = firebaseUser != null ? firebaseUser.getProviderData().get(1) : null;
+        UserInfo userInfo = mFirebaseUser != null ? mFirebaseUser.getProviderData().get(1) : null;
         // Id of the provider (ex: google.com)
         String providerId = userInfo.getProviderId();
 
-        user = LocalDatabaseManager.getUser();
+        mUser = LocalDatabaseManager.getUser();
 
         //start AlertDialog FAB -------------------------
-        FloatingActionButton floatingActionButton = (FloatingActionButton)view.findViewById(R.id.change_photo);
+        FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.change_photo_fab);
         floatingActionButton.setOnClickListener(this);
         //end /AlertDialog FAB
 
-
         //start AlertDialog username
-        RelativeLayout relativeLayout = (RelativeLayout)view.findViewById(R.id.usernameDialog);
+        RelativeLayout relativeLayout = (RelativeLayout) view.findViewById(R.id.username_relative);
         relativeLayout.setOnClickListener(this);
         //end AlertDialog username
 
         //start AlertDialog email
-        relativeLayout = (RelativeLayout)view.findViewById(R.id.emailDialog);
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.email_relative);
         relativeLayout.setOnClickListener(this);
         //end AlertDialog email
 
         //start AlertDialog password
-        relativeLayout = (RelativeLayout)view.findViewById(R.id.passDialog);
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.password_relative);
         relativeLayout.setOnClickListener(this);
         if (providerId.equals("facebook.com") || providerId.equals("google.com")) {
-            TextView tvPassword = (TextView) relativeLayout.findViewById(R.id.password_setting);
+            TextView tvPassword = (TextView) relativeLayout.findViewById(R.id.password_setting_tv);
             tvPassword.setEnabled(false);
             tvPassword.setTextColor(getResources().getColor(R.color.disabletext));
             relativeLayout.setEnabled(false);
@@ -129,9 +125,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
         } else relativeLayout.setEnabled(true);
         //end AlertDialog password
 
-
-        relativeLayout = (RelativeLayout)view.findViewById(R.id.bottomsheet_faq_relative);
-
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.bottom_sheet_faq_relative);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,11 +134,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
             }
         });
 
+        collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.setting_collapsing_toolbar);
 
-
-        collapsingToolbarLayout = (CollapsingToolbarLayout)view.findViewById(R.id.collapsing_toolbar_setting);
-
-        if (user.getName() != null) collapsingToolbarLayout.setTitle(user.getName());
+        if (mUser.getName() != null) collapsingToolbarLayout.setTitle(mUser.getName());
         else collapsingToolbarLayout.setTitle("Anonymous");
 
         setUserInformation();
@@ -152,37 +144,33 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void setUserInformation() {
+        if (mUser.getName() != null) usernameTv.setText(mUser.getName());
+        else usernameTv.setText("Anonymous");
 
-        if (user.getName() != null) etUsername.setText(user.getName());
-        else etUsername.setText("Anonymous");
+        if (mUser.getEmail() != null) emailTv.setText(mUser.getEmail());
+        else emailTv.setText("Anonymous@Anonymous.com");
 
-        if (user.getEmail() != null) etEmail.setText(user.getEmail());
-        else etEmail.setText("Anonymous@Anonymous.com");
-
-        if (user.getPhotoURL() != null) {
+        if (mUser.getPhotoURL() != null) {
             Glide.with(this)
-                    .load(user.getPhotoURL())
+                    .load(mUser.getPhotoURL())
                     .into(userPhoto);
         } else userPhoto.setImageResource(R.drawable.prof);
-
     }
-
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.change_photo:
+            case R.id.change_photo_fab:
                 AlertDialog.Builder alertDialogPhoto = new AlertDialogManager().getPhotoAlertDialog(getActivity(), this);
                 alertDialogPhoto.show();
                 break;
-
-            case R.id.usernameDialog:
+            case R.id.username_relative:
                 AlertDialog.Builder alertDialogUsername = AlertDialogManager.getAlertDialog(getActivity(),
                         getContext().getString(R.string.enter_new_name));
                 alertDialogUsername.setPositiveButton(getContext().getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                settingsPresenter.updateUsername(remoteDatabaseManager);
+                                settingsPresenter.updateUsername(mRemoteDatabaseManager);
                                 dialog.cancel();
                             }
                         });
@@ -194,8 +182,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                         });
                 alertDialogUsername.show();
                 break;
-
-            case R.id.emailDialog:
+            case R.id.email_relative:
                 AlertDialog.Builder alertDialogEmail = AlertDialogManager.getAlertDialog(getActivity(),
                         getContext().getString(R.string.enter_new_email));
                 alertDialogEmail.setPositiveButton(getContext().getString(R.string.save),
@@ -213,8 +200,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                         });
                 alertDialogEmail.show();
                 break;
-
-            case R.id.passDialog:
+            case R.id.password_relative:
                 AlertDialog.Builder alertDialogPassword = AlertDialogManager.getAlertDialog(getActivity(),
                         getContext().getString(R.string.enter_new_password));
                 alertDialogPassword.setPositiveButton(getContext().getString(R.string.save),
@@ -232,13 +218,10 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                         });
                 alertDialogPassword.show();
                 break;
-
             case R.id.change_lan_rl:
                 final AlertDialog alertDialogLan = AlertDialogManager.getLanguageAlertDialog(getContext());
                 LayoutInflater layoutInflater = LayoutInflater.from(getContext());
                 View promptView = layoutInflater.inflate(R.layout.dialog_language, null);
-
-
                 alertDialogLan.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(DialogInterface dialogInterface) {
@@ -269,7 +252,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 ProgressDialogManager.showProgressDialog(mProgressDialog, getContext().getString(R.string.wait_loading_photo));
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
                 Bitmap bMapScaled = Bitmap.createScaledBitmap(bitmap, 900, 800, true);
-                settingsPresenter.updatePhoto(bMapScaled, firebaseUser.getUid());
+                settingsPresenter.updatePhoto(bMapScaled, mFirebaseUser.getUid());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -279,15 +262,13 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
             ProgressDialogManager.showProgressDialog(mProgressDialog, getContext().getString(R.string.wait_loading_photo));
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             Bitmap bMapScaled = Bitmap.createScaledBitmap(photo, 900, 800, true);
-            settingsPresenter.updatePhoto(bMapScaled, firebaseUser.getUid());
+            settingsPresenter.updatePhoto(bMapScaled, mFirebaseUser.getUid());
         }
     }
 
-
-
     @Override
     public RemoteDatabaseManager getRemoteDatabaseManager() {
-        return remoteDatabaseManager;
+        return mRemoteDatabaseManager;
     }
 
     @Override
@@ -301,15 +282,15 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void updateUsernameSuccess() {
-        etUsername.setText(user.getName());
-        collapsingToolbarLayout.setTitle(user.getName());
-        ((NavigationDrawerActivity)getContext()).updateProfileUsername(user.getName());
+        usernameTv.setText(mUser.getName());
+        collapsingToolbarLayout.setTitle(mUser.getName());
+        ((NavigationDrawerActivity)getContext()).updateProfileUsername(mUser.getName());
     }
 
     @Override
     public void updateEmailSuccess() {
-        etEmail.setText(user.getEmail());
-        ((NavigationDrawerActivity)getContext()).updateProfileEmail(user.getEmail());
+        emailTv.setText(mUser.getEmail());
+        ((NavigationDrawerActivity)getContext()).updateProfileEmail(mUser.getEmail());
     }
 
     @Override

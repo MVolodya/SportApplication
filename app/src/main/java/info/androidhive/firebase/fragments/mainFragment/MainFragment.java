@@ -9,33 +9,22 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import info.androidhive.firebase.classes.utils.ConnectivityReceiver;
 import info.androidhive.firebase.classes.utils.CustomViewPager;
 import info.androidhive.firebase.fragments.matchFragment.MatchFragment;
 import info.androidhive.firebase.fragments.leagueFragment.LeagueFragment;
 import info.androidhive.firebase.R;
 
-public class MainFragment extends Fragment implements View.OnClickListener {
+public class MainFragment extends Fragment {
 
     private CustomViewPager viewPager;
     private TabLayout tabLayout;
-    private ImageView imageViewInfo;
-    private TextView textViewInfo;
-    private Button buttonTryAgain;
     private View view;
 
-
-    public MainFragment() {
-        // Required empty public constructor
-    }
-
+    public MainFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,40 +33,12 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_main, container, false);
 
         viewPager = (CustomViewPager) view.findViewById(R.id.viewpager);
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        imageViewInfo = (ImageView) view.findViewById(R.id.imageViewBadConnection);
-        textViewInfo = (TextView) view.findViewById(R.id.textViewInfo);
-        buttonTryAgain = (Button) view.findViewById(R.id.buttonTryAgain);
+        tabLayout = (TabLayout) view.findViewById(R.id.main_tab);
 
-        viewPager.setVisibility(View.GONE);
-        tabLayout.setVisibility(View.GONE);
-        imageViewInfo.setVisibility(View.GONE);
-        textViewInfo.setVisibility(View.GONE);
-        buttonTryAgain.setVisibility(View.GONE);
-
-        buttonTryAgain.setOnClickListener(this);
-
-
-        if (ConnectivityReceiver.isOnline(view.getContext())) {
-
-            imageViewInfo.setVisibility(View.GONE);
-            textViewInfo.setVisibility(View.GONE);
-            buttonTryAgain.setVisibility(View.GONE);
-
-            viewPager.setVisibility(View.VISIBLE);
-            tabLayout.setVisibility(View.VISIBLE);
-
-            setupViewPager(viewPager);
-            tabLayout.setupWithViewPager(viewPager);
-        }else {
-            imageViewInfo.setVisibility(View.VISIBLE);
-            textViewInfo.setVisibility(View.VISIBLE);
-            buttonTryAgain.setVisibility(View.VISIBLE);
-        }
-        // Inflate the layout for this fragment
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
         return view;
     }
-
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
@@ -86,31 +47,12 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         viewPager.setAdapter(adapter);
     }
 
-    public void hideTabs(){
+    public void hideTabs() {
         tabLayout.setVisibility(View.GONE);
     }
 
-    public void showTabs(){
+    public void showTabs() {
         tabLayout.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (ConnectivityReceiver.isOnline(view.getContext())) {
-            imageViewInfo.setVisibility(View.GONE);
-            textViewInfo.setVisibility(View.GONE);
-            buttonTryAgain.setVisibility(View.GONE);
-
-            viewPager.setVisibility(View.VISIBLE);
-            tabLayout.setVisibility(View.VISIBLE);
-
-            setupViewPager(viewPager);
-            tabLayout.setupWithViewPager(viewPager);
-        }else {
-            imageViewInfo.setVisibility(View.VISIBLE);
-            textViewInfo.setVisibility(View.VISIBLE);
-            buttonTryAgain.setVisibility(View.VISIBLE);
-        }
     }
 
     public CustomViewPager getViewPager() {
@@ -145,6 +87,4 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             return mFragmentTitleList.get(position);
         }
     }
-
-
 }
