@@ -68,4 +68,6 @@
     <dimen name="cv_margin_t">5dp</dimen>
     <dimen name="cv_margin_r">10dp</dimen>
     <dimen name="cv_margin_b">5dp</dimen>
+    <dimen name="progress_view_w">40dp</dimen>
+    <dimen name="progress_view_h">40dp</dimen>
 </resources>

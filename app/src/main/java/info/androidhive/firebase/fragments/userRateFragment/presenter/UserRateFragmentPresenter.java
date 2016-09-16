@@ -1,4 +1,4 @@
-package info.androidhive.firebase.fragments.currentUserRateFragment.presenter;
+package info.androidhive.firebase.fragments.userRateFragment.presenter;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,30 +13,23 @@ import info.androidhive.firebase.classes.managers.MatchRequestManager;
 import info.androidhive.firebase.classes.models.Rate;
 import info.androidhive.firebase.classes.models.RatedMatchesToDB;
 import info.androidhive.firebase.classes.models.RatedUser;
-import info.androidhive.firebase.classes.retrofit.ApiFactory;
-import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchResponse;
-import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchService;
-import info.androidhive.firebase.fragments.currentUserRateFragment.callback.CallbackRate;
-import info.androidhive.firebase.fragments.currentUserRateFragment.view.UserRateView;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
+import info.androidhive.firebase.fragments.userRateFragment.callback.CallbackRate;
+import info.androidhive.firebase.fragments.userRateFragment.view.UserRateView;
 
 public class UserRateFragmentPresenter implements CallbackRate {
 
-    private UserRateView userRateView;
-    private MatchRequestManager matchRequestManager;
+    private UserRateView mUserRateView;
+    private MatchRequestManager mMatchRequestManager;
     private List<Rate> rates = new ArrayList<>();
-    private int listSize;
+    private int mListSize;
 
     public void setUserRateView(UserRateView userRateView) {
-        this.userRateView = userRateView;
+        this.mUserRateView = userRateView;
     }
 
     public void getUserRates(String username) {
-        matchRequestManager = new MatchRequestManager();
+        mMatchRequestManager = new MatchRequestManager();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
         mDatabase.child(username)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
@@ -44,36 +37,35 @@ public class UserRateFragmentPresenter implements CallbackRate {
                                                         RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
                                                         final List<RatedMatchesToDB> ratedMatchesList = ratedUser.getRatedMatches();
                                                         if (ratedMatchesList != null && ratedMatchesList.size() > 0) {
-                                                            listSize = ratedMatchesList.size();
+                                                            mListSize = ratedMatchesList.size();
                                                             for (RatedMatchesToDB ratedMatches : ratedMatchesList) {
-                                                                matchRequestManager.getRate(
+                                                                mMatchRequestManager.getRate(
                                                                         Integer.parseInt(ratedMatches.getMatchId()),
                                                                         ratedMatches,
                                                                         UserRateFragmentPresenter.this
                                                                 );
                                                             }
-                                                        } else userRateView.onRateListSize();
+                                                        } else mUserRateView.onRateListSize();
                                                     }
 
                                                     @Override
                                                     public void onCancelled(DatabaseError databaseError) {
-                                                        userRateView.onFail();
+                                                        mUserRateView.onFail();
                                                     }
                                                 }
-
                 );
     }
 
     @Override
     public void addRateToList(Rate rate) {
         rates.add(rate);
-        if (listSize == rates.size()) {
-            userRateView.addList(rates);
+        if (mListSize == rates.size()) {
+            mUserRateView.addList(rates);
         }
     }
 
     @Override
     public void onError() {
-        userRateView.onFail();
+        mUserRateView.onFail();
     }
 }

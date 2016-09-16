@@ -5,7 +5,7 @@ import info.androidhive.firebase.classes.models.RatedMatchesToDB;
 import info.androidhive.firebase.classes.retrofit.ApiFactory;
 import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchResponse;
 import info.androidhive.firebase.classes.retrofit.rateMatch.RateMatchService;
-import info.androidhive.firebase.fragments.currentUserRateFragment.callback.CallbackRate;
+import info.androidhive.firebase.fragments.userRateFragment.callback.CallbackRate;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;

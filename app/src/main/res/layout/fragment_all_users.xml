@@ -10,11 +10,12 @@
         app:AniBackColor="@color/colorPrimary"
         app:AniForeColor="#ffffffff"
         app:CircleSmaller="2"
-        android:id="@+id/refresh_layout_users"
+        android:id="@+id/all_user_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_users"
+
+        <android.support.v7.widget.RecyclerView
+        android:id="@+id/all_users_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
@@ -27,8 +28,8 @@
     <com.github.rahatarmanahmed.cpv.CircularProgressView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/progress_view"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/progress_view_w"
+        android:layout_height="@dimen/progress_view_h"
         app:cpv_animAutostart="true"
         app:cpv_indeterminate="true"
         app:cpv_color="@color/colorPrimaryDark"

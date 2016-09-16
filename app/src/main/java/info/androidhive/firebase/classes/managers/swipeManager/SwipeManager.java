@@ -45,7 +45,7 @@ public class SwipeManager extends ItemTouchHelper.SimpleCallback implements Init
 
     @Override
     public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
-        final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.fabLayout);
+        final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.user_rate_coordinator_layout);
         final Rate rate = rates.get(viewHolder.getAdapterPosition());
         usersRateAdapter.remove(viewHolder.getAdapterPosition());
         rateManager.deleteRate(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),

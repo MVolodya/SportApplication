@@ -11,29 +11,27 @@ import retrofit.Response;
 
 public class AwayTeamPresenter {
 
-    private AwayTeamView awayTeamView;
+    private AwayTeamView mAwayTeamView;
 
     public void setAwayTeamView(AwayTeamView awayTeamView) {
-        this.awayTeamView = awayTeamView;
+        this.mAwayTeamView = awayTeamView;
     }
 
     public void showAwayTeam(){
-
         PlayersService service = ApiFactory.getPlayerService();
         Call<PlayersResponse> call = service.players(DataHelper.getInstance().getAwayTeamId());
         call.enqueue(new Callback<PlayersResponse>() {
             @Override
             public void onResponse(Response<PlayersResponse> response) {
                 if(response.body() != null)
-                awayTeamView.onSuccess(response.body());
-                else awayTeamView.onFail();
+                mAwayTeamView.onSuccess(response.body());
+                else mAwayTeamView.onFail();
             }
 
             @Override
             public void onFailure(Throwable t) {
-                awayTeamView.onFail();
+                mAwayTeamView.onFail();
             }
         });
     }
-
 }

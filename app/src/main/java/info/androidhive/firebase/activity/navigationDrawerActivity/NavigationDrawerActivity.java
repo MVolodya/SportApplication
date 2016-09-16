@@ -27,7 +27,7 @@ import info.androidhive.firebase.classes.managers.LocalDatabaseManager;
 import info.androidhive.firebase.classes.managers.SignInManager;
 import info.androidhive.firebase.classes.models.User;
 import info.androidhive.firebase.fragments.allUsersFragment.AllUsersFragment;
-import info.androidhive.firebase.fragments.currentUserRateFragment.CurrentUserRateFragment;
+import info.androidhive.firebase.fragments.userRateFragment.UserRateFragment;
 import info.androidhive.firebase.fragments.mainFragment.MainFragment;
 import info.androidhive.firebase.fragments.settingsFragment.SettingsFragment;
 
@@ -95,7 +95,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements NDVie
                                 mainActivity.showToolbar();
                                 break;
                             case 4:
-                                replace(new CurrentUserRateFragment());
+                                replace(new UserRateFragment());
                                 mainActivity.showToolbar();
                                 break;
                             case 7:
