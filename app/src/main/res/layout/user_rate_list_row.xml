@@ -1,29 +1,32 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
+
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/cv_margin_b"
+        android:layout_marginLeft="@dimen/cv_margin_l"
+        android:layout_marginRight="@dimen/cv_margin_r"
+        android:layout_marginTop="@dimen/cv_margin_t"
         android:clickable="true"
-        app:cardCornerRadius="2dp"
-        app:rippleColor="@color/colorPrimary">
+        android:focusable="true"
+        app:cardCornerRadius="@dimen/card_radius">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="@dimen/margin_16dp">
 
             <TextView
                 android:id="@+id/home_team_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@string/roboto_regular"
                 android:textColor="@color/dark"
                 android:textSize="@dimen/material_text_subhead" />
 
@@ -34,7 +37,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/home_team_tv"
                 android:layout_toRightOf="@+id/home_team_tv"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@string/roboto_regular"
                 android:maxLength="10"
                 android:text=" - "
                 android:textColor="@color/dark"
@@ -47,7 +50,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/hint_tv"
                 android:layout_toRightOf="@+id/hint_tv"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@string/roboto_regular"
                 android:textColor="@color/dark"
                 android:textSize="@dimen/material_text_subhead" />
 
@@ -58,9 +61,7 @@
                 android:layout_below="@+id/home_team_tv"
                 android:layout_toLeftOf="@+id/max_win_points"
                 android:layout_toStartOf="@+id/max_win_points"
-                android:fontFamily="sans-serif"
-                android:textColor="@color/dark"
-                android:textSize="@dimen/material_text_subhead">
+                android:paddingTop="@dimen/padding_10dp">
 
                 <TextView
                     android:id="@+id/rate_hint_tv"
@@ -68,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:fontFamily="sans-serif"
+                    android:fontFamily="@string/roboto_regular"
                     android:text="@string/rate"
                     android:textColor="@color/dark"
                     android:textSize="@dimen/material_text_subhead" />
@@ -80,35 +81,35 @@
                     android:layout_alignTop="@+id/rate_hint_tv"
                     android:layout_toEndOf="@+id/rate_hint_tv"
                     android:layout_toRightOf="@+id/rate_hint_tv"
-                    android:fontFamily="sans-serif"
+                    android:fontFamily="@string/roboto_regular"
+                    android:paddingLeft="5dp"
                     android:textColor="@color/dark"
-                    android:textSize="@dimen/material_text_subhead"
-
-                    />
+                    android:textSize="@dimen/material_text_subhead" />
 
                 <TextView
                     android:id="@+id/can_win_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:fontFamily="sans-serif"
+                    android:layout_toLeftOf="@+id/max_win_points"
+                    android:layout_toStartOf="@+id/max_win_points"
+                    android:fontFamily="@string/roboto_regular"
                     android:text="@string/you_can_win"
                     android:textColor="@color/dark"
                     android:textSize="@dimen/material_text_subhead" />
-            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/max_win_points"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/relativeLayout"
-                android:fontFamily="sans-serif"
-                android:textColor="@color/dark"
-                android:textSize="@dimen/material_text_subhead" />
+                <TextView
+                    android:id="@+id/max_win_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/relativeLayout"
+                    android:fontFamily="@string/roboto_regular"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/material_text_subhead" />
+            </RelativeLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

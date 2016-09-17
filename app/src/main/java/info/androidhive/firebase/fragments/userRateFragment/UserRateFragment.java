@@ -67,7 +67,7 @@ public class UserRateFragment extends Fragment implements UserRateView, SwipeRef
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
 
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+    //    mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), mRecyclerView, new ClickListener() {
             @Override

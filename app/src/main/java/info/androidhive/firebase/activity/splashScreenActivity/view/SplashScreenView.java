@@ -10,6 +10,7 @@ public interface SplashScreenView {
     void onSuccess();
     void onFail();
     void onOffline();
+    void onRefreshRequest();
     void setUserRateList(List<RatedMatchesToDB> userRateList);
     Context getContext();
 }

@@ -36,11 +36,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:maxLength="17"
-                    android:text="ggg"
-                    android:textSize="16dp"
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:ellipsize="end" />
+                    android:ellipsize="end"
+                    android:fontFamily="@string/roboto_regular"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/material_text_subhead"/>
             </LinearLayout>
 
 
@@ -55,7 +56,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="16dp"
+                    android:fontFamily="@string/roboto_regular"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/material_text_subhead"
                     android:text="@string/pos"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -64,6 +67,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@string/roboto_regular"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/material_text_subhead"
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
@@ -79,7 +85,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="16dp"
+                    android:fontFamily="@string/roboto_regular"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/material_text_subhead"
                     android:text="@string/games"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -93,6 +101,8 @@
                         android:id="@+id/games_win_row_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@string/roboto_regular"
+                        android:textSize="@dimen/material_text_subhead"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -103,8 +113,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:fontFamily="@string/roboto_regular"
+                        android:textSize="@dimen/material_text_subhead"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/black"
+                        android:textColor="@color/dark"
                         android:text="-" />
 
                     <TextView
@@ -113,6 +125,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:fontFamily="@string/roboto_regular"
+                        android:textSize="@dimen/material_text_subhead"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/md_amber_300" />
 
@@ -121,8 +135,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:fontFamily="@string/roboto_regular"
+                        android:textColor="@color/dark"
+                        android:textSize="@dimen/material_text_subhead"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/black"
                         android:text="-" />
 
                     <TextView
@@ -130,6 +146,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@string/roboto_regular"
+                        android:textSize="@dimen/material_text_subhead"
                         android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/btn_log_out_bg" />
@@ -149,7 +167,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/gd"
-                    android:textSize="16dp"
+                    android:fontFamily="@string/roboto_regular"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/material_text_subhead"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_gravity="center_horizontal" />
 
@@ -165,6 +185,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@string/roboto_regular"
+                        android:textSize="@dimen/material_text_subhead"
                         android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/bg_login" />
@@ -174,8 +196,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:fontFamily="@string/roboto_regular"
+                        android:textColor="@color/dark"
+                        android:textSize="@dimen/material_text_subhead"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/black"
                         android:text="-" />
 
                     <TextView
@@ -184,6 +208,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:fontFamily="@string/roboto_regular"
+                        android:textSize="@dimen/material_text_subhead"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/btn_log_out_bg" />
 
@@ -201,7 +227,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="16dp"
+                    android:fontFamily="@string/roboto_regular"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/material_text_subhead"
                     android:text="@string/pts"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -211,6 +239,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:fontFamily="@string/roboto_regular"
+                    android:textSize="@dimen/material_text_subhead"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"

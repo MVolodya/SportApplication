@@ -1,58 +1,61 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
-    android:orientation="horizontal">
+    android:layout_height="88dp"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp"
+    android:paddingLeft="@dimen/margin_16dp"
+    android:paddingRight="@dimen/margin_16dp"
+    android:paddingTop="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_iv"
-        android:layout_width="@dimen/profile_image_w"
-        android:layout_height="@dimen/profile_image_h"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/margin_16dp"
         android:src="@drawable/prof" />
 
     <TextView
         android:id="@+id/user_position_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:textSize="16sp"
         android:layout_above="@+id/user_points_tv"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:paddingRight="16dp" />
+        android:layout_alignParentRight="true"
+        android:fontFamily="@string/roboto_regular"
+        android:textColor="@color/dark"
+        android:textSize="@dimen/material_text_subhead" />
 
     <TextView
         android:id="@+id/user_rate_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/rate_name_margin_left"
-        android:layout_marginTop="@dimen/rate_name_margin_top"
-        android:fontFamily="sans-serif"
-        android:textColor="#000"
-        android:textSize="16sp" />
+        android:layout_marginTop="8dp"
+        android:fontFamily="@string/roboto_regular"
+        android:textColor="@color/dark"
+        android:textSize="@dimen/material_text_subhead" />
 
     <TextView
         android:id="@+id/user_points_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:paddingTop="@dimen/tv_user_points_pad_top"
-        android:textSize="14sp"
         android:layout_alignTop="@+id/hint_points_tv"
+        android:layout_toEndOf="@+id/hint_points_tv"
         android:layout_toRightOf="@+id/hint_points_tv"
-        android:layout_toEndOf="@+id/hint_points_tv" />
+        android:fontFamily="@string/roboto_regular"
+        android:paddingLeft="5dp"
+        android:paddingTop="@dimen/tv_user_points_pad_top"
+        android:textSize="@dimen/material_text_body1" />
 
     <TextView
         android:id="@+id/hint_points_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/user_rate_name_tv"
-        android:layout_alignStart="@+id/user_rate_name_tv"
         android:layout_below="@+id/user_rate_name_tv"
-        android:fontFamily="sans-serif"
+        android:layout_marginLeft="72dp"
+        android:fontFamily="@string/roboto_regular"
         android:paddingTop="@dimen/tv_hint_padding_top"
         android:text="@string/points_user"
-        android:textSize="14sp" />
+        android:textSize="@dimen/material_text_body1" />
 
 </RelativeLayout>

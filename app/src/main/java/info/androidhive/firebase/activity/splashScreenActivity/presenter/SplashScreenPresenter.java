@@ -56,4 +56,9 @@ public class SplashScreenPresenter implements CheckRateCallback {
     public void onConnection() {
         splashScreenView.onOffline();
     }
+
+    @Override
+    public void onRefresh() {
+        splashScreenView.onRefreshRequest();
+    }
 }

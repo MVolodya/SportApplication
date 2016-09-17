@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -61,6 +62,18 @@ public class SplashActivity extends Activity implements SplashScreenView {
     public void onOffline() {
         Toast.makeText(SplashActivity.this, getString(R.string.error_while_loading_data_please_check_your_network_connection),
                 Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRefreshRequest() {
+        Toast.makeText(SplashActivity.this, getString(R.string.wait_sec),
+                Toast.LENGTH_LONG).show();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                splashScreenPresenter.getUserRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+            }
+        }, 31 * 1000);
     }
 
     @Override

@@ -13,12 +13,13 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/calendar_fab"
-        android:layout_width="@dimen/calendar_fab_w"
-        android:layout_height="@dimen/calendar_fab_h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_menu_today"
-        app:backgroundTint="@color/bg_main" />
+        android:background="@color/colorPrimary"
+        app:backgroundTint="@color/colorPrimary" />
 
     <com.github.fabtransitionactivity.SheetLayout
         android:id="@+id/bottom_sheet"

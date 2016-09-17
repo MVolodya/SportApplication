@@ -4,4 +4,5 @@ public interface CheckRateCallback {
     void onSuccess();
     void onFail();
     void onConnection();
+    void onRefresh();
 }

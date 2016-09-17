@@ -137,15 +137,15 @@ public class RateManager {
                     if (rateList != null && rateList.size() > 0) {
                         for (int i = 0; i < rateList.size(); i++) {
                             if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_FIRST)) {
-                                checkWithApi(rateList, ratedUser, i, name, WIN_FIRST);
+                                checkWithApi(rateList, ratedUser, i, name, WIN_FIRST, checkRateCallback);
                             }
 
                             if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(DRAW)) {
-                                checkWithApi(rateList, ratedUser, i, name, DRAW);
+                                checkWithApi(rateList, ratedUser, i, name, DRAW, checkRateCallback);
                             }
 
                             if (rateList.get(i).getTypeOfRate().equalsIgnoreCase(WIN_SECOND)) {
-                                checkWithApi(rateList, ratedUser, i, name, WIN_SECOND);
+                                checkWithApi(rateList, ratedUser, i, name, WIN_SECOND, checkRateCallback);
                             }
                         }
                         checkRateCallback.onSuccess();
@@ -153,44 +153,48 @@ public class RateManager {
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
+                public void onCancelled(DatabaseError databaseError) {}
             });
     }
 
     private void checkWithApi(final List<RatedMatchesToDB> rateList, final RatedUser ratedUser,
-                              final int i, final String name, final String userType) {
+                              final int i, final String name, final String userType,
+                              final CheckRateCallback checkRateCallback) {
         RateMatchService service = ApiFactory.getRateMatchService();
         Call<RateMatchResponse> call = service.match(Integer.parseInt(rateList.get(i).getMatchId()));
         call.enqueue(new Callback<RateMatchResponse>() {
             @Override
             public void onResponse(Response<RateMatchResponse> response) {
                 RateMatchResponse rateMatchResponse = response.body();
-                if (rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
-                    final int homeTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsHomeTeam();
-                    final int awayTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsAwayTeam();
-                    String type = null;
-                    if (homeTeamGoal > awayTeamGoal) type = WIN_FIRST;
-                    if (homeTeamGoal == awayTeamGoal) type = DRAW;
-                    if (homeTeamGoal < awayTeamGoal) type = WIN_SECOND;
+                if (rateMatchResponse != null) {
 
-                    if (ratedUser.getRatedMatches().get(i).getStatus()
-                            .equalsIgnoreCase("unchecked")) {
-                        ratedUser.getRatedMatches().get(i).setStatus("lose");
+                    if (rateMatchResponse.getFixture().getStatus().equalsIgnoreCase("FINISHED")) {
+                        final int homeTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsHomeTeam();
+                        final int awayTeamGoal = rateMatchResponse.getFixture().getResult().getGoalsAwayTeam();
+                        String type = null;
+                        if (homeTeamGoal > awayTeamGoal) type = WIN_FIRST;
+                        if (homeTeamGoal == awayTeamGoal) type = DRAW;
+                        if (homeTeamGoal < awayTeamGoal) type = WIN_SECOND;
 
-                        if (type != null && type.equalsIgnoreCase(userType)) {
-                            double currentPoints = Double.parseDouble(ratedUser.getCurrentPoints());
-                            double ratePoints = Double.parseDouble(rateList.get(i).getPoints());
-                            ratedUser.setCurrentPoints(String.format("%.1f", (currentPoints + ratePoints)));
-                            ratedUser.getRatedMatches().get(i).setStatus("win");
-                            mDatabase.child(name).child("currentPoints")
-                                    .setValue(ratedUser.getCurrentPoints());
+                        if (ratedUser.getRatedMatches().get(i).getStatus()
+                                .equalsIgnoreCase("unchecked")) {
+                            ratedUser.getRatedMatches().get(i).setStatus("lose");
+
+                            if (type != null && type.equalsIgnoreCase(userType)) {
+                                double currentPoints = Double.parseDouble(ratedUser.getCurrentPoints());
+                                double ratePoints = Double.parseDouble(rateList.get(i).getPoints());
+                                ratedUser.setCurrentPoints(String.format("%.1f", (currentPoints + ratePoints)));
+                                ratedUser.getRatedMatches().get(i).setStatus("win");
+                                mDatabase.child(name).child("currentPoints")
+                                        .setValue(ratedUser.getCurrentPoints());
+                            }
+                            mDatabase.child(name).child("ratedMatches")
+                                    .child("" + i).child("status")
+                                    .setValue(ratedUser.getRatedMatches().get(i).getStatus());
                         }
-                        mDatabase.child(name).child("ratedMatches")
-                                .child("" + i).child("status")
-                                .setValue(ratedUser.getRatedMatches().get(i).getStatus());
                     }
                 }
+                else checkRateCallback.onRefresh();
             }
 
             @Override
