@@ -70,7 +70,7 @@
     <string name="new_name">Нове ім\'я</string>
     <string name="new_pass">Новий пароль</string>
     <string name="no_connection">Немає з\'єднання з інтернетом!</string>
-    <string name="no_matches_today">На сьогодні матчів немає!</string>
+    <string name="no_matches_today">На цей день матчів немає!</string>
     <string name="options">Властивості</string>
     <string name="photo">Фотографія</string>
     <string name="points">Очки...</string>
