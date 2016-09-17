@@ -6,7 +6,7 @@ import info.androidhive.firebase.classes.utils.ConnectivityReceiver;
 
 public class MainActivityPresenter {
 
-    public MainActivityView mainActivityView;
+    private MainActivityView mainActivityView;
 
     public void setView(MainActivityView view){
         mainActivityView = view;

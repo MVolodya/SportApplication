@@ -3,8 +3,11 @@ package info.androidhive.firebase.fragments.settingsFragment.presenter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.w3c.dom.Text;
 
 import info.androidhive.firebase.classes.managers.AlertDialogManager;
 import info.androidhive.firebase.classes.managers.LocalDatabaseManager;
@@ -26,23 +29,29 @@ public class SettingsPresenter implements UpdateCallback {
     }
 
     public void updateUsername(RemoteDatabaseManager remoteDatabaseManager) {
-        UserManager.updateUsername(AlertDialogManager.getsEtInput().getText().toString());
-        LocalDatabaseManager.updateName(AlertDialogManager.getsEtInput().getText().toString());
-        remoteDatabaseManager.updateUsername(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                AlertDialogManager.getsEtInput().getText().toString(), this);
+        if (!TextUtils.isEmpty(AlertDialogManager.getsEtInput().getText().toString())) {
+            UserManager.updateUsername(AlertDialogManager.getsEtInput().getText().toString());
+            LocalDatabaseManager.updateName(AlertDialogManager.getsEtInput().getText().toString());
+            remoteDatabaseManager.updateUsername(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                    AlertDialogManager.getsEtInput().getText().toString(), this);
+        } else mSettingsView.onEmptyField(AlertDialogManager.getsEtInput());
     }
 
     public void updateEmail() {
-        UserManager.updateEmail(AlertDialogManager.getsEtInput().getText().toString(), this);
-        LocalDatabaseManager.updateEmail(AlertDialogManager.getsEtInput().getText().toString());
+        if (!TextUtils.isEmpty(AlertDialogManager.getsEtInput().getText().toString())) {
+            UserManager.updateEmail(AlertDialogManager.getsEtInput().getText().toString(), this);
+            LocalDatabaseManager.updateEmail(AlertDialogManager.getsEtInput().getText().toString());
+        } else mSettingsView.onEmptyField(AlertDialogManager.getsEtInput());
     }
 
     public void updatePassword() {
-        UserManager.updatePassword(AlertDialogManager.getsEtInput().getText().toString(), this);
+        if (!TextUtils.isEmpty(AlertDialogManager.getsEtInput().getText().toString()))
+            UserManager.updatePassword(AlertDialogManager.getsEtInput().getText().toString(), this);
+        else mSettingsView.onEmptyField(AlertDialogManager.getsEtInput());
     }
 
-    public void changeLanguage(String language, Context context){
-        SharedPreferences sharedPref = context.getSharedPreferences("settings",Context.MODE_PRIVATE);
+    public void changeLanguage(String language, Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("language", language);
         editor.apply();

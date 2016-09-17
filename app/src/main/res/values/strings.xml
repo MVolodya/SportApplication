@@ -115,7 +115,7 @@
     <string name="new_name">New name</string>
     <string name="sorry_the_api_developer_is_fool">Sorry, the API developer is fool</string>
     <string name="no_matches_today">No matches today...</string>
-    <string name="soccer_event_v0_9">Soccer Event v0.9</string>
+    <string name="soccer_event_v0_9">Soccer Event v1.0</string>
     <string name="teams_of_league">Teams of league:</string>
     <string name="pos">Pos</string>
     <string name="games">Games</string>
@@ -139,4 +139,12 @@
         (green - a winning bid, red - losing rate; gray - rate has not tested).</string>
     <string name="enough_points">You have enough points</string>
     <string name="or">OR</string>
+    <string name="edit_username">Edit name</string>
+    <string name="login_facebook">Log in with Facebook</string>
+    <string name="logout_facebook">Log out</string>
+    <string name="fill_field">Please, fill this field!</string>
+    <string name="photo_update">Photo is updated!</string>
+    <string name="name_update">Name is updated!</string>
+    <string name="email_update">Email is updated!</string>
+    <string name="password_update">Password is updated!</string>
 </resources>

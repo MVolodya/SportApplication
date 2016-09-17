@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
@@ -25,6 +26,7 @@
             android:src="@drawable/icon_final" />
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_email_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/TextLabel">
@@ -40,6 +42,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_password_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/TextLabel">
@@ -109,6 +112,8 @@
                 android:id="@+id/facebook_login_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                facebook:com_facebook_login_text="@string/login_facebook"
+                facebook:com_facebook_logout_text="@string/logout_facebook"
                 android:layout_marginLeft="@dimen/facebook_button_ml"
                 android:layout_marginRight="@dimen/facebook_button_mr"
                 android:layout_marginTop="@dimen/facebook_button_mt"

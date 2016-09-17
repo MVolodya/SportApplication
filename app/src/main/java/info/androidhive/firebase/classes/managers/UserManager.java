@@ -47,8 +47,7 @@ public class UserManager {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                        }
+                        if (task.isSuccessful()) {}
                     }
                 });
     }
@@ -62,8 +61,7 @@ public class UserManager {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                        }
+                        if (task.isSuccessful()) {}
                     }
                 });
     }

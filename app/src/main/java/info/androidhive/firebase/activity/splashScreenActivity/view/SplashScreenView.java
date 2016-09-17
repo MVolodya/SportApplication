@@ -9,6 +9,7 @@ import info.androidhive.firebase.classes.models.RatedMatchesToDB;
 public interface SplashScreenView {
     void onSuccess();
     void onFail();
+    void onOffline();
     void setUserRateList(List<RatedMatchesToDB> userRateList);
     Context getContext();
 }

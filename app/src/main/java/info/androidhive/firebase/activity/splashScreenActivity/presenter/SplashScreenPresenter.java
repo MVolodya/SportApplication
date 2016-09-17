@@ -25,14 +25,13 @@ public class SplashScreenPresenter implements CheckRateCallback {
 
     public void getUserRates(String name){
         rateManager.getUsersRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                splashScreenView);
+            splashScreenView);
+        if(!ConnectivityReceiver.isOnline(splashScreenView.getContext())) splashScreenView.onOffline();
     }
 
     public void checkRate(List<RatedMatchesToDB> userRateList){
-        if(ConnectivityReceiver.isOnline(splashScreenView.getContext())) {
             rateManager.checkRate(userRateList, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), this);
             rateManager.addPoints(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-        }else splashScreenView.onFail();
     }
 
 
@@ -52,4 +51,9 @@ public class SplashScreenPresenter implements CheckRateCallback {
 
     @Override
     public void onFail() {splashScreenView.onFail();}
+
+    @Override
+    public void onConnection() {
+        splashScreenView.onOffline();
+    }
 }

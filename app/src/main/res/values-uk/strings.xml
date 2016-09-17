@@ -22,8 +22,8 @@
     <string name="change_password">Змінити пароль</string>
     <string name="change_photo">Змінити фотографію</string>
     <string name="edit">Редагувати</string>
-    <string name="edit_email">Редагувати елетронний адрес</string>
-    <string name="edit_password">Редагувати пароль</string>
+    <string name="edit_email">Новий елетронний адрес</string>
+    <string name="edit_password">Новий пароль</string>
     <string name="email">Електронний адрес</string>
     <string name="enter_email">Введіть електронний адрес!</string>
     <string name="enter_new_email">Введіть новий електронний адрес</string>
@@ -31,11 +31,10 @@
     <string name="enter_new_password">Введіть новий пароль</string>
     <string name="enter_pass">Введіть пароль!</string>
     <string name="enter_points">Введіть к-сть очок для ставки</string>
-    <string name="enter_rate"></string>
     <string name="enter_reg_email">Введіть зареєстрований електронний адрес</string>
     <string name="enter_your_name">Введіть Ваше ім\'я</string>
     <string name="error_login">Помилка, повторіть знову будь-ласка!</string>
-    <string name="error_while_loading_data_please_check_your_network_connection">Помилка при завантаженні! перевірте зєднання з Інтернетом!</string>
+    <string name="error_while_loading_data_please_check_your_network_connection">Помилка при завантаженні! Перевірте зєднання з Інтернетом!</string>
     <string name="facebook_app_id">1150276381681321</string>
     <string name="failed_send_instruction">Помилка надсилання!</string>
     <string name="fbloginText">Facebook</string>
@@ -104,7 +103,7 @@
     <string name="short_pass">Пароль надто короткий, мінімальна к-сть 6 символів</string>
     <string name="sign_in">Вхід</string>
     <string name="sign_up">Реєстрація</string>
-    <string name="soccer_event_v0_9">Soccer Event v0.9</string>
+    <string name="soccer_event_v0_9">Soccer Event v1.0</string>
     <string name="soccer_events">SOCCER EVENTS</string>
     <string name="sorry_the_api_developer_is_fool">Вибачте, проблеми з API</string>
     <string name="tab_league">Ліги</string>
@@ -125,7 +124,6 @@
     <string name="enter_correct_email">Неправильний адрес!</string>
     <string name="cheking_your_rates">Оновлення даних...</string>
     <string name="about_app">Про програму</string>
-    <string name="status_rate"></string>
     <string name="rate">Тип:</string>
     <string name="you_can_win">Сума виграшу:</string>
     <string name="how_to_create_bets">Як правильно ставити?</string>
@@ -133,4 +131,12 @@
     <string name="your_points">Доступні очки: </string>
     <string name="enough_points">Недостатньо очків</string>
     <string name="or">Або</string>
+    <string name="edit_username">Нове ім\'я</string>
+    <string name="login_facebook">Увійти через Facebook</string>
+    <string name="logout_facebook">Вийти</string>
+    <string name="fill_field">Поле не може бути пустим</string>
+    <string name="email_update">Електронний адрес оновлений!</string>
+    <string name="name_update">Ім\'я змінено!</string>
+    <string name="password_update">Пароль змінено!</string>
+    <string name="photo_update">Фото оновлено!</string>
 </resources>

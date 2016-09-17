@@ -81,7 +81,7 @@
         app:cpv_indeterminate="true" />
 
     <TextView
-        android:id="@+id/textViewMsg"
+        android:id="@+id/msg_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

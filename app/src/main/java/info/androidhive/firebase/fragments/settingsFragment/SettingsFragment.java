@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,9 +20,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +33,7 @@ import com.google.firebase.auth.UserInfo;
 
 import java.io.IOException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import info.androidhive.firebase.R;
 import info.androidhive.firebase.activity.mainActivity.MainActivity;
 import info.androidhive.firebase.activity.navigationDrawerActivity.NavigationDrawerActivity;
@@ -166,12 +170,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 break;
             case R.id.username_relative:
                 AlertDialog.Builder alertDialogUsername = AlertDialogManager.getAlertDialog(getActivity(),
-                        getContext().getString(R.string.enter_new_name));
+                        R.layout.dialog_username);
                 alertDialogUsername.setPositiveButton(getContext().getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 settingsPresenter.updateUsername(mRemoteDatabaseManager);
-                                dialog.cancel();
                             }
                         });
                 alertDialogUsername.setNegativeButton(getContext().getString(R.string.cancel),
@@ -184,12 +187,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 break;
             case R.id.email_relative:
                 AlertDialog.Builder alertDialogEmail = AlertDialogManager.getAlertDialog(getActivity(),
-                        getContext().getString(R.string.enter_new_email));
+                        R.layout.dialog_email);
                 alertDialogEmail.setPositiveButton(getContext().getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 settingsPresenter.updateEmail();
-                                dialog.cancel();
                             }
                         });
                 alertDialogEmail.setNegativeButton(getContext().getString(R.string.cancel),
@@ -202,12 +204,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 break;
             case R.id.password_relative:
                 AlertDialog.Builder alertDialogPassword = AlertDialogManager.getAlertDialog(getActivity(),
-                        getContext().getString(R.string.enter_new_password));
+                        R.layout.dialog_password);
                 alertDialogPassword.setPositiveButton(getContext().getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 settingsPresenter.updatePassword();
-                                dialog.cancel();
                             }
                         });
                 alertDialogPassword.setNegativeButton(getContext().getString(R.string.cancel),
@@ -219,25 +220,43 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 alertDialogPassword.show();
                 break;
             case R.id.change_lan_rl:
-                final AlertDialog alertDialogLan = AlertDialogManager.getLanguageAlertDialog(getContext());
                 LayoutInflater layoutInflater = LayoutInflater.from(getContext());
                 View promptView = layoutInflater.inflate(R.layout.dialog_language, null);
-                alertDialogLan.setOnShowListener(new DialogInterface.OnShowListener() {
+                final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setView(promptView);
+                alert.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onShow(DialogInterface dialogInterface) {
-                        Button b = alertDialogLan.getButton(android.app.AlertDialog.BUTTON_POSITIVE);
-                        b.setOnClickListener(new View.OnClickListener() {
-
-                            @Override
-                            public void onClick(View view) {
-                                settingsPresenter.changeLanguage(DataHelper.    getInstance().getLanguage(),
-                                        getContext());
-                                alertDialogLan.hide();
-                            }
-                        });
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        settingsPresenter.changeLanguage(DataHelper.getInstance().getLanguage(),
+                                getContext());
                     }
                 });
-                alertDialogLan.show();
+                alert.setNegativeButton(R.string.cancel, null);
+
+                final AlertDialog dialog = alert.create();
+                dialog.show();
+                final CircleImageView enIv = (CircleImageView)promptView.findViewById(R.id.english_iv);
+                final CircleImageView ukIv = (CircleImageView)promptView.findViewById(R.id.ukrainian_iv);
+                dialog.getButton(dialog.BUTTON1).setEnabled(false);
+                enIv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.getButton(dialog.BUTTON1).setEnabled(true);
+                        enIv.setBorderColor(Color.parseColor("#ff6861"));
+                        ukIv.setBorderColor(Color.parseColor("#ffffff"));
+                        DataHelper.getInstance().setLanguage("en");
+                    }
+                });
+
+                ukIv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.getButton(dialog.BUTTON1).setEnabled(true);
+                        ukIv.setBorderColor(Color.parseColor("#ff6861"));
+                        enIv.setBorderColor(Color.parseColor("#ffffff"));
+                        DataHelper.getInstance().setLanguage("uk");
+                    }
+                });
                 break;
         }
     }
@@ -278,6 +297,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 .load(url)
                 .into(userPhoto);
         ((NavigationDrawerActivity)getContext()).updateProfilePhoto(url);
+        Toast.makeText(getContext(), R.string.photo_update, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -285,21 +305,30 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
         usernameTv.setText(mUser.getName());
         collapsingToolbarLayout.setTitle(mUser.getName());
         ((NavigationDrawerActivity)getContext()).updateProfileUsername(mUser.getName());
+        Toast.makeText(getContext(), R.string.name_update, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void updateEmailSuccess() {
         emailTv.setText(mUser.getEmail());
         ((NavigationDrawerActivity)getContext()).updateProfileEmail(mUser.getEmail());
+        Toast.makeText(getContext(), R.string.email_update, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void updatePasswordSuccess() {}
+    public void updatePasswordSuccess() {
+        Toast.makeText(getContext(), R.string.password_update, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void changeLanguageSuccess(String lan) {
         Intent intent = new Intent(getContext(), SplashActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         getContext().startActivity(intent);
+    }
+
+    @Override
+    public void onEmptyField(EditText editText) {
+        Toast.makeText(getContext(), R.string.fill_field, Toast.LENGTH_SHORT).show();
     }
 }

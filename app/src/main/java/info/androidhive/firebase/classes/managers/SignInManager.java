@@ -39,7 +39,6 @@ public class SignInManager {
     public SignInManager(Context context, FirebaseAuth mAuth) {
         this.context = context;
         this.mAuth = mAuth;
-        //mProgressDialog = new ProgressDialog(context);
         LocalDatabaseManager localDatabaseManager = new LocalDatabaseManager(context);
     }
 

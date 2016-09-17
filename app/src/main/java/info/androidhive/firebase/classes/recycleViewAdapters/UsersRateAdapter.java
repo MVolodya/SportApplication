@@ -35,7 +35,7 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
 
     public void remove(int position) {
         mRatesList.remove(position);
-        notifyDataSetChanged();
+        notifyItemRemoved(position);
     }
 
     @Override

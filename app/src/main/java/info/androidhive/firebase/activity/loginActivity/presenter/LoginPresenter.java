@@ -12,9 +12,9 @@ import info.androidhive.firebase.classes.managers.SignInManager;
 
 public class LoginPresenter implements CallbackLogin {
 
-    public LoginView loginView;
-    public SignInManager signInManager;
-    public CallbackManager callbackManager;
+    private LoginView loginView;
+    private SignInManager signInManager;
+    private CallbackManager callbackManager;
 
     public LoginPresenter(LoginView loginView) {
         this.loginView = loginView;

@@ -6,6 +6,7 @@ public class Standing {
 
     private Integer rank;
 
+    @SerializedName("teamName")
     private String team;
 
     private Integer teamId;

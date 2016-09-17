@@ -10,13 +10,13 @@
         android:id="@+id/dialog_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/edit_password"
+        android:text="@string/edit_username"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android:id="@+id/user_input_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:theme="@style/TextLabel" />
 </LinearLayout>

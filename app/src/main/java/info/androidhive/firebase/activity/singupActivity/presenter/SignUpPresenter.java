@@ -1,9 +1,7 @@
 package info.androidhive.firebase.activity.singupActivity.presenter;
 
 import android.text.TextUtils;
-import android.widget.Toast;
 
-import info.androidhive.firebase.R;
 import info.androidhive.firebase.activity.singupActivity.callback.CallbackSignUp;
 import info.androidhive.firebase.activity.singupActivity.view.SignUpView;
 import info.androidhive.firebase.classes.managers.DataGetter;

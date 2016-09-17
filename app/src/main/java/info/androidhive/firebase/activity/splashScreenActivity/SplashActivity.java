@@ -53,6 +53,12 @@ public class SplashActivity extends Activity implements SplashScreenView {
 
     @Override
     public void onFail() {
+        LoginActivity.start(this);
+        finish();
+    }
+
+    @Override
+    public void onOffline() {
         Toast.makeText(SplashActivity.this, getString(R.string.error_while_loading_data_please_check_your_network_connection),
                 Toast.LENGTH_LONG).show();
     }

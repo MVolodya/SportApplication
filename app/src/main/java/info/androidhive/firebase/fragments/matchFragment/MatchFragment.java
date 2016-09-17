@@ -79,7 +79,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
         mRecyclerView = (RecyclerView) view.findViewById(R.id.match_recycler_view);
         calendarFab = (FloatingActionButton) view.findViewById(R.id.calendar_fab);
         sheetLayout = (SheetLayout) view.findViewById(R.id.bottom_sheet);
-        msgTv = (TextView) view.findViewById(R.id.textViewMsg);
+        msgTv = (TextView) view.findViewById(R.id.msg_tv);
         backBtn = (Button) view.findViewById(R.id.back_btn);
         calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
         progressDialog = new ProgressDialog(view.getContext());

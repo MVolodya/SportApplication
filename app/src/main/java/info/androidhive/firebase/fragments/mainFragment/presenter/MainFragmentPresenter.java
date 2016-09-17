@@ -2,7 +2,7 @@ package info.androidhive.firebase.fragments.mainFragment.presenter;
 
 import info.androidhive.firebase.fragments.mainFragment.view.MainFragmentView;
 
-public class MainFragmentPresenter {
+class MainFragmentPresenter {
 
     private MainFragmentView mainFragmentView;
 

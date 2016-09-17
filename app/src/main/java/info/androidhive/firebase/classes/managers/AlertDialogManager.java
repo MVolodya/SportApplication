@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import info.androidhive.firebase.R;
@@ -20,20 +19,12 @@ public class AlertDialogManager {
 
     private static EditText sInputEt;
 
-    public static AlertDialog.Builder getAlertDialog(Context context, String msg) {
+    public static AlertDialog.Builder getAlertDialog(Context context, int resource) {
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        View view = layoutInflater.inflate(resource, null);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        alertDialog.setTitle(R.string.edit);
-
-        sInputEt = new EditText(context);
-        LinearLayout.LayoutParams lpEmail = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        sInputEt.setSelection(sInputEt.getText().length());
-        sInputEt.setPadding(20, 30, 20, 30);
-        sInputEt.setHint(msg);
-        sInputEt.setLayoutParams(lpEmail);
-        alertDialog.setView(sInputEt);
-
+        alertDialog.setView(view);
+        sInputEt = (EditText)view.findViewById(R.id.user_input_et);
         return alertDialog;
     }
 
@@ -74,18 +65,20 @@ public class AlertDialogManager {
     public static AlertDialog getLanguageAlertDialog(final Context context) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View promptView = layoutInflater.inflate(R.layout.dialog_language, null);
-        final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(context);
+        final AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setView(promptView);
         alert.setPositiveButton(R.string.save, null);
         alert.setNegativeButton(R.string.cancel, null);
 
         final AlertDialog dialog = alert.create();
+        dialog.show();
         final CircleImageView enIv = (CircleImageView)promptView.findViewById(R.id.english_iv);
         final CircleImageView ukIv = (CircleImageView)promptView.findViewById(R.id.ukrainian_iv);
-
+        dialog.getButton(dialog.BUTTON1).setEnabled(false);
         enIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.getButton(dialog.BUTTON1).setEnabled(true);
                 enIv.setBorderColor(Color.parseColor("#ff6861"));
                 ukIv.setBorderColor(Color.parseColor("#ffffff"));
                 DataHelper.getInstance().setLanguage("en");
@@ -95,6 +88,7 @@ public class AlertDialogManager {
         ukIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.getButton(dialog.BUTTON1).setEnabled(true);
                 ukIv.setBorderColor(Color.parseColor("#ff6861"));
                 enIv.setBorderColor(Color.parseColor("#ffffff"));
                 DataHelper.getInstance().setLanguage("uk");
