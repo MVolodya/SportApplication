@@ -30,7 +30,7 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
 
     public void addDeletedRate(Rate rates){
         mRatesList.add(rates);
-        notifyDataSetChanged();
+        notifyItemInserted(mRatesList.size()-1);
     }
 
     public void remove(int position) {
