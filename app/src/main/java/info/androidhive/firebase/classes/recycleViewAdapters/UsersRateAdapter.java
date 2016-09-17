@@ -84,10 +84,10 @@ public class UsersRateAdapter extends RecyclerView.Adapter<UsersRateAdapter.View
 
         public ViewHolderUsersRates(View v) {
             super(v);
-            homeTeamTv = (TextView)v.findViewById(R.id.rated_home_team);
-            awayTeamTv = (TextView)v.findViewById(R.id.rated_away_team);
-            typeTv = (TextView)v.findViewById(R.id.ratedType);
-            pointsTv = (TextView)v.findViewById(R.id.ratedPoints);
+            homeTeamTv = (TextView)v.findViewById(R.id.home_team_tv);
+            awayTeamTv = (TextView)v.findViewById(R.id.away_team_tv);
+            typeTv = (TextView)v.findViewById(R.id.bet_type_tv);
+            pointsTv = (TextView)v.findViewById(R.id.max_win_points);
         }
     }
 }

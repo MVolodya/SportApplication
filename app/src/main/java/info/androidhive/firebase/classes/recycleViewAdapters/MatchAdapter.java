@@ -176,7 +176,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
             timeTv = (TextView) v.findViewById(R.id.match_time_tv);
             dateTv = (TextView) v.findViewById(R.id.match_date_tv);
             statusTv = (TextView) v.findViewById(R.id.match_status_tv);
-            scoreTv = (TextView) v.findViewById(R.id.textViewScore);
+            scoreTv = (TextView) v.findViewById(R.id.score_tv);
             awayTeamIv = (ImageView) v.findViewById(R.id.second_team_logo_iv);
             homeTeamIv = (ImageView) v.findViewById(R.id.first_team_logo_iv);
         }

@@ -17,23 +17,22 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-
             <TextView
-                android:id="@+id/rated_home_team"
+                android:id="@+id/home_team_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/dark"
-                android:textSize="@dimen/material_text_subhead"/>
+                android:textSize="@dimen/material_text_subhead" />
 
             <TextView
-                android:id="@+id/textViewScore"
+                android:id="@+id/hint_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/rated_home_team"
-                android:layout_toRightOf="@+id/rated_home_team"
+                android:layout_toEndOf="@+id/home_team_tv"
+                android:layout_toRightOf="@+id/home_team_tv"
                 android:fontFamily="sans-serif"
                 android:maxLength="10"
                 android:text=" - "
@@ -41,31 +40,29 @@
                 android:textSize="@dimen/material_text_subhead" />
 
             <TextView
-                android:id="@+id/rated_away_team"
+                android:id="@+id/away_team_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/textViewScore"
-                android:layout_toRightOf="@+id/textViewScore"
+                android:layout_toEndOf="@+id/hint_tv"
+                android:layout_toRightOf="@+id/hint_tv"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/dark"
-                android:textSize="@dimen/material_text_subhead"
-                />
+                android:textSize="@dimen/material_text_subhead" />
 
             <RelativeLayout
                 android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rated_home_team"
-                android:layout_toLeftOf="@+id/ratedPoints"
-                android:layout_toStartOf="@+id/ratedPoints"
+                android:layout_below="@+id/home_team_tv"
+                android:layout_toLeftOf="@+id/max_win_points"
+                android:layout_toStartOf="@+id/max_win_points"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/dark"
                 android:textSize="@dimen/material_text_subhead">
 
                 <TextView
-                    android:id="@+id/r"
+                    android:id="@+id/rate_hint_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -73,24 +70,23 @@
                     android:fontFamily="sans-serif"
                     android:text="@string/rate"
                     android:textColor="@color/dark"
-                    android:textSize="@dimen/material_text_subhead"
-                  />
+                    android:textSize="@dimen/material_text_subhead" />
 
                 <TextView
-                    android:id="@+id/ratedType"
+                    android:id="@+id/bet_type_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/r"
-                    android:layout_toEndOf="@+id/r"
-                    android:layout_toRightOf="@+id/r"
+                    android:layout_alignTop="@+id/rate_hint_tv"
+                    android:layout_toEndOf="@+id/rate_hint_tv"
+                    android:layout_toRightOf="@+id/rate_hint_tv"
                     android:fontFamily="sans-serif"
                     android:textColor="@color/dark"
                     android:textSize="@dimen/material_text_subhead"
 
-                  />
+                    />
 
                 <TextView
-                    android:id="@+id/rP"
+                    android:id="@+id/can_win_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -99,12 +95,11 @@
                     android:fontFamily="sans-serif"
                     android:text="@string/you_can_win"
                     android:textColor="@color/dark"
-                    android:textSize="@dimen/material_text_subhead"
-                 />
+                    android:textSize="@dimen/material_text_subhead" />
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/ratedPoints"
+                android:id="@+id/max_win_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -112,8 +107,7 @@
                 android:layout_alignTop="@+id/relativeLayout"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/dark"
-                android:textSize="@dimen/material_text_subhead"
-               />
+                android:textSize="@dimen/material_text_subhead" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
