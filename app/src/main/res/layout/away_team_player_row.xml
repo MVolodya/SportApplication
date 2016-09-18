@@ -12,8 +12,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
-        android:tint="@color/status_bar"
-        android:src="@drawable/ic_account_circle_black_36dp" />
+        android:src="@drawable/ic_account_circle_black_36dp"
+        android:tint="@color/status_bar" />
 
     <TextView
         android:id="@+id/player_name_tv"
@@ -23,7 +23,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@string/roboto_regular"
         android:textColor="@color/dark"
-        android:textSize="@dimen/material_text_subhead"  />
+        android:textSize="@dimen/material_text_subhead" />
 
     <LinearLayout
         android:id="@+id/player_data_linear_layout"
@@ -40,9 +40,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="72dp"
-                android:text="@string/birthday"
                 android:fontFamily="@string/roboto_regular"
-                android:textSize="14sp" />
+                android:text="@string/birthday"
+                android:textSize="@dimen/material_text_body1" />
 
             <TextView
                 android:id="@+id/player_number_tv"
@@ -52,7 +52,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:fontFamily="@string/roboto_regular"
-                android:textSize="14sp" />
+                android:textSize="@dimen/material_text_body1" />
 
             <TextView
                 android:id="@+id/player_year_tv"
@@ -62,7 +62,7 @@
                 android:layout_toEndOf="@+id/player_hint_year_tv"
                 android:layout_toRightOf="@+id/player_hint_year_tv"
                 android:fontFamily="@string/roboto_regular"
-                android:textSize="14sp" />
+                android:textSize="@dimen/material_text_body1" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -81,9 +81,9 @@
                 android:id="@+id/player_nationality_hint_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/nationality"
                 android:fontFamily="@string/roboto_regular"
-                android:textSize="14sp" />
+                android:text="@string/nationality"
+                android:textSize="@dimen/material_text_body1" />
 
             <TextView
                 android:id="@+id/player_nationality_tv"
@@ -91,9 +91,9 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/player_nationality_hint_tv"
                 android:layout_toRightOf="@+id/player_nationality_hint_tv"
-                android:maxLength="11"
                 android:fontFamily="@string/roboto_regular"
-                android:textSize="14sp" />
+                android:maxLength="11"
+                android:textSize="@dimen/material_text_body1" />
 
             <TextView
                 android:id="@+id/player_position_tv"
@@ -101,9 +101,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:maxLength="11"
                 android:fontFamily="@string/roboto_regular"
-                android:textSize="14sp" />
+                android:maxLength="11"
+                android:textSize="@dimen/material_text_body1" />
         </RelativeLayout>
     </LinearLayout>
 

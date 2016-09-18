@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class AwayTeamFragment extends Fragment implements AwayTeamView{
 
     private RecyclerView mRecyclerView;
     private TextView msgTv;
+    private ImageView msgTvImg;
     private RecyclerView.LayoutManager mLayoutManager;
 
     public AwayTeamFragment() {}
@@ -36,10 +38,13 @@ public class AwayTeamFragment extends Fragment implements AwayTeamView{
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.away_team_players_recycler_view);
         msgTv = (TextView)view.findViewById(R.id.msg_tv);
+        msgTvImg = (ImageView)view.findViewById(R.id.msg_tv_img_bugs);
         mLayoutManager = new LinearLayoutManager(view.getContext());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         msgTv.setVisibility(View.GONE);
+        msgTvImg.setVisibility(View.GONE);
+
 
         awayTeamPresenter.showAwayTeam();
 
@@ -50,6 +55,7 @@ public class AwayTeamFragment extends Fragment implements AwayTeamView{
     public void onSuccess(PlayersResponse playersResponse) {
         if (playersResponse.getPlayers().size() == 0) {
             msgTv.setVisibility(View.VISIBLE);
+            msgTvImg.setVisibility(View.VISIBLE);
         } else {
             mRecyclerView.setLayoutManager(mLayoutManager);
             HomeTeamPlayerAdapter homeTeamPlayerAdapter = new HomeTeamPlayerAdapter(playersResponse.getPlayers());

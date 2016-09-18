@@ -16,9 +16,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        app:layout_behavior="com.valdio.valdioveliu.floatingactionbuttonproject.Scrolling_Floating_Action_Button.FAB_Hide_on_Scroll"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_today"
         android:background="@color/colorPrimary"
+        android:src="@drawable/ic_event_white_24dp"
         app:backgroundTint="@color/colorPrimary" />
 
     <com.github.fabtransitionactivity.SheetLayout
@@ -56,14 +57,14 @@
                 app:weekLayoutBackgroundColor="@color/colorPrimary" />
 
             <Button
+                android:id="@+id/back_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="&lt;&lt;Back"
-                android:id="@+id/back_btn"
                 android:layout_alignBottom="@+id/calendar_view"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="162dp"
                 android:background="@null"
+                android:text="&lt;&lt;Back"
                 android:textColor="@color/abc_primary_text_material_dark" />
 
         </RelativeLayout>
@@ -81,12 +82,28 @@
         app:cpv_color="@color/colorPrimaryDark"
         app:cpv_indeterminate="true" />
 
-    <TextView
-        android:id="@+id/msg_tv"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/no_matches_today"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/msg_tv_img"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/football_field" />
+
+        <TextView
+            android:id="@+id/msg_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/msg_tv_img"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@string/roboto_regular"
+            android:text="@string/no_matches_today"
+            android:textSize="@dimen/material_text_body1" />
+    </RelativeLayout>
 
 </FrameLayout>

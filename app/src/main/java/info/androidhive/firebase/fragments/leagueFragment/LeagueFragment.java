@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class LeagueFragment extends Fragment implements LeagueView, SwipeRefresh
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private TextView msgTv;
+    private ImageView msgTvImg;
     private LeagueFragmentPresenter leagueFragmentPresenter;
 
     public LeagueFragment() {}
@@ -50,10 +52,12 @@ public class LeagueFragment extends Fragment implements LeagueView, SwipeRefresh
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.league_recycler_view);
         msgTv = (TextView)view.findViewById(R.id.limit_msg_tv);
+        msgTvImg = (ImageView) view.findViewById(R.id.msg_tv_img_wait);
         mSwipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.refreshLeagueFragment);
         progressDialog = new ProgressDialog(view.getContext());
 
         msgTv.setVisibility(View.GONE);
+        msgTvImg.setVisibility(View.GONE);
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#1976d2"),Color.parseColor("#628f3e"));
@@ -95,6 +99,7 @@ public class LeagueFragment extends Fragment implements LeagueView, SwipeRefresh
         this.mLeagueList = leagueList;
         mRecyclerView.setVisibility(View.VISIBLE);
         msgTv.setVisibility(View.GONE);
+        msgTvImg.setVisibility(View.GONE);
         mSwipeRefreshLayout.setRefreshing(false);
         ProgressDialogManager.hideProgressDialog(progressDialog);
         LeagueAdapter mAdapter = new LeagueAdapter(leagueList);
@@ -104,6 +109,7 @@ public class LeagueFragment extends Fragment implements LeagueView, SwipeRefresh
     @Override
     public void onFail() {
         msgTv.setVisibility(View.VISIBLE);
+        msgTvImg.setVisibility(View.VISIBLE);
         ProgressDialogManager.hideProgressDialog(progressDialog);
         mSwipeRefreshLayout.setRefreshing(false);
         mRecyclerView.setVisibility(View.GONE);

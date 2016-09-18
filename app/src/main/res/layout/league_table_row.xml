@@ -8,22 +8,22 @@
         android:id="@+id/cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/cv_margin_b"
         android:layout_marginLeft="@dimen/cv_margin_l"
-        android:layout_marginTop="@dimen/cv_margin_t"
         android:layout_marginRight="@dimen/cv_margin_r"
-        android:layout_marginBottom="@dimen/cv_margin_b">
+        android:layout_marginTop="@dimen/cv_margin_t">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:padding="16dp">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/league_team_logo_iv"
@@ -35,13 +35,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:maxLength="17"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:ellipsize="end"
                     android:fontFamily="@string/roboto_regular"
+                    android:gravity="center"
+                    android:maxLength="17"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/dark"
-                    android:textSize="@dimen/material_text_subhead"/>
+                    android:textSize="@dimen/material_text_subhead" />
             </LinearLayout>
 
 
@@ -55,12 +55,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:fontFamily="@string/roboto_regular"
-                    android:textColor="@color/dark"
-                    android:textSize="@dimen/material_text_subhead"
+                    android:gravity="center"
                     android:text="@string/pos"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/material_text_subhead" />
 
                 <TextView
                     android:id="@+id/team_position_tv"
@@ -68,10 +68,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@string/roboto_regular"
-                    android:textColor="@color/dark"
-                    android:textSize="@dimen/material_text_subhead"
                     android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/material_text_subhead" />
             </LinearLayout>
 
             <LinearLayout
@@ -84,62 +84,63 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:fontFamily="@string/roboto_regular"
-                    android:textColor="@color/dark"
-                    android:textSize="@dimen/material_text_subhead"
+                    android:gravity="center"
                     android:text="@string/games"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/material_text_subhead" />
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/games_win_row_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@string/roboto_regular"
-                        android:textSize="@dimen/material_text_subhead"
                         android:layout_weight="1"
+                        android:fontFamily="@string/roboto_regular"
                         android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/bg_login" />
+                        android:textColor="@color/bg_login"
+                        android:textSize="@dimen/material_text_subhead" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@string/roboto_regular"
-                        android:textSize="@dimen/material_text_subhead"
+                        android:gravity="center"
+                        android:text="-"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/dark"
-                        android:text="-" />
+                        android:textSize="@dimen/material_text_subhead" />
 
                     <TextView
                         android:id="@+id/games_draw_row_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@string/roboto_regular"
-                        android:textSize="@dimen/material_text_subhead"
+                        android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/md_amber_300" />
+                        android:textColor="@color/md_amber_300"
+                        android:textSize="@dimen/material_text_subhead" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@string/roboto_regular"
-                        android:textColor="@color/dark"
-                        android:textSize="@dimen/material_text_subhead"
+                        android:gravity="center"
+                        android:text="-"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="-" />
+                        android:textColor="@color/dark"
+                        android:textSize="@dimen/material_text_subhead" />
 
                     <TextView
                         android:id="@+id/games_lose_row_tv"
@@ -147,10 +148,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@string/roboto_regular"
-                        android:textSize="@dimen/material_text_subhead"
                         android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/btn_log_out_bg" />
+                        android:textColor="@color/btn_log_out_bg"
+                        android:textSize="@dimen/material_text_subhead" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -165,53 +166,54 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@string/roboto_regular"
                     android:gravity="center"
                     android:text="@string/gd"
-                    android:fontFamily="@string/roboto_regular"
-                    android:textColor="@color/dark"
-                    android:textSize="@dimen/material_text_subhead"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_gravity="center_horizontal" />
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/material_text_subhead" />
 
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/goals_win_row_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@string/roboto_regular"
-                        android:textSize="@dimen/material_text_subhead"
                         android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/bg_login" />
+                        android:textColor="@color/bg_login"
+                        android:textSize="@dimen/material_text_subhead" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@string/roboto_regular"
-                        android:textColor="@color/dark"
-                        android:textSize="@dimen/material_text_subhead"
+                        android:gravity="center"
+                        android:text="-"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="-" />
+                        android:textColor="@color/dark"
+                        android:textSize="@dimen/material_text_subhead" />
 
                     <TextView
                         android:id="@+id/goals_lose_row_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@string/roboto_regular"
-                        android:textSize="@dimen/material_text_subhead"
+                        android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/btn_log_out_bg" />
+                        android:textColor="@color/btn_log_out_bg"
+                        android:textSize="@dimen/material_text_subhead" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -226,25 +228,25 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:fontFamily="@string/roboto_regular"
-                    android:textColor="@color/dark"
-                    android:textSize="@dimen/material_text_subhead"
+                    android:gravity="center"
                     android:text="@string/pts"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/material_text_subhead" />
 
                 <TextView
                     android:id="@+id/team_points_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:fontFamily="@string/roboto_regular"
-                    android:textSize="@dimen/material_text_subhead"
+                    android:gravity="center"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/mat_normal" />
+                    android:textColor="@color/mat_normal"
+                    android:textSize="@dimen/material_text_subhead" />
 
             </LinearLayout>
 

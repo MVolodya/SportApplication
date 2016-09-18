@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:fontFamily="@string/roboto_regular"
         android:layout_alignParentStart="true"
+        android:fontFamily="@string/roboto_regular"
         android:text="@string/teams_of_league"
         android:textSize="14sp" />
 
@@ -37,28 +37,30 @@
         android:id="@+id/number_of_teams_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginLeft="5dp"
-        android:fontFamily="@string/roboto_regular"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/teams_of_league_hint_tv"
         android:layout_toRightOf="@+id/teams_of_league_hint_tv"
-        android:layout_toEndOf="@+id/teams_of_league_hint_tv" />
+        android:fontFamily="@string/roboto_regular"
+        android:textSize="14sp" />
+
     <TextView
         android:id="@+id/league_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/caption_tv"
-        android:fontFamily="@string/roboto_regular"
-        android:textSize="14sp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:fontFamily="@string/roboto_regular"
+        android:textSize="14sp" />
+
     <TextView
         android:id="@+id/year_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:fontFamily="@string/roboto_regular"
-        android:textSize="14sp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:fontFamily="@string/roboto_regular"
+        android:textSize="14sp" />
 </RelativeLayout>

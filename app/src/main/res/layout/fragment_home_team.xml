@@ -10,14 +10,31 @@
         android:layout_height="wrap_content"
         android:scrollbars="vertical" />
 
-    <TextView
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/sorry_the_api_developer_is_fool"
-        android:textColor="#628f3e"
-        android:textSize="15sp"
-        android:id="@+id/home_msg_tv"
-        android:layout_gravity="center" />
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/msg_tv_img_bugs"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/bug" />
+
+        <TextView
+            android:id="@+id/home_msg_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/msg_tv_img_bugs"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@string/roboto_regular"
+            android:gravity="center_horizontal"
+            android:text="@string/sorry_the_api_developer_is_fool"
+            android:textColor="#628f3e"
+            android:textSize="@dimen/material_text_body1" />
+    </RelativeLayout>
 
 </FrameLayout>
