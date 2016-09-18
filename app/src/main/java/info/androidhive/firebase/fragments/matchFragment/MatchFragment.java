@@ -49,6 +49,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
     private Button backBtn;
     private ImageView homeTeamTv;
     private ImageView awayTeamTv;
+    private ImageView msgTvImg;
     private RecyclerView mRecyclerView;
     private MatchAdapter mAdapter;
     private ProgressDialog progressDialog;
@@ -80,6 +81,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
         calendarFab = (FloatingActionButton) view.findViewById(R.id.calendar_fab);
         sheetLayout = (SheetLayout) view.findViewById(R.id.bottom_sheet);
         msgTv = (TextView) view.findViewById(R.id.msg_tv);
+        msgTvImg = (ImageView) view.findViewById(R.id.msg_tv_img);
         backBtn = (Button) view.findViewById(R.id.back_btn);
         calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
         progressDialog = new ProgressDialog(view.getContext());
@@ -89,6 +91,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         msgTv.setVisibility(View.GONE);
+        msgTvImg.setVisibility(View.GONE);
         backBtn.setOnClickListener(this);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), mRecyclerView, new ClickListener() {
@@ -172,6 +175,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
         circularProgressView.setVisibility(View.VISIBLE);
         circularProgressView.startAnimation();
         msgTv.setVisibility(View.GONE);
+        msgTvImg.setVisibility(View.GONE);
         matchFragmentPresenter.getMatchList();
         sheetLayout.contractFab();
         fragment.showTabs();
@@ -188,6 +192,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
         if (matches.size() == 0) {
             msgTv.setText(getContext().getString(R.string.no_matches_today));
             msgTv.setVisibility(View.VISIBLE);
+            msgTvImg.setVisibility(View.VISIBLE);
         }
 
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -204,5 +209,6 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
         circularProgressView.setVisibility(View.INVISIBLE);
         msgTv.setText(getContext().getString(R.string.wait_sec));
         msgTv.setVisibility(View.VISIBLE);
+
     }
 }

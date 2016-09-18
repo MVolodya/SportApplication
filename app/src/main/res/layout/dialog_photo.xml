@@ -11,18 +11,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/photo"
+        android:fontFamily="@string/roboto_regular"
+        android:textColor="@color/dark"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/load_from_gallery"
+        android:fontFamily="@string/roboto_regular"
+        android:textSize="@dimen/material_text_body1"
+        android:textColor="@color/dark"
         android:id="@+id/gallery_btn" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/take_photo"
+        android:fontFamily="@string/roboto_regular"
+        android:textSize="@dimen/material_text_body1"
+        android:textColor="@color/dark"
         android:id="@+id/camera_btn"
         android:layout_gravity="center_horizontal" />
 

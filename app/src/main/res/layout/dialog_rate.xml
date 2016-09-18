@@ -13,72 +13,101 @@
         android:layout_marginTop="20dp"
         android:digits="5"
         android:ems="5"
+        android:fontFamily="@string/roboto_regular"
         android:inputType="textCapSentences"
-        android:maxLength="5">
+        android:maxLength="5"
+        android:theme="@style/TextLabel">
+
         <requestFocus />
     </EditText>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="@string/roboto_regular"
             android:text="@string/amount_of_winnings"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/dark"
+            android:textSize="@dimen/material_text_subhead" />
 
         <TextView
             android:id="@+id/sum_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@string/roboto_regular"
             android:maxLines="1"
+            android:paddingLeft="5dp"
             android:singleLine="true"
             android:text="@string/_0"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/dark"
+            android:textSize="@dimen/material_text_subhead" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal"
+        android:paddingTop="5dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="@string/roboto_regular"
             android:text="@string/type"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/dark"
+            android:textSize="@dimen/material_text_subhead" />
 
         <TextView
             android:id="@+id/type_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:fontFamily="@string/roboto_regular"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/dark"
+            android:textSize="@dimen/material_text_subhead" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal"
+        android:paddingTop="5dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="@string/roboto_regular"
             android:text="@string/your_points"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/dark"
+            android:textSize="@dimen/material_text_subhead" />
 
         <TextView
             android:id="@+id/user_points_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:fontFamily="@string/roboto_regular"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/dark"
+            android:textSize="@dimen/material_text_subhead" />
     </LinearLayout>
 
 </LinearLayout>
