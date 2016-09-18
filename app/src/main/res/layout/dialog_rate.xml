@@ -13,10 +13,13 @@
         android:layout_marginTop="20dp"
         android:digits="5"
         android:ems="5"
+        android:textCursorDrawable="@null"
         android:fontFamily="@string/roboto_regular"
         android:inputType="textCapSentences"
         android:maxLength="5"
-        android:theme="@style/TextLabel">
+        android:textColor="@color/blue"
+        android:textColorHint="@color/blue"
+        android:backgroundTint="@color/blue">
 
         <requestFocus />
     </EditText>

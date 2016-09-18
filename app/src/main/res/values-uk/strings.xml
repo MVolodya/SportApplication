@@ -139,4 +139,5 @@
     <string name="name_update">Ім\'я змінено!</string>
     <string name="password_update">Пароль змінено!</string>
     <string name="photo_update">Фото оновлено!</string>
+    <string name="enter_rate">Введіть ставку!</string>
 </resources>
