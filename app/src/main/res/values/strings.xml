@@ -148,4 +148,5 @@
     <string name="email_update">Email is updated!</string>
     <string name="password_update">Password is updated!</string>
     <string name="updating">Updating...</string>
+    <string name="relogin">Error! Re login please!</string>
 </resources>

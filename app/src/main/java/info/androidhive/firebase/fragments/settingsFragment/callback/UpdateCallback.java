@@ -5,4 +5,5 @@ public interface UpdateCallback {
     void updateUsernameSuccess();
     void updateEmailSuccess();
     void updatePasswordSuccess();
+    void onFailUpdateEmail();
 }

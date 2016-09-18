@@ -78,7 +78,7 @@ public class UserManager {
                             if (task.isSuccessful()) {
                                 updateCallback.updateEmailSuccess();
                             }else {
-                                Log.d("dataaaaaa", task.getException().toString());
+                               updateCallback.onFailUpdateEmail();
                             }
                         }
                     });

@@ -140,4 +140,5 @@
     <string name="password_update">Пароль змінено!</string>
     <string name="photo_update">Фото оновлено!</string>
     <string name="enter_rate">Введіть ставку!</string>
+    <string name="relogin">Помилка! Авторизуйтеся знову!</string>
 </resources>

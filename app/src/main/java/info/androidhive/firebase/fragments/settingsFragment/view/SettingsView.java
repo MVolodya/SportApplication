@@ -10,6 +10,7 @@ public interface SettingsView {
     void updateUsernameSuccess();
     void updateEmailSuccess();
     void onValidEmail();
+    void onFailUpdate();
     void updatePasswordSuccess();
     void changeLanguageSuccess(String lan);
     void onEmptyField(EditText editText);

@@ -327,6 +327,12 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     }
 
     @Override
+    public void onFailUpdate() {
+        ProgressDialogManager.hideProgressDialog(mProgressDialog);
+        Toast.makeText(getContext(), R.string.relogin, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void updatePasswordSuccess() {
         ProgressDialogManager.hideProgressDialog(mProgressDialog);
         Toast.makeText(getContext(), R.string.password_update, Toast.LENGTH_SHORT).show();

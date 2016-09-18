@@ -87,4 +87,9 @@ public class SettingsPresenter implements UpdateCallback {
     public void updatePasswordSuccess() {
         mSettingsView.updatePasswordSuccess();
     }
+
+    @Override
+    public void onFailUpdateEmail() {
+        mSettingsView.onFailUpdate();
+    }
 }
