@@ -62,41 +62,6 @@ public class AlertDialogManager {
         return alertDialogBuilderPhoto;
     }
 
-    public static AlertDialog getLanguageAlertDialog(final Context context) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View promptView = layoutInflater.inflate(R.layout.dialog_language, null);
-        final AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        alert.setView(promptView);
-        alert.setPositiveButton(R.string.save, null);
-        alert.setNegativeButton(R.string.cancel, null);
-
-        final AlertDialog dialog = alert.create();
-        dialog.show();
-        final CircleImageView enIv = (CircleImageView)promptView.findViewById(R.id.english_iv);
-        final CircleImageView ukIv = (CircleImageView)promptView.findViewById(R.id.ukrainian_iv);
-        dialog.getButton(dialog.BUTTON1).setEnabled(false);
-        enIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.getButton(dialog.BUTTON1).setEnabled(true);
-                enIv.setBorderColor(Color.parseColor("#ff6861"));
-                ukIv.setBorderColor(Color.parseColor("#ffffff"));
-                DataHelper.getInstance().setLanguage("en");
-            }
-        });
-
-        ukIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.getButton(dialog.BUTTON1).setEnabled(true);
-                ukIv.setBorderColor(Color.parseColor("#ff6861"));
-                enIv.setBorderColor(Color.parseColor("#ffffff"));
-                DataHelper.getInstance().setLanguage("uk");
-            }
-        });
-        return dialog;
-    }
-
     public static EditText getsEtInput() {
         return sInputEt;
     }

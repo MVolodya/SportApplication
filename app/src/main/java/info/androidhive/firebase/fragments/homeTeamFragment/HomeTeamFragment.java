@@ -23,7 +23,7 @@ public class HomeTeamFragment extends Fragment implements HomeTeamView{
 
     private RecyclerView mRecyclerView;
     private TextView msgTv;
-    private ImageView msgTvImg;
+    private ImageView msgIv;
     private RecyclerView.LayoutManager mLayoutManager;
 
     public HomeTeamFragment() {}
@@ -37,13 +37,13 @@ public class HomeTeamFragment extends Fragment implements HomeTeamView{
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.home_team_players_recycler_view);
         msgTv = (TextView)view.findViewById(R.id.home_msg_tv);
-        msgTvImg = (ImageView)view.findViewById(R.id.msg_tv_img_bugs);
+        msgIv = (ImageView)view.findViewById(R.id.api_problem_iv);
         mLayoutManager = new LinearLayoutManager(view.getContext());
 
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         msgTv.setVisibility(View.GONE);
-        msgTvImg.setVisibility(View.GONE);
+        msgIv.setVisibility(View.GONE);
 
         homeTeamPresenter.showHomeTeam();
         return view;
@@ -53,7 +53,7 @@ public class HomeTeamFragment extends Fragment implements HomeTeamView{
     public void onSuccess(PlayersResponse playersResponse) {
         if (playersResponse.getPlayers().size() == 0) {
             msgTv.setVisibility(View.VISIBLE);
-            msgTvImg.setVisibility(View.VISIBLE);
+            msgIv.setVisibility(View.VISIBLE);
         } else {
             mRecyclerView.setLayoutManager(mLayoutManager);
             HomeTeamPlayerAdapter homeTeamPlayerAdapter = new HomeTeamPlayerAdapter(playersResponse.getPlayers());

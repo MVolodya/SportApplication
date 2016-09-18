@@ -52,7 +52,7 @@ public class LeagueFragment extends Fragment implements LeagueView, SwipeRefresh
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.league_recycler_view);
         msgTv = (TextView)view.findViewById(R.id.limit_msg_tv);
-        msgTvImg = (ImageView) view.findViewById(R.id.msg_tv_img_wait);
+        msgTvImg = (ImageView) view.findViewById(R.id.msg_wait_iv);
         mSwipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.refreshLeagueFragment);
         progressDialog = new ProgressDialog(view.getContext());
 

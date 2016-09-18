@@ -242,7 +242,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                     @Override
                     public void onClick(View view) {
                         dialog.getButton(dialog.BUTTON1).setEnabled(true);
-                        enIv.setBorderColor(Color.parseColor("#ff6861"));
+                        enIv.setBorderColor(Color.parseColor("#628f3e"));
                         ukIv.setBorderColor(Color.parseColor("#ffffff"));
                         DataHelper.getInstance().setLanguage("en");
                     }
@@ -252,7 +252,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                     @Override
                     public void onClick(View view) {
                         dialog.getButton(dialog.BUTTON1).setEnabled(true);
-                        ukIv.setBorderColor(Color.parseColor("#ff6861"));
+                        ukIv.setBorderColor(Color.parseColor("#628f3e"));
                         enIv.setBorderColor(Color.parseColor("#ffffff"));
                         DataHelper.getInstance().setLanguage("uk");
                     }
