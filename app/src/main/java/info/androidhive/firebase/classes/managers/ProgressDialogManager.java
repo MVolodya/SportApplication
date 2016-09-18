@@ -14,7 +14,6 @@ public class ProgressDialogManager {
     }
 
     public static void hideProgressDialog(@NonNull ProgressDialog mProgressDialog) {
-            mProgressDialog.hide();
             mProgressDialog.dismiss();
     }
 }

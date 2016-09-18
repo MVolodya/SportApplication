@@ -174,6 +174,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 alertDialogUsername.setPositiveButton(getContext().getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                ProgressDialogManager.showProgressDialog(mProgressDialog, getContext().getString(R.string.updating));
                                 settingsPresenter.updateUsername(mRemoteDatabaseManager);
                             }
                         });
@@ -191,7 +192,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 alertDialogEmail.setPositiveButton(getContext().getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                settingsPresenter.updateEmail();
+                                ProgressDialogManager.showProgressDialog(mProgressDialog, getContext().getString(R.string.updating));
+                                settingsPresenter.updateEmail(AlertDialogManager.getsEtInput().getText().toString());
                             }
                         });
                 alertDialogEmail.setNegativeButton(getContext().getString(R.string.cancel),
@@ -208,6 +210,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 alertDialogPassword.setPositiveButton(getContext().getString(R.string.save),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                ProgressDialogManager.showProgressDialog(mProgressDialog, getContext().getString(R.string.updating));
                                 settingsPresenter.updatePassword();
                             }
                         });
@@ -302,6 +305,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void updateUsernameSuccess() {
+        ProgressDialogManager.hideProgressDialog(mProgressDialog);
         usernameTv.setText(mUser.getName());
         collapsingToolbarLayout.setTitle(mUser.getName());
         ((NavigationDrawerActivity)getContext()).updateProfileUsername(mUser.getName());
@@ -310,13 +314,21 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void updateEmailSuccess() {
+        ProgressDialogManager.hideProgressDialog(mProgressDialog);
         emailTv.setText(mUser.getEmail());
         ((NavigationDrawerActivity)getContext()).updateProfileEmail(mUser.getEmail());
         Toast.makeText(getContext(), R.string.email_update, Toast.LENGTH_SHORT).show();
     }
 
     @Override
+    public void onValidEmail() {
+        ProgressDialogManager.hideProgressDialog(mProgressDialog);
+        Toast.makeText(getContext(), R.string.enter_correct_email, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void updatePasswordSuccess() {
+        ProgressDialogManager.hideProgressDialog(mProgressDialog);
         Toast.makeText(getContext(), R.string.password_update, Toast.LENGTH_SHORT).show();
     }
 

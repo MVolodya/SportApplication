@@ -9,6 +9,7 @@ public interface SettingsView {
     void updatePhotoSuccess(String url);
     void updateUsernameSuccess();
     void updateEmailSuccess();
+    void onValidEmail();
     void updatePasswordSuccess();
     void changeLanguageSuccess(String lan);
     void onEmptyField(EditText editText);

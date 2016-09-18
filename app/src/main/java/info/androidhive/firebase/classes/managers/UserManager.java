@@ -3,6 +3,7 @@ package info.androidhive.firebase.classes.managers;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -76,6 +77,8 @@ public class UserManager {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 updateCallback.updateEmailSuccess();
+                            }else {
+                                Log.d("dataaaaaa", task.getException().toString());
                             }
                         }
                     });

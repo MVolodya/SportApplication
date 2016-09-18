@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.w3c.dom.Text;
 
 import info.androidhive.firebase.classes.managers.AlertDialogManager;
+import info.androidhive.firebase.classes.managers.DataGetter;
 import info.androidhive.firebase.classes.managers.LocalDatabaseManager;
 import info.androidhive.firebase.classes.managers.RemoteDatabaseManager;
 import info.androidhive.firebase.classes.managers.UserManager;
@@ -37,10 +38,14 @@ public class SettingsPresenter implements UpdateCallback {
         } else mSettingsView.onEmptyField(AlertDialogManager.getsEtInput());
     }
 
-    public void updateEmail() {
-        if (!TextUtils.isEmpty(AlertDialogManager.getsEtInput().getText().toString())) {
-            UserManager.updateEmail(AlertDialogManager.getsEtInput().getText().toString(), this);
-            LocalDatabaseManager.updateEmail(AlertDialogManager.getsEtInput().getText().toString());
+    public void updateEmail(String email) {
+        if(!new DataGetter().isEmailValid(email)){
+            mSettingsView.onValidEmail();
+            return;
+        }
+        if (!TextUtils.isEmpty(email)) {
+            UserManager.updateEmail(email, this);
+            LocalDatabaseManager.updateEmail(email);
         } else mSettingsView.onEmptyField(AlertDialogManager.getsEtInput());
     }
 

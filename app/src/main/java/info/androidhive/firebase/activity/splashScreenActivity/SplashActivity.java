@@ -66,14 +66,14 @@ public class SplashActivity extends Activity implements SplashScreenView {
 
     @Override
     public void onRefreshRequest() {
-        Toast.makeText(SplashActivity.this, getString(R.string.wait_sec),
-                Toast.LENGTH_LONG).show();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                splashScreenPresenter.getUserRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-            }
-        }, 31 * 1000);
+//        Toast.makeText(SplashActivity.this, getString(R.string.wait_sec),
+//                Toast.LENGTH_LONG).show();
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            public void run() {
+//                splashScreenPresenter.getUserRates(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+//            }
+//        }, 31 * 1000);
     }
 
     @Override
