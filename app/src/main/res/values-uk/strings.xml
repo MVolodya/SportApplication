@@ -38,7 +38,7 @@
     <string name="facebook_app_id">1150276381681321</string>
     <string name="failed_send_instruction">Помилка надсилання!</string>
     <string name="fbloginText">Facebook</string>
-    <string name="forgot_password_msg">Нам необхідний електронний адрес, введений під сУчас реєстрації, для надислання листа з інструкцією для відновлення!</string>
+    <string name="forgot_password_msg">Нам необхідний електронний адрес, введений під час реєстрації, для надислання листа з інструкцією для відновлення!</string>
     <string name="games">Ігри</string>
     <string name="gd">РГ</string>
     <string name="googleloginText">Google+</string>

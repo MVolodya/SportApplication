@@ -77,7 +77,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements NDVie
                         new SecondaryDrawerItem()
                                 .withIdentifier(8)
                                 .withName(R.string.nd_exit)
-                                .withIcon(FontAwesome.Icon.faw_long_arrow_left)
+                                .withIcon(R.drawable.ic_logout_grey600_36dp)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
