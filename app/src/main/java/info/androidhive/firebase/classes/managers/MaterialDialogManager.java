@@ -97,7 +97,9 @@ public class MaterialDialogManager {
                             double userPoints = Double.parseDouble(user.getCurrentPoints());
                             if (userPoints - enterPoints >= 0) {
                                 new RateManager(context).setRate(userFB != null ? userFB.getDisplayName() : null,
-                                        String.valueOf(matchId), sumTv.getText().toString(),
+                                        String.valueOf(matchId),String.valueOf(format.format(
+                                                sumTv.getText().toString()
+                                        )),
                                         inputTv.getText().toString(),
                                         typeOfRate);
                                 dialog.hide();
