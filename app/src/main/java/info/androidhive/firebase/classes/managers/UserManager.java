@@ -30,11 +30,10 @@ public class UserManager {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(context, R.string.reset_instruction, Toast.LENGTH_SHORT).show();
+                            callbackResetPassword.onSuccess();
                         } else {
-                            Toast.makeText(context, R.string.failed_send_instruction, Toast.LENGTH_SHORT).show();
+                            callbackResetPassword.onFail();
                         }
-                        callbackResetPassword.onSuccess();
                     }
                 });
     }
