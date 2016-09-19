@@ -75,7 +75,13 @@ public class SignupActivity extends AppCompatActivity implements SignUpView,
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
-        inputEmailEt.setError(getString(R.string.enter_correct_email));
+        Toast.makeText(SignupActivity.this, R.string.try_again, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onValidEmail() {
+        ProgressDialogManager.hideProgressDialog(progressDialog);
+        Toast.makeText(SignupActivity.this, R.string.enter_correct_email, Toast.LENGTH_SHORT).show();
     }
 
     @Override

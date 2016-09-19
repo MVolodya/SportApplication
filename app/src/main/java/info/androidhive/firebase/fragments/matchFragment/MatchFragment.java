@@ -1,6 +1,5 @@
 package info.androidhive.firebase.fragments.matchFragment;
 
-import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,19 +26,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import info.androidhive.firebase.R;
 import info.androidhive.firebase.activity.mainActivity.MainActivity;
 import info.androidhive.firebase.classes.managers.DataGetter;
-import info.androidhive.firebase.classes.managers.ProgressDialogManager;
 import info.androidhive.firebase.classes.recycleViewAdapters.ClickListener;
 import info.androidhive.firebase.classes.recycleViewAdapters.MatchAdapter;
 import info.androidhive.firebase.classes.recycleViewAdapters.RecyclerTouchListener;
 import info.androidhive.firebase.classes.retrofit.match.Fixture;
 import info.androidhive.firebase.classes.retrofit.match.MatchResponse;
-import info.androidhive.firebase.R;
-import info.androidhive.firebase.fragments.rateFragment.RateFragment;
 import info.androidhive.firebase.fragments.mainFragment.MainFragment;
 import info.androidhive.firebase.fragments.matchFragment.presenter.MatchFragmentPresenter;
 import info.androidhive.firebase.fragments.matchFragment.view.MatchFragmentView;
+import info.androidhive.firebase.fragments.rateFragment.RateFragment;
 
 public class MatchFragment extends Fragment implements View.OnClickListener,
         SheetLayout.OnFabAnimationEndListener,
@@ -52,7 +50,6 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
     private ImageView msgTvImg;
     private RecyclerView mRecyclerView;
     private MatchAdapter mAdapter;
-    private ProgressDialog progressDialog;
     private SheetLayout sheetLayout;
     private RecyclerView.LayoutManager mLayoutManager;
     private MainFragment fragment;
@@ -60,7 +57,6 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
     private CircularProgressView circularProgressView;
     private FloatingActionButton calendarFab;
     private CalendarView calendarView;
-    private View view;
 
     private MatchFragmentPresenter matchFragmentPresenter;
     private MatchFragment matchFragment = this;
@@ -71,7 +67,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_match, container, false);
+        View view = inflater.inflate(R.layout.fragment_match, container, false);
 
         matchFragmentPresenter = new MatchFragmentPresenter();
         matchFragmentPresenter.setMatchFragmentView(this);
@@ -84,7 +80,6 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
         msgTvImg = (ImageView) view.findViewById(R.id.msg_tv_img);
         backBtn = (Button) view.findViewById(R.id.back_btn);
         calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
-        progressDialog = new ProgressDialog(view.getContext());
         circularProgressView = (CircularProgressView) view.findViewById(R.id.match_progress_view);
 
         mLayoutManager = new LinearLayoutManager(view.getContext());
@@ -117,7 +112,8 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
             }
         }));
 
-        ProgressDialogManager.showProgressDialog(progressDialog, view.getContext().getString(R.string.loading));
+        circularProgressView.setVisibility(View.VISIBLE);
+        circularProgressView.startAnimation();
         matchFragmentPresenter.getMatchList();
         initCalendar();
 
@@ -163,8 +159,6 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onDateSelected(@NonNull Date date) {
-
-        ProgressDialogManager.showProgressDialog(progressDialog,view.getContext().getString(R.string.loading));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         mCurrentDate = df.format(date);
@@ -185,7 +179,9 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onSuccess(MatchResponse matchResponse) {
-        ProgressDialogManager.hideProgressDialog(progressDialog);
+        circularProgressView.stopAnimation();
+        circularProgressView.setVisibility(View.GONE);
+
         matches = new DataGetter().getCorrectMatches(matchResponse.getFixtures(), mCurrentDate);
         mAdapter = new MatchAdapter(matches);
 
@@ -197,18 +193,13 @@ public class MatchFragment extends Fragment implements View.OnClickListener,
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
-        circularProgressView.stopAnimation();
-        circularProgressView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onFail() {
-        ProgressDialogManager.hideProgressDialog(progressDialog);
         circularProgressView.stopAnimation();
         circularProgressView.setVisibility(View.INVISIBLE);
         msgTv.setText(getContext().getString(R.string.wait_sec));
         msgTv.setVisibility(View.VISIBLE);
-
     }
 }

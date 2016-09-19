@@ -9,6 +9,7 @@ import info.androidhive.firebase.baseView.BaseView;
 public interface SignUpView extends BaseView {
     void onSuccess();
     void onFail();
+    void onValidEmail();
     void onEmptyEmail();
     void onEmptyPassword();
     void onShortPassword();

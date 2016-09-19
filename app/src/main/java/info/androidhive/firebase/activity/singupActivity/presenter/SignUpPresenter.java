@@ -18,6 +18,11 @@ public class SignUpPresenter implements CallbackSignUp {
     }
 
     public void signUp(String email, final String password){
+
+        if(!new DataGetter().isEmailValid(email)){
+            signUpView.onValidEmail();
+            return;
+        }
         if (TextUtils.isEmpty(email)) {
             signUpView.onEmptyEmail();
             return;
@@ -33,13 +38,16 @@ public class SignUpPresenter implements CallbackSignUp {
             return;
         }
 
-        if(new DataGetter().isEmailValid(email))
         signInManager.signUpWithEmailAndPassword(email, password, this);
-        else signUpView.onFail();
     }
 
     @Override
     public void onSuccess() {
         signUpView.onSuccess();
+    }
+
+    @Override
+    public void onFail() {
+        signUpView.onFail();
     }
 }

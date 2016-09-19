@@ -59,18 +59,19 @@ public class ResetPasswordActivity extends AppCompatActivity implements ResetPas
     @Override
     public void onSuccess() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
+        Toast.makeText(ResetPasswordActivity.this, R.string.reset_instruction, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onFail() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
-        inputEmailEt.setError(getString(R.string.enter_correct_email));
+        Toast.makeText(ResetPasswordActivity.this, R.string.failed_send_instruction, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onErrorValidEmail() {
         ProgressDialogManager.hideProgressDialog(progressDialog);
-        Toast.makeText(this, R.string.enter_reg_email, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ResetPasswordActivity.this, R.string.enter_correct_email, Toast.LENGTH_SHORT).show();
     }
 
     @Override

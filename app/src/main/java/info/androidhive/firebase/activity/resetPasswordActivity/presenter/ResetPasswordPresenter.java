@@ -18,17 +18,25 @@ public class ResetPasswordPresenter implements CallbackResetPassword {
     }
 
     public void resetPassword(String email){
+        if(!new DataGetter().isEmailValid(email)){
+            resetPasswordView.onErrorValidEmail();
+            return;
+        }
+
         if (TextUtils.isEmpty(email)) {
             resetPasswordView.onErrorValidEmail();
             return;
         }
-        if(new DataGetter().isEmailValid(email))
         userManager.resetPassword(email, this);
-        else resetPasswordView.onFail();
     }
 
     @Override
     public void onSuccess() {
         resetPasswordView.onSuccess();
+    }
+
+    @Override
+    public void onFail() {
+        resetPasswordView.onFail();
     }
 }
