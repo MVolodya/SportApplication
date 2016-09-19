@@ -18,8 +18,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import info.androidhive.firebase.classes.models.RatedMatchesToDB;
 import info.androidhive.firebase.classes.models.RatedUser;
@@ -48,14 +51,17 @@ public class RemoteDatabaseManager {
         ratedMatchesClass.setTypeOfRate(typeOfRate);
         ratedMatchesClass.setStatus("unchecked");
 
+        final DecimalFormat format = new DecimalFormat("#0.0", new DecimalFormatSymbols(Locale.US));
+
         mDatabase.child(name).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 RatedUser ratedUser = dataSnapshot.getValue(RatedUser.class);
                 ratedUser.setName(name);
-                ratedUser.setCurrentPoints(String.valueOf(
-                        Double.parseDouble(ratedUser.getCurrentPoints()) - Double.parseDouble(points)));
+                ratedUser.setCurrentPoints(String.valueOf(format.format(
+                        Double.parseDouble(ratedUser.getCurrentPoints())
+                                - Double.parseDouble(points))));
 
                 List<RatedMatchesToDB> ratedMatches;
 

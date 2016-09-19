@@ -63,7 +63,8 @@ public class MaterialDialogManager {
         inputTv.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -77,7 +78,8 @@ public class MaterialDialogManager {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+            }
         });
 
         final AlertDialog dialog = alert.create();
@@ -97,14 +99,13 @@ public class MaterialDialogManager {
                             double userPoints = Double.parseDouble(user.getCurrentPoints());
                             if (userPoints - enterPoints >= 0) {
                                 new RateManager(context).setRate(userFB != null ? userFB.getDisplayName() : null,
-                                        String.valueOf(matchId),String.valueOf(format.format(
-                                                sumTv.getText().toString()
-                                        )),
+                                        String.valueOf(matchId),
+                                        sumTv.getText().toString(),
                                         inputTv.getText().toString(),
                                         typeOfRate);
                                 dialog.hide();
-                            }else {
-                                    inputTv.setError(context.getString(R.string.enough_points));
+                            } else {
+                                inputTv.setError(context.getString(R.string.enough_points));
                             }
                         }
                     }
@@ -114,7 +115,8 @@ public class MaterialDialogManager {
 
         alert.setNegativeButton(context.getString(R.string.cancel),
                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {}
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
                 });
         return dialog;
     }
