@@ -34,7 +34,7 @@
     <string name="change_photo">Change photo</string>
     <string name="save">Save</string>
     <string name="error_while_loading_data_please_check_your_network_connection">Error while loading data! Please check your network connection!</string>
-    <string name="try_again">Try again</string>
+    <string name="try_again">Error! Try again</string>
 
     <!--Start ND strings -->
     <string name="nd_home">Home</string>
