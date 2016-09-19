@@ -117,7 +117,7 @@ public class RemoteDatabaseManager {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists()) {
                     mDatabase.child(displayName).child("name").setValue(displayName);
-                    mDatabase.child(displayName).child("currentPoints").setValue("100");
+                    mDatabase.child(displayName).child("currentPoints").setValue("100.0");
                     mDatabase.child(displayName).child("photoUrl").setValue(photoUri);
                 }
             }
