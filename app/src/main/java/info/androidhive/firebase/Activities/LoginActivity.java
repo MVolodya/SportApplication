@@ -43,10 +43,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     private SignInManager signInManager;
 
     private DatabaseManager databaseManager;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private GoogleApiClient mGoogleApiClient;
-    private User user;
-    private ProgressDialog mProgressDialog;
+
+
+
+
     private ProgressDialogManager dialogManager;
 
     @Override
@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
 
         signInManager = new SignInManager(this, auth);
         databaseManager = new DatabaseManager(this);
-        dialogManager = new ProgressDialogManager(this,mProgressDialog);
+
 
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
